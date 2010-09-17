@@ -1,0 +1,68 @@
+{% extends "layout.html" %}
+{% load i18n %}
+
+{% block title %}
+{% trans "License" %}
+{% endblock %}
+
+{% block styles %}
+<style>
+#license .details p {
+	height: 26px;
+	position: relative;
+	top: 6px;
+	margin: 0;
+}
+#license .details label {
+	display: block;
+	float: left;
+	width: 100px;
+}
+</style>
+{% endblock %}
+
+{% block scripts %}
+<script type="text/javascript">
+$(document).ready(function() {
+	$('#id_change').click(function() {
+		window.location = '{% url webui:license-edit %}';
+	});
+});
+</script>
+{% endblock %}
+
+{% block content %}
+<div id="license">
+	<h2>{% trans "License" %}</h2>
+	<form class="generic">
+		{% include "generic/flash.html" %}
+		<fieldset>
+			<div class="details">
+				<p>
+					<label for="id_licensee">{% trans "Licensee" %}</label>
+					<span id="id_licensee">{{ cert.subject_o }}</span>
+				</p>
+				<p>
+					<label for="id_validity1">{% trans "Validity" %}</label>
+					<span id="id_validity1">{{ cert.valid_since|date:"DATETIME_FORMAT" }}</span>
+				</p>
+				<p>
+					<label for="id_validity2">&nbsp;</label>
+					<span id="id_validity2">{{ cert.valid_until|date:"DATETIME_FORMAT" }}</span>
+				</p>
+				<p>
+					<label for="id_users">{% trans "Users" %}</label>
+					<span id="id_users">{{ cert.users }}</span>
+				</p>
+				<p>
+					<label for="id_status">{% trans "Status" %}</label>
+					<span id="id_status">{{ cert.status }}</span>
+				</p>
+			</div>
+		</fieldset>
+		<div class="actions">
+			<input id="id_change" type="button" value="{% trans "Change" %}" class="default" />
+		</div>
+	</form>
+</div>
+{% endblock %}

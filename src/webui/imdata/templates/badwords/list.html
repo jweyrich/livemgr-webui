@@ -1,0 +1,64 @@
+{% extends "layout.html" %}
+{% load i18n webdesign xinclude evaluate %}
+
+{% block title %}
+{% trans "Badword Summary" %}
+{% endblock %}
+
+{% block scripts %}
+<script type="text/javascript">
+$(document).ready(function() {
+	$('[type=submit]').click(function() { $($(this).attr('target')).submit(); });
+	$('#search form').submit(function() { return SearchUtil.search(this, '{% url webui:badwords-index %}'); });
+	$('#create').click(function() { window.location = '{% url webui:badwords-add %}'; });
+
+	FormUtil.make_field_hint('#search', 'search_badword');
+
+	function delete_show(caller, callbacks, items) {
+		$("#confirm_delete .description").text(
+			"{% trans "You're about to delete {0} {1}." %}"
+			.format(
+				items.length,
+				items.length == 1 ? '{% trans "badword" %}' : '{% trans "badwords" %}'
+			)
+		);
+		$("#confirm_delete").modal();
+		$("#confirm_delete .yes").click(callbacks.yes);
+		$("#confirm_delete .no").click(callbacks.no);
+	}
+	
+	function setup_events() {
+		SelectionUtil.show_actions(['.disable', '.enable', '.delete']);
+		SelectionUtil.bind_list_tr_click({url:'{% url webui:badwords-index %}/{0}'});
+		SelectionUtil.bind_action_click({
+			selector: '.disable',
+			url:'{% url webui:badwords-disable-many %}'});
+		SelectionUtil.bind_action_click({
+			selector: '.enable',
+			url:'{% url webui:badwords-enable-many %}'});
+		SelectionUtil.bind_action_click_confirm({
+			selector: '.delete',
+			url: '{% url webui:badwords-delete-many %}',
+			show: delete_show});
+	}
+	setup_events();
+	SearchUtil.afterSearch(setup_events);
+});
+</script>
+{% endblock %}
+
+{% block content %}
+<div id="badwords">
+	<h2>{% trans "Badword Summary" %}</h2>
+
+	{% evaluate as label %}{% trans "Search for badwords" %}{% endevaluate %}
+	{% xinclude "generic/search.html", field="badword", label=label, can_advsearch=0, can_create=1 %}
+	<div id="list">
+		<form method="post" action="">
+			{% csrf_token %}
+			{% include 'generic/table.html' %}
+		</form>
+	</div>
+</div>
+{% include "generic/modal-delete.html" %}
+{% endblock %}

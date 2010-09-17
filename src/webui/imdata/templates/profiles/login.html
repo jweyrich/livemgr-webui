@@ -1,0 +1,73 @@
+{% load i18n %}
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+	"http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
+<head>
+
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+<meta http-equiv="Pragma" content="no-cache" />
+<meta http-equiv="Cache-Control" content="no-cache" />
+
+<title>{% trans "Application" %}</title>
+
+<style type="text/css" media="screen">
+	{% if debug %}
+		@import url("{{MEDIA_URL}}css/current/login.css");
+	{% else %}
+		@import url("{{MEDIA_URL}}css/all.min.css");
+	{% endif %}
+</style>
+
+{% if debug %}
+	<script type="text/javascript" src="{{MEDIA_URL}}jquery-ui-1.8.2.custom/js/jquery-1.4.2.min.js"></script>
+{% else %}
+	<script type="text/javascript" src="{{MEDIA_URL}}js/all.min.js"></script>
+{% endif %}
+<script type="text/javascript">
+$(document).ready(function() {
+	$('#id_username').focus();
+});
+</script>
+</head>
+<body class="login">
+
+<div id="outer-container">
+	<div id="inner-container">
+		<form method="post" action="{% url webui:profiles-login %}">
+			{% csrf_token %}
+			<fieldset>
+				<p class="textbox">
+					{{ form.username.label_tag }}
+					{{ form.username }}
+				</p>
+				<p class="textbox">
+					{{ form.password.label_tag }}
+					{{ form.password }}
+				</p>
+				<p class="remember">
+					<input type="submit" value="{% trans "login" %}"/>
+					<input type="hidden" name="next" value="{% if next %}{{ next }}{% else %}{% url webui:index %}{% endif %}" />
+					<!--
+					<input type="checkbox" id="remember" name="remember_me" value="1">
+					<label for="remember">{% trans "Remember me" %}</label>
+					-->
+				</p>
+				<!--
+				<p class="forgot">
+					<a href="#" id="resend_password_link">{% trans "Forgot password?" %}</a>
+				</p>
+				-->
+				{% if form.errors %}
+					<div class="flash error">
+						<div class="icon error"></div>
+						&nbsp;{% trans "Invalid user or password." %}
+					</div>
+				{% endif %}
+			</fieldset>
+		</form>
+	</div>
+</div>
+
+</body>
+</html>

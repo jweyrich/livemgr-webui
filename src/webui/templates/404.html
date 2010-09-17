@@ -1,0 +1,15 @@
+{% extends "layout.html" %}
+{% load i18n %}
+
+{% block title %}
+{% trans "Not found" %}
+{% endblock %}
+
+{% block content %}
+<div id="error_404">
+	<h2>{% trans "Not found" %}</h2>
+	<div style="margin: 10px;">
+		{% trans "The url" %} <b>{{ request_path }}</b> {% trans "doesn't exist." %}
+	</div>
+</div>
+{% endblock %}

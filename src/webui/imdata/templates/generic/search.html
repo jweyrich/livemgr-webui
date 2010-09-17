@@ -1,0 +1,26 @@
+{% load i18n evaluate %}
+
+<div id="search">
+    <form method="post" action="">
+		{% csrf_token %}
+		<fieldset>
+			{% evaluate as field_name %}{% if field %}{{ field }}{% else %}q{% endif %}{% endevaluate %}
+			{% if label %}
+			<label for="search_{{field_name}}" class="inline">{{ label }}</label>
+			{% endif %}
+			<input type="text" id="search_{{field_name}}" name="{{field_name}}" value="" size="30" class="field" />
+			<input type="image" src="/media/img/btn-search.gif" alt="{% trans "Search" %}" title="{% trans "Search" %}" class="button" />
+		</fieldset>
+	</form>
+    <div class="links">
+    	{% if can_advsearch %}
+    		<a id="advanced" href="#search">{% trans "<u>A</u>dvanced search" %}</a> 
+    	{% endif %}
+    	{% if can_advsearch and can_create %} | {% endif %}
+    	{% if can_create %}
+    		<a id="create" href="#">
+    			{% trans "<u>N</u>ew" %}
+    		</a>
+    	{% endif %}
+    </div>
+</div>

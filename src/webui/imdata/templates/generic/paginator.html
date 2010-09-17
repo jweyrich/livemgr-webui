@@ -1,0 +1,31 @@
+{% load i18n append_to_get %}
+{% if paginator.page.has_other_pages %}
+<ul class="pagination">
+	{% if paginator.page.has_previous %}
+		<li class="previous">
+			<a href="{% append_to_get page=paginator.page.previous_page_number %}">{% trans "previous" %}</a>
+		</li>
+	{% else %}
+		<li class="previous-off">{% trans "previous" %}</li>
+	{% endif %}
+	{% for number in paginator.limited_page_range %}
+		{% if number == paginator.page.number %}
+				<li class="active">{{ number }}</li>
+		{% else %}
+				<li>
+					<a href="{% append_to_get page=number %}">{{ number }}</a>
+				</li>
+		{% endif %}
+	{% endfor %}
+	{% if paginator.page.has_next %}
+		<li class="next">
+			<a href="{% append_to_get page=paginator.page.next_page_number %}">{% trans "next" %}</a>
+		</li>
+	{% else %}
+		<li class="next-off">{% trans "next" %}</li>
+	{% endif %}
+</ul>
+{% endif %}
+<div style="padding-top: 4px; padding-bottom: 4px;">
+	{{ paginator.page.start_index }} - {{ paginator.page.end_index }} {% trans "of" %} {{ paginator.count }}
+</div>

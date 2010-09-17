@@ -1,0 +1,126 @@
+{% extends "layout_base.html" %}
+{% load i18n switch custom_filters %}
+
+{% block title %}
+{% trans "Conversation" %} #{{ first_message.conversation_id }}
+{% endblock %}
+
+{% block styles %}
+<style type="text/css">
+	#messages .header {
+		border-top: 1px solid #ccc;
+		border-left: 1px solid #ccc;
+		border-right: 1px solid #ccc;
+	}
+	#messages .header {
+		background-color: #eee;
+		background: -webkit-gradient(linear, 0 0%, 0 100%, from(#fff), to(#f2f2f2));
+		background: -moz-linear-gradient(top, #fff, #f2f2f2);
+	}
+	#messages .localim {
+		color: {{ colors|dict_get:first_message.localim }};
+	}
+	#messages .remoteim {
+		color: {{ colors|dict_get:first_message.remoteim }};
+	}
+	#messages tbody tr.highlight {
+		background-color: #efef9d;
+	}
+</style>
+{% endblock %}
+
+{% block body %}
+{% spaceless %}
+<div id="messages">
+	<div class="header" style="padding: 7px;">
+		<b>{% trans "Conversation" %}</b>: #{{ first_message.conversation_id }}<br/>
+		<b>{% trans "User" %}</b>: {{ first_message.localim }}
+			<b>IP</b>: {{ first_message.clientip }}<br/>
+		<b>{% trans "Buddy" %}</b>: {{ first_message.remoteim }}<br/>
+		<b>{% trans "Started in" %}</b>: {{ first_message.timestamp }}<br/>
+		<b>{% trans "Total messages" %}</b>: {{ messages|length }}<br/>
+		<b>{% trans "Export as" %}</b>: <a href="{% url webui:conversations-report-pdf first_message.conversation_id %}">pdf</a>
+	</div>
+
+	<div style="overflow: auto;">
+		<table id="messages" class="list">
+			<thead>
+				<tr>
+					<th style="width: 85px; padding-left: 10px;">{% trans "Time" %}</th>
+					<th style="width: 200px;">{% trans "Author" %}</th>
+					<th style="width: auto;">{% trans "Message" %}</th>
+				</tr>
+			</thead>
+			<tfoot>
+				<tr>
+					<td colspan="3">
+						<span id="matches" style="padding-left: 5px;"></span>
+						<span style="float: right; text-align: right; padding-right: 10px; overflow: auto;">
+							{% blocktrans count messages|length as total %}{{ total }} message{% plural %}{{ total }} messages{% endblocktrans %}
+						</span>
+					</td>
+				</tr>
+			</tfoot>
+			<tbody>
+				{% for msg in messages %}
+					<tr id="msg-{{ msg.id }}">
+						<td style="padding-left: 10px;">{{ msg.timestamp|date:"h:i:s A" }}</td>
+						<td>
+						{% ifequal msg.inbound 0 %}
+							<span style="color:{{ colors|dict_get:msg.localim }};">{{ msg.localim }}</span>
+						{% else %}
+							<span style="color:{{ colors|dict_get:msg.remoteim }};">{{ msg.remoteim }}</span>
+						{% endifequal %}
+						</td>
+						<td style="text-align: justify; padding-right: 10px;">
+							{% if msg.filtered %}
+								<img src="{{MEDIA_URL}}img/fam/icons/cross.png" style="vertical-align: middle;" title="{% trans 'This message was filtered.' %}"/>
+							{% endif %}
+							{% switch msg.type %}
+								{% case 1 %}
+									{{ msg.content }}
+								{% endcase %}
+								{% case 2 %}
+									<b>{% trans "File transfer: " %}</b><br/>
+									{% with msg.content|split as fileinfo %}
+										<b>{% trans "Filename: " %}</b>{{ fileinfo|index_start:1 }}<br/>
+										<b>{% trans "Size: " %}</b>{{ fileinfo|index:0|filesizeformat }}
+									{% endwith %}
+								{% endcase %}
+								{% case 5 %}
+									WEBCAM: {{ msg.content }}
+								{% endcase %}
+								{% case 6 %}
+									REMOTEDESKTOP: {{ msg.content }}
+								{% endcase %}
+								{% case 7 %}
+									APPLICATION: {{ msg.content }}
+								{% endcase %}
+								{% case 9 %}
+									INK: {{ msg.content }}
+								{% endcase %}
+								{% case 10 %}
+									NUDGE: {{ msg.content }}
+								{% endcase %}
+								{% case 11 %}
+									WINK: {{ msg.content }}
+								{% endcase %}
+								{% case 12 %}
+									VOICECLIP: {{ msg.content }}
+								{% endcase %}
+								{% case 13 %}
+									GAMES: {{ msg.content }}
+								{% endcase %}
+								{% case 14 %}
+									PHOTO: {{ msg.content }}
+								{% endcase %}
+							{% endswitch %}
+						</td>
+					</tr>
+				{% endfor %}
+			</tbody>
+		</table>
+	</div>
+</div>
+{% endspaceless %}
+{% endblock %}

@@ -1,0 +1,19 @@
+{% load i18n %}
+<div id="search_adv">
+	<div style="height: 25px;">
+		<a id="simple" href="#">
+			<span class="icon search"></span>
+			<span class="text">
+				{% trans "<u>B</u>ack to simple search" %}
+			</span>
+		</a>
+	</div>
+	<form method="post" action="">
+		{% csrf_token %}
+		<fieldset>
+			{{ fields }}
+			<input type="submit" value="{% trans "Search" %}"
+				alt="{% trans "Search" %}" title="{% trans "Search" %}" />
+		</fieldset>
+	</form>
+</div>

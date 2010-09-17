@@ -1,0 +1,16 @@
+{% extends "layout.html" %}
+{% load i18n %}
+
+{% block title %}
+{% trans "Internal error" %}
+{% endblock %}
+
+{% block content %}
+<div id="error_500">
+	<h2>{% trans "Internal error" %}</h2>
+	<div style="margin: 10px;">
+		{% trans "This shouldn't happen! Please, contact " %}
+		<a href="mailto:{{ EMAIL_SUPPORT }}">{{ EMAIL_SUPPORT }}</a>.
+	</div>
+</div>
+{% endblock %}

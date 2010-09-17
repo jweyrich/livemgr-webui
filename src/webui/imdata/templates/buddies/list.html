@@ -1,0 +1,71 @@
+{% extends "layout.html" %}
+{% load i18n webdesign xinclude evaluate %}
+
+{% block title %}
+{% trans "Contacts of" %} {{ from_user.username }}
+{% endblock %}
+
+{% block scripts %}
+<script type="text/javascript">
+$(document).ready(function() {
+	$('[type=submit]').click(function() { $($(this).attr('target')).submit(); });
+	$('#search form').submit(function() { return SearchUtil.search(this, '{% url webui:buddies-index from_user.id %}'); });
+	$('#search_adv form').submit(function() { return SearchUtil.search(this, '{% url webui:buddies-index from_user.id %}'); });
+	//$('#create').click(function() { window.location = '{% url webui:users-add %}'; });
+
+	FormUtil.make_field_hint('#search', 'search_username');
+	FormUtil.make_field_hint('#search_adv', 'id_username');
+	FormUtil.make_field_hint('#search_adv', 'id_displayname');
+
+	function setup_events() {
+		SelectionUtil.show_actions(['.block', '.unblock']);
+		SelectionUtil.bind_action_click({
+			selector: '.block',
+			url:'{% url webui:buddies-block-many from_user.id %}'});
+		SelectionUtil.bind_action_click({
+			selector: '.unblock',
+			url:'{% url webui:buddies-unblock-many from_user.id %}'});
+	}
+	setup_events();
+	SearchUtil.afterSearch(setup_events);
+});
+</script>
+{% endblock %}
+
+{% block content %}
+<div id="buddies">
+	<h2>{% trans "Contacts of" %} {{ from_user.username }}</h2>
+
+	{% evaluate as label %}{% trans "Search for contacts" %}{% endevaluate %}
+	{% xinclude "generic/search.html", field="username", label=label, can_advsearch=1 %}
+	{% evaluate as search_adv %}
+		{% with search_form as form %}
+			<div class="field">
+				<label for="id_{{ form.username.html_name }}" class="inline">{{ form.username.label|capfirst }}</label>
+				{{ form.username }}
+			</div>
+			<div class="field">
+				<label for="id_{{ form.displayname.html_name }}" class="inline">{{ form.displayname.label|capfirst }}</label>
+				{{ form.displayname }}
+			</div>
+			<div class="field">
+				<label for="id_{{ form.status.html_name }}">{{ form.status.label|capfirst }}</label>
+				&nbsp;{{ form.status }}
+			</div>
+		{% endwith %}
+	{% endevaluate %}
+	{% xinclude "generic/search-advanced.html", fields=search_adv %}
+	<div id="list">
+		<form method="post" action="">
+			{% csrf_token %}
+			{% xinclude 'generic/table.html' %}
+		</form>
+	</div>
+</div>
+{% endblock %}
+
+<!-- 
+	Contatos de [usuario]
+	Contatos: Este usuário ainda não possui contatos
+	Contatos: Gerenciar os contatos deste usuário
+ -->

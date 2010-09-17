@@ -1,0 +1,141 @@
+{% extends "layout.html" %}
+{% load i18n %}
+
+{% block title %}
+{% trans "Change Profile" %}
+{% endblock %}
+
+{% block scripts %}
+<script type="text/javascript">
+$(document).ready(function() {
+	$('#id_first_name').focus();
+	$('#profile form').submit(function() {
+		var old_password = $('#id_old_password').val();
+		var new_password1 = $('#id_new_password1').val();
+		var new_password2 = $('#id_new_password2').val();
+		var fields = {
+			old_password: 1,
+			new_password1: 2,
+			new_password2: 4
+		}
+		var fieldmask = 0;
+		if (old_password.length)
+			fieldmask |= fields.old_password;
+		if (new_password1.length)
+			fieldmask |= fields.new_password1;
+		if (new_password2.length)
+			fieldmask |= fields.new_password2;
+		if (fieldmask != 0 && fieldmask != 7) {
+			if (!(fieldmask & fields.old_password)) {
+				$('#id_old_password').focus();
+				alert("{% trans "Please, type the current password." %}");
+				return false;
+			}
+			if (!(fieldmask & fields.new_password1)) {
+				$('#id_new_password1').focus();
+				alert("{% trans "Please, type the new password." %}");
+				return false;
+			}
+			if (!(fieldmask & fields.new_password2)) {
+				$('#id_new_password2').focus();
+				alert("{% trans "Please, type the new password." %}");
+				return false;
+			}
+		}
+		if (new_password1 != new_password2) {
+			alert("{% trans "The two password fields don\'t match." %}");
+			$('#id_new_password1').focus();
+			return false;
+		}
+		return true; 
+	});
+});
+</script>
+{% endblock %}
+
+{% block content %}
+<div id="profile">
+	<h2>{% trans "Change Profile" %}</h2>
+	<form method="post" action="" class="generic">
+		{% csrf_token %}
+		{#% include "generic/form-fieldset.html" %#}
+		<fieldset>
+			{% include "generic/flash.html" %}
+			<div class="field">
+				{{ form_user.first_name.label_tag }}
+				{{ form_user.first_name }}
+				{% for error in form_user.first_name.errors %}
+					<span class="error">{{ error }}</span>
+				{% endfor %}
+			</div>
+			<div class="field">
+				{{ form_user.last_name.label_tag }}
+				{{ form_user.last_name }}
+				{% for error in form_user.last_name.errors %}
+					<span class="error">{{ error }}</span>
+				{% endfor %}
+			</div>
+			<div class="field">
+				{{ form_user.email.label_tag }}
+				{{ form_user.email }}
+				{% for error in form_user.email.errors %}
+					<span class="error">{{ error }}</span>
+				{% endfor %}
+			</div>
+			<div class="field">
+				{{ form_profile.language.label_tag }}
+				<select name="language">
+					{% for lang in LANGUAGES %}
+						{% if lang.0 == LANGUAGE_CODE %}
+							<option value="{{ lang.0 }}" selected>{% trans lang.1 %}</option>
+						{% else %}
+							<option value="{{ lang.0 }}">{% trans lang.1 %}</option>
+						{% endif %}
+					{% endfor %}
+				</select>
+				{% for error in form_profile.language.errors %}
+					<span class="error">{{ error }}</span>
+				{% endfor %}
+			</div>
+			{% if user.is_superuser and show_debug %}
+			<div class="field">
+				{{ form_profile.debug.label_tag }}
+				{{ form_profile.debug }}
+				{% for error in form_profile.debug.errors %}
+					<span class="error">{{ error }}</span>
+				{% endfor %}
+			</div>
+			{% endif %}
+		</fieldset>
+		<div class="titlebar">
+			<span>{% trans "change password" %}</span>
+		</div>
+		<fieldset>
+			<div class="field">
+				{{ form_user.old_password.label_tag }}
+				{{ form_user.old_password }}
+				{% for error in form_user.old_password.errors %}
+					<span class="error">{{ error }}</span>
+				{% endfor %}
+			</div>
+			<div class="field">
+				{{ form_user.new_password1.label_tag }}
+				{{ form_user.new_password1 }}
+				{% for error in form_user.new_password1.errors %}
+					<span class="error">{{ error }}</span>
+				{% endfor %}
+			</div>
+			<div class="field">
+				{{ form_user.new_password2.label_tag }}
+				{{ form_user.new_password2 }}
+				{% for error in form_user.new_password2.errors %}
+					<span class="error">{{ error }}</span>
+				{% endfor %}
+			</div>
+		</fieldset>
+		<div class="actions">
+			<input type="submit" value="{% trans "Save" %}" class="default" />
+		</div>
+	</form>
+</div>
+{% endblock %}

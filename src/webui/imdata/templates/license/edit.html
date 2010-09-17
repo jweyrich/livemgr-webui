@@ -1,0 +1,19 @@
+{% extends "layout.html" %}
+{% load i18n %}
+
+{% block title %}
+{% trans "Change License" %}
+{% endblock %}
+
+{% block content %}
+<div id="license">
+	<h2>{% trans "Change License" %}</h2>
+	<form method="post" action="" enctype="multipart/form-data" class="generic">
+		{% csrf_token %}
+		{% include "generic/form-fieldset.html" %}
+		<div class="actions">
+			<input type="submit" value="{% trans "Save" %}" class="default" />
+		</div>
+	</form>
+</div>
+{% endblock %}

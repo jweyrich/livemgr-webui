@@ -1,0 +1,50 @@
+{% extends "layout_base.html" %}
+{% load custom_filters %}
+
+{% block extrahead %}
+
+{# CSS #}
+{% if debug %}
+	<style type="text/css" media="screen, print">
+		@import url("{{MEDIA_URL}}jquery-ui-1.8.2.custom/css/cupertino/jquery-ui-1.8.2.custom.css");
+	</style>
+	{# jQuery UI #}
+	<script type="text/javascript" src="{{MEDIA_URL}}jquery-ui-1.8.2.custom/js/jquery-1.4.2.min.js"></script>
+	<script type="text/javascript" src="{{MEDIA_URL}}jquery-ui-1.8.2.custom/js/jquery-ui-1.8.2.custom.min.js"></script>
+	{% if LANGUAGE_CODE != 'en' %}
+		<script type="text/javascript" src="{{MEDIA_URL}}jquery-ui-1.8.2.custom/js/jquery.ui.datepicker-{{ LANGUAGE_CODE|langcode }}.min.js"></script>
+	{% endif %}
+{% endif %}
+
+{# JavaScript Localization #}
+{# Keep it commented - django.views.i18n.javascript_catalog doesn't work on Django 1.2.1 #}
+{# <script type="text/javascript" src="{% url django.views.i18n.javascript_catalog %}"></script> #}
+
+{% if debug %}
+	{# jQuery SimpleModal #}
+	<script type="text/javascript" src="{{MEDIA_URL}}js/jquery.simplemodal-1.3.5.min.js"></script>
+
+	{# Others #}
+	<script type="text/javascript" src="{{MEDIA_URL}}js/i18n.util.js"></script>
+	<script type="text/javascript" src="{{MEDIA_URL}}js/string.format.js"></script>
+	<script type="text/javascript" src="{{MEDIA_URL}}js/date.format.js"></script>
+	<script type="text/javascript" src="{{MEDIA_URL}}js/calendar.util.js"></script>
+	<script type="text/javascript" src="{{MEDIA_URL}}js/form.util.js"></script>
+	<script type="text/javascript" src="{{MEDIA_URL}}js/search.util.js"></script>
+	<script type="text/javascript" src="{{MEDIA_URL}}js/selection.util.js"></script>
+	<script type="text/javascript" src="/admin-media/js/SelectBox.js"></script>
+{% else %}
+	{# All minified scripts #}
+	<script type="text/javascript" src="{{MEDIA_URL}}js/all.min.js"></script>
+	<script type="text/javascript" src="/admin-media/js/SelectBox.js"></script>
+{% endif %}
+
+<script type="text/javascript">
+$(document).ready(function() {
+	$('a[rel=external]').attr('target', '_blank');
+	$(document).ajaxStart(function() { $('.spinner').show(); });
+	$(document).ajaxStop(function() { $('.spinner').hide(); });
+});
+</script>
+
+{% endblock %}

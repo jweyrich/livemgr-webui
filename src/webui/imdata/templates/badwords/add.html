@@ -1,0 +1,25 @@
+{% extends "layout.html" %}
+{% load i18n %}
+
+{% block title %}
+{% trans "Add Badword" %}
+{% endblock %}
+
+{% block scripts %}
+<script type="text/javascript">
+$(document).ready(function() {
+	$('#id_badword').focus();
+});
+</script>
+{% endblock %}
+
+{% block content %}
+<div id="badwords">
+	<h2>{% trans "Add Badword" %}</h2>
+	<form method="post" action="" class="generic">
+		{% csrf_token %}
+		{% include "generic/form-fieldset.html" %}
+		{% include "generic/form-submit.html" %}
+	</form>
+</div>
+{% endblock %}

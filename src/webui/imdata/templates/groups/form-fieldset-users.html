@@ -1,0 +1,44 @@
+{% load i18n %}
+
+<div class="titlebar">
+	<span>{% trans "users" %}</span>
+</div>
+<fieldset>
+	<div class="field" style="float: left;">
+		<div class="titlebar widget left">
+			<span>{% trans "available" %}</span>
+		</div>
+		<p class="selector-filter">
+			<img src="{{MEDIA_URL}}img/django/icon_search.gif"> 
+			<input type="text" id="users_available_filter" />
+		</p>
+		<select id="users_available" name="users_available" multiple style="height: 200px;">
+		{% for user in available_users %}
+			<option value="{{ user.id }}">{{ user.group.groupname }} | {{ user.username }}</option>
+		{% endfor %}
+		</select>
+	</div>
+	<div class="field" style="float: left; margin: 10px; margin-top: 100px;">
+		<!--
+		<div class="icon forward" title="{% trans "Add" %}"></div>
+		<div class="icon rewind" title="{% trans "Remove" %}"></div>
+		-->
+		<p>
+			<input type="button" id="users_add" value="&gt;" style="height:25px; width: 25px;" />
+		</p>
+		<p style="height: 0px;"></p>
+		<p>
+			<input type="button" id="users_remove" value="&lt;" style="height:25px; width: 25px;" />
+		</p>
+	</div>
+	<div class="field" style="float: left;">
+		<div class="titlebar widget right">
+			<span>{% trans "assigned" %}</span>
+		</div>
+		<select id="users" name="users" multiple style="height:225px;">
+		{% for user in form.instance.users.all %}
+			<option value="{{ user.id }}" {% if form.instance.id == 1 %}class="actual"{% endif %}>{{ user.group.groupname }} | {{ user.username }}</option>
+		{% endfor %}
+		</select>
+	</div>
+</fieldset>

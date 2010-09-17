@@ -1,0 +1,25 @@
+{% extends "layout.html" %}
+{% load i18n %}
+
+{% block title %}
+{% trans "Add ACL" %}
+{% endblock %}
+
+{% block scripts %}
+<script type="text/javascript">
+$(document).ready(function() {
+	$('#id_action').focus();
+});
+</script>
+{% endblock %}
+
+{% block content %}
+<div id="acls">
+	<h2>{% trans "Add ACL" %}</h2>
+	<form method="post" action="" class="generic">
+		{% csrf_token %}
+		{% include "generic/form-fieldset.html" %}
+		{% include "generic/form-submit.html" %}
+	</form>
+</div>
+{% endblock %}

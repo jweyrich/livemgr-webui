@@ -1,0 +1,78 @@
+{% extends "layout.html" %}
+{% load i18n webdesign xinclude evaluate %}
+
+{% block title %}
+{% trans "ACL Summary" %}
+{% endblock %}
+
+{% block scripts %}
+<script type="text/javascript">
+$(document).ready(function() {
+	$('[type=submit]').click(function() { $($(this).attr('target')).submit(); });
+	$('#search form').submit(function() { return SearchUtil.search(this, '{% url webui:acls-index %}'); });
+	$('#search_adv form').submit(function() { return SearchUtil.search(this, '{% url webui:acls-index %}'); });
+	$('#create').click(function() { window.location = '{% url webui:acls-add %}'; });
+
+	FormUtil.make_field_hint('#search', 'search_acl');
+	FormUtil.make_field_hint('#search_adv', 'id_localim');
+	FormUtil.make_field_hint('#search_adv', 'id_remoteim');
+
+	function delete_show(caller, callbacks, items) {
+		$("#confirm_delete .description").text(
+			"{% trans "You're about to delete {0} {1}." %}"
+			.format(
+				items.length,
+				items.length == 1 ? '{% trans "acl" %}' : '{% trans "acls" %}'
+			)
+		);
+		$("#confirm_delete").modal();
+		$("#confirm_delete .yes").click(callbacks.yes);
+		$("#confirm_delete .no").click(callbacks.no);
+	}
+
+	function setup_events() {
+		SelectionUtil.show_actions('.delete');
+		SelectionUtil.bind_list_tr_click({url:'{% url webui:acls-index %}/{0}'});
+		SelectionUtil.bind_action_click_confirm({
+			selector: '.delete',
+			url: '{% url webui:acls-delete-many %}',
+			show: delete_show});
+	}
+	setup_events();
+	SearchUtil.afterSearch(setup_events);
+});
+</script>
+{% endblock %}
+
+{% block content %}
+<div id="acls">
+	<h2>{% trans "ACL Summary" %}</h2>
+
+	{% evaluate as label %}{% trans "Search for acls" %}{% endevaluate %}
+	{% xinclude "generic/search.html", field="acl", label=label, can_advsearch=1, can_create=1 %}
+	{% evaluate as search_adv %}
+		{% with search_form as form %}
+			<div class="field">
+				<label for="id_{{ form.action.html_name }}">{{ form.action.label|capfirst }}</label>
+				&nbsp;{{ form.action }}
+			</div>
+			<div class="field">
+				<label for="id_{{ form.localim.html_name }}" class="inline">{{ form.localim.label|capfirst }}</label>
+				{{ form.localim }}
+			</div>
+			<div class="field">
+				<label for="id_{{ form.remoteim.html_name }}" class="inline">{{ form.remoteim.label|capfirst }}</label>
+				{{ form.remoteim }}
+			</div>
+		{% endwith %}
+	{% endevaluate %}
+	{% xinclude "generic/search-advanced.html", fields=search_adv %}
+	<div id="list">
+		<form method="post" action="">
+			{% csrf_token %}
+			{% include 'generic/table.html' %}
+		</form>
+	</div>
+</div>
+{% include "generic/modal-delete.html" %}
+{% endblock %}

@@ -1,0 +1,132 @@
+{% extends "layout.html" %}
+{% load i18n webdesign xinclude evaluate custom_filters %}
+
+{% block title %}
+{% trans "Conversation Summary" %}
+{% endblock %}
+
+{% block styles %}
+<style type="text/css">
+/*
+#conversations #list {
+	overflow: auto;
+}
+*/
+</style>
+{% endblock %}
+
+{% block scripts %}
+<script type="text/javascript">
+$(document).ready(function() {
+	$('[type=submit]').click(function() { $($(this).attr('target')).submit(); });
+	$('#search form').submit(function() { return SearchUtil.search(this, '{% url webui:conversations-index %}'); });
+	$('#search_adv form').submit(function() { return SearchUtil.search(this, '{% url webui:conversations-index %}'); });
+
+	FormUtil.make_field_hint('#search', 'search_message');
+	FormUtil.make_field_hint('#search_adv', 'id_message');
+	FormUtil.make_field_hint('#search_adv', 'id_localim');
+	FormUtil.make_field_hint('#search_adv', 'id_remoteim');
+	FormUtil.make_field_hint('#search_adv', 'id_from_date');
+	FormUtil.make_field_hint('#search_adv', 'id_to_date');
+
+	function setup_events() {
+		SelectionUtil.bind_list_tr_click({callback: popup_conversation});
+	}
+	setup_events();
+	SearchUtil.afterSearch(setup_events);
+
+	function popup_conversation(id) {
+		if (id == undefined)
+			return;
+		//$('#messages').html('').load('{% url webui:conversations-index %}/'+id, highlight_messages);
+		new_window = window.open(
+			'{% url webui:conversations-index %}/'+id,
+			'conversation',
+			'height=600,width=800,menubar=no,toolbar=no,status=no,scrollbars=yes'
+		);
+		if (window.focus) {
+			$(new_window).focus();
+		}
+	}
+/*
+	$('#search #field').keyup(highlight_messages);
+	$('#search_adv #message').keyup(highlight_messages);
+
+	function highlight_messages() {
+		filter = $(this).val();
+		if (filter.length == 0) {
+			$('#messages tbody tr').each(function() {
+				$(this).removeClass('highlight');
+			});
+			$('#matches').text('');
+			return;
+		}
+		expr = new RegExp(filter);
+		matching_count = 0;
+		$('#messages tbody tr').each(function() {
+			text = $(this).children('td:last').text();
+			if (expr.test(text)) {
+				$(this).addClass('highlight');
+				matching_count++;
+			} else {
+				$(this).removeClass('highlight');
+			}
+		});
+		if (matching_count > 1)
+			$('#matches').text(matching_count + ' matches');
+		else if (matching_count == 1)
+			$('#matches').text(matching_count + ' match');
+	}
+*/
+});
+</script>
+{% endblock %}
+
+{% block content %}
+<div id="conversations">
+	<h2>{% trans "Conversation Summary" %}</h2>
+
+	{% evaluate as label %}{% trans "Search for messages" %}{% endevaluate %}
+	{% xinclude "generic/search.html", field="message", label=label, can_advsearch=1 %}
+	{% evaluate as search_adv %}
+		{% with search_form as form %}
+			<div class="field">
+				<label for="id_{{ form.message.html_name }}" class="inline">{{ form.message.label|capfirst }}</label>
+				{{ form.message }}
+			</div>
+			<div class="field">
+				<label for="id_{{ form.localim.html_name }}" class="inline">{{ form.localim.label|capfirst }}</label>
+				{{ form.localim }}
+			</div>
+			<div class="field">
+				<label for="id_{{ form.remoteim.html_name }}" class="inline">{{ form.remoteim.label|capfirst }}</label>
+				{{ form.remoteim }}
+			</div>
+			<div class="field">
+				<label for="id_{{ form.from_date.html_name }}" class="inline">{{ form.from_date.label|capfirst }}</label>
+				{{ form.from_date }}
+			</div>
+			<div class="field">
+				<label for="id_{{ form.to_date.html_name }}" class="inline">{{ form.to_date.label|capfirst }}</label>
+				{{ form.to_date }}
+			</div>
+			<div class="field">
+				{{ form.filtered }}
+				<label for="id_{{ form.filtered.html_name }}">{{ form.filtered.label|capfirst }}</label>
+			</div>
+		{% endwith %}
+	{% endevaluate %}
+	{% xinclude "generic/search-advanced.html", fields=search_adv %}
+
+	<div id="list">
+		<form method="post" action="not_implemented">
+			{% csrf_token %}
+			{% xinclude 'conversations/table.html', show_selection=0 %}
+		</form>
+	</div>
+
+	<div class="spinner">
+		<img src="{{ MEDIA_URL }}/img/spinner.gif" alt="Loading"/>
+	</div>
+</div>
+{% endblock %}

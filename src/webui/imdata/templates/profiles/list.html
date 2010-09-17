@@ -1,0 +1,66 @@
+{% extends "layout.html" %}
+{% load i18n webdesign xinclude evaluate %}
+
+{% block title %}
+{% trans "Profiles" %}
+{% endblock %}
+
+{% block scripts %}
+<script type="text/javascript">
+$(document).ready(function() {
+	$('[type=submit]').click(function() { $($(this).attr('target')).submit(); });
+	$('#search form').submit(function() { return SearchUtil.search(this, '{% url webui:profiles-index %}'); });
+	$('#search_adv form').submit(function() { return SearchUtil.search(this, '{% url webui:profiles-index %}'); });
+	$('#create').click(function() { window.location = '{% url webui:users-add %}'; });
+
+	FormUtil.make_field_hint('#search', 'search_username');
+	FormUtil.make_field_hint('#search_adv', 'id_username');
+	FormUtil.make_field_hint('#search_adv', 'id_email');
+
+	function setup_events() {
+		SelectionUtil.show_actions('.delete');
+		SelectionUtil.bind_list_tr_click({url:'{% url webui:profiles-index %}/{0}'});
+		{% comment %}
+		SelectionUtil.bind_action_click({
+			selector: '.delete',
+			url:'{% url webui:profiles-delete-many %}',
+			confirm:'{% trans "Are you sure?" %}'});
+		{% endcomment %}
+	}
+	setup_events();
+	SearchUtil.afterSearch(setup_events);
+});
+</script>
+{% endblock %}
+
+{% block content %}
+<div id="profiles">
+	<h2>{% trans "Profiles" %}</h2>
+
+	{% evaluate as label %}{% trans "Search for profiles" %}{% endevaluate %}
+	{% xinclude "generic/search.html", field="username", label=label, can_advsearch=1, can_create=1 %}
+	{% evaluate as search_adv %}
+		{% with search_form as form %}
+			<div class="field">
+				<label for="id_{{ form.username.html_name }}" class="inline">{{ form.username.label|capfirst }}</label>
+				{{ form.username }}
+			</div>
+			<div class="field">
+				<label for="id_{{ form.email.html_name }}" class="inline">{{ form.email.label|capfirst }}</label>
+				{{ form.email }}
+			</div>
+			<div class="field">
+				<label for="id_{{ form.group.html_name }}">{{ form.group.label|capfirst }}</label>
+				&nbsp;{{ form.group }}
+			</div>
+		{% endwith %}
+	{% endevaluate %}
+	{% xinclude "generic/search-advanced.html", fields=search_adv %}
+	<div id="list">
+		<form method="post" action="">
+			{% csrf_token %}
+			{% xinclude 'generic/table.html', show_selection=0 %}
+		</form>
+	</div>
+</div>
+{% endblock %}

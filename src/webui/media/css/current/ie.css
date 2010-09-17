@@ -1,0 +1,14 @@
+select {
+	padding-top: -2px;
+}
+
+div.actions [type='button'],
+div.actions [type='submit'] {
+	margin-right: 2px;
+}
+
+input[type='submit'] {
+	padding: 3px 6px;
+	height: 24px;
+}
+

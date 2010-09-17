@@ -1,0 +1,8 @@
+{% if messages %}
+	{% for message in messages %}
+		<div class="flash {% if message.tags %}{{ message.tags }}{% endif %}">
+			<div class="icon {% if message.tags %}{{ message.tags }}{% endif %}"></div>
+			<span>&nbsp;{{ message }}</span>
+		</div>
+	{% endfor %}
+{% endif %}

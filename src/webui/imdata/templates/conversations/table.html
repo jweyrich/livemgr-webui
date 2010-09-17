@@ -1,0 +1,62 @@
+{% load i18n custom_filters %}
+
+{% include "generic/flash.html" %}
+{% include "generic/actions.html" %}
+
+<table class="list">
+	<thead>
+		<tr>
+			<th class="selector" style="{% if show_selection == 0 %}display: none;{% endif %}">
+				<input type="checkbox"
+					onclick="SelectionUtil.select_all(this);" />
+			</th>
+			{% for column in table.columns %}
+				<th class="{{ column.name }}">
+				{% if column.sortable %}
+					<a href="{{ root_path }}?sort={{ column.name_toggled }}" class="sort">
+					{{ column }}
+					{% if column.is_ordered %}
+						<span>
+						{% if column.is_ordered_reverse %}
+							<img src="{{ MEDIA_URL }}img/sort-arrow-up-off.png" />
+						{% else %}
+							<img src="{{ MEDIA_URL }}img/sort-arrow-down-off.png" />
+						{% endif %}
+						</span>
+					{% endif %}
+					</a>
+				{% else %}
+					{{ column }}
+				{% endif %}
+				</th>
+			{% endfor %}
+		</tr>
+	</thead>
+	<tfoot>
+		<tr>
+			<td colspan="{{ table.columns|length|add:1 }}">
+				{% include "generic/paginator.html" %}
+			</td>
+		</tr>
+	</tfoot>
+	<tbody>
+		{% for row in paginator.page.object_list %}
+			<tr class="{% cycle 'odd' 'even' %}">
+				<td style="{% if show_selection == 0 %}display: none;{% endif %}">
+					<input id="selection" name="selection"
+						type="checkbox" value="{{ row.conversation_id }}"
+						onclick="SelectionUtil.select_one(this);" />
+				</td>
+				{% for value in row %}
+					<td>{{ value }}</td>
+				{% endfor %}
+			</tr>
+		{% empty %}
+			<tr>
+				<td colspan="{{ table.columns|length|add:1 }}">
+					{% trans "No results found." %}
+				</td>
+			</tr>
+		{% endfor %}
+	</tbody>
+</table>

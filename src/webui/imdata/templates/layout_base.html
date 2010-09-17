@@ -1,0 +1,52 @@
+{% load i18n %}
+
+{% spaceless %}
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+	"http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="{{ LANGUAGE_CODE }}"
+	xml:lang="{{ LANGUAGE_CODE }}" {% if LANGUAGE_BIDI %}dir="rtl"{% endif %}>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+
+{# Robots #}
+<meta name="robots" content="NONE,NOARCHIVE" />
+
+{# Cache #}
+<meta http-equiv="Pragma" content="no-cache" />
+<meta http-equiv="Cache-Control" content="no-cache" />
+
+{# Title #}
+<title>{% block title %}{% trans "Application" %}{% endblock %}</title>
+
+{# CSS #}
+<style type="text/css" media="screen, print">
+	{% if debug %}
+		@import url("{{MEDIA_URL}}css/current/theme.css");
+		@import url('{{MEDIA_URL}}css/current/form.css');
+		@import url('{{MEDIA_URL}}css/current/search.css');
+		@import url('{{MEDIA_URL}}css/current/list.css');
+		@import url('{{MEDIA_URL}}css/current/pagination.css');
+		@import url('{{MEDIA_URL}}css/current/modal.css');
+	{% else %}
+		@import url("{{MEDIA_URL}}css/all.min.css");
+	{% endif %}
+	{% if "MSIE" in request.META.HTTP_USER_AGENT %}
+		@import url("{{MEDIA_URL}}css/current/ie.css");
+	{% endif %}
+</style>
+
+{% block extrahead %}{% endblock %}
+
+{% block head %}
+	{% block styles %}{% endblock %}
+	{% block scripts %}{% endblock %}
+{% endblock %}
+
+</head>
+<body>
+
+{% block body %}{% endblock %}
+
+</body>
+</html>
+{% endspaceless %}

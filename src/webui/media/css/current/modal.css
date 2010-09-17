@@ -1,0 +1,39 @@
+.simplemodal {
+	display: none;
+}
+
+/* Overlay */
+.simplemodal-overlay {
+	background-color: #000; 
+	cursor: wait;
+}
+
+/* Container */
+.simplemodal-container {
+	width: 320px;
+	height: 140px;;
+	color: #666;
+	background-color: #fff;
+	border: 4px solid #ccc;
+	padding: 12px;
+}
+.simplemodal-container h1 {
+	margin: 0;
+	padding-bottom: 12px;
+}
+
+/* Buttons */
+.simplemodal-container .buttons {
+	position: absolute;
+	bottom: 12px;
+	color: #666;
+	width: 320px;
+	text-align: center;
+}
+.simplemodal-container .buttons input {
+	width: 80px;
+	height: 26px;
+	margin: 5px;
+	margin-bottom: 0;
+	font-size: 16px;
+}

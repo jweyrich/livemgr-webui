@@ -1,0 +1,35 @@
+{% load i18n custom_filters %}
+<fieldset>
+	{% include "generic/flash.html" %}
+	{% for field in form %}
+		{% if not field.is_hidden %}
+			<div class="field">
+				{% if field|is_checkbox %}
+					{{ field }}
+					{{ field.label_tag }}
+				{% else %}
+					{{ field.label_tag }}
+					{{ field }}
+				{% endif %}
+				{% for error in field.errors %}
+					<span class="error">{{ error }}</span>
+				{% endfor %}
+			</div>
+		{% else %}
+			{{ field }}
+		{% endif %}
+	{% endfor %}
+	{% block extrafields %}{% endblock %}
+	<!--
+	{% for field in form %}
+		{% if not field.is_hidden %}
+			<p class="field">
+				{{ field.errors }}
+				{{ field.label_tag }} {{ field }}
+			</p>
+		{% else %}
+			{{ field }}
+		{% endif %}
+	{% endfor %}
+	-->
+</fieldset>

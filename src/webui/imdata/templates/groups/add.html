@@ -1,0 +1,28 @@
+{% extends "layout.html" %}
+{% load i18n %}
+
+{% block title %}
+{% trans "Add Group" %}
+{% endblock %}
+
+{% block scripts %}
+	{% include "groups/scripts.html" %}
+	<script type="text/javascript">
+	$(document).ready(function() {
+		$('#id_groupname').focus();
+	});
+	</script>
+{% endblock %}
+
+{% block content %}
+<div id="groups">
+	<h2>{% trans "Add Group" %}</h2>
+	<form method="post" action="" class="generic">
+		{% csrf_token %}
+		{% include "generic/form-fieldset.html" %}
+		{% include "groups/form-fieldset-users.html" %}
+		{% include "groups/form-fieldset-rules.html" %}
+		{% include "generic/form-submit.html" %}
+	</form>
+</div>
+{% endblock %}

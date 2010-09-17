@@ -1,0 +1,60 @@
+{% extends "layout.html" %}
+{% load i18n webdesign xinclude evaluate %}
+
+{% block title %}
+{% trans "Group Summary" %}
+{% endblock %}
+
+{% block scripts %}
+<script type="text/javascript">
+$(document).ready(function() {
+	$('[type=submit]').click(function() { $($(this).attr('target')).submit(); });
+	$('#search form').submit(function() { return SearchUtil.search(this, '{% url webui:groups-index %}'); });
+	$('#search_adv form').submit(function() { return SearchUtil.search(this, '{% url webui:groups-index %}'); });
+	$('#create').click(function() { window.location = '{% url webui:groups-add %}'; });
+
+	FormUtil.make_field_hint('#search', 'search_groupname');
+
+	function delete_show(caller, callbacks, items) {
+		$("#confirm_delete .description").text(
+			"{% trans "You're about to delete {0} {1}." %}"
+			.format(
+				items.length,
+				items.length == 1 ? '{% trans "group" %}' : '{% trans "groups" %}'
+			)
+		);
+		$("#confirm_delete").modal();
+		$("#confirm_delete .yes").click(callbacks.yes);
+		$("#confirm_delete .no").click(callbacks.no);
+	}
+
+	function setup_events() {
+		SelectionUtil.show_actions('.delete');
+		SelectionUtil.bind_list_tr_click({url:'{% url webui:groups-index %}/{0}'});
+		SelectionUtil.bind_action_click_confirm({
+			selector: '.delete',
+			url: '{% url webui:groups-delete-many %}',
+			show: delete_show});
+	}
+	setup_events();
+	SearchUtil.afterSearch(setup_events);
+});
+</script>
+{% endblock %}
+
+{% block content %}
+<div id="groups">
+	<h2>{% trans "Group Summary" %}</h2>
+
+	{% evaluate as label %}{% trans "Search for groups" %}{% endevaluate %}
+	{% xinclude "generic/search.html", field="groupname", label=label, can_advsearch=0, can_create=1 %}
+
+	<div id="list">
+		<form method="post" action="">
+			{% csrf_token %}
+			{% include 'generic/table.html' %}
+		</form>
+	</div>
+</div>
+{% include "generic/modal-delete.html" %}
+{% endblock %}

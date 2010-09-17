@@ -1,0 +1,81 @@
+{% extends "layout.html" %}
+{% load i18n %}
+
+{% block title %}
+{% trans "Change Settings" %}
+{% endblock %}
+
+
+
+{% block styles %}
+<style type="text/css">
+	form .field label {
+		width: 170px;
+	}
+</style>
+{% endblock %}
+
+
+{% block content %}
+<div id="setting">
+	<h2>{% trans "Change Settings" %}</h2>
+	<form method="post" action="" class="generic">
+		{% csrf_token %}
+		{#% include "generic/form-fieldset.html" %#}
+		{% include "generic/flash.html" %}
+		<div class="titlebar">
+			<span>{% trans "Protocol Versions" %}</span>
+		</div>
+		<fieldset>
+			<div class="field">
+				{{ form.min_protocol_version.label_tag }}
+				{{ form.min_protocol_version }}
+				{% for error in form.min_protocol_version.errors %}
+					<span class="error">{{ error }}</span>
+				{% endfor %}
+			</div>
+			<div class="field">
+				{{ form.max_protocol_version.label_tag }}
+				{{ form.max_protocol_version }}
+				{% for error in form.max_protocol_version.errors %}
+					<span class="error">{{ error }}</span>
+				{% endfor %}
+			</div>
+		</fieldset>
+		<div class="titlebar">
+			<span>{% trans "Users" %}</span>
+		</div>
+		<fieldset>
+			<div class="field">
+				{{ form.allow_self_reg.label_tag }}
+				{{ form.allow_self_reg }}
+				{% for error in form.allow_self_reg.errors %}
+					<span class="error">{{ error }}</span>
+				{% endfor %}
+			</div>
+		</fieldset>
+		<div class="titlebar">
+			<span>{% trans "Notifications" %}</span>
+		</div>
+		<fieldset>
+			<div class="field">
+				{{ form.filtered_msg.label_tag }}
+				{{ form.filtered_msg }}
+				{% for error in form.filtered_msg.errors %}
+					<span class="error">{{ error }}</span>
+				{% endfor %}
+			</div>
+			<div class="field">
+				{{ form.default_warning.label_tag }}
+				{{ form.default_warning }}
+				{% for error in form.default_warning.errors %}
+					<span class="error">{{ error }}</span>
+				{% endfor %}
+			</div>
+		</fieldset>
+		<div class="actions">
+			<input type="submit" value="{% trans "Save" %}" class="default" />
+		</div>
+	</form>
+</div>
+{% endblock %}

@@ -1,0 +1,46 @@
+{% load i18n %}
+
+<div class="titlebar">
+	<span>{% trans "rules" %}</span>
+</div>
+<fieldset>
+	<div class="field" style="float: left;">
+		<div class="titlebar widget left">
+			<span>{% trans "available" %}</span>
+		</div>
+		<p class="selector-filter">
+			<img src="{{MEDIA_URL}}img/django/icon_search.gif"> 
+			<input type="text" id="rules_available_filter" />
+		</p>
+		<select id="rules_available" name="rules_available" multiple style="height: 200px;">
+		{% for rule in available_rules %}
+			<option value="{{ rule.id }}">{% trans rule.rulename %}</option>
+		{% endfor %}
+		</select>
+	</div>
+	<div class="field" style="float: left; margin: 10px; margin-top: 100px;">
+		<!--
+		<div class="icon forward" title="{% trans "Add" %}"></div>
+		<div class="icon rewind" title="{% trans "Remove" %}"></div>
+		-->
+		<p>
+			<input type="button" id="rules_add" value="&gt;" style="height:25px; width: 25px;" />
+		</p>
+		<p style="height: 0px;"></p>
+		<p>
+			<input type="button" id="rules_remove" value="&lt;" style="height:25px; width: 25px;" />
+		</p>
+	</div>
+	<div class="field" style="float: left;">
+		<div class="titlebar widget right">
+			<span>{% trans "assigned" %}</span>
+		</div>
+		<select id="rules" name="rules" multiple style="height:225px;">
+		{% if form.instance.pk %}
+			{% for rule in form.instance.rules.all %}
+				<option value="{{ rule.id }}">{% trans rule.rulename %}</option>
+			{% endfor %}
+		{% endif %}
+		</select>
+	</div>
+</fieldset>

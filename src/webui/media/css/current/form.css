@@ -1,0 +1,172 @@
+input,
+textarea,
+select {
+	background-color: #fff;
+	border: 1px solid #ccc;
+	color: #474747;
+	height: 18px;
+	padding: 3px;
+	vertical-align: middle;
+}
+textarea {
+	height: auto;
+	vertical-align: middle;
+}
+input[disabled],
+input[readonly] {
+	color: #bbb !important;
+}
+input[type='checkbox'],
+input[type='radio'],
+input[type='file'] {
+	border: none;
+	/*vertical-align: middle;*/
+}
+input[type='button'],
+input[type='submit'] {
+	width: auto;
+	overflow: visible;
+	padding: 3px 6px;
+	margin-right: 2px;
+	background-color: #E3E3E3;
+	/* WebKit */
+	background: -webkit-gradient(linear, 0 40%, 0 70%, from(#F9F9F9), to(#E3E3E3));
+	/* Mozilla/Gecko */
+	background: -moz-linear-gradient(top, #F9F9F9, #E3E3E3);
+	/* IE 5.5 - 7 */
+	filter: progid:DXImageTransform.Microsoft.gradient(startColorstr=#FFF9F9F9, endColorstr=#FFE3E3E3);
+	/* IE 8 */
+	-ms-filter: "progid:DXImageTransform.Microsoft.gradient(startColorstr=#FFF9F9F9, endColorstr=#FFE3E3E3)";
+	border: 1px solid #BBB;
+	margin-right: 0px;
+	height: 20px;
+	font-weight: bold;
+	color: #888;
+	cursor: pointer;
+}
+input[type='button']:not([disabled]):hover,
+input[type='submit']:not([disabled]):hover {
+	border-color: #999;
+	color: #888;
+}
+input[type='submit']:not([disabled]).default:hover {
+	color: #fff;
+	border: 2px solid #486285;
+}
+label.inline {
+	display: block;
+	left: 0;
+	top: 0;
+	padding: 6px;
+	color: #999999;
+	cursor: text;
+}
+
+/* .field */
+form .field {
+	color: #000;
+	margin-bottom: 5px;
+}
+form .field:last-child {
+	margin-bottom: 0;
+}
+form .field label {
+	float: left;
+	position: relative;
+	top: 6px;
+	width: 120px;
+	/*
+	text-align: right;
+	*/
+}
+form .field input,
+form .field select,
+form .field textarea {
+	width: 220px;
+}
+form .field input[type='checkbox'] {
+	border: none;
+	position: relative;
+	top: 2px; /* FF != Chromium? */
+	width: auto;
+}
+form .field select {
+	height: 26px;
+}
+form .field .error {
+	color: #d67575;
+	margin-left: 5px;
+	vertical-align: middle;
+}
+
+/* .generic */
+form.generic {
+	padding: 0px 10px 10px 10px;
+}
+form.generic .titlebar {
+	border: solid 1px #ddd;
+	border-bottom: none;
+	margin-top: 10px;
+	padding: 2px 0 2px 0;
+	font-weight: bold;
+	color: #888;
+	background-color: #dadada;
+	background: -webkit-gradient(linear, 0 0%, 0 100%, from(#fff), to(#dadada));
+	background: -moz-linear-gradient(top, #fff, #dadada);
+	filter: progid:DXImageTransform.Microsoft.gradient(startColorstr=#ffffffff, endColorstr=#ffdadada);
+	-ms-filter: "progid:DXImageTransform.Microsoft.gradient(startColorstr=#ffffffff, endColorstr=#ffdadada)";
+}
+form.generic .titlebar span {
+	margin: 5px;
+}
+form.generic .titlebar.widget {
+	border-color: #ccc;
+	margin-top: 0;
+}
+form.generic .titlebar.widget.right {
+	color: #fff;
+	background-color: #698eb9;
+	background: -webkit-gradient(linear, 0 0%, 0 100%, from(#b6d1ea), to(#698eb9));
+	background: -moz-linear-gradient(top, #b6d1ea, #698eb9);
+	filter: progid:DXImageTransform.Microsoft.gradient(startColorstr=#ffb6d1ea, endColorstr=#ff698eb9);
+	-ms-filter: "progid:DXImageTransform.Microsoft.gradient(startColorstr=#ffb6d1ea, endColorstr=#ff698eb9)";
+}
+form.generic fieldset {
+	padding: 10px;
+	border: solid 1px #ddd;
+}
+form.generic div.datepicker {
+	position: relative;
+	top: 7px;
+}
+form.generic input.datepicker {
+	width: 125px;
+}
+
+/* .selector-filter */
+form.generic .selector-filter {
+	background: white;
+	border: solid #CCC;
+	border-width: 0px 1px;
+	color: #999;
+	font-size: 10px;
+	margin: 0px;
+	padding: 3px;
+	text-align: left;
+}
+form.generic .selector-filter input {
+	font-family: 'Lucida Grande', Verdana, Arial, sans-serif;
+	font-size: 11px;
+	font-weight: normal;
+	margin-left: 2px;
+	padding: 2px 3px;
+	vertical-align: middle;
+}
+form.generic .selector-filter img,
+form.generic .selector-filter input {
+	vertical-align: middle;
+}
+form.generic .selector-filter input {
+	width: 185px !important;
+	height: 13px;
+}

@@ -1,0 +1,61 @@
+﻿ul.pagination {
+	border: 0;
+	margin: 0;
+	padding: 0;
+}
+
+ul.pagination li {
+	border: 0;
+	margin: 0;
+	padding: 0;
+	font-size: 11px;
+	list-style: none;
+	margin-right: 2px;
+}
+
+ul.pagination li a {
+	margin-right: 2px;
+	font-weight: bold;
+	background: -webkit-gradient(linear, 0 40%, 0 70%, from(#F9F9F9), to(#E3E3E3));
+	background: -moz-linear-gradient(top, #F9F9F9, #E3E3E3);
+	filter: progid:DXImageTransform.Microsoft.gradient(startColorstr=#FFF9F9F9, endColorstr=#FFE3E3E3);
+	-ms-filter: "progid:DXImageTransform.Microsoft.gradient(startColorstr=#FFF9F9F9, endColorstr=#FFE3E3E3)";
+	border: 1px solid #BBB;
+}
+
+ul.pagination li a:link,
+ul.pagination li a:visited {
+	color: #888;
+	display: block;
+	float: left;
+	padding: 3px 6px;
+	text-decoration: none;
+}
+
+ul.pagination li a:hover {
+	border-color: #999;
+	color: #888;
+}
+
+ul.pagination .previous-off,
+ul.pagination .next-off {
+	background: -webkit-gradient(linear, 0 40%, 0 70%, from(#F9F9F9), to(#E3E3E3));
+	background: -moz-linear-gradient(top, #F9F9F9, #E3E3E3);
+	filter: progid:DXImageTransform.Microsoft.gradient(startColorstr=#FFF9F9F9, endColorstr=#FFE3E3E3);
+	-ms-filter: "progid:DXImageTransform.Microsoft.gradient(startColorstr=#FFF9F9F9, endColorstr=#FFE3E3E3)";
+	border: 1px solid #BBB;
+	color: #BBB;
+	display: block;
+	float: left;
+	font-weight: bold;
+	margin-right: 2px;
+	padding: 3px 6px;
+}
+
+ul.pagination .active {
+	color: #555;
+	font-weight: bold;
+	display: block;
+	float: left;
+	padding: 4px 6px;
+}

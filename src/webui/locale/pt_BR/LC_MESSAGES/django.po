@@ -1,0 +1,1068 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: PACKAGE VERSION\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2010-08-24 07:30+0000\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"Language: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+
+#: settings.py:56
+msgid "English"
+msgstr "Inglês"
+
+#: settings.py:57
+msgid "Brazilian Portuguese"
+msgstr "Português"
+
+#: framework/utils.py:49
+msgid "Please, correct the fields below."
+msgstr "Por favor, corrija os campos abaixo."
+
+#: framework/decorators/rest.py:13
+msgid "You don't have permission to access this."
+msgstr "Você não tem permissão para acessar isto."
+
+#: imdata/controllers/acls.py:28 imdata/controllers/acls.py:42
+#: imdata/controllers/conversations.py:35
+#: imdata/controllers/conversations.py:70 imdata/models/acl.py:24
+#: imdata/models/buddy.py:25 imdata/models/conversation.py:18
+#: imdata/models/message.py:60 imdata/models/user.py:24
+msgid "user"
+msgstr "usuário"
+
+#: imdata/controllers/acls.py:29 imdata/controllers/acls.py:43
+#: imdata/controllers/conversations.py:36
+#: imdata/controllers/conversations.py:71 imdata/models/acl.py:25
+#: imdata/models/buddy.py:14 imdata/models/message.py:61
+msgid "buddy"
+msgstr "contato"
+
+#: imdata/controllers/acls.py:30 imdata/controllers/acls.py:41
+#: imdata/models/acl.py:26
+msgid "action"
+msgstr "ação"
+
+#: imdata/controllers/acls.py:53 imdata/controllers/badwords.py:49
+#: imdata/controllers/groups.py:57 imdata/controllers/users.py:89
+msgid "You may add another."
+msgstr "Você pode adicionar outro."
+
+#: imdata/controllers/acls.py:74 imdata/controllers/badwords.py:70
+#: imdata/controllers/buddies.py:57 imdata/controllers/conversations.py:103
+#: imdata/controllers/groups.py:78 imdata/controllers/profiles.py:87
+#: imdata/controllers/users.py:110
+msgid "Invalid search criteria"
+msgstr "Parâmetros de pesquisa inválidos"
+
+#: imdata/controllers/acls.py:116
+#, python-format
+msgid "The acl %d was changed successfully."
+msgstr "A acl% d foi alterada com sucesso."
+
+#: imdata/controllers/acls.py:139
+#, python-format
+msgid "The acl %d was created successfully."
+msgstr "A acl %d foi criada com sucesso."
+
+#: imdata/controllers/badwords.py:26 imdata/controllers/badwords.py:42
+#: imdata/models/badword.py:12 imdata/models/badword.py:17
+#: imdata/templates/badwords/list.html:22
+msgid "badword"
+msgstr "palavrão"
+
+#: imdata/controllers/badwords.py:27 imdata/models/badword.py:18
+msgid "regular expression"
+msgstr "expressão regular"
+
+#: imdata/controllers/badwords.py:28 imdata/controllers/users.py:36
+#: imdata/models/badword.py:19 imdata/models/user.py:37
+msgid "enabled"
+msgstr "habilitado"
+
+#: imdata/controllers/badwords.py:105
+#, python-format
+msgid "The badword '%s' was changed successfully."
+msgstr "O palavrão '%s' foi alterado com sucesso."
+
+#: imdata/controllers/badwords.py:128
+#, python-format
+msgid "The badword '%s' was created successfully."
+msgstr "O palavrão '%s' foi criado com sucesso."
+
+#: imdata/controllers/buddies.py:24 imdata/controllers/buddies.py:35
+#: imdata/controllers/profiles.py:28 imdata/controllers/profiles.py:74
+#: imdata/controllers/users.py:31 imdata/controllers/users.py:76
+#: imdata/models/buddy.py:19 imdata/models/user.py:30
+msgid "username"
+msgstr "nome de usuário"
+
+#: imdata/controllers/buddies.py:25 imdata/controllers/buddies.py:36
+#: imdata/controllers/users.py:32 imdata/controllers/users.py:77
+#: imdata/models/buddy.py:20 imdata/models/user.py:31
+msgid "display name"
+msgstr "nome de exibição"
+
+#: imdata/controllers/buddies.py:26 imdata/controllers/users.py:33
+msgid "personal message"
+msgstr "mensagem pessoal"
+
+#: imdata/controllers/buddies.py:27 imdata/controllers/buddies.py:37
+#: imdata/controllers/users.py:34 imdata/controllers/users.py:79
+#: imdata/models/buddy.py:23 imdata/models/user.py:34
+msgid "status"
+msgstr "status"
+
+#: imdata/controllers/buddies.py:28 imdata/models/buddy.py:24
+msgid "blocked"
+msgstr "bloqueado"
+
+#: imdata/controllers/conversations.py:34 imdata/models/conversation.py:19
+#: imdata/models/message.py:52
+msgid "timestamp"
+msgstr "horário"
+
+#: imdata/controllers/conversations.py:49
+#: imdata/controllers/conversations.py:211
+msgid "%m/%d/%Y - %I:%M:%S %p"
+msgstr "%d/%m/%Y - %I:%M:%S %p"
+
+#: imdata/controllers/conversations.py:69 imdata/models/message.py:46
+msgid "message"
+msgstr "mensagem"
+
+#: imdata/controllers/conversations.py:72 imdata/models/message.py:62
+msgid "filtered"
+msgstr "filtrado"
+
+#: imdata/controllers/conversations.py:74
+msgid "from date"
+msgstr "da data"
+
+#: imdata/controllers/conversations.py:77
+#: imdata/controllers/conversations.py:86
+msgid "mm/dd/yyyy"
+msgstr "dd/mm/yyyy"
+
+#: imdata/controllers/conversations.py:83
+msgid "to date"
+msgstr "até a data"
+
+#: imdata/controllers/conversations.py:110
+msgid "Invalid date"
+msgstr "Data inválida"
+
+#: imdata/controllers/conversations.py:159
+#: imdata/controllers/conversations.py:182
+#, python-format
+msgid "Missing argument: %s"
+msgstr "Faltando argumento: %s"
+
+#: imdata/controllers/conversations.py:187
+msgid "Conversation not found"
+msgstr "Conversa não encontrada"
+
+#: imdata/controllers/conversations.py:208
+#: imdata/templates/conversations/show.html:5
+#: imdata/templates/conversations/show.html:36
+msgid "Conversation"
+msgstr "Conversa"
+
+#: imdata/controllers/conversations.py:209
+#: imdata/templates/conversations/show.html:37
+#: imdata/templates/dashboard/index.html:269
+msgid "User"
+msgstr "Usuário"
+
+#: imdata/controllers/conversations.py:210
+#: imdata/templates/conversations/show.html:39
+msgid "Buddy"
+msgstr "Contato"
+
+#: imdata/controllers/conversations.py:211
+#: imdata/templates/conversations/show.html:40
+msgid "Started in"
+msgstr "Inciciada em"
+
+#: imdata/controllers/conversations.py:212
+#: imdata/templates/conversations/show.html:41
+msgid "Total messages"
+msgstr "Total de mensagens"
+
+#: imdata/controllers/conversations.py:235
+#, python-format
+msgid "Page %(this)i of %(total)i"
+msgstr "Página %(this)i de %(total)i"
+
+#: imdata/controllers/conversations.py:242
+msgid "%m/%d/%Y %I:%M:%S %p"
+msgstr "%d/%m/%Y %I:%M:%S %p"
+
+#: imdata/controllers/groups.py:30 imdata/controllers/groups.py:49
+#: imdata/models/rule.py:17 imdata/models/setting.py:17
+#: imdata/models/usergroup.py:18
+msgid "name"
+msgstr "nome"
+
+#: imdata/controllers/groups.py:31 imdata/controllers/profiles.py:30
+#: imdata/models/usergroup.py:19
+msgid "active"
+msgstr "ativo"
+
+#: imdata/controllers/groups.py:32 imdata/models/usergroup.py:20
+msgid "built-in"
+msgstr "permanente"
+
+#: imdata/controllers/groups.py:33 imdata/controllers/groups.py:50
+#: imdata/models/rule.py:18 imdata/models/usergroup.py:21
+msgid "description"
+msgstr "descrição"
+
+#: imdata/controllers/groups.py:34
+msgid "# of users"
+msgstr "# de usuários"
+
+#: imdata/controllers/groups.py:146
+#, python-format
+msgid "The group '%s' was changed successfully."
+msgstr "O grupo '%s' foi alterado com sucesso."
+
+#: imdata/controllers/groups.py:148
+msgid ""
+"However, the users weren't removed because they must belong to one group at "
+"least."
+msgstr ""
+"Mas os usuários não podem ser removidos pois devem fazer parte de um grupo."
+
+#: imdata/controllers/groups.py:205
+#, python-format
+msgid "The group '%s' was created successfully."
+msgstr "O grupo '%s' foi criado com sucesso."
+
+#: imdata/controllers/groups.py:229
+msgid "Can't delete built-in groups."
+msgstr "Não é permitido excluir grupos permanentes."
+
+#: imdata/controllers/license.py:39 imdata/models/license.py:17
+msgid "Certificate"
+msgstr "Certificado"
+
+#: imdata/controllers/license.py:102
+msgid "Valid"
+msgstr "Válida"
+
+#: imdata/controllers/license.py:103
+msgid "Expired"
+msgstr "Expirada"
+
+#: imdata/controllers/license.py:144
+msgid "The license was changed successfully."
+msgstr "A licença foi alterada com sucesso."
+
+#: imdata/controllers/license.py:147
+msgid "The informed certificate is already in use."
+msgstr "O certificado informado já está em uso."
+
+#: imdata/controllers/license.py:149
+msgid "Please, inform a valid certificate."
+msgstr "Por favor, informe um certificado válido."
+
+#: imdata/controllers/profiles.py:29 imdata/controllers/profiles.py:75
+msgid "email"
+msgstr "email"
+
+#: imdata/controllers/profiles.py:31 imdata/controllers/users.py:35
+#: imdata/models/user.py:36
+msgid "last login"
+msgstr "último login"
+
+#: imdata/controllers/profiles.py:32
+msgid "date joined"
+msgstr "Data de registro"
+
+#: imdata/controllers/profiles.py:33 imdata/templates/groups/list.html:23
+msgid "groups"
+msgstr "Grupos"
+
+#: imdata/controllers/profiles.py:43
+msgid "Current password"
+msgstr "Senha atual"
+
+#: imdata/controllers/profiles.py:44
+msgid "New password"
+msgstr "Nova senha"
+
+#: imdata/controllers/profiles.py:45
+msgid "New password confirmation"
+msgstr "Nova senha (confirmação)"
+
+#: imdata/controllers/profiles.py:49
+msgid "Your current password is incorrect. Please type it again."
+msgstr "Sua senha atual está incorreta. Por favor, digite novamente."
+
+#: imdata/controllers/profiles.py:56
+msgid "The two password fields don't match."
+msgstr "Os 2 campos de senha não conferem."
+
+#: imdata/controllers/profiles.py:70
+msgid "Language"
+msgstr "Idioma"
+
+#: imdata/controllers/profiles.py:71
+msgid "Enable debug"
+msgstr "Habilitar debug"
+
+#: imdata/controllers/profiles.py:76 imdata/controllers/users.py:30
+#: imdata/controllers/users.py:78 imdata/models/grouprule.py:18
+#: imdata/models/user.py:29 imdata/templates/groups/list.html:23
+msgid "group"
+msgstr "grupo"
+
+#: imdata/controllers/profiles.py:139
+msgid "Your profile was updated successfully."
+msgstr "Seu perfil foi atualizado com sucesso."
+
+#: imdata/controllers/settings.py:26
+msgid "Minimum"
+msgstr "Mínimo"
+
+#: imdata/controllers/settings.py:27
+msgid "Maximum"
+msgstr "Máximo"
+
+#: imdata/controllers/settings.py:28
+msgid "Allow self registration"
+msgstr "Permitir auto-registro"
+
+#: imdata/controllers/settings.py:29
+msgid "Filter"
+msgstr "Filtro"
+
+#: imdata/controllers/settings.py:30
+msgid "Alert"
+msgstr "Alerta"
+
+#: imdata/controllers/settings.py:47 imdata/controllers/settings.py:53
+msgid "This field is required."
+msgstr "Este campo é necessário"
+
+#: imdata/controllers/settings.py:82
+msgid "The settings were changed successfully."
+msgstr "As configurações foram alteradas com sucesso."
+
+#: imdata/controllers/users.py:37
+msgid "contacts"
+msgstr "contatos"
+
+#: imdata/controllers/users.py:46
+msgid "Never logged"
+msgstr "Nunca logou"
+
+#: imdata/controllers/users.py:55
+msgid "Manage"
+msgstr "Gerenciar"
+
+#: imdata/controllers/users.py:57
+msgid "None"
+msgstr "Nenhum"
+
+#: imdata/controllers/users.py:149
+#, python-format
+msgid "The user '%s' was changed successfully."
+msgstr "O usuário '%s' foi alterado com sucesso."
+
+#: imdata/controllers/users.py:177
+#, python-format
+msgid "The user '%s' was created successfully."
+msgstr "O usuário '%s' foi criado com sucesso."
+
+#: imdata/models/acl.py:10
+msgid "Allow"
+msgstr "Permitir"
+
+#: imdata/models/acl.py:11
+msgid "Block"
+msgstr "Bloquear"
+
+#: imdata/models/acl.py:19 imdata/templates/acls/list.html:25
+msgid "acl"
+msgstr "acl"
+
+#: imdata/models/acl.py:20 imdata/templates/acls/list.html:25
+msgid "acls"
+msgstr "acls"
+
+#: imdata/models/badword.py:13 imdata/templates/badwords/list.html:22
+msgid "badwords"
+msgstr "palavrões"
+
+#: imdata/models/buddy.py:15
+msgid "buddies"
+msgstr "contatos"
+
+#: imdata/models/buddy.py:21 imdata/models/user.py:32
+msgid "status message"
+msgstr "mensagem de status"
+
+#: imdata/models/conversation.py:13
+msgid "conversation"
+msgstr "conversa"
+
+#: imdata/models/conversation.py:14
+msgid "conversations"
+msgstr "conversas"
+
+#: imdata/models/conversation.py:20 imdata/templates/license/index.html:58
+msgid "Status"
+msgstr "Status"
+
+#: imdata/models/dummy.py:9
+msgid "dashboard"
+msgstr "painel"
+
+#: imdata/models/dummy.py:19
+msgid "support"
+msgstr "suporte"
+
+#: imdata/models/grouprule.py:15
+msgid "grouprule"
+msgstr "regra de grupo"
+
+#: imdata/models/grouprule.py:16
+msgid "grouprules"
+msgstr "regras de grupo"
+
+#: imdata/models/grouprule.py:17 imdata/models/rule.py:12
+msgid "rule"
+msgstr "regra"
+
+#: imdata/models/license.py:12
+msgid "license"
+msgstr "licença"
+
+#: imdata/models/license.py:13
+msgid "licenses"
+msgstr "licenças"
+
+#: imdata/models/license.py:18
+msgid "Hash"
+msgstr "Hash"
+
+#: imdata/models/message.py:25
+msgid "unknown"
+msgstr "desconhecido"
+
+#: imdata/models/message.py:26
+msgid "msg"
+msgstr "mensagem"
+
+#: imdata/models/message.py:27
+msgid "file"
+msgstr "arquivo"
+
+#: imdata/models/message.py:28
+msgid "typing"
+msgstr "digitando"
+
+#: imdata/models/message.py:29 imdata/models/rule.py:28
+msgid "caps"
+msgstr "capacidades"
+
+#: imdata/models/message.py:30 imdata/models/rule.py:38
+msgid "webcam"
+msgstr "webcam"
+
+#: imdata/models/message.py:31 imdata/models/rule.py:36
+msgid "remotedesktop"
+msgstr "desktop remoto"
+
+#: imdata/models/message.py:32 imdata/models/rule.py:27
+msgid "application"
+msgstr "aplicação"
+
+#: imdata/models/message.py:33
+msgid "emoticon"
+msgstr "emoticon"
+
+#: imdata/models/message.py:34 imdata/models/rule.py:33
+msgid "ink"
+msgstr "tinta"
+
+#: imdata/models/message.py:35 imdata/models/rule.py:35
+msgid "nudge"
+msgstr "atenção"
+
+#: imdata/models/message.py:36 imdata/models/rule.py:39
+msgid "wink"
+msgstr "wink"
+
+#: imdata/models/message.py:37 imdata/models/rule.py:37
+msgid "voiceclip"
+msgstr "clipe de voz"
+
+#: imdata/models/message.py:38 imdata/models/rule.py:40
+msgid "games"
+msgstr "jogos"
+
+#: imdata/models/message.py:39 imdata/models/rule.py:41
+msgid "photo"
+msgstr "foto"
+
+#: imdata/models/message.py:47 imdata/templates/dashboard/index.html:220
+msgid "messages"
+msgstr "mensagens"
+
+#: imdata/models/message.py:51
+msgid "conversation #"
+msgstr "conversa #"
+
+#: imdata/models/message.py:56
+msgid "client IP"
+msgstr "IP do cliente"
+
+#: imdata/models/message.py:57
+msgid "inbound"
+msgstr "recebido"
+
+#: imdata/models/message.py:58
+msgid "type"
+msgstr "tipo"
+
+#: imdata/models/message.py:63
+msgid "content"
+msgstr "conteúdo"
+
+#: imdata/models/profile.py:10
+msgid "language"
+msgstr "idioma"
+
+#: imdata/models/profile.py:11
+msgid "enable debug"
+msgstr "habilitar debug"
+
+#: imdata/models/rule.py:13 imdata/templates/groups/form-fieldset-rules.html:4
+msgid "rules"
+msgstr "regras"
+
+#: imdata/models/rule.py:26
+msgid "alert"
+msgstr "alerta"
+
+#: imdata/models/rule.py:29
+msgid "crypt"
+msgstr "criptografia"
+
+#: imdata/models/rule.py:30
+msgid "emoticons"
+msgstr "emoticons"
+
+#: imdata/models/rule.py:31
+msgid "filetransfer"
+msgstr "transferência de arquivo"
+
+#: imdata/models/rule.py:32
+msgid "filter"
+msgstr "filtro"
+
+#: imdata/models/rule.py:34
+msgid "log"
+msgstr "log"
+
+#: imdata/models/setting.py:12
+msgid "setting"
+msgstr "configuração"
+
+#: imdata/models/setting.py:13
+msgid "settings"
+msgstr "configurações"
+
+#: imdata/models/setting.py:18
+msgid "value"
+msgstr "valor"
+
+#: imdata/models/user.py:9
+msgid "Online"
+msgstr "Conectado"
+
+#: imdata/models/user.py:10
+msgid "Busy"
+msgstr "Ocupado"
+
+#: imdata/models/user.py:11
+msgid "Idle"
+msgstr "Inativo"
+
+#: imdata/models/user.py:12
+msgid "Away"
+msgstr "Ausente"
+
+#: imdata/models/user.py:13
+msgid "Be right back"
+msgstr "Volto logo"
+
+#: imdata/models/user.py:14
+msgid "On the phone"
+msgstr "No telefone"
+
+#: imdata/models/user.py:15
+msgid "Out to lunch"
+msgstr "Almoçando"
+
+#: imdata/models/user.py:16
+msgid "Invisible"
+msgstr "Invisível"
+
+#: imdata/models/user.py:17
+msgid "Offline"
+msgstr "Desconectado"
+
+#: imdata/models/user.py:25 imdata/templates/groups/form-fieldset-users.html:4
+msgid "users"
+msgstr "usuários"
+
+#: imdata/models/usergroup.py:13
+msgid "usergroup"
+msgstr "grupo"
+
+#: imdata/models/usergroup.py:14
+msgid "usergroups"
+msgstr "grupos"
+
+#: imdata/templates/layout.html:14
+msgid "Application Name"
+msgstr "Nome da aplicação"
+
+#: imdata/templates/layout.html:19
+msgid "Welcome"
+msgstr "Bem vindo"
+
+#: imdata/templates/layout.html:20
+msgid "Profile"
+msgstr "Perfil"
+
+#: imdata/templates/layout.html:21
+msgid "Logout"
+msgstr "Sair"
+
+#: imdata/templates/layout.html:35 imdata/templates/dashboard/index.html:5
+#: imdata/templates/dashboard/index.html:260
+msgid "Dashboard"
+msgstr "Painel"
+
+#: imdata/templates/layout.html:40
+msgid "ACLs"
+msgstr "ACLs"
+
+#: imdata/templates/layout.html:45 imdata/templates/dashboard/index.html:283
+#: imdata/templates/license/index.html:54
+#: imdata/templates/settings/update.html:46
+msgid "Users"
+msgstr "Usuários"
+
+#: imdata/templates/layout.html:50
+msgid "Groups"
+msgstr "Grupos"
+
+#: imdata/templates/layout.html:55
+msgid "Conversations"
+msgstr "Conversas"
+
+#: imdata/templates/layout.html:60
+msgid "Badwords"
+msgstr "Palavrões"
+
+#: imdata/templates/layout.html:65
+msgid "Settings"
+msgstr "Configurações"
+
+#: imdata/templates/layout.html:70 imdata/templates/license/index.html:5
+#: imdata/templates/license/index.html:36
+msgid "License"
+msgstr "Licença"
+
+#: imdata/templates/layout.html:76 imdata/templates/profiles/list.html:5
+#: imdata/templates/profiles/list.html:38
+msgid "Profiles"
+msgstr "Perfis"
+
+#: imdata/templates/layout_base.html:19
+#: imdata/templates/profiles/login.html:12
+msgid "Application"
+msgstr "Aplicação"
+
+#: imdata/templates/acls/add.html:5 imdata/templates/acls/add.html.py:18
+msgid "Add ACL"
+msgstr "Adicionar ACL"
+
+#: imdata/templates/acls/edit.html:5 imdata/templates/acls/edit.html.py:18
+msgid "Change ACL"
+msgstr "Alterar ACL"
+
+#: imdata/templates/acls/list.html:5 imdata/templates/acls/list.html.py:49
+msgid "ACL Summary"
+msgstr "Lista de ACLs"
+
+#: imdata/templates/acls/list.html:22 imdata/templates/badwords/list.html:19
+#: imdata/templates/groups/list.html:20
+msgid "You're about to delete {0} {1}."
+msgstr "Você está prestes a apagar {0} {1}."
+
+#: imdata/templates/acls/list.html:51
+msgid "Search for acls"
+msgstr "Procura por acls"
+
+#: imdata/templates/badwords/add.html:5 imdata/templates/badwords/add.html:18
+msgid "Add Badword"
+msgstr "Adicionar Palavrão"
+
+#: imdata/templates/badwords/edit.html:5
+#: imdata/templates/badwords/edit.html:18
+msgid "Change Badword"
+msgstr "Alterar Palavrão"
+
+#: imdata/templates/badwords/list.html:5
+#: imdata/templates/badwords/list.html:52
+msgid "Badword Summary"
+msgstr "Lista de Palavrões"
+
+#: imdata/templates/badwords/list.html:54
+msgid "Search for badwords"
+msgstr "Procura por palavrões"
+
+#: imdata/templates/buddies/list.html:5 imdata/templates/buddies/list.html:37
+msgid "Contacts of"
+msgstr "Contatos de"
+
+#: imdata/templates/buddies/list.html:39
+msgid "Search for contacts"
+msgstr "Procura por contatos"
+
+#: imdata/templates/conversations/list.html:5
+#: imdata/templates/conversations/list.html:87
+msgid "Conversation Summary"
+msgstr "Lista de Conversas"
+
+#: imdata/templates/conversations/list.html:89
+msgid "Search for messages"
+msgstr "Procura por mensagens"
+
+#: imdata/templates/conversations/show.html:42
+msgid "Export as"
+msgstr "Exportar como"
+
+#: imdata/templates/conversations/show.html:49
+msgid "Time"
+msgstr "Horário"
+
+#: imdata/templates/conversations/show.html:50
+msgid "Author"
+msgstr "Autor"
+
+#: imdata/templates/conversations/show.html:51
+msgid "Message"
+msgstr "Mensagem"
+
+#: imdata/templates/conversations/show.html:59
+#, python-format
+msgid "%(total)s message"
+msgid_plural "%(total)s messages"
+msgstr[0] "%(total)s mensagem"
+msgstr[1] "%(total)s mensagens"
+
+#: imdata/templates/conversations/show.html:77
+msgid "This message was filtered."
+msgstr "Esta mensagem foi filtrada."
+
+#: imdata/templates/conversations/show.html:84
+msgid "File transfer: "
+msgstr "Transferência de arquivo: "
+
+#: imdata/templates/conversations/show.html:86
+msgid "Filename: "
+msgstr "Nome do arquivo: "
+
+#: imdata/templates/conversations/show.html:87
+msgid "Size: "
+msgstr "Tamanho: "
+
+#: imdata/templates/conversations/table.html:57
+#: imdata/templates/generic/table.html:57
+msgid "No results found."
+msgstr "Nenhum resultado encontrado."
+
+#: imdata/templates/dashboard/index.html:62
+#: imdata/templates/dashboard/index.html:102
+msgid "None."
+msgstr "Nenhum."
+
+#: imdata/templates/dashboard/index.html:177
+#: imdata/templates/dashboard/index.html:264
+msgid "Most Active Users"
+msgstr "Usuários Mais Ativos"
+
+#: imdata/templates/dashboard/index.html:270
+#: imdata/templates/dashboard/index.html:286
+msgid "Messages"
+msgstr "Mensagens"
+
+#: imdata/templates/dashboard/index.html:278
+msgid "Latest Conversations"
+msgstr "Últimas Conversas"
+
+#: imdata/templates/dashboard/index.html:285
+msgid "Last activity"
+msgstr "Última atividade"
+
+#: imdata/templates/dashboard/index.html:295
+msgid "users online"
+msgstr "usuários online"
+
+#: imdata/templates/dashboard/index.html:299
+msgid "active conversations"
+msgstr "conversas ativas"
+
+#: imdata/templates/generic/actions.html:21
+msgid "disable"
+msgstr "desabilitar"
+
+#: imdata/templates/generic/actions.html:22
+msgid "enable"
+msgstr "habilitar"
+
+#: imdata/templates/generic/actions.html:23
+msgid "block"
+msgstr "bloquear"
+
+#: imdata/templates/generic/actions.html:24
+msgid "unblock"
+msgstr "desbloquear"
+
+#: imdata/templates/generic/actions.html:25
+msgid "delete"
+msgstr "apagar"
+
+#: imdata/templates/generic/actions.html:28
+msgid "show"
+msgstr "mostrar"
+
+#: imdata/templates/generic/form-submit.html:3
+#: imdata/templates/license/edit.html:15
+#: imdata/templates/profiles/update.html:137
+#: imdata/templates/settings/update.html:77
+msgid "Save"
+msgstr "Salvar"
+
+#: imdata/templates/generic/form-submit.html:4
+msgid "Save and continue editing"
+msgstr "Salvar e editar"
+
+#: imdata/templates/generic/form-submit.html:5
+msgid "Save and add another"
+msgstr "Salvar e adicionar"
+
+#: imdata/templates/generic/modal-delete.html:3
+msgid "Do you want to proceed?"
+msgstr "Deseja continuar?"
+
+#: imdata/templates/generic/modal-delete.html:6
+msgid "No"
+msgstr "Não"
+
+#: imdata/templates/generic/modal-delete.html:7
+msgid "Yes"
+msgstr "Sim"
+
+#: imdata/templates/generic/paginator.html:6
+#: imdata/templates/generic/paginator.html:9
+msgid "previous"
+msgstr "anterior"
+
+#: imdata/templates/generic/paginator.html:22
+#: imdata/templates/generic/paginator.html:25
+msgid "next"
+msgstr "próxima"
+
+#: imdata/templates/generic/paginator.html:30
+msgid "of"
+msgstr "de"
+
+#: imdata/templates/generic/search-advanced.html:7
+msgid "<u>B</u>ack to simple search"
+msgstr "Voltar para <u>b</u>usca simples"
+
+#: imdata/templates/generic/search-advanced.html:15
+#: imdata/templates/generic/search-advanced.html:16
+#: imdata/templates/generic/search.html:12
+msgid "Search"
+msgstr "Procurar"
+
+#: imdata/templates/generic/search.html:17
+msgid "<u>A</u>dvanced search"
+msgstr "Busca <u>a</u>vançada"
+
+#: imdata/templates/generic/search.html:22
+msgid "<u>N</u>ew"
+msgstr "<u>N</u>ovo"
+
+#: imdata/templates/groups/add.html:5 imdata/templates/groups/add.html:19
+msgid "Add Group"
+msgstr "Adicionar Grupo"
+
+#: imdata/templates/groups/edit.html:5 imdata/templates/groups/edit.html:19
+msgid "Change Group"
+msgstr "Alterar Grupo"
+
+#: imdata/templates/groups/form-fieldset-rules.html:9
+#: imdata/templates/groups/form-fieldset-users.html:9
+msgid "available"
+msgstr "disponíveis"
+
+#: imdata/templates/groups/form-fieldset-rules.html:23
+#: imdata/templates/groups/form-fieldset-users.html:23
+msgid "Add"
+msgstr "Adicionar"
+
+#: imdata/templates/groups/form-fieldset-rules.html:24
+#: imdata/templates/groups/form-fieldset-users.html:24
+msgid "Remove"
+msgstr "Remover"
+
+#: imdata/templates/groups/form-fieldset-rules.html:36
+#: imdata/templates/groups/form-fieldset-users.html:36
+msgid "assigned"
+msgstr "atribuídos"
+
+#: imdata/templates/groups/list.html:5 imdata/templates/groups/list.html:47
+msgid "Group Summary"
+msgstr "Lista de Grupos"
+
+#: imdata/templates/groups/list.html:49
+msgid "Search for groups"
+msgstr "Procura por grupos"
+
+#: imdata/templates/license/edit.html:5 imdata/templates/license/edit.html:10
+msgid "Change License"
+msgstr "Alterar Licença"
+
+#: imdata/templates/license/index.html:42
+msgid "Licensee"
+msgstr "Titular"
+
+#: imdata/templates/license/index.html:46
+msgid "Validity"
+msgstr "Validade"
+
+#: imdata/templates/license/index.html:64
+msgid "Change"
+msgstr "Alterar"
+
+#: imdata/templates/profiles/list.html:27 imdata/templates/users/list.html:27
+msgid "Are you sure?"
+msgstr "Você tem certeza?"
+
+#: imdata/templates/profiles/list.html:40
+msgid "Search for profiles"
+msgstr "Procura por perfis"
+
+#: imdata/templates/profiles/login.html:49
+msgid "login"
+msgstr "login"
+
+#: imdata/templates/profiles/login.html:53
+msgid "Remember me"
+msgstr "Lembrar"
+
+#: imdata/templates/profiles/login.html:58
+msgid "Forgot password?"
+msgstr "Esqueceu a senha?"
+
+#: imdata/templates/profiles/login.html:64
+msgid "Invalid user or password."
+msgstr "Usuário ou senha inválida."
+
+#: imdata/templates/profiles/update.html:5
+#: imdata/templates/profiles/update.html:58
+msgid "Change Profile"
+msgstr "Alterar Perfil"
+
+#: imdata/templates/profiles/update.html:31
+msgid "Please, type the current password."
+msgstr "Por favor, digita a senha atual."
+
+#: imdata/templates/profiles/update.html:36
+#: imdata/templates/profiles/update.html:41
+msgid "Please, type the new password."
+msgstr "Por favor, digite a nova senha."
+
+#: imdata/templates/profiles/update.html:46
+msgid "The two password fields don\\'t match."
+msgstr "Os 2 campos de senha não conferem."
+
+#: imdata/templates/profiles/update.html:111
+msgid "change password"
+msgstr "alterar senha"
+
+#: imdata/templates/settings/update.html:5
+#: imdata/templates/settings/update.html:21
+msgid "Change Settings"
+msgstr "Alterar Configurações"
+
+#: imdata/templates/settings/update.html:27
+msgid "Protocol Versions"
+msgstr "Versões do Protocolo"
+
+#: imdata/templates/settings/update.html:58
+msgid "Notifications"
+msgstr "Notificações"
+
+#: imdata/templates/users/add.html:5 imdata/templates/users/add.html.py:18
+msgid "Add User"
+msgstr "Adicionar Usuário"
+
+#: imdata/templates/users/edit.html:5 imdata/templates/users/edit.html:18
+msgid "Change User"
+msgstr "Alterar Usuário"
+
+#: imdata/templates/users/list.html:5 imdata/templates/users/list.html:38
+msgid "User Summary"
+msgstr "Lista de Usuários"
+
+#: imdata/templates/users/list.html:40
+msgid "Search for users"
+msgstr "Procura por usuários"
+
+#: templates/404.html:5 templates/404.html.py:10
+msgid "Not found"
+msgstr "Não encontrado"
+
+#: templates/404.html:12
+msgid "The url"
+msgstr "A url"
+
+#: templates/404.html:12
+msgid "doesn't exist."
+msgstr "não existe."
+
+#: templates/500.html:5 templates/500.html.py:10
+msgid "Internal error"
+msgstr "Erro interno"
+
+#: templates/500.html:12
+msgid "This shouldn't happen! Please, contact "
+msgstr "Isto não deveria acontecer! Por favor, contate "
+
+#~ msgid "Filter alert"
+#~ msgstr "Alerta de filtro"
+
+#~ msgid "Default alert"
+#~ msgstr "Alerta padrão"
