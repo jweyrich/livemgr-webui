@@ -25,11 +25,11 @@ msgstr "Inglês"
 msgid "Brazilian Portuguese"
 msgstr "Português"
 
-#: framework/utils.py:49
+#: common/utils.py:49
 msgid "Please, correct the fields below."
 msgstr "Por favor, corrija os campos abaixo."
 
-#: framework/decorators/rest.py:13
+#: common/decorators/rest.py:13
 msgid "You don't have permission to access this."
 msgstr "Você não tem permissão para acessar isto."
 

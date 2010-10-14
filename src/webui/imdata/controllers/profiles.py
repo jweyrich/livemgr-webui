@@ -10,10 +10,10 @@ from django.utils.translation import gettext as _, ugettext_lazy, \
 	check_for_language
 from django.views.i18n import set_language
 from webui import settings
-from webui.framework.custom_paginator import CustomPaginator
-from webui.framework.decorators.rest import rest_multiple
-from webui.framework.http import method
-from webui.framework.utils import flash_success, flash_form_error
+from webui.common.custom_paginator import CustomPaginator
+from webui.common.decorators.rest import rest_multiple
+from webui.common.http import method
+from webui.common.utils import flash_success, flash_form_error
 from webui.imdata.models.profile import Profile
 from webui.imdata.utils.formatters import format_boolean
 import django_tables as tables

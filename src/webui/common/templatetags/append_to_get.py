@@ -18,7 +18,7 @@
 """
 
 from django import template
-from webui.framework.decorators.easy_tag import easy_tag 
+from webui.common.decorators.easy_tag import easy_tag 
 
 register = template.Library()
 

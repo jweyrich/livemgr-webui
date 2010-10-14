@@ -2,12 +2,11 @@ from django import forms
 from django.contrib.auth.decorators import login_required, permission_required
 from django.shortcuts import render_to_response
 from django.template import RequestContext
-from django.utils.translation import ugettext_lazy
-from webui.framework.decorators.rest import rest_multiple
-from webui.framework.http import method
-from webui.framework.utils import flash_success, flash_form_error
+from django.utils.translation import ugettext as _, ugettext_lazy
+from webui.common.decorators.rest import rest_multiple
+from webui.common.http import method
+from webui.common.utils import flash_success, flash_form_error
 from webui.imdata.models.setting import Setting
-from django.utils.translation import ugettext as _
 
 class SettingsUpdateForm(forms.Form):
 	PROTOCOL_CHOICES = (

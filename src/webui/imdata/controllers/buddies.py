@@ -5,9 +5,9 @@ from django.http import HttpResponseBadRequest, HttpResponse
 from django.shortcuts import render_to_response, get_object_or_404
 from django.template import RequestContext
 from django.utils.translation import ugettext as _, ugettext_lazy
-from webui.framework import CustomPaginator
-from webui.framework.decorators.rest import rest_multiple, rest_post
-from webui.framework.http import method
+from webui.common.decorators.rest import rest_multiple, rest_post
+from webui.common.http import method
+from webui.common import CustomPaginator
 from webui.imdata.models import User
 from webui.imdata.models.buddy import Buddy
 from webui.imdata.models.profile import Profile

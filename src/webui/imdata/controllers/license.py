@@ -13,9 +13,9 @@ from django.template.context import RequestContext
 from django.utils.translation import ugettext as _, ugettext_lazy
 from hashlib import sha1
 from webui import settings
-from webui.framework.decorators.rest import rest_multiple, rest_get
-from webui.framework.http import method
-from webui.framework.utils import flash_success, flash_form_error, flash_error
+from webui.common.decorators.rest import rest_multiple, rest_get
+from webui.common.http import method
+from webui.common.utils import flash_success, flash_form_error, flash_error
 from webui.imdata.models.license import License
 import os
 import sys

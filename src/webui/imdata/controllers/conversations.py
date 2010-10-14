@@ -13,11 +13,11 @@ from reportlab.lib.units import cm
 from reportlab.platypus.doctemplate import SimpleDocTemplate
 from reportlab.platypus.flowables import Spacer
 from reportlab.platypus.paragraph import Paragraph
-from webui.framework import CustomPaginator
-from webui.framework.color_dict import color_dict
-from webui.framework.decorators.rest import rest_multiple, rest_get
-from webui.framework.http import method
-from webui.framework.report import coord_tl, NumberedCanvas, coord_tr
+from webui.common import CustomPaginator
+from webui.common.color_dict import color_dict
+from webui.common.decorators.rest import rest_multiple, rest_get
+from webui.common.http import method
+from webui.common.report import coord_tl, NumberedCanvas, coord_tr
 from webui.imdata.models import Message
 from webui.imdata.models.profile import Profile
 from webui.imdata.models.view_messages import ViewMessages

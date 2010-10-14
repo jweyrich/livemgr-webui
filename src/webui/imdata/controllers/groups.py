@@ -8,11 +8,11 @@ from django.http import HttpResponse, HttpResponseRedirect, \
 from django.shortcuts import render_to_response, get_object_or_404
 from django.template import RequestContext
 from django.utils.translation import ugettext as _, ugettext_lazy
-from webui.framework import CustomPaginator
-from webui.framework.decorators.rest import rest_multiple, rest_post
-from webui.framework.http import method
-from webui.framework.utils import request_has_error, FormAction, flash_info, \
-	InView, flash_success, flash_warning, flash_form_error
+from webui.common import CustomPaginator
+from webui.common.decorators.rest import rest_multiple, rest_post
+from webui.common.http import method
+from webui.common.utils import request_has_error, FormAction, flash_info, InView, \
+	flash_success, flash_warning, flash_form_error
 from webui.imdata.models import UserGroup
 from webui.imdata.models.grouprule import GroupRule
 from webui.imdata.models.profile import Profile

@@ -132,7 +132,7 @@ INSTALLED_APPS = (
 	'django.contrib.webdesign',
 	'django_tables',
 	'debug_toolbar',
-	'webui.framework',
+	'webui.common',
 	'webui.imdata',
 )
 

@@ -1,6 +1,6 @@
 from django.db import models
 from django.utils.translation import ugettext_lazy as _
-from webui.framework.auth.auth_user_profile import AuthUserProfileModel
+from webui.common.auth.auth_user_profile import AuthUserProfileModel
 
 class Profile(AuthUserProfileModel):
 	class Meta:

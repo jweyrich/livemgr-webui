@@ -4,10 +4,10 @@ from django.http import HttpResponse
 from django.shortcuts import render_to_response
 from django.template import RequestContext
 from django.utils import simplejson
-from webui.framework.db.query import fetchall_to_dict, fetchone_to_dict
-from webui.framework.decorators.rest import rest_get, rest_multiple
-from webui.framework.http import method
-from webui.framework.json import ComplexTypeEncoder
+from webui.common.db.query import fetchall_to_dict, fetchone_to_dict
+from webui.common.decorators.rest import rest_get, rest_multiple
+from webui.common.http import method
+from webui.common.json import ComplexTypeEncoder
 
 class DataTree:
 	def __init__(self, limit, period, localdt=datetime.now()):
