@@ -9,7 +9,7 @@
 
     It wraps around the orginal extends tag, to avoid code duplication, and to
     not miss out on possible future django enhancements.
-    Note: The current implementation will override variables passed from your
+    **NOTE**: The current implementation will override variables passed from your
     view, too, so be careful.
 
     Some of the argument parsing code is based on:
