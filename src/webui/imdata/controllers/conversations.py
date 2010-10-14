@@ -39,6 +39,7 @@ class ViewMessagesTable(tables.ModelTable):
 		super(ViewMessagesTable, self).__init__(*args, **kwargs)
 		self.see_users = request.user.has_perm('see_users')
 	def render_localim(self, instance):
+		# TODO(jweyrich): should we care about XSS on localim?
 		if self.see_users:
 			return mark_safe('<a href="%s">%s</a>' % (
 				reverse('imdata:users-edit', args=[instance.localuser_id]),
