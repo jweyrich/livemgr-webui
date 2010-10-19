@@ -39,24 +39,28 @@ $(document).ready(function() {
 		<fieldset>
 			<div class="details">
 				<p>
+					<label for="id_serial">{% trans "Serial" %}</label>
+					<span id="id_serial">{{ license.serial }}</span>
+				</p>
+				<p>
 					<label for="id_licensee">{% trans "Licensee" %}</label>
-					<span id="id_licensee">{{ cert.subject_o }}</span>
+					<span id="id_licensee">{{ license.licensee }}</span>
 				</p>
 				<p>
 					<label for="id_validity1">{% trans "Validity" %}</label>
-					<span id="id_validity1">{{ cert.valid_since|date:"DATETIME_FORMAT" }}</span>
+					<span id="id_validity1">{{ license.valid_since|date:"DATETIME_FORMAT" }}</span>
 				</p>
 				<p>
 					<label for="id_validity2">&nbsp;</label>
-					<span id="id_validity2">{{ cert.valid_until|date:"DATETIME_FORMAT" }}</span>
+					<span id="id_validity2">{{ license.valid_until|date:"DATETIME_FORMAT" }}</span>
 				</p>
 				<p>
 					<label for="id_users">{% trans "Users" %}</label>
-					<span id="id_users">{{ cert.users }}</span>
+					<span id="id_users">{{ license.max_users }}</span>
 				</p>
 				<p>
 					<label for="id_status">{% trans "Status" %}</label>
-					<span id="id_status">{{ cert.status }}</span>
+					<span id="id_status">{{ license.status }}</span>
 				</p>
 			</div>
 		</fieldset>

@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2010-08-24 07:30+0000\n"
+"POT-Creation-Date: 2010-10-19 07:15+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -17,15 +17,15 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 
-#: settings.py:56
+#: settings.py:65
 msgid "English"
 msgstr "Inglês"
 
-#: settings.py:57
+#: settings.py:66
 msgid "Brazilian Portuguese"
 msgstr "Português"
 
-#: common/utils.py:49
+#: common/utils.py:50
 msgid "Please, correct the fields below."
 msgstr "Por favor, corrija os campos abaixo."
 
@@ -35,7 +35,7 @@ msgstr "Você não tem permissão para acessar isto."
 
 #: imdata/controllers/acls.py:28 imdata/controllers/acls.py:42
 #: imdata/controllers/conversations.py:35
-#: imdata/controllers/conversations.py:70 imdata/models/acl.py:24
+#: imdata/controllers/conversations.py:71 imdata/models/acl.py:24
 #: imdata/models/buddy.py:25 imdata/models/conversation.py:18
 #: imdata/models/message.py:60 imdata/models/user.py:24
 msgid "user"
@@ -43,7 +43,7 @@ msgstr "usuário"
 
 #: imdata/controllers/acls.py:29 imdata/controllers/acls.py:43
 #: imdata/controllers/conversations.py:36
-#: imdata/controllers/conversations.py:71 imdata/models/acl.py:25
+#: imdata/controllers/conversations.py:72 imdata/models/acl.py:25
 #: imdata/models/buddy.py:14 imdata/models/message.py:61
 msgid "buddy"
 msgstr "contato"
@@ -59,7 +59,7 @@ msgid "You may add another."
 msgstr "Você pode adicionar outro."
 
 #: imdata/controllers/acls.py:74 imdata/controllers/badwords.py:70
-#: imdata/controllers/buddies.py:57 imdata/controllers/conversations.py:103
+#: imdata/controllers/buddies.py:57 imdata/controllers/conversations.py:104
 #: imdata/controllers/groups.py:78 imdata/controllers/profiles.py:87
 #: imdata/controllers/users.py:110
 msgid "Invalid search criteria"
@@ -132,79 +132,79 @@ msgstr "bloqueado"
 msgid "timestamp"
 msgstr "horário"
 
-#: imdata/controllers/conversations.py:49
-#: imdata/controllers/conversations.py:211
+#: imdata/controllers/conversations.py:50
+#: imdata/controllers/conversations.py:212
 msgid "%m/%d/%Y - %I:%M:%S %p"
 msgstr "%d/%m/%Y - %I:%M:%S %p"
 
-#: imdata/controllers/conversations.py:69 imdata/models/message.py:46
+#: imdata/controllers/conversations.py:70 imdata/models/message.py:46
 msgid "message"
 msgstr "mensagem"
 
-#: imdata/controllers/conversations.py:72 imdata/models/message.py:62
+#: imdata/controllers/conversations.py:73 imdata/models/message.py:62
 msgid "filtered"
 msgstr "filtrado"
 
-#: imdata/controllers/conversations.py:74
+#: imdata/controllers/conversations.py:75
 msgid "from date"
 msgstr "da data"
 
-#: imdata/controllers/conversations.py:77
-#: imdata/controllers/conversations.py:86
+#: imdata/controllers/conversations.py:78
+#: imdata/controllers/conversations.py:87
 msgid "mm/dd/yyyy"
 msgstr "dd/mm/yyyy"
 
-#: imdata/controllers/conversations.py:83
+#: imdata/controllers/conversations.py:84
 msgid "to date"
 msgstr "até a data"
 
-#: imdata/controllers/conversations.py:110
+#: imdata/controllers/conversations.py:111
 msgid "Invalid date"
 msgstr "Data inválida"
 
-#: imdata/controllers/conversations.py:159
-#: imdata/controllers/conversations.py:182
+#: imdata/controllers/conversations.py:160
+#: imdata/controllers/conversations.py:183
 #, python-format
 msgid "Missing argument: %s"
 msgstr "Faltando argumento: %s"
 
-#: imdata/controllers/conversations.py:187
+#: imdata/controllers/conversations.py:188
 msgid "Conversation not found"
 msgstr "Conversa não encontrada"
 
-#: imdata/controllers/conversations.py:208
+#: imdata/controllers/conversations.py:209
 #: imdata/templates/conversations/show.html:5
 #: imdata/templates/conversations/show.html:36
 msgid "Conversation"
 msgstr "Conversa"
 
-#: imdata/controllers/conversations.py:209
+#: imdata/controllers/conversations.py:210
 #: imdata/templates/conversations/show.html:37
 #: imdata/templates/dashboard/index.html:269
 msgid "User"
 msgstr "Usuário"
 
-#: imdata/controllers/conversations.py:210
+#: imdata/controllers/conversations.py:211
 #: imdata/templates/conversations/show.html:39
 msgid "Buddy"
 msgstr "Contato"
 
-#: imdata/controllers/conversations.py:211
+#: imdata/controllers/conversations.py:212
 #: imdata/templates/conversations/show.html:40
 msgid "Started in"
 msgstr "Inciciada em"
 
-#: imdata/controllers/conversations.py:212
+#: imdata/controllers/conversations.py:213
 #: imdata/templates/conversations/show.html:41
 msgid "Total messages"
 msgstr "Total de mensagens"
 
-#: imdata/controllers/conversations.py:235
+#: imdata/controllers/conversations.py:236
 #, python-format
 msgid "Page %(this)i of %(total)i"
 msgstr "Página %(this)i de %(total)i"
 
-#: imdata/controllers/conversations.py:242
+#: imdata/controllers/conversations.py:243
 msgid "%m/%d/%Y %I:%M:%S %p"
 msgstr "%d/%m/%Y %I:%M:%S %p"
 
@@ -253,29 +253,30 @@ msgstr "O grupo '%s' foi criado com sucesso."
 msgid "Can't delete built-in groups."
 msgstr "Não é permitido excluir grupos permanentes."
 
-#: imdata/controllers/license.py:39 imdata/models/license.py:17
+#: imdata/controllers/license.py:25 imdata/models/license.py:17
 msgid "Certificate"
 msgstr "Certificado"
 
-#: imdata/controllers/license.py:102
+#: imdata/controllers/license.py:74 imdata/controllers/license.py:95
+#: imdata/controllers/license.py:142 imdata/controllers/license.py:146
+msgid "Please, inform a valid license."
+msgstr "Por favor, informe uma licença válida."
+
+#: imdata/controllers/license.py:90
 msgid "Valid"
 msgstr "Válida"
 
-#: imdata/controllers/license.py:103
+#: imdata/controllers/license.py:91
 msgid "Expired"
 msgstr "Expirada"
 
-#: imdata/controllers/license.py:144
+#: imdata/controllers/license.py:134
+msgid "Unable to save the uploaded file. Please, report this to your administrator."
+msgstr "Não foi possível salvar o arquivo enviado. Por favor, informe seu administrador."
+
+#: imdata/controllers/license.py:148
 msgid "The license was changed successfully."
 msgstr "A licença foi alterada com sucesso."
-
-#: imdata/controllers/license.py:147
-msgid "The informed certificate is already in use."
-msgstr "O certificado informado já está em uso."
-
-#: imdata/controllers/license.py:149
-msgid "Please, inform a valid certificate."
-msgstr "Por favor, informe um certificado válido."
 
 #: imdata/controllers/profiles.py:29 imdata/controllers/profiles.py:75
 msgid "email"
@@ -332,31 +333,31 @@ msgstr "grupo"
 msgid "Your profile was updated successfully."
 msgstr "Seu perfil foi atualizado com sucesso."
 
-#: imdata/controllers/settings.py:26
+#: imdata/controllers/settings.py:25
 msgid "Minimum"
 msgstr "Mínimo"
 
-#: imdata/controllers/settings.py:27
+#: imdata/controllers/settings.py:26
 msgid "Maximum"
 msgstr "Máximo"
 
-#: imdata/controllers/settings.py:28
+#: imdata/controllers/settings.py:27
 msgid "Allow self registration"
 msgstr "Permitir auto-registro"
 
-#: imdata/controllers/settings.py:29
+#: imdata/controllers/settings.py:28
 msgid "Filter"
 msgstr "Filtro"
 
-#: imdata/controllers/settings.py:30
+#: imdata/controllers/settings.py:29
 msgid "Alert"
 msgstr "Alerta"
 
-#: imdata/controllers/settings.py:47 imdata/controllers/settings.py:53
+#: imdata/controllers/settings.py:46 imdata/controllers/settings.py:52
 msgid "This field is required."
 msgstr "Este campo é necessário"
 
-#: imdata/controllers/settings.py:82
+#: imdata/controllers/settings.py:81
 msgid "The settings were changed successfully."
 msgstr "As configurações foram alteradas com sucesso."
 
@@ -422,7 +423,7 @@ msgstr "conversa"
 msgid "conversations"
 msgstr "conversas"
 
-#: imdata/models/conversation.py:20 imdata/templates/license/index.html:58
+#: imdata/models/conversation.py:20 imdata/templates/license/index.html:62
 msgid "Status"
 msgstr "Status"
 
@@ -664,7 +665,7 @@ msgid "ACLs"
 msgstr "ACLs"
 
 #: imdata/templates/layout.html:45 imdata/templates/dashboard/index.html:283
-#: imdata/templates/license/index.html:54
+#: imdata/templates/license/index.html:58
 #: imdata/templates/settings/update.html:46
 msgid "Users"
 msgstr "Usuários"
@@ -955,14 +956,18 @@ msgid "Change License"
 msgstr "Alterar Licença"
 
 #: imdata/templates/license/index.html:42
+msgid "Serial"
+msgstr "Serial"
+
+#: imdata/templates/license/index.html:46
 msgid "Licensee"
 msgstr "Titular"
 
-#: imdata/templates/license/index.html:46
+#: imdata/templates/license/index.html:50
 msgid "Validity"
 msgstr "Validade"
 
-#: imdata/templates/license/index.html:64
+#: imdata/templates/license/index.html:68
 msgid "Change"
 msgstr "Alterar"
 
@@ -1060,6 +1065,9 @@ msgstr "Erro interno"
 #: templates/500.html:12
 msgid "This shouldn't happen! Please, contact "
 msgstr "Isto não deveria acontecer! Por favor, contate "
+
+#~ msgid "The informed certificate is already in use."
+#~ msgstr "O certificado informado já está em uso."
 
 #~ msgid "Filter alert"
 #~ msgstr "Alerta de filtro"

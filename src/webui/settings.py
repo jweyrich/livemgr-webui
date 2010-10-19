@@ -7,9 +7,18 @@ import stat
 # django.utils.translation -- that module depends on the settings.
 gettext_noop = lambda s: s
 
+PROJECT_VERSION = '0.1.0'
 PROJECT_PATH = os.path.realpath(os.path.dirname(__file__))
 #print 'PROJECT_PATH=%s' % PROJECT_PATH
 #VIRTUALENV = "/Users/jweyrich/Desktop/webui/lib/python2.6/site-packages"
+
+PROJECT_KEYSERVER_CERT_FILE = os.path.join(PROJECT_PATH, 'conf', 'certs', 'cert.pem')
+PROJECT_KEYSERVER_HOST = '127.0.0.1'
+#PROJECT_KEYSERVER_PORT = 443
+#PROJECT_KEYSERVER_SSL = True
+PROJECT_KEYSERVER_PORT = 8081
+PROJECT_KEYSERVER_SSL = False
+PROJECT_KEYSERVER_URI = '/details' # /error/noindex.html
 
 # DONT CHANGE THESE
 SITE_ID = 1
@@ -73,7 +82,7 @@ SERVER_EMAIL = 'root@localhost'
 # Whether to send broken-link e-mails.
 SEND_BROKEN_LINK_EMAILS = False
 
-DATABASE_CONFIG_FILE = PROJECT_PATH+'/conf/mysql-%s.conf' % gethostname().split('.')[0]
+DATABASE_CONFIG_FILE = PROJECT_PATH + '/conf/mysql-%s.conf' % gethostname().split('.')[0]
 if not os.path.isfile(DATABASE_CONFIG_FILE):
 	raise Exception("Database configuration file for this host does not exist: %s" % DATABASE_CONFIG_FILE)
 

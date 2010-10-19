@@ -12,7 +12,7 @@ from django.utils.translation import ugettext_lazy as _
 def get_order(request, default_field):
 	#from django.template import RequestContext
 	return request.GET.get('sort', default_field)
-	
+
 def get_order_raw(request, default_field):
 	order_by = get_order(request, default_field)
 	if order_by.startswith('-'):
@@ -40,7 +40,7 @@ def flash_warning(request, msg):
 def flash_error(request, msg):
 	if not hasattr(request, '_errors'):
 		request._errors = 0
-	request._errors += 1 
+	request._errors += 1
 	messages.error(request, msg)
 def flash_form_error(request, form):
 	if '__all__' in form.errors and len(form.errors['__all__']) > 0:
@@ -54,10 +54,10 @@ def request_has_error(request):
 	return request._errors > 0
 
 class InView:
-	EDIT	= 0
-	ADD		= 1
+	EDIT	 = 0
+	ADD		 = 1
 
 class FormAction:
-	SAVE_AND_ADD	= '_save_add'
-	SAVE_AND_EDIT	= '_save_edit'
-	SAVE_AND_LIST	= '_save_list'
+	SAVE_AND_ADD	 = '_save_add'
+	SAVE_AND_EDIT	 = '_save_edit'
+	SAVE_AND_LIST	 = '_save_list'
