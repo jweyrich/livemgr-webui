@@ -1,4 +1,3 @@
-
 if (!String.prototype.format) {
 	String.prototype.format = function() {
 		var txt = this;

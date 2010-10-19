@@ -1,6 +1,18 @@
-
 if (typeof gettext == 'undefined') {
-	gettext = function(msgid) { return msgid; };
+	//gettext = function(msgid) { return msgid; };
+	// Temporary workaround for http://code.djangoproject.com/ticket/5494
+	gettext = function(msgid) {
+		var lang = i18nUtil.langCode;
+		switch (lang) {
+			case 'pt-BR':
+				switch (msgid) {
+					case 'Today': return 'Hoje'
+					default: return msgid
+				}
+			default:
+				return msgid;
+		}
+	}
 }
 
 var CalendarUtil = {

@@ -1,4 +1,3 @@
-
 var i18nUtil = {
 	langCode: 'en',
 	init: function() {

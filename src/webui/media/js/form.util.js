@@ -1,4 +1,3 @@
-
 var FormUtil = {
 	make_field_hint : function(parent, field_id) {
 		label = $(parent + ' label[for=' + field_id + ']');

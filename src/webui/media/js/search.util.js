@@ -1,4 +1,3 @@
-
 var SearchUtil = {
 	current_criteria: null,
 	afterSearchFunc: null,

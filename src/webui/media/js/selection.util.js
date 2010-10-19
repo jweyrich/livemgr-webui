@@ -1,4 +1,3 @@
-
 var SelectionUtil = {
 	_selection_count: function() {
 		return $('input[type="checkbox"][name="selection"]:not([disabled]):checked').length;

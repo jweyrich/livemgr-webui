@@ -1,3 +1,9 @@
+/**
+ * Color API
+ * by Jardel Weyrich <jweyrich@gmail.com>
+ *
+ * Color and ColorSerie.
+ */
 
 function Color(color) {
 	var r = 0,
@@ -33,6 +39,7 @@ function Color(color) {
 			this.b = color & 0x0000FF;
 		} else {
 			alert('Invalid color input.');
+			// My mind told me to not use alert(), but I didn't care.
 		}
 	};
 	this._decompose(color);

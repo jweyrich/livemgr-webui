@@ -1,9 +1,9 @@
-
 /**
- * BarChart API Abstraction - Google Chart Tools 
- * Author: Jardel Weyrich
+ * GoogleChartTools API
+ * by Jardel Weyrich <jweyrich@gmail.com>
  * 
- * This is a ongoing work and currently works with Bar charts only.
+ * This generates those awful URLs ;-)
+ * Supports Bar charts only.
  * 
  * References:
  * 	http://code.google.com/apis/chart/docs/chart_wizard.html
@@ -12,7 +12,7 @@
  */
 
 function BarChart(target) {
-	// TODO(jweyrich): IE must accept const someday
+	// Make this _const_ whenever IE starts supporting. Never? :-)
 	var params = {
 		url: 'http://chart.apis.google.com/chart?',
 		title: '&chtt={0}', // {string}
@@ -116,6 +116,7 @@ function BarChart(target) {
 			var obj = options.data.axes[i].style;
 			if (obj == undefined || obj == null || obj.length == 0)
 				obj = {};
+			// Default values
 			if (obj.labels == undefined)
 				obj.labels = {};
 			if (obj.labels.color == undefined)
@@ -141,9 +142,9 @@ function BarChart(target) {
 			tmp.push(obj.labels.font_size);
 			tmp.push(obj.labels.alignment);
 			var lt = '';
-			if (obj.line.show == true)
+			if (obj.line.show)
 				lt += 'l';
-			if (obj.ticks.show == true)
+			if (obj.ticks.show)
 				lt += 't';
 			if (!obj.line.show && !obj.ticks.show)
 				lt += '_';
