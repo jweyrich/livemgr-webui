@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2010-10-19 07:15+0000\n"
+"POT-Creation-Date: 2010-10-27 21:31+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -17,15 +17,15 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 
-#: settings.py:65
+#: settings.py:66
 msgid "English"
 msgstr "Inglês"
 
-#: settings.py:66
+#: settings.py:67
 msgid "Brazilian Portuguese"
 msgstr "Português"
 
-#: common/utils.py:50
+#: common/utils.py:49
 msgid "Please, correct the fields below."
 msgstr "Por favor, corrija os campos abaixo."
 
@@ -253,28 +253,41 @@ msgstr "O grupo '%s' foi criado com sucesso."
 msgid "Can't delete built-in groups."
 msgstr "Não é permitido excluir grupos permanentes."
 
-#: imdata/controllers/license.py:25 imdata/models/license.py:17
-msgid "Certificate"
-msgstr "Certificado"
-
-#: imdata/controllers/license.py:74 imdata/controllers/license.py:95
-#: imdata/controllers/license.py:142 imdata/controllers/license.py:146
+#: imdata/controllers/license.py:25
 msgid "Please, inform a valid license."
 msgstr "Por favor, informe uma licença válida."
 
-#: imdata/controllers/license.py:90
+#: imdata/controllers/license.py:26
+msgid "Connection problem. Try again in few minutes."
+msgstr "Problema de conexão. Tente novamente em poucos minutos."
+
+#: imdata/controllers/license.py:27
+msgid ""
+"Unable to save the uploaded file. Please, report this to your administrator."
+msgstr ""
+"Não foi possível salvar o arquivo enviado. Por favor, informe seu "
+"administrador."
+
+#: imdata/controllers/license.py:37 imdata/templates/layout.html:70
+#: imdata/templates/license/index.html:5
+#: imdata/templates/license/index.html:36
+msgid "License"
+msgstr "Licença"
+
+#: imdata/controllers/license.py:77
+#, python-format
+msgid "Server returned %(status)i %(reason)s"
+msgstr "Servidor retornou %(status)i %(reason)s"
+
+#: imdata/controllers/license.py:112
 msgid "Valid"
 msgstr "Válida"
 
-#: imdata/controllers/license.py:91
+#: imdata/controllers/license.py:113
 msgid "Expired"
 msgstr "Expirada"
 
-#: imdata/controllers/license.py:134
-msgid "Unable to save the uploaded file. Please, report this to your administrator."
-msgstr "Não foi possível salvar o arquivo enviado. Por favor, informe seu administrador."
-
-#: imdata/controllers/license.py:148
+#: imdata/controllers/license.py:166
 msgid "The license was changed successfully."
 msgstr "A licença foi alterada com sucesso."
 
@@ -446,18 +459,6 @@ msgstr "regras de grupo"
 #: imdata/models/grouprule.py:17 imdata/models/rule.py:12
 msgid "rule"
 msgstr "regra"
-
-#: imdata/models/license.py:12
-msgid "license"
-msgstr "licença"
-
-#: imdata/models/license.py:13
-msgid "licenses"
-msgstr "licenças"
-
-#: imdata/models/license.py:18
-msgid "Hash"
-msgstr "Hash"
 
 #: imdata/models/message.py:25
 msgid "unknown"
@@ -685,11 +686,6 @@ msgstr "Palavrões"
 #: imdata/templates/layout.html:65
 msgid "Settings"
 msgstr "Configurações"
-
-#: imdata/templates/layout.html:70 imdata/templates/license/index.html:5
-#: imdata/templates/license/index.html:36
-msgid "License"
-msgstr "Licença"
 
 #: imdata/templates/layout.html:76 imdata/templates/profiles/list.html:5
 #: imdata/templates/profiles/list.html:38
@@ -1065,6 +1061,18 @@ msgstr "Erro interno"
 #: templates/500.html:12
 msgid "This shouldn't happen! Please, contact "
 msgstr "Isto não deveria acontecer! Por favor, contate "
+
+#~ msgid "Certificate"
+#~ msgstr "Certificado"
+
+#~ msgid "license"
+#~ msgstr "licença"
+
+#~ msgid "licenses"
+#~ msgstr "licenças"
+
+#~ msgid "Hash"
+#~ msgstr "Hash"
 
 #~ msgid "The informed certificate is already in use."
 #~ msgstr "O certificado informado já está em uso."

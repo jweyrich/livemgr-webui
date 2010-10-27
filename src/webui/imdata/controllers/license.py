@@ -13,6 +13,7 @@ from webui import settings
 from webui.common.decorators.rest import rest_multiple, rest_get
 from webui.common.http import method
 from webui.common.utils import flash_success, flash_form_error, flash_error
+import errno
 import httplib
 import json
 import os
@@ -21,44 +22,75 @@ import stat
 import sys
 import urllib
 
+invalid_license_msg = _("Please, inform a valid license.")
+connection_problem_msg = _('Connection problem. Try again in few minutes.')
+unable_to_save_msg = _("Unable to save the uploaded file. "
+	"Please, report this to your administrator.")
+
+class InvalidLicense(Exception):
+	pass
+
+class ConnectionProblem(Exception):
+	pass
+
 class LicenseFileForm(forms.Form):
-	file = forms.FileField(required=True, label=ugettext_lazy("Certificate"))
+	file = forms.FileField(required=True, label=ugettext_lazy("License"))
 
 class LicenseDetails:
 	def __init__(self, **entries):
 		self.__dict__.update(entries)
 	@classmethod
 	def from_json(self, data):
-		print 'LicenseDetails: ' + data
+		#print 'LicenseDetails: ' + data
 		dict = json.loads(data)
 		return LicenseDetails(**dict)
 
+def save_uploaded_license(path, uploaded_file):
+	try:
+		file = open(path, 'wb+')
+		for chunk in uploaded_file.chunks():
+			file.write(chunk)
+		file.close()
+		os.chmod(path, stat.S_IRUSR | stat.S_IWUSR | stat.S_IRGRP | stat.S_IWGRP)
+		return True
+	except: # IOError:
+		print 'Exception:', sys.exc_info()[0]
+		return False
+
 def fetch_license_details(cert_path):
-	# FIXME(jweyrich): wrap this function in a class, and add a cause() method
-	# to return a proper error string (connection failure, revoked cert, etc)
 	try:
 		if settings.PROJECT_KEYSERVER_SSL:
 			conn = httplib.HTTPSConnection(
 				settings.PROJECT_KEYSERVER_HOST,
 				settings.PROJECT_KEYSERVER_PORT,
-				cert_path, cert_path)
+				cert_path, cert_path,
+				timeout=settings.PROJECT_KEYSERVER_TIMEOUT)
 		else:
 			conn = httplib.HTTPConnection(
 				settings.PROJECT_KEYSERVER_HOST,
-				settings.PROJECT_KEYSERVER_PORT)
+				settings.PROJECT_KEYSERVER_PORT,
+				timeout=settings.PROJECT_KEYSERVER_TIMEOUT)
 		params = urllib.urlencode({'version': '1.0'})
 		conn.request("POST", settings.PROJECT_KEYSERVER_URI, params)
 		response = conn.getresponse()
 		data = response.read()
 		conn.close()
-		if response.status == 200:
-			return LicenseDetails.from_json(data)
-		else:
-			raise socket.error, 'Server returned %i %s' % \
-				(response.status, response.reason)
+		if response.status != 200:
+			raise Exception, _("Server returned %(status)i %(reason)s") % \
+				{'status': response.status, 'reason': response.reason}
+		return LicenseDetails.from_json(data)
 	except socket.error as ex:
 		print 'Exception:', ex
-	return None
+		#print os.strerror(ex.errno)
+		if ex.errno in [
+			errno.ECONNREFUSED, errno.ECONNRESET, errno.ETIMEDOUT,
+			errno.EHOSTDOWN, errno.EHOSTUNREACH, errno.ENETUNREACH] \
+			or str(ex) == 'timed out':
+			raise ConnectionProblem
+		else:
+			raise InvalidLicense
+	except:
+		raise Exception, 'Unexpected exception:', sys.exc_info()[0]
 
 @rest_get
 @login_required
@@ -66,12 +98,9 @@ def fetch_license_details(cert_path):
 def index(request):
 	cert_path = settings.PROJECT_KEYSERVER_CERT_FILE
 	# Get details from KeyServer
-	license = fetch_license_details(cert_path)
-	if not license:
-		flash_error(request, _("Please, inform a valid license."))
-		return HttpResponseRedirect(reverse('webui:license-edit'))
-	cert = None
+	license = None
 	try:
+		license_details = fetch_license_details(cert_path)
 		now = datetime.now(UTC)
 		cert = X509.load_cert(cert_path, X509.FORMAT_PEM)
 		class LicensePresenter:
@@ -83,15 +112,19 @@ def index(request):
 			serial = hex(cert.get_serial_number())[2:-1].upper()
 			subject = cert.get_subject()
 			licensee = subject.O
-			max_users = license.max_users
+			max_users = license_details.max_users
 			status = _('Valid') if now >= valid_since \
 				and now <= valid_until else _('Expired')
-		cert = LicensePresenter()
+		license = LicensePresenter()
 	except (ValueError, X509Error):
 		print "Exception:", sys.exc_info()[0]
-		flash_error(request, _("Please, inform a valid license."))
+		flash_error(request, invalid_license_msg)
 		return HttpResponseRedirect(reverse('webui:license-edit'))
-	license = LicensePresenter()
+	except InvalidLicense:
+		flash_error(request, invalid_license_msg)
+		return HttpResponseRedirect(reverse('webui:license-edit'))
+	except ConnectionProblem:
+		flash_error(request, connection_problem_msg)
 	context_instance = RequestContext(request)
 	template_name = 'license/index.html'
 	extra_context = {
@@ -99,18 +132,6 @@ def index(request):
 		'license': license,
 	}
 	return render_to_response(template_name, extra_context, context_instance)
-
-def save_uploaded_license(path, uploaded_file):
-	try:
-		file = open(path, 'wb+')
-		for chunk in uploaded_file.chunks():
-			file.write(chunk)
-		file.close()
-		os.chmod(path, stat.S_IRUSR | stat.S_IWUSR | stat.S_IRGRP | stat.S_IWGRP)
-	except: # IOError:
-		print 'Exception:', sys.exc_info()[0]
-		return False
-	return True
 
 @rest_multiple([method.GET, method.POST])
 @login_required
@@ -128,19 +149,23 @@ def edit(request):
 			cert_path = settings.PROJECT_KEYSERVER_CERT_FILE
 			# Save certificate file
 			if not save_uploaded_license(cert_path, uploaded_file):
-				flash_error(request, _("Unable to save the uploaded file. "
-					"Please, report this to your administrator."))
+				flash_error(request, unable_to_save_msg)
 				break
 			# Validate locally
 			try:
 				X509.load_cert(cert_path, X509.FORMAT_PEM)
 			except (ValueError, X509Error):
 				print 'Exception:', sys.exc_info()[0]
-				flash_error(request, _("Please, inform a valid license."))
+				flash_error(request, invalid_license_msg)
 				break
 			# Validate on KeyServer
-			if not fetch_license_details(cert_path):
-				flash_error(request, _("Please, inform a valid license."))
+			try:
+				license = fetch_license_details(cert_path)
+			except InvalidLicense:
+				flash_error(request, invalid_license_msg)
+				break
+			except ConnectionProblem:
+				flash_error(request, connection_problem_msg)
 				break
 			flash_success(request, _('The license was changed successfully.'))
 			return HttpResponseRedirect(reverse('imdata:license-index'))
