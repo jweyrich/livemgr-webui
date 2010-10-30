@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2010-10-27 21:31+0000\n"
+"POT-Creation-Date: 2010-10-30 21:01+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -17,11 +17,11 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 
-#: settings.py:66
+#: settings.py:67
 msgid "English"
 msgstr "Inglês"
 
-#: settings.py:67
+#: settings.py:68
 msgid "Brazilian Portuguese"
 msgstr "Português"
 
@@ -274,20 +274,20 @@ msgstr ""
 msgid "License"
 msgstr "Licença"
 
-#: imdata/controllers/license.py:77
+#: imdata/controllers/license.py:79
 #, python-format
 msgid "Server returned %(status)i %(reason)s"
 msgstr "Servidor retornou %(status)i %(reason)s"
 
-#: imdata/controllers/license.py:112
+#: imdata/controllers/license.py:116
 msgid "Valid"
 msgstr "Válida"
 
-#: imdata/controllers/license.py:113
+#: imdata/controllers/license.py:117
 msgid "Expired"
 msgstr "Expirada"
 
-#: imdata/controllers/license.py:166
+#: imdata/controllers/license.py:170
 msgid "The license was changed successfully."
 msgstr "A licença foi alterada com sucesso."
 
@@ -640,9 +640,10 @@ msgstr "grupo"
 msgid "usergroups"
 msgstr "grupos"
 
-#: imdata/templates/layout.html:14
-msgid "Application Name"
-msgstr "Nome da aplicação"
+#: imdata/templates/layout.html:14 imdata/templates/layout_base.html:19
+#: imdata/templates/profiles/login.html:12
+msgid "Live Manager"
+msgstr "Live Manager"
 
 #: imdata/templates/layout.html:19
 msgid "Welcome"
@@ -691,11 +692,6 @@ msgstr "Configurações"
 #: imdata/templates/profiles/list.html:38
 msgid "Profiles"
 msgstr "Perfis"
-
-#: imdata/templates/layout_base.html:19
-#: imdata/templates/profiles/login.html:12
-msgid "Application"
-msgstr "Aplicação"
 
 #: imdata/templates/acls/add.html:5 imdata/templates/acls/add.html.py:18
 msgid "Add ACL"
@@ -1061,24 +1057,3 @@ msgstr "Erro interno"
 #: templates/500.html:12
 msgid "This shouldn't happen! Please, contact "
 msgstr "Isto não deveria acontecer! Por favor, contate "
-
-#~ msgid "Certificate"
-#~ msgstr "Certificado"
-
-#~ msgid "license"
-#~ msgstr "licença"
-
-#~ msgid "licenses"
-#~ msgstr "licenças"
-
-#~ msgid "Hash"
-#~ msgstr "Hash"
-
-#~ msgid "The informed certificate is already in use."
-#~ msgstr "O certificado informado já está em uso."
-
-#~ msgid "Filter alert"
-#~ msgstr "Alerta de filtro"
-
-#~ msgid "Default alert"
-#~ msgstr "Alerta padrão"
