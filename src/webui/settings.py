@@ -14,6 +14,7 @@ PROJECT_PATH = os.path.realpath(os.path.dirname(__file__))
 
 PROJECT_KEYSERVER_CERT_FILE = os.path.join(PROJECT_PATH, 'conf', 'certs', 'cert.pem')
 PROJECT_KEYSERVER_HOST = '10.1.1.17'
+#PROJECT_KEYSERVER_HOST = '192.168.1.150'
 PROJECT_KEYSERVER_PORT = 443 # httplib.HTTPS_PORT
 PROJECT_KEYSERVER_SSL = True
 #PROJECT_KEYSERVER_HOST = '127.0.0.1'
@@ -30,7 +31,7 @@ ROOT_URLCONF = 'webui.urls'
 # CORE             #
 ####################
 
-DEBUG = True #True
+DEBUG = True
 TEMPLATE_DEBUG = True
 
 # Whether the framework should propagate raw exceptions rather than catching

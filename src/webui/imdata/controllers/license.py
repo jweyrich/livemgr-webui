@@ -22,11 +22,6 @@ import stat
 import sys
 import urllib
 
-invalid_license_msg = _("Please, inform a valid license.")
-connection_problem_msg = _('Connection problem. Try again in few minutes.')
-unable_to_save_msg = _("Unable to save the uploaded file. "
-	"Please, report this to your administrator.")
-
 class InvalidLicense(Exception):
 	pass
 
@@ -118,13 +113,13 @@ def index(request):
 		license = LicensePresenter()
 	except (ValueError, X509Error):
 		print "Exception:", sys.exc_info()[0]
-		flash_error(request, invalid_license_msg)
+		flash_error(request, _('Please, inform a valid license.'))
 		return HttpResponseRedirect(reverse('webui:license-edit'))
 	except InvalidLicense:
-		flash_error(request, invalid_license_msg)
+		flash_error(request, _('Please, inform a valid license.'))
 		return HttpResponseRedirect(reverse('webui:license-edit'))
 	except ConnectionProblem:
-		flash_error(request, connection_problem_msg)
+		flash_error(request, _('Connection problem. Try again in few minutes.'))
 	context_instance = RequestContext(request)
 	template_name = 'license/index.html'
 	extra_context = {
@@ -149,23 +144,24 @@ def edit(request):
 			cert_path = settings.PROJECT_KEYSERVER_CERT_FILE
 			# Save certificate file
 			if not save_uploaded_license(cert_path, uploaded_file):
-				flash_error(request, unable_to_save_msg)
+				flash_error(request, _('Unable to save the uploaded file. '
+					'Please, report this to your administrator.'))
 				break
 			# Validate locally
 			try:
 				X509.load_cert(cert_path, X509.FORMAT_PEM)
 			except (ValueError, X509Error):
 				print 'Exception:', sys.exc_info()[0]
-				flash_error(request, invalid_license_msg)
+				flash_error(request, _('Please, inform a valid license.'))
 				break
 			# Validate on KeyServer
 			try:
 				license = fetch_license_details(cert_path)
 			except InvalidLicense:
-				flash_error(request, invalid_license_msg)
+				flash_error(request, _('Please, inform a valid license.'))
 				break
 			except ConnectionProblem:
-				flash_error(request, connection_problem_msg)
+				flash_error(request, _('Connection problem. Try again in few minutes.'))
 				break
 			flash_success(request, _('The license was changed successfully.'))
 			return HttpResponseRedirect(reverse('imdata:license-index'))

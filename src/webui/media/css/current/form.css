@@ -22,6 +22,9 @@ input[type='file'] {
 	border: none;
 	/*vertical-align: middle;*/
 }
+input[type='file'] {
+	height: 22px;
+}
 input[type='button'],
 input[type='submit'] {
 	width: auto;
@@ -39,7 +42,7 @@ input[type='submit'] {
 	-ms-filter: "progid:DXImageTransform.Microsoft.gradient(startColorstr=#FFF9F9F9, endColorstr=#FFE3E3E3)";
 	border: 1px solid #BBB;
 	margin-right: 0px;
-	height: 20px;
+	height: 25px;
 	font-weight: bold;
 	color: #888;
 	cursor: pointer;
