@@ -16,6 +16,7 @@ from webui.imdata.models import Badword
 from webui.imdata.models.profile import Profile
 from webui.imdata.utils.formatters import format_boolean
 import django_tables as tables
+import re
 
 class BadwordTable(tables.ModelTable):
 	class Meta:
@@ -35,8 +36,19 @@ class BadwordForm(ModelForm):
 	class Meta:
 		model = Badword
 		fields = ('badword', 'isregex', 'isenabled')
-	def clean_badword(self):
-		return self.cleaned_data['badword'].lower()
+	def clean(self):
+		cleaned_data = self.cleaned_data
+		isregex = cleaned_data.get('isregex')
+		print isregex
+		badword = cleaned_data.get('badword').lower()
+		if isregex:
+			try:
+				re.compile(badword, re.IGNORECASE)
+			except:
+				msg = _('Invalid regular expression')
+				self._errors["badword"] = self.error_class([msg])
+				del cleaned_data["badword"]
+		return cleaned_data
 
 class BadwordSearchForm(forms.Form):
 	badword = forms.CharField(required=False, label=ugettext_lazy("badword"))
@@ -63,7 +75,7 @@ def index(request):
 	elif request.method == method.POST:
 		per_page = request.POST.get('per_page')
 		if per_page != None:
-			Profile.objects.filter(user=request.user).update(per_page_badwords = per_page)
+			Profile.objects.filter(user=request.user).update(per_page_badwords=per_page)
 			return HttpResponse()
 		form = BadwordSearchForm(request.POST)
 		if not form.is_valid():
@@ -72,10 +84,10 @@ def index(request):
 		#print values
 		qset = Badword.objects.all()
 		if values['badword']:
-			qset = qset.filter(badword__icontains = values['badword'])
+			qset = qset.filter(badword__icontains=values['badword'])
 	profile = request.user.get_profile()
 	order_by = request.GET.get('sort', 'badword')
-	table = BadwordTable(qset, order_by = order_by)
+	table = BadwordTable(qset, order_by=order_by)
 	paginator = CustomPaginator(request, table.rows, profile.per_page_badwords)
 	context_instance = RequestContext(request)
 	template_name = 'badwords/list.html'
@@ -157,7 +169,7 @@ def delete_many(request):
 @permission_required('imdata.change_badword')
 def disable_many(request):
 	selected = request.POST.getlist('selection')
-	Badword.objects.filter(pk__in = selected).update(isenabled = False)
+	Badword.objects.filter(pk__in=selected).update(isenabled=False)
 	return HttpResponse()
 
 @rest_post
@@ -165,5 +177,5 @@ def disable_many(request):
 @permission_required('imdata.change_badword')
 def enable_many(request):
 	selected = request.POST.getlist('selection')
-	Badword.objects.filter(pk__in = selected).update(isenabled = True)
+	Badword.objects.filter(pk__in=selected).update(isenabled=True)
 	return HttpResponse()
