@@ -24,8 +24,8 @@
 
 from django import template
 from django.template.loader_tags import ExtendsNode, do_extends
-import tokenize
 import StringIO
+import tokenize
 
 register = template.Library()
 
@@ -35,7 +35,7 @@ class XExtendsNode(ExtendsNode):
 		kwargs = self.kwargs.copy()
 		for arg in kwargs:
 			kwargs[arg] = kwargs[arg].resolve(context)
-		
+
 		# update() would add the var at the top of the stack, we need our 
 		# vars to be at the bottom though; this is semantically correct, 
 		# and also required to allow further overriding of extends parameters 
@@ -53,7 +53,7 @@ def do_xextends(parser, token):
 	kwargs = {}
 	if 'with' in bits:
 		pos = bits.index('with')
-		argslist = bits[pos+1:]
+		argslist = bits[pos + 1:]
 		bits = bits[:pos]
 		for i in argslist:
 			try:

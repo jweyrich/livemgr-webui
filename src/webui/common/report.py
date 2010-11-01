@@ -20,6 +20,6 @@ class NumberedCanvas(canvas.Canvas):
 		pass
 
 def coord_tl(pagesize, x, y):
-	return x, pagesize[1]-y
+	return x, pagesize[1] - y
 def coord_tr(pagesize, x, y):
-	return pagesize[0]-x, pagesize[1]-y
+	return pagesize[0] - x, pagesize[1] - y

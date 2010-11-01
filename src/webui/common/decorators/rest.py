@@ -13,7 +13,7 @@ def _rest_method(view, request, methods=[], *args, **kwargs):
 		return HttpResponseBadRequest(_('You don\'t have permission to access this.'))
 	else:
 		return view(request, *args, **kwargs)
-	
+
 def rest_multiple(methods=[]):
 	"""
 	Decorator to check whether a view accepts a HTTP method or not. If not, 

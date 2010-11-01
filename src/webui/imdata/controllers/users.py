@@ -34,7 +34,7 @@ class UserTable(tables.ModelTable):
 	status = tables.Column(verbose_name=ugettext_lazy('status'), sortable=True)
 	lastlogin = tables.Column(verbose_name=ugettext_lazy('last login'), sortable=True)
 	isenabled = tables.Column(verbose_name=ugettext_lazy('enabled'), sortable=False)
-	contacts =  tables.Column(verbose_name=ugettext_lazy('contacts'), sortable=False)
+	contacts = tables.Column(verbose_name=ugettext_lazy('contacts'), sortable=False)
 	def render_group(self, instance):
 		return mark_safe('<a href="%s">%s</a>' % (
 			reverse('imdata:groups-edit', args=[instance.group.id]),
@@ -103,7 +103,7 @@ def index(request):
 	elif request.method == method.POST:
 		per_page = request.POST.get('per_page')
 		if per_page != None:
-			Profile.objects.filter(user=request.user).update(per_page_users = per_page)
+			Profile.objects.filter(user=request.user).update(per_page_users=per_page)
 			return HttpResponse()
 		form = UserSearchForm(request.POST)
 		if not form.is_valid():
@@ -112,16 +112,16 @@ def index(request):
 		#print values
 		qset = User.objects.all()
 		if values['username']:
-			qset = qset.filter(username__icontains = values['username'])
+			qset = qset.filter(username__icontains=values['username'])
 		if values['displayname']:
-			qset = qset.filter(displayname__icontains = values['displayname'])
+			qset = qset.filter(displayname__icontains=values['displayname'])
 		if values['group']:
-			qset = qset.filter(group = values['group'])
+			qset = qset.filter(group=values['group'])
 		if values['status']:
-			qset = qset.filter(status = values['status'])
+			qset = qset.filter(status=values['status'])
 	profile = request.user.get_profile()
 	order_by = request.GET.get('sort', 'username')
-	table = UserTable(qset, order_by = order_by)
+	table = UserTable(qset, order_by=order_by)
 	paginator = CustomPaginator(request, table.rows, profile.per_page_users)
 	context_instance = RequestContext(request)
 	template_name = 'users/list.html'

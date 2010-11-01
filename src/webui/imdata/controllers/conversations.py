@@ -70,7 +70,11 @@ class ViewMessagesSearchForm(forms.Form):
 	message = forms.CharField(required=False, label=ugettext_lazy("message"))
 	localim = forms.CharField(required=False, label=ugettext_lazy("user"))
 	remoteim = forms.CharField(required=False, label=ugettext_lazy("buddy"))
-	filtered = forms.BooleanField(required=False, widget=forms.CheckboxInput(attrs={'style': 'float: left; clear: right;'}), label=ugettext_lazy("filtered"))
+	filtered = forms.BooleanField(required=False, label=ugettext_lazy("filtered"),
+		widget=forms.CheckboxInput(attrs={
+			'style': 'float: left; clear: right;',
+		})
+	)
 	from_date = forms.DateField(required=False,
 		label=ugettext_lazy("from date"),
 		widget=forms.DateInput(attrs={
@@ -93,11 +97,11 @@ class ViewMessagesSearchForm(forms.Form):
 @permission_required('imdata.see_conversation')
 def index(request):
 	if request.method == method.GET:
-		qset = ViewMessages.objects.all().exclude(conversation_id = 0)
+		qset = ViewMessages.objects.all().exclude(conversation_id=0)
 	elif request.method == method.POST:
 		per_page = request.POST.get('per_page')
 		if per_page != None:
-			Profile.objects.filter(user=request.user).update(per_page_conversations = per_page)
+			Profile.objects.filter(user=request.user).update(per_page_conversations=per_page)
 			return HttpResponse()
 		form = ViewMessagesSearchForm(request.POST)
 		if not form.is_valid():
@@ -111,29 +115,29 @@ def index(request):
 			return HttpResponseBadRequest(_('Invalid date'))
 		qset = ViewMessages.objects.all()
 		if values['from_date']:
-			qset = qset.filter(timestamp__gte =  values['from_date'])
+			qset = qset.filter(timestamp__gte=values['from_date'])
 		if values['to_date']:
-			qset = qset.filter(timestamp__lte =  values['to_date'])
+			qset = qset.filter(timestamp__lte=values['to_date'])
 		if values['message']:
-			qset = qset.filter(content__icontains = values['message'])
+			qset = qset.filter(content__icontains=values['message'])
 		if values['localim']:
-			qset = qset.filter(localim__icontains = values['localim'])
+			qset = qset.filter(localim__icontains=values['localim'])
 #			qset = qset.filter(
 #				(Q(inbound = False) & Q(localim__icontains = values['localim'])) |
 #				(Q(inbound = True) & Q(remoteim__icontains = values['localim']))
 #			)
 		if values['remoteim']:
-			qset = qset.filter(remoteim__icontains = values['remoteim'])
+			qset = qset.filter(remoteim__icontains=values['remoteim'])
 #			qset = qset.filter(
 #				(Q(inbound = True) & Q(localim__icontains = values['remoteim'])) |
 #				(Q(inbound = False) & Q(remoteim__icontains = values['remoteim']))
 #			)
 		if values['filtered']:
-			qset = qset.filter(filtered = values['filtered'])
+			qset = qset.filter(filtered=values['filtered'])
 	qset.query.group_by = ['conversation_id']
 	profile = request.user.get_profile()
 	order_by = request.GET.get('sort', '-timestamp')
-	table = ViewMessagesTable(request, qset, order_by = order_by)
+	table = ViewMessagesTable(request, qset, order_by=order_by)
 	#
 	# DO NOT REMOVE NOR MOVE
 	#
@@ -159,7 +163,7 @@ def show(request, object_id):
 	if object_id is None:
 		return HttpResponseBadRequest(_("Missing argument: %s") % 'object_id')
 	messages = Message.objects \
-		.filter(conversation_id = object_id) \
+		.filter(conversation_id=object_id) \
 		.order_by('timestamp')
 	if not messages:
 		#return HttpResponseBadRequest(_('Conversation not found'))
@@ -168,7 +172,7 @@ def show(request, object_id):
 	context_instance = RequestContext(request)
 	template_name = 'conversations/show.html'
 	extra_context = {
-		'first_message': messages[0], 
+		'first_message': messages[0],
 		'messages': messages,
 		'colors': color_dict()
 	}
@@ -182,7 +186,7 @@ def report_pdf(request, object_id):
 	if object_id is None:
 		return HttpResponseBadRequest(_("Missing argument: %s") % 'object_id')
 	messages = Message.objects \
-		.filter(conversation_id = object_id) \
+		.filter(conversation_id=object_id) \
 		.order_by('timestamp')
 	if not messages:
 		return HttpResponseBadRequest(_('Conversation not found'))
@@ -211,8 +215,8 @@ def report_pdf(request, object_id):
 		flowables.append(paraFromHeader(_('Buddy'), messages[0].remoteim))
 		flowables.append(paraFromHeader(_('Started in'), messages[0].timestamp.strftime(_("%m/%d/%Y - %I:%M:%S %p"))))
 		flowables.append(paraFromHeader(_('Total messages'), '%i' % len(messages)))
-		flowables.append(Spacer(0, 0.5*cm))
-		x, y = coord_tl(PAGESIZE, 1.5*cm, 1.5*cm)
+		flowables.append(Spacer(0, 0.5 * cm))
+		x, y = coord_tl(PAGESIZE, 1.5 * cm, 1.5 * cm)
 		#renderPageNumber(canvas)
 		for f in flowables:
 			f.wrap(PAGESIZE[0], PAGESIZE[1])
@@ -231,7 +235,7 @@ def report_pdf(request, object_id):
 			self.setFont('Helvetica', 12)
 		def drawPageNumber(self, page_count):
 			self.setFont("Helvetica", 9)
-			x, y = coord_tr(self._pagesize, 1.5*cm, 1.5*cm)
+			x, y = coord_tr(self._pagesize, 1.5 * cm, 1.5 * cm)
 			self.drawRightString(x, y,
 				_("Page %(this)i of %(total)i") % {
 					'this': self._pageNumber,
@@ -242,10 +246,10 @@ def report_pdf(request, object_id):
 	def format_default(msg, colors):
 		time = msg.timestamp.strftime(_('%m/%d/%Y %I:%M:%S %p'))
 		if not msg.inbound:
-			sender = '<font color="'+colors.get(msg.localim)+'">'+msg.localim+'</font>'
+			sender = '<font color="' + colors.get(msg.localim) + '">' + msg.localim + '</font>'
 		else:
-			sender = '<font color="'+colors.get(msg.remoteim)+'">'+msg.remoteim+'</font>'
-		text = '<strong>'+time + ' - ' + sender+'</strong>'
+			sender = '<font color="' + colors.get(msg.remoteim) + '">' + msg.remoteim + '</font>'
+		text = '<strong>' + time + ' - ' + sender + '</strong>'
 		if msg.filtered:
 			return text + ': <font color="red"><b>[x]</b></font> ' + msg.content
 		else:
@@ -280,8 +284,8 @@ def report_pdf(request, object_id):
 		contents.append(para_from_message(msg, colors))
 
 	doc = SimpleDocTemplate(buffer, pagesize=PAGESIZE,
-		rightMargin=1.5*cm, leftMargin=1.3*cm,
-		topMargin=3.5*cm, bottomMargin=1.5*cm)
+		rightMargin=1.5 * cm, leftMargin=1.3 * cm,
+		topMargin=3.5 * cm, bottomMargin=1.5 * cm)
 	doc.build(
 		contents,
 		onFirstPage=renderHeader,

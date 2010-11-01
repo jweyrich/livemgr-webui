@@ -1,5 +1,5 @@
-import types
 from django import http
+import types
 
 class http_dict(dict):
 	def __init__(self, method_dict):

@@ -49,7 +49,7 @@ def index(request):
 		'data': data
 	}
 	return render_to_response(template_name, extra_context, context_instance)
-		
+
 #@rest_post
 @rest_multiple([method.GET, method.POST])
 @login_required
@@ -103,7 +103,7 @@ def query_latest_conversations(limit):
 	result = fetchall_to_dict(query)
 	return [DataTree.LatestConversation(r) for r in result]
 
-def query_most_active_users(limit, period, initial_localdate = datetime.now()):
+def query_most_active_users(limit, period, initial_localdate=datetime.now()):
 	period_cond = {
 		'day': lambda x: """
 			YEAR(timestamp) = %(year)i

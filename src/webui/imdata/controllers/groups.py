@@ -31,7 +31,7 @@ class GroupTable(tables.ModelTable):
 	isactive = tables.Column(verbose_name=ugettext_lazy('active'), sortable=True)
 	isbuiltin = tables.Column(verbose_name=ugettext_lazy('built-in'), sortable=True, visible=False)
 	description = tables.Column(verbose_name=ugettext_lazy('description'), sortable=False)
-	user_count =  tables.Column(verbose_name=ugettext_lazy('# of users'), sortable=False)
+	user_count = tables.Column(verbose_name=ugettext_lazy('# of users'), sortable=False)
 	def render_isactive(self, instance):
 		return format_boolean(instance.isactive)
 
@@ -41,10 +41,11 @@ class GroupForm(ModelForm):
 		fields = ('groupname', 'description', 'isactive')
 	def __init__(self, *args, **kwargs):
 		super(GroupForm, self).__init__(*args, **kwargs)
-		instance = getattr(self, 'instance', None)
-		if instance and instance.id:
-			self.fields['description'].widget.attrs = {'rows': '5'}
-		
+		self.fields['description'].widget.attrs = {'rows': '3'}
+		#instance = getattr(self, 'instance', None)
+		#if instance and instance.id:
+		#	self.fields['description'].widget.attrs = {'rows': '3'}
+
 class GroupSearchForm(forms.Form):
 	groupname = forms.CharField(required=False, label=ugettext_lazy("name"))
 	description = forms.CharField(required=False, label=ugettext_lazy("description"))
@@ -71,7 +72,7 @@ def index(request):
 	elif request.method == method.POST:
 		per_page = request.POST.get('per_page')
 		if per_page != None:
-			Profile.objects.filter(user=request.user).update(per_page_usergroups = per_page)
+			Profile.objects.filter(user=request.user).update(per_page_usergroups=per_page)
 			return HttpResponse()
 		form = GroupSearchForm(request.POST)
 		if not form.is_valid():
@@ -80,12 +81,12 @@ def index(request):
 		#print values
 		qset = UserGroup.objects.all()
 		if values['groupname']:
-			qset = qset.filter(groupname__icontains = values['groupname'])
+			qset = qset.filter(groupname__icontains=values['groupname'])
 		if values['description']:
-			qset = qset.filter(description__icontains = values['description'])
+			qset = qset.filter(description__icontains=values['description'])
 	profile = request.user.get_profile()
 	order_by = request.GET.get('sort', 'groupname')
-	table = GroupTable(qset, order_by = order_by)
+	table = GroupTable(qset, order_by=order_by)
 	paginator = CustomPaginator(request, table.rows, profile.per_page_usergroups)
 	context_instance = RequestContext(request)
 	template_name = 'groups/list.html'
@@ -113,7 +114,7 @@ def edit(request, object_id):
 				submitted = map(long, request.POST.getlist('users'))
 				# Select users that are currently part of the group
 				current = list(User.objects \
-					.filter(group = object_id) \
+					.filter(group=object_id) \
 					.values_list('id', flat=True))
 				added = list(set(submitted).difference(current))
 				removed = list(set(current).difference(submitted))
@@ -124,7 +125,7 @@ def edit(request, object_id):
 				submitted = map(long, request.POST.getlist('rules'))
 				# Select rules that are currently assigned to the group
 				current = list(GroupRule.objects \
-					.filter(group = object_id) \
+					.filter(group=object_id) \
 					.values_list('rule_id', flat=True))
 				added = list(set(submitted).difference(current))
 				removed = list(set(current).difference(submitted))
@@ -134,14 +135,14 @@ def edit(request, object_id):
 			rules = ChangedRules()
 			model = form.save(True)
 			if users.added:
-				User.objects.filter(pk__in = users.added).update(group = object_id)
+				User.objects.filter(pk__in=users.added).update(group=object_id)
 			if users.removed:
-				User.objects.filter(pk__in = users.removed).update(group = 1L)
+				User.objects.filter(pk__in=users.removed).update(group=1L)
 			if rules.added:
 				for rule_id in rules.added:
 					GroupRule(group_id=object_id, rule_id=rule_id).save()
 			if rules.removed:
-				GroupRule.objects.filter(rule__in = rules.removed).delete()
+				GroupRule.objects.filter(rule__in=rules.removed).delete()
 			flash_success(request,
 				_('The group \'%s\' was changed successfully.') % model.groupname)
 			if users.removed and object_id == 1L:
@@ -151,7 +152,8 @@ def edit(request, object_id):
 			flash_form_error(request, form)
 		redir = _redirect_if_needed(request, InView.EDIT, object_id)
 		if redir != None: return redir
-	available_users = User.objects.exclude(group__id = object_id).order_by('group', 'username')
+	available_users = User.objects.exclude(group__id=object_id) \
+		.order_by('group', 'username')
 	# With sub-query:
 	#	SELECT r.*
 	#	FROM rules as r
@@ -169,7 +171,7 @@ def edit(request, object_id):
 		rules.id NOT IN (
 			SELECT rule_id FROM grouprules WHERE group_id = %d
 		)
-		''' % object_id]).order_by('rulename')
+		''' % object_id]).order_by('id')
 	context_instance = RequestContext(request)
 	template_name = 'groups/edit.html'
 	extra_context = {
@@ -197,7 +199,7 @@ def add(request):
 			model = form.save(True)
 			object_id = model.id
 			if users_added:
-				User.objects.filter(pk__in = users_added).update(group = object_id)
+				User.objects.filter(pk__in=users_added).update(group=object_id)
 			if rules_added:
 				for rule_id in rules_added:
 					GroupRule(group_id=object_id, rule_id=rule_id).save()
@@ -209,7 +211,7 @@ def add(request):
 		redir = _redirect_if_needed(request, InView.ADD, object_id)
 		if redir != None: return redir
 	available_users = User.objects.all().order_by('group', 'username')
-	available_rules = Rule.objects.all().order_by('rulename')
+	available_rules = Rule.objects.all().order_by('id')
 	context_instance = RequestContext(request)
 	template_name = 'groups/add.html'
 	extra_context = {
@@ -228,7 +230,7 @@ def delete(request, object_id):
 	if model.isbuiltin:
 		return HttpResponseForbidden(_('Can\'t delete built-in groups.'))
 	# Move users to GUEST (built-in) group
-	User.objects.filter(group = object_id).update(group = 1L)
+	User.objects.filter(group=object_id).update(group=1L)
 	model.delete()
 	return HttpResponse()
 
@@ -238,6 +240,6 @@ def delete(request, object_id):
 def delete_many(request):
 	selected = request.POST.getlist('selection')
 	# Move users to GUEST (built-in) group
-	User.objects.filter(group__in = selected).update(group = 1L)
+	User.objects.filter(group__in=selected).update(group=1L)
 	UserGroup.objects.filter(Q(pk__in=selected) & Q(isbuiltin=False)).delete()
 	return HttpResponse()

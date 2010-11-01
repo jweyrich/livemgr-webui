@@ -9,7 +9,7 @@ def error_404(request):
 	}
 	data.update(settings)
 	return render_to_response(template, data,
-		context_instance = RequestContext(request))
+		context_instance=RequestContext(request))
 
 def error_500(request):
 	template = '500.html'
@@ -17,4 +17,4 @@ def error_500(request):
 		'EMAIL_SUPPORT': settings.EMAIL_SUPPORT
 	}
 	return render_to_response(template, data,
-		context_instance = RequestContext(request))
+		context_instance=RequestContext(request))

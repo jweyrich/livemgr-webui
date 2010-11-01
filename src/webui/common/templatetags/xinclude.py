@@ -23,13 +23,13 @@
 		<h3>kwargs</h3>
 		{{ kwargs }}
 """
-	
+
 from django import template
-from django.template.loader import get_template
 from django.conf import settings
+from django.template.loader import get_template
+import StringIO
 import tokenize
 #import shlex
-import StringIO
 
 register = template.Library()
 

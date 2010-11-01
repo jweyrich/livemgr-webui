@@ -10,7 +10,7 @@ class Dashboard(models.Model):
 		permissions = (
 			("see_dashboard", "Can see dashboard"),
 		)
-		
+
 class Support(models.Model):
 	class Meta:
 		app_label = 'imdata'

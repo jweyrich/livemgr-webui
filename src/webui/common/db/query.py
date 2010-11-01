@@ -1,6 +1,7 @@
 from MySQLdb.cursors import DictCursor
 from django.db import connection
 from itertools import izip
+
 #from django.db.backends import BaseDatabaseWrapper
 #from django.db.backends.mysql.base import DatabaseWrapper
 

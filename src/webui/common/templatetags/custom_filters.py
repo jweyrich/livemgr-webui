@@ -68,7 +68,7 @@ def filter_langcode(value):
 	arr = value.split('-', 2);
 	if len(arr) != 2 or len(arr[1]) != 2:
 		return value
-	return arr[0] + '-' + arr[1].upper();	
+	return arr[0] + '-' + arr[1].upper();
 
 @register.filter(name='dict_get')
 def filter_dict_get(dict, key):

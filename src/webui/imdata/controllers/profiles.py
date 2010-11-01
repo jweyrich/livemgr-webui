@@ -69,7 +69,7 @@ class ProfileUpdateForm(ModelForm):
 		fields = ['language', 'debug']
 	language = forms.ChoiceField(settings.LANGUAGES, label=ugettext_lazy('Language'), required=False)
 	debug = forms.BooleanField(label=ugettext_lazy('Enable debug'), required=False)
-	
+
 class ProfileSearchForm(forms.Form):
 	username = forms.CharField(required=False, label=ugettext_lazy('username'))
 	email = forms.CharField(required=False, label=ugettext_lazy('email'))
@@ -89,13 +89,13 @@ def index(request):
 		#print values
 		qset = User.objects.all()
 		if values['username']:
-			qset = qset.filter(username__icontains = values['username'])
+			qset = qset.filter(username__icontains=values['username'])
 		if values['email']:
-			qset = qset.filter(email__icontains = values['email'])
+			qset = qset.filter(email__icontains=values['email'])
 		if values['group']:
-			qset = qset.filter(groups = values['group'])
+			qset = qset.filter(groups=values['group'])
 	order_by = request.GET.get('sort', 'username')
-	table = ProfileTable(qset, order_by = order_by)
+	table = ProfileTable(qset, order_by=order_by)
 	paginator = CustomPaginator(request, table.rows, 5)
 	context_instance = RequestContext(request)
 	template_name = 'profiles/list.html'
@@ -158,7 +158,7 @@ def set_language_local(request, response, lang_code):
 			request.session['django_language'] = lang_code
 		else:
 			response.set_cookie(settings.LANGUAGE_COOKIE_NAME, lang_code)
-	return response  
+	return response
 
 def login(request, *args, **kwargs):
 	response = views.login(request, *args, **kwargs)

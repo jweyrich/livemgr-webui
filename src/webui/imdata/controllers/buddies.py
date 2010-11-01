@@ -5,9 +5,9 @@ from django.http import HttpResponseBadRequest, HttpResponse
 from django.shortcuts import render_to_response, get_object_or_404
 from django.template import RequestContext
 from django.utils.translation import ugettext as _, ugettext_lazy
+from webui.common import CustomPaginator
 from webui.common.decorators.rest import rest_multiple, rest_post
 from webui.common.http import method
-from webui.common import CustomPaginator
 from webui.imdata.models import User
 from webui.imdata.models.buddy import Buddy
 from webui.imdata.models.profile import Profile
@@ -46,27 +46,27 @@ def index(request, user_id):
 	user_id = long(user_id)
 	from_user = get_object_or_404(User, pk=user_id)
 	if request.method == method.GET:
-		qset = Buddy.objects.filter(user = user_id)
+		qset = Buddy.objects.filter(user=user_id)
 	elif request.method == method.POST:
 		per_page = request.POST.get('per_page')
 		if per_page != None:
-			Profile.objects.filter(user=request.user).update(per_page_buddies = per_page)
+			Profile.objects.filter(user=request.user).update(per_page_buddies=per_page)
 			return HttpResponse()
 		form = BuddySearchForm(request.POST)
 		if not form.is_valid():
 			return HttpResponseBadRequest(_('Invalid search criteria'))
 		values = form.cleaned_data
 		#print values
-		qset = Buddy.objects.filter(user = user_id)
+		qset = Buddy.objects.filter(user=user_id)
 		if values['username']:
-			qset = qset.filter(username__icontains = values['username'])
+			qset = qset.filter(username__icontains=values['username'])
 		if values['displayname']:
-			qset = qset.filter(displayname__icontains = values['displayname'])
+			qset = qset.filter(displayname__icontains=values['displayname'])
 		if values['status']:
-			qset = qset.filter(status = values['status'])
+			qset = qset.filter(status=values['status'])
 	profile = request.user.get_profile()
 	order_by = request.GET.get('sort', 'username')
-	table = BuddyTable(qset, order_by = order_by)
+	table = BuddyTable(qset, order_by=order_by)
 	paginator = CustomPaginator(request, table.rows, profile.per_page_buddies)
 	context_instance = RequestContext(request)
 	template_name = 'buddies/list.html'

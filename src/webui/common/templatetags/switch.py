@@ -36,18 +36,18 @@ def switch(parser, token):
     args = token.split_contents()
     if len(args) != 2:
         raise template.TemplateSyntaxError("%s tag tags exactly 2 arguments." % args[0])
-    
+
     # Pull out all the children of the switch tag (until {% endswitch %}).
     childnodes = parser.parse(("endswitch",))
-    
+
     # Remove the {% endswitch %} node so it doesn't get parsed twice.
     parser.delete_first_token()
-    
+
     # We just care about case children; all other direct children get ignored.
     casenodes = childnodes.get_nodes_by_type(CaseNode)
-    
+
     return SwitchNode(args[1], casenodes)
-    
+
 @register.tag
 def case(parser, token):
     """
@@ -60,12 +60,12 @@ def case(parser, token):
     children = parser.parse(("endcase",))
     parser.delete_first_token()
     return CaseNode(args[1], children)
-    
+
 class SwitchNode(template.Node):
     def __init__(self, value, cases):
         self.value = value
         self.cases = cases
-        
+
     def render(self, context):
         # Resolve the value; if it's a non-existant variable don't even bother
         # checking the values of the cases since they'll never match.
@@ -73,21 +73,21 @@ class SwitchNode(template.Node):
             value = template.resolve_variable(self.value, context)
         except VariableDoesNotExist:
             return ""
-        
+
         # Check each case, and if it matches return the rendered content
         # of that case (short-circuit).
         for case in self.cases:
             if case.equals(value, context):
                 return case.render(context)
-        
+
         # No matches; render nothing.
         return ""
-        
+
 class CaseNode(template.Node):
     def __init__(self, value, childnodes):
         self.value = value
         self.childnodes = childnodes
-        
+
     def equals(self, otherval, context):
         """
         Check to see if this case's value equals some other value. This is
@@ -98,7 +98,7 @@ class CaseNode(template.Node):
         except VariableDoesNotExist:
             # If the variable doesn't exist, it doesn't equal anything.
             return False
-            
+
     def render(self, context):
         """Render this particular case, which means rendering its child nodes."""
         return self.childnodes.render(context)

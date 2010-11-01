@@ -25,8 +25,8 @@ class SettingsUpdateForm(forms.Form):
 	min_protocol_version = forms.ChoiceField(PROTOCOL_CHOICES, label=ugettext_lazy("Minimum"), required=False)
 	max_protocol_version = forms.ChoiceField(PROTOCOL_CHOICES, label=ugettext_lazy("Maximum"), required=False)
 	allow_self_reg = forms.BooleanField(label=ugettext_lazy("Allow self registration"), required=False)
-	filtered_msg = forms.CharField(label=ugettext_lazy("Filter"), required=True)
-	default_warning = forms.CharField(label=ugettext_lazy("Alert"), required=True)
+	filtered_msg = forms.CharField(label=ugettext_lazy("Filtered"), required=True)
+	default_warning = forms.CharField(label=ugettext_lazy("Disclaimer"), required=True)
 	def __init__(self, *args, **kwargs):
 		super(SettingsUpdateForm, self).__init__(*args, **kwargs)
 		self.load()
@@ -57,7 +57,7 @@ class SettingsUpdateForm(forms.Form):
 		allow_self_reg = int(self.cleaned_data['allow_self_reg'])
 		filtered_msg = self.cleaned_data['filtered_msg']
 		default_warning = self.cleaned_data['default_warning']
-		# Reverse protocol version if necessary 
+		# Invert protocol version if necessary
 		if min_protocol_version > max_protocol_version:
 			min_protocol_version, max_protocol_version = max_protocol_version, min_protocol_version
 		# Save everything

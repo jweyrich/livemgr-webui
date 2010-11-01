@@ -7,7 +7,7 @@ import struct
 
 def _default(value):
 	raise "Unhandled value: %s" % value
-	
+
 def format_boolean(value):
 	img = {
 		True: lambda x: Resources.img_accept,
@@ -29,7 +29,7 @@ def format_acl_action(value):
 def format_user_status(value):
 	status = lookup_user_status(value)
 	if not status:
-		return "" 
+		return ""
 	img = {
 		'NLN': lambda x: Resources.img_online,
 		'BSY': lambda x: Resources.img_busy,
@@ -43,7 +43,7 @@ def format_user_status(value):
 	}.get(status[0], _default)(status[0])
 	if not img:
 		return ""
-	text = unicode(status[1]).encode('utf-8', 'strict') 
+	text = unicode(status[1]).encode('utf-8', 'strict')
 	return mark_safe("<img src='%s' /> %s" % (img, text))
 
 def ip_long_to_str(ip_as_long):
