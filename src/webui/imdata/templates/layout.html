@@ -10,13 +10,13 @@
 
 	{% block header %}
 		<div id="header">
-			<span class="title">
+			<div class="title">
 				<a href="{% url webui:index %}">{% trans "Live Manager" %}</a>
-			</span>
+			</div>
 			<div class="right">
 				<div id="user">
 					{% if user.is_authenticated %}
-						{% trans "Welcome" %}, {{ user.username }} -
+						<span>{% trans "Welcome" %}, {{ user.username }} - </span>
 						 <a href="{% url webui:profiles-update %}">{% trans "Profile" %}</a> |
 						 <a href="{% url webui:profiles-logout %}">{% trans "Logout" %}</a>
 					{% endif %}
