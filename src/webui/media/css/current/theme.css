@@ -277,7 +277,7 @@ div.actions [type='submit'] {
 div.actions [type='button'].default,
 div.actions [type='submit'].default {
 	color: #fff;
-	border: 2px solid #5B80B2;
+	border: 1px solid #5B80B2;
 	background-color: #7f9bca;
 	/* -specific-
 	background: -webkit-gradient(linear, 0 0%, 0 100%, from(#7f9bca), to(#5c79aa));
@@ -289,7 +289,7 @@ div.actions [type='submit'].default {
 div.actions [type='button'].default:hover,
 div.actions [type='submit'].default:hover {
 	color: #fff;
-	border: 2px solid #5B80B2;
+	border: 1px solid #5B80B2;
 }
 div.actions .action {
 	display: none;

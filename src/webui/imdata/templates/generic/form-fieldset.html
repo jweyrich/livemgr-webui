@@ -20,6 +20,7 @@
 		{% endif %}
 	{% endfor %}
 	{% block extrafields %}{% endblock %}
+	{% comment %}
 	<!--
 	{% for field in form %}
 		{% if not field.is_hidden %}
@@ -32,4 +33,5 @@
 		{% endif %}
 	{% endfor %}
 	-->
+	{% endcomment %}
 </fieldset>

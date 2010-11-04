@@ -51,7 +51,7 @@ input[type='submit']:not([disabled]):hover {
 }
 input[type='submit']:not([disabled]).default:hover {
 	color: #fff;
-	border: 2px solid #486285;
+	border: 1px solid #486285;
 }
 label.inline {
 	display: block;
