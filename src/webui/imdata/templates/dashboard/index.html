@@ -26,7 +26,7 @@ function query() {
 	$.ajax({
 		type: 'POST',
 		url: '{% url webui:dashboard-query %}',
-		data: '&limit=5&period=month', // TODO change to day
+		data: '&limit=5&period=month', // TODO(jweyrich): change to day?
 		dataType: 'json',
 		success: function(data) {
 			update(data);
@@ -123,9 +123,11 @@ function updateMostActiveUsers(data) {
 function popupConversation(conv_id, msg_id) {
 	if (conv_id == undefined || msg_id == undefined)
 		return;
-	// TODO: evaluate http://code.google.com/p/django-jq/wiki/ProjectDocumentation
+	{% comment %}
+	// TODO(jweyrich): evaluate http://code.google.com/p/django-jq/wiki/ProjectDocumentation
 	//$('#messages').html('').load('{% url webui:conversations-show 1 %}');
 	//$('#messages').html('').load('{% url webui:conversations-index %}/'+id, highlight_messages);
+	{% endcomment %}
 	var url = '{% url webui:conversations-index %}/{0}#msg-{1}';
 	new_window = window.open(
 		url.format(conv_id, msg_id),

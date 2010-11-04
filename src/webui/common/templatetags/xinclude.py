@@ -61,7 +61,7 @@ class CallNode(template.Node):
 
 def tag_split(value):
 	params = []
-	# TODO handle strings containing the separator
+	# TODO(jweyrich): Handle strings containing the separator
 	for substring in value[8:].split(','):
 		params.append(substring.strip())
 	return params

@@ -191,8 +191,6 @@ def edit(request, object_id):
 def add(request):
 	object_id = None
 	if request.method == method.GET:
-		# FIXME the textarea only shows the proper 'cols' attr when built as
-		# GroupForm(instance=an_existing_instance)
 		form = GroupForm()
 	elif request.method == method.POST:
 		form = GroupForm(request.POST)

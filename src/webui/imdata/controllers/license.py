@@ -91,10 +91,10 @@ def fetch_license_details(cert_path):
 @login_required
 @permission_required('imdata.see_license')
 def index(request):
-	cert_path = settings.PROJECT_KEYSERVER_CERT_FILE
-	# Get details from KeyServer
 	license = None
 	try:
+		cert_path = settings.PROJECT_KEYSERVER_CERT_FILE
+		# Get details from KeyServer
 		license_details = fetch_license_details(cert_path)
 		now = datetime.now(UTC)
 		cert = X509.load_cert(cert_path, X509.FORMAT_PEM)

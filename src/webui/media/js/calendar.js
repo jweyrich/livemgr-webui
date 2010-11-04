@@ -1,6 +1,6 @@
 if (typeof gettext == 'undefined') {
-	//gettext = function(msgid) { return msgid; };
-	// Temporary workaround for http://code.djangoproject.com/ticket/5494
+	//gettext = function(msgid) { return msgid; }
+	// FIXME(jweyrich): Temporary workaround for http://code.djangoproject.com/ticket/5494
 	gettext = function(msgid) {
 		var lang = i18n.langCode;
 		switch (lang) {
@@ -40,7 +40,7 @@ var Calendar = {
 	},
 	_addCalendar: function() {
 		var field_selector = '#' + this.id;
-		// TODO: Use $('selector').after('<bla>...') ???
+		// TODO(jweyrich): Use $('selector').after('<bla>...') ???
 		var today_link = document.createElement('a');
 		var calendar_img = document.createElement('img');
 		var div = document.createElement('div');

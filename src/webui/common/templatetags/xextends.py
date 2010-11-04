@@ -66,7 +66,7 @@ def do_xextends(parser, token):
 				raise template.TemplateSyntaxError, "Argument syntax wrong: should be key=value"
 		# before we are done, remove the argument part from the token contents,
 		# or django's extends tag won't be able to handle it.
-		# TODO: find a better solution that preserves the orginal token including whitespace etc.
+		# TODO(jweyrich): Find a better solution that preserves the orginal token including whitespace etc.
 		token.contents = " ".join(bits)
 
 	# let the orginal do_extends parse the tag, and wrap the ExtendsNode

@@ -48,7 +48,7 @@ class UserTable(tables.ModelTable):
 	def render_isenabled(self, instance):
 		return format_boolean(instance.isenabled)
 	def render_contacts(self, instance):
-		# TODO: don't execute an extra query per-result
+		# TODO(jweyrich): Don't execute an extra query per-result
 		if instance.buddies.count():
 			return mark_safe('<a href="%s">%s</a>' % (
 				reverse('imdata:buddies-index', args=[instance.id]),
@@ -137,7 +137,7 @@ def index(request):
 		'menu': 'users',
 		'table': table,
 		'paginator': paginator,
-		'search_form': UserSearchForm()
+		'search_form': UserSearchForm(),
 	}
 	return render_to_response(template_name, extra_context, context_instance)
 
