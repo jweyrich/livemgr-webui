@@ -1,17 +1,40 @@
 {% extends "layout.html" %}
-{% load i18n %}
+{% load i18n xinclude %}
 
 {% block title %}
 {% trans "Change Group" %}
 {% endblock %}
 
 {% block scripts %}
-	{% include "groups/scripts.html" %}
-	<script type="text/javascript">
-	$(document).ready(function() {
-		$('#id_groupname').focus();
-	});
-	</script>
+{% include "groups/scripts.html" %}
+<script type="text/javascript">
+$(document).ready(function() {
+	$('#id_groupname').focus();
+
+	function delete_show(caller, callbacks, items) {
+		$("#confirm_delete .description").text(
+			"{% trans "You're about to delete this group." %}"
+		);
+		$("#confirm_delete").modal();
+		$("#confirm_delete .yes").click(callbacks.yes);
+		$("#confirm_delete .no").click(callbacks.no);
+	}
+
+	function delete_confirm(args) {
+		window.location.replace(args.url);
+	}
+
+	function setup_events() {
+		Selection.bindActionClickConfirm({
+			selector: '.delete',
+			url: '{% url webui:groups-delete model.id %}',
+			items: '{{ model.id }}',
+			onShow: delete_show,
+			onConfirm: delete_confirm});
+	}
+	setup_events();
+});
+</script>
 {% endblock %}
 	
 {% block content %}
@@ -22,7 +45,8 @@
 		{% include "generic/form-fieldset.html" %}
 		{% include "groups/form-fieldset-users.html" %}
 		{% include "groups/form-fieldset-rules.html" %}
-		{% include "generic/form-submit.html" %}
+		{% xinclude "generic/form-submit.html", delete=can_delete %}
 	</form>
 </div>
+{% include "generic/modal-delete.html" %}
 {% endblock %}

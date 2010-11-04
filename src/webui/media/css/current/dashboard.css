@@ -34,10 +34,12 @@
 }
 .listing .titlebar {
 	background-color: #dadada;
+	/* -specific-
 	background: -webkit-gradient(linear, 0 0%, 0 100%, from(#fff), to(#dadada));
 	background: -moz-linear-gradient(top, #fff, #dadada);
 	filter: progid:DXImageTransform.Microsoft.gradient(startColorstr=#ffffffff, endColorstr=#ffdadada);
 	-ms-filter: "progid:DXImageTransform.Microsoft.gradient(startColorstr=#ffffffff, endColorstr=#ffdadada)";
+	*/
 	border-bottom: 1px solid #d6d7d7;
 	padding: 5px 0 5px 0;
 	font-weight: bold;

@@ -1,0 +1,63 @@
+/* dashboard.css */
+.listing .titlebar {
+	background: -webkit-gradient(linear, 0 0%, 0 100%, from(#fff), to(#dadada));
+}
+
+/* form.css */
+input[type='button'],
+input[type='submit'] {
+	background: -webkit-gradient(linear, 0 40%, 0 70%, from(#F9F9F9), to(#E3E3E3));
+	margin-right: 0px;
+}
+form.generic .titlebar {
+	background: -webkit-gradient(linear, 0 0%, 0 100%, from(#fff), to(#dadada));
+}
+form.generic .titlebar.widget.right {
+	background: -webkit-gradient(linear, 0 0%, 0 100%, from(#b6d1ea), to(#698eb9));
+}
+
+/* login.css */
+.login form input {
+	-webkit-border-radius: 4px 4px 4px 4px;
+}
+.login form input[type='submit'] {
+	background: -webkit-gradient(linear, 0 40%, 0 70%, from(#F9F9F9), to(#E3E3E3));
+}
+
+/* pagination.css */
+ul.pagination li a {
+	background: -webkit-gradient(linear, 0 40%, 0 70%, from(#F9F9F9), to(#E3E3E3));
+}
+ul.pagination .previous-off,
+ul.pagination .next-off {
+	background: -webkit-gradient(linear, 0 40%, 0 70%, from(#F9F9F9), to(#E3E3E3));
+}
+
+/* search.css */
+#search .field {
+	-webkit-border-radius: 7px;
+}
+#search_adv {
+  	-webkit-border-radius: 5px;
+}
+
+/* theme.css */
+ul#navigator li.selected a {
+	background: -webkit-gradient(linear, 0 0%, 0 100%, from(#7f9bca), to(#5c79aa));
+}
+ul#navigator li:hover,
+ul#navigator li a:hover {
+	background: -webkit-gradient(linear, 0 0%, 0 100%, from(#7f9bca), to(#5c79aa));
+}
+div.actions {
+	background: -webkit-gradient(linear, 0 0%, 0 100%, from(#fff), to(#dadada));
+}
+div.actions [type='button'].default,
+div.actions [type='submit'].default {
+	background: -webkit-gradient(linear, 0 0%, 0 100%, from(#7f9bca), to(#5c79aa));
+}
+
+/* tooltip.css */
+.tooltip {
+	-webkit-box-shadow: 0 0 10px #aaa;
+}

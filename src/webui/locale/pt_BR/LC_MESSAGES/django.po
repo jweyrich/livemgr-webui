@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2010-10-30 22:52+0000\n"
+"POT-Creation-Date: 2010-11-03 22:07+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -33,82 +33,94 @@ msgstr "Por favor, corrija os campos abaixo."
 msgid "You don't have permission to access this."
 msgstr "Você não tem permissão para acessar isto."
 
-#: imdata/controllers/acls.py:28 imdata/controllers/acls.py:42
+#: imdata/controllers/acls.py:28 imdata/controllers/acls.py:50
 #: imdata/controllers/conversations.py:35
 #: imdata/controllers/conversations.py:71 imdata/models/acl.py:24
 #: imdata/models/buddy.py:25 imdata/models/conversation.py:18
-#: imdata/models/message.py:60 imdata/models/user.py:24
+#: imdata/models/message.py:59 imdata/models/user.py:24
 msgid "user"
 msgstr "usuário"
 
-#: imdata/controllers/acls.py:29 imdata/controllers/acls.py:43
+#: imdata/controllers/acls.py:29 imdata/controllers/acls.py:51
 #: imdata/controllers/conversations.py:36
 #: imdata/controllers/conversations.py:72 imdata/models/acl.py:25
-#: imdata/models/buddy.py:14 imdata/models/message.py:61
+#: imdata/models/buddy.py:14 imdata/models/message.py:60
 msgid "buddy"
 msgstr "contato"
 
-#: imdata/controllers/acls.py:30 imdata/controllers/acls.py:41
+#: imdata/controllers/acls.py:30 imdata/controllers/acls.py:49
 #: imdata/models/acl.py:26
 msgid "action"
 msgstr "ação"
 
-#: imdata/controllers/acls.py:53 imdata/controllers/badwords.py:49
-#: imdata/controllers/groups.py:57 imdata/controllers/users.py:89
+#: imdata/controllers/acls.py:41 imdata/controllers/acls.py:44
+msgid ""
+"You can use the asterisk as a wildcard character. Example:<br/><b>*@example."
+"com</b>"
+msgstr ""
+"Você pode usar o caractere de curinga asterisco. Por exemplo:<br/"
+"><b>*@example.com</b>"
+
+#: imdata/controllers/acls.py:61 imdata/controllers/badwords.py:60
+#: imdata/controllers/groups.py:58 imdata/controllers/users.py:97
 msgid "You may add another."
 msgstr "Você pode adicionar outro."
 
-#: imdata/controllers/acls.py:74 imdata/controllers/badwords.py:70
-#: imdata/controllers/buddies.py:57 imdata/controllers/conversations.py:104
-#: imdata/controllers/groups.py:78 imdata/controllers/profiles.py:87
-#: imdata/controllers/users.py:110
+#: imdata/controllers/acls.py:82 imdata/controllers/badwords.py:81
+#: imdata/controllers/buddies.py:57 imdata/controllers/conversations.py:108
+#: imdata/controllers/groups.py:79 imdata/controllers/profiles.py:87
+#: imdata/controllers/users.py:118
 msgid "Invalid search criteria"
 msgstr "Parâmetros de pesquisa inválidos"
 
-#: imdata/controllers/acls.py:116
+#: imdata/controllers/acls.py:124
 #, python-format
 msgid "The acl %d was changed successfully."
 msgstr "A acl% d foi alterada com sucesso."
 
-#: imdata/controllers/acls.py:139
+#: imdata/controllers/acls.py:151
 #, python-format
 msgid "The acl %d was created successfully."
 msgstr "A acl %d foi criada com sucesso."
 
-#: imdata/controllers/badwords.py:26 imdata/controllers/badwords.py:42
+#: imdata/controllers/badwords.py:27 imdata/controllers/badwords.py:53
 #: imdata/models/badword.py:12 imdata/models/badword.py:17
 #: imdata/templates/badwords/list.html:22
 msgid "badword"
 msgstr "palavrão"
 
-#: imdata/controllers/badwords.py:27 imdata/models/badword.py:18
+#: imdata/controllers/badwords.py:28 imdata/models/badword.py:18
 msgid "regular expression"
 msgstr "expressão regular"
 
-#: imdata/controllers/badwords.py:28 imdata/controllers/users.py:36
+#: imdata/controllers/badwords.py:29 imdata/controllers/users.py:36
 #: imdata/models/badword.py:19 imdata/models/user.py:37
 msgid "enabled"
 msgstr "habilitado"
 
-#: imdata/controllers/badwords.py:105
+#: imdata/controllers/badwords.py:47
+msgid "Invalid regular expression"
+msgstr "Expressão regular inválida"
+
+#: imdata/controllers/badwords.py:116
 #, python-format
 msgid "The badword '%s' was changed successfully."
 msgstr "O palavrão '%s' foi alterado com sucesso."
 
-#: imdata/controllers/badwords.py:128
+#: imdata/controllers/badwords.py:143
 #, python-format
 msgid "The badword '%s' was created successfully."
 msgstr "O palavrão '%s' foi criado com sucesso."
 
 #: imdata/controllers/buddies.py:24 imdata/controllers/buddies.py:35
 #: imdata/controllers/profiles.py:28 imdata/controllers/profiles.py:74
-#: imdata/controllers/users.py:31 imdata/controllers/users.py:76
+#: imdata/controllers/users.py:31 imdata/controllers/users.py:84
 #: imdata/models/buddy.py:19 imdata/models/user.py:30
 msgid "username"
 msgstr "nome de usuário"
 
 #: imdata/controllers/buddies.py:25 imdata/controllers/buddies.py:36
-#: imdata/controllers/users.py:32 imdata/controllers/users.py:77
+#: imdata/controllers/users.py:32 imdata/controllers/users.py:85
 #: imdata/models/buddy.py:20 imdata/models/user.py:31
 msgid "display name"
 msgstr "nome de exibição"
@@ -118,7 +130,7 @@ msgid "personal message"
 msgstr "mensagem pessoal"
 
 #: imdata/controllers/buddies.py:27 imdata/controllers/buddies.py:37
-#: imdata/controllers/users.py:34 imdata/controllers/users.py:79
+#: imdata/controllers/users.py:34 imdata/controllers/users.py:87
 #: imdata/models/buddy.py:23 imdata/models/user.py:34
 msgid "status"
 msgstr "status"
@@ -128,87 +140,87 @@ msgid "blocked"
 msgstr "bloqueado"
 
 #: imdata/controllers/conversations.py:34 imdata/models/conversation.py:19
-#: imdata/models/message.py:52
+#: imdata/models/message.py:51
 msgid "timestamp"
 msgstr "horário"
 
 #: imdata/controllers/conversations.py:50
-#: imdata/controllers/conversations.py:212
+#: imdata/controllers/conversations.py:216
 msgid "%m/%d/%Y - %I:%M:%S %p"
 msgstr "%d/%m/%Y - %I:%M:%S %p"
 
-#: imdata/controllers/conversations.py:70 imdata/models/message.py:46
+#: imdata/controllers/conversations.py:70 imdata/models/message.py:45
 msgid "message"
 msgstr "mensagem"
 
-#: imdata/controllers/conversations.py:73 imdata/models/message.py:62
+#: imdata/controllers/conversations.py:73 imdata/models/message.py:61
 msgid "filtered"
 msgstr "filtrado"
 
-#: imdata/controllers/conversations.py:75
+#: imdata/controllers/conversations.py:79
 msgid "from date"
 msgstr "da data"
 
-#: imdata/controllers/conversations.py:78
-#: imdata/controllers/conversations.py:87
+#: imdata/controllers/conversations.py:82
+#: imdata/controllers/conversations.py:91
 msgid "mm/dd/yyyy"
 msgstr "dd/mm/yyyy"
 
-#: imdata/controllers/conversations.py:84
+#: imdata/controllers/conversations.py:88
 msgid "to date"
 msgstr "até a data"
 
-#: imdata/controllers/conversations.py:111
+#: imdata/controllers/conversations.py:115
 msgid "Invalid date"
 msgstr "Data inválida"
 
-#: imdata/controllers/conversations.py:160
-#: imdata/controllers/conversations.py:183
+#: imdata/controllers/conversations.py:164
+#: imdata/controllers/conversations.py:187
 #, python-format
 msgid "Missing argument: %s"
 msgstr "Faltando argumento: %s"
 
-#: imdata/controllers/conversations.py:188
+#: imdata/controllers/conversations.py:192
 msgid "Conversation not found"
 msgstr "Conversa não encontrada"
 
-#: imdata/controllers/conversations.py:209
+#: imdata/controllers/conversations.py:213
 #: imdata/templates/conversations/show.html:5
 #: imdata/templates/conversations/show.html:36
 msgid "Conversation"
 msgstr "Conversa"
 
-#: imdata/controllers/conversations.py:210
+#: imdata/controllers/conversations.py:214
 #: imdata/templates/conversations/show.html:37
 #: imdata/templates/dashboard/index.html:269
 msgid "User"
 msgstr "Usuário"
 
-#: imdata/controllers/conversations.py:211
+#: imdata/controllers/conversations.py:215
 #: imdata/templates/conversations/show.html:39
 msgid "Buddy"
 msgstr "Contato"
 
-#: imdata/controllers/conversations.py:212
+#: imdata/controllers/conversations.py:216
 #: imdata/templates/conversations/show.html:40
 msgid "Started in"
 msgstr "Inciciada em"
 
-#: imdata/controllers/conversations.py:213
+#: imdata/controllers/conversations.py:217
 #: imdata/templates/conversations/show.html:41
 msgid "Total messages"
 msgstr "Total de mensagens"
 
-#: imdata/controllers/conversations.py:236
+#: imdata/controllers/conversations.py:240
 #, python-format
 msgid "Page %(this)i of %(total)i"
 msgstr "Página %(this)i de %(total)i"
 
-#: imdata/controllers/conversations.py:243
+#: imdata/controllers/conversations.py:247
 msgid "%m/%d/%Y %I:%M:%S %p"
 msgstr "%d/%m/%Y %I:%M:%S %p"
 
-#: imdata/controllers/groups.py:30 imdata/controllers/groups.py:49
+#: imdata/controllers/groups.py:30 imdata/controllers/groups.py:50
 #: imdata/models/rule.py:17 imdata/models/setting.py:17
 #: imdata/models/usergroup.py:18
 msgid "name"
@@ -223,7 +235,7 @@ msgstr "ativo"
 msgid "built-in"
 msgstr "permanente"
 
-#: imdata/controllers/groups.py:33 imdata/controllers/groups.py:50
+#: imdata/controllers/groups.py:33 imdata/controllers/groups.py:51
 #: imdata/models/rule.py:18 imdata/models/usergroup.py:21
 msgid "description"
 msgstr "descrição"
@@ -232,24 +244,24 @@ msgstr "descrição"
 msgid "# of users"
 msgstr "# de usuários"
 
-#: imdata/controllers/groups.py:146
+#: imdata/controllers/groups.py:148
 #, python-format
 msgid "The group '%s' was changed successfully."
 msgstr "O grupo '%s' foi alterado com sucesso."
 
-#: imdata/controllers/groups.py:148
+#: imdata/controllers/groups.py:150
 msgid ""
 "However, the users weren't removed because they must belong to one group at "
 "least."
 msgstr ""
 "Mas os usuários não podem ser removidos pois devem fazer parte de um grupo."
 
-#: imdata/controllers/groups.py:205
+#: imdata/controllers/groups.py:210
 #, python-format
 msgid "The group '%s' was created successfully."
 msgstr "O grupo '%s' foi criado com sucesso."
 
-#: imdata/controllers/groups.py:229
+#: imdata/controllers/groups.py:235
 msgid "Can't delete built-in groups."
 msgstr "Não é permitido excluir grupos permanentes."
 
@@ -338,7 +350,7 @@ msgid "Enable debug"
 msgstr "Habilitar debug"
 
 #: imdata/controllers/profiles.py:76 imdata/controllers/users.py:30
-#: imdata/controllers/users.py:78 imdata/models/grouprule.py:18
+#: imdata/controllers/users.py:86 imdata/models/grouprule.py:18
 #: imdata/models/user.py:29 imdata/templates/groups/list.html:23
 msgid "group"
 msgstr "grupo"
@@ -360,12 +372,12 @@ msgid "Allow self registration"
 msgstr "Permitir auto-registro"
 
 #: imdata/controllers/settings.py:28
-msgid "Filter"
-msgstr "Filtro"
+msgid "Filtered"
+msgstr "Filtrado"
 
-#: imdata/controllers/settings.py:29
-msgid "Alert"
-msgstr "Alerta"
+#: imdata/controllers/settings.py:29 imdata/models/rule.py:28
+msgid "Disclaimer"
+msgstr "Aviso legal"
 
 #: imdata/controllers/settings.py:46 imdata/controllers/settings.py:52
 msgid "This field is required."
@@ -391,15 +403,23 @@ msgstr "Gerenciar"
 msgid "None"
 msgstr "Nenhum"
 
-#: imdata/controllers/users.py:149
+#: imdata/controllers/users.py:77
+msgid "Changing the username for a user that already logged is not permitted."
+msgstr "Não é permitido alterar o nome de um usuário que já realizou login."
+
+#: imdata/controllers/users.py:158
 #, python-format
 msgid "The user '%s' was changed successfully."
 msgstr "O usuário '%s' foi alterado com sucesso."
 
-#: imdata/controllers/users.py:177
+#: imdata/controllers/users.py:188
 #, python-format
 msgid "The user '%s' was created successfully."
 msgstr "O usuário '%s' foi criado com sucesso."
+
+#: imdata/controllers/users.py:206
+msgid "Deleting a user that already logged is not permitted."
+msgstr "Não é permitido apagar um usuário que já realizou login."
 
 #: imdata/models/acl.py:10
 msgid "Allow"
@@ -461,87 +481,87 @@ msgstr "regras de grupo"
 msgid "rule"
 msgstr "regra"
 
-#: imdata/models/message.py:25
+#: imdata/models/message.py:24
 msgid "unknown"
 msgstr "desconhecido"
 
-#: imdata/models/message.py:26
+#: imdata/models/message.py:25
 msgid "msg"
 msgstr "mensagem"
 
-#: imdata/models/message.py:27
+#: imdata/models/message.py:26
 msgid "file"
 msgstr "arquivo"
 
-#: imdata/models/message.py:28
+#: imdata/models/message.py:27
 msgid "typing"
 msgstr "digitando"
 
-#: imdata/models/message.py:29 imdata/models/rule.py:28
+#: imdata/models/message.py:28
 msgid "caps"
 msgstr "capacidades"
 
-#: imdata/models/message.py:30 imdata/models/rule.py:38
+#: imdata/models/message.py:29
 msgid "webcam"
 msgstr "webcam"
 
-#: imdata/models/message.py:31 imdata/models/rule.py:36
+#: imdata/models/message.py:30
 msgid "remotedesktop"
 msgstr "desktop remoto"
 
-#: imdata/models/message.py:32 imdata/models/rule.py:27
+#: imdata/models/message.py:31
 msgid "application"
 msgstr "aplicação"
 
-#: imdata/models/message.py:33
+#: imdata/models/message.py:32
 msgid "emoticon"
 msgstr "emoticon"
 
-#: imdata/models/message.py:34 imdata/models/rule.py:33
+#: imdata/models/message.py:33
 msgid "ink"
 msgstr "tinta"
 
-#: imdata/models/message.py:35 imdata/models/rule.py:35
+#: imdata/models/message.py:34
 msgid "nudge"
 msgstr "atenção"
 
-#: imdata/models/message.py:36 imdata/models/rule.py:39
+#: imdata/models/message.py:35
 msgid "wink"
 msgstr "wink"
 
-#: imdata/models/message.py:37 imdata/models/rule.py:37
+#: imdata/models/message.py:36
 msgid "voiceclip"
 msgstr "clipe de voz"
 
-#: imdata/models/message.py:38 imdata/models/rule.py:40
+#: imdata/models/message.py:37
 msgid "games"
 msgstr "jogos"
 
-#: imdata/models/message.py:39 imdata/models/rule.py:41
+#: imdata/models/message.py:38
 msgid "photo"
 msgstr "foto"
 
-#: imdata/models/message.py:47 imdata/templates/dashboard/index.html:220
+#: imdata/models/message.py:46 imdata/templates/dashboard/index.html:220
 msgid "messages"
 msgstr "mensagens"
 
-#: imdata/models/message.py:51
+#: imdata/models/message.py:50
 msgid "conversation #"
 msgstr "conversa #"
 
-#: imdata/models/message.py:56
+#: imdata/models/message.py:55
 msgid "client IP"
 msgstr "IP do cliente"
 
-#: imdata/models/message.py:57
+#: imdata/models/message.py:56
 msgid "inbound"
 msgstr "recebido"
 
-#: imdata/models/message.py:58
+#: imdata/models/message.py:57
 msgid "type"
 msgstr "tipo"
 
-#: imdata/models/message.py:63
+#: imdata/models/message.py:62
 msgid "content"
 msgstr "conteúdo"
 
@@ -557,29 +577,81 @@ msgstr "habilitar debug"
 msgid "rules"
 msgstr "regras"
 
-#: imdata/models/rule.py:26
-msgid "alert"
-msgstr "alerta"
+#: imdata/models/rule.py:27
+msgid "Conversation history"
+msgstr "Histórico de conversas"
+
+#: imdata/models/rule.py:27
+msgid "Save instant message conversations"
+msgstr "Salva todas as conversas de mensagem instantânea"
+
+#: imdata/models/rule.py:28
+msgid "Notify the user that the messages are being monitored"
+msgstr "Notifica o usuário que as mensagens estão sendo monitoradas"
 
 #: imdata/models/rule.py:29
-msgid "crypt"
-msgstr "criptografia"
+msgid "Block file transfers"
+msgstr "Bloquear transferência de arquivos"
+
+#: imdata/models/rule.py:29
+msgid "Automatically reject file transfers"
+msgstr "Rejeita automaticamente transferência de arquivos"
 
 #: imdata/models/rule.py:30
-msgid "emoticons"
-msgstr "emoticons"
+msgid "Block unofficial messages"
+msgstr "Bloquear mensagens não oficiais"
 
 #: imdata/models/rule.py:31
-msgid "filetransfer"
-msgstr "transferência de arquivo"
+msgid "Block webcam"
+msgstr "Bloquear webcam"
 
 #: imdata/models/rule.py:32
-msgid "filter"
-msgstr "filtro"
+msgid "Block Remote Assistance"
+msgstr "Bloquear Assistência Remota"
+
+#: imdata/models/rule.py:33
+msgid "Block application sharing"
+msgstr "Bloquear compartilhamento de aplicativos"
 
 #: imdata/models/rule.py:34
-msgid "log"
-msgstr "log"
+msgid "Block custom emoticons"
+msgstr "Bloquear emoticons personalizados"
+
+#: imdata/models/rule.py:35
+msgid "Block handwriting"
+msgstr "Bloquear manuscritos"
+
+#: imdata/models/rule.py:36
+msgid "Block nudges"
+msgstr "Bloquear chamados de atenção"
+
+#: imdata/models/rule.py:37
+msgid "Block winks"
+msgstr "Bloquear winks"
+
+#: imdata/models/rule.py:38
+msgid "Block voice clips"
+msgstr "Bloquear clipes de voz"
+
+#: imdata/models/rule.py:39
+msgid "Block encrypted messages"
+msgstr "Bloquear mensagens criptografadas"
+
+#: imdata/models/rule.py:40
+msgid "Badword filtering"
+msgstr "Filtro de palavrões"
+
+#: imdata/models/rule.py:40
+msgid "Filter messages based on defined badwords"
+msgstr "Filtra mensagens baseado nos palavrões definidos"
+
+#: imdata/models/rule.py:41
+msgid "Block MSN Games"
+msgstr "Bloquear jogos MSN"
+
+#: imdata/models/rule.py:42
+msgid "Block photo sharing"
+msgstr "Bloquear compartilhamento de fotos"
 
 #: imdata/models/setting.py:12
 msgid "setting"
@@ -698,9 +770,13 @@ msgstr "Perfis"
 msgid "Add ACL"
 msgstr "Adicionar ACL"
 
-#: imdata/templates/acls/edit.html:5 imdata/templates/acls/edit.html.py:18
+#: imdata/templates/acls/edit.html:5 imdata/templates/acls/edit.html.py:37
 msgid "Change ACL"
 msgstr "Alterar ACL"
+
+#: imdata/templates/acls/edit.html:15
+msgid "You're about to delete this acl."
+msgstr "Você está prestes a apagar esta acl."
 
 #: imdata/templates/acls/list.html:5 imdata/templates/acls/list.html.py:49
 msgid "ACL Summary"
@@ -720,9 +796,13 @@ msgid "Add Badword"
 msgstr "Adicionar Palavrão"
 
 #: imdata/templates/badwords/edit.html:5
-#: imdata/templates/badwords/edit.html:18
+#: imdata/templates/badwords/edit.html:37
 msgid "Change Badword"
 msgstr "Alterar Palavrão"
+
+#: imdata/templates/badwords/edit.html:15
+msgid "You're about to delete this badword."
+msgstr "Você está prestes a apagar esta badword."
 
 #: imdata/templates/badwords/list.html:5
 #: imdata/templates/badwords/list.html:52
@@ -864,6 +944,10 @@ msgstr "Salvar e editar"
 msgid "Save and add another"
 msgstr "Salvar e adicionar"
 
+#: imdata/templates/generic/form-submit.html:7
+msgid "Delete"
+msgstr "Apagar"
+
 #: imdata/templates/generic/modal-delete.html:3
 msgid "Do you want to proceed?"
 msgstr "Deseja continuar?"
@@ -912,9 +996,13 @@ msgstr "<u>N</u>ovo"
 msgid "Add Group"
 msgstr "Adicionar Grupo"
 
-#: imdata/templates/groups/edit.html:5 imdata/templates/groups/edit.html:19
+#: imdata/templates/groups/edit.html:5 imdata/templates/groups/edit.html:37
 msgid "Change Group"
 msgstr "Alterar Grupo"
+
+#: imdata/templates/groups/edit.html:15
+msgid "You're about to delete this group."
+msgstr "Você está prestes a apagar este grupo."
 
 #: imdata/templates/groups/form-fieldset-rules.html:9
 #: imdata/templates/groups/form-fieldset-users.html:9
@@ -972,19 +1060,19 @@ msgstr "Você tem certeza?"
 msgid "Search for profiles"
 msgstr "Procura por perfis"
 
-#: imdata/templates/profiles/login.html:49
+#: imdata/templates/profiles/login.html:56
 msgid "login"
 msgstr "login"
 
-#: imdata/templates/profiles/login.html:53
+#: imdata/templates/profiles/login.html:60
 msgid "Remember me"
 msgstr "Lembrar"
 
-#: imdata/templates/profiles/login.html:58
+#: imdata/templates/profiles/login.html:65
 msgid "Forgot password?"
 msgstr "Esqueceu a senha?"
 
-#: imdata/templates/profiles/login.html:64
+#: imdata/templates/profiles/login.html:71
 msgid "Invalid user or password."
 msgstr "Usuário ou senha inválida."
 
@@ -1027,9 +1115,13 @@ msgstr "Notificações"
 msgid "Add User"
 msgstr "Adicionar Usuário"
 
-#: imdata/templates/users/edit.html:5 imdata/templates/users/edit.html:18
+#: imdata/templates/users/edit.html:5 imdata/templates/users/edit.html:37
 msgid "Change User"
 msgstr "Alterar Usuário"
+
+#: imdata/templates/users/edit.html:15
+msgid "You're about to delete this user."
+msgstr "Você está prestes a apagar este usuário."
 
 #: imdata/templates/users/list.html:5 imdata/templates/users/list.html:38
 msgid "User Summary"
@@ -1058,3 +1150,9 @@ msgstr "Erro interno"
 #: templates/500.html:12
 msgid "This shouldn't happen! Please, contact "
 msgstr "Isto não deveria acontecer! Por favor, contate "
+
+#~ msgid "first name"
+#~ msgstr "Nome"
+
+#~ msgid "last name"
+#~ msgstr "Sobrenome"

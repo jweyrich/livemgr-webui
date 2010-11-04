@@ -1,39 +1,39 @@
 <script type="text/javascript">
-	$(document).ready(function() {
-		SelectFilter.init('users_available');
-		SelectFilter.init('users');
-		SelectFilter.init('rules_available');
-		SelectFilter.init('rules');
-		//SelectBox.sort('users');
-		//SelectBox.sort('rules');
-		function move_selected(source, target) {
-			//return !$(source).children('option:selected')
-			//	.not('.actual').remove().appendTo(target);
-			SelectBox.move(source, target);
-			//SelectBox.sort(target);
-		}
-		function select_all(source) {
-			$(source).children('option').attr('selected', 'selected');
-		}
-		$('#users_remove').click(function() {
-			//return move_selected('#users', '#users_available');
-			return move_selected('users', 'users_available');
-		});
-		$('#users_add').click(function() {
-			//return move_selected('#users_available', '#users');
-			return move_selected('users_available', 'users');
-		});
-		$('#rules_remove').click(function() {
-			//return move_selected('#rules', '#rules_available');
-			return move_selected('rules', 'rules_available');
-		});
-		$('#rules_add').click(function() {
-			//return move_selected('#rules_available', '#rules');
-			return move_selected('rules_available', 'rules');
-		});
-		$('form').submit(function() {
-			select_all('#users');
-			select_all('#rules');
-		});
+$(document).ready(function() {
+	SelectFilter.init('users_available');
+	SelectFilter.init('users');
+	SelectFilter.init('rules_available');
+	SelectFilter.init('rules');
+	//SelectBox.sort('users');
+	//SelectBox.sort('rules');
+	function move_selected(source, target) {
+		//return !$(source).children('option:selected')
+		//	.not('.actual').remove().appendTo(target);
+		SelectBox.move(source, target);
+		//SelectBox.sort(target);
+	}
+	function select_all(source) {
+		$(source).children('option').attr('selected', 'selected');
+	}
+	$('#users_remove').click(function() {
+		//return move_selected('#users', '#users_available');
+		return move_selected('users', 'users_available');
 	});
+	$('#users_add').click(function() {
+		//return move_selected('#users_available', '#users');
+		return move_selected('users_available', 'users');
+	});
+	$('#rules_remove').click(function() {
+		//return move_selected('#rules', '#rules_available');
+		return move_selected('rules', 'rules_available');
+	});
+	$('#rules_add').click(function() {
+		//return move_selected('#rules_available', '#rules');
+		return move_selected('rules_available', 'rules');
+	});
+	$('form').submit(function() {
+		select_all('#users');
+		select_all('#rules');
+	});
+});
 </script>

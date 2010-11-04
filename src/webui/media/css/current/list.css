@@ -14,7 +14,7 @@ table.list input {
 /* header */
 
 table.list thead {
-	/*
+	/* -specific- NOT USED
 	background: -webkit-gradient(linear, 0 0%, 0 100%, from(#dadada), to(#fff));
 	background: -moz-linear-gradient(top, #dadada, #fff);
 	filter: progid:DXImageTransform.Microsoft.gradient(startColorstr=#ffdadada, endColorstr=#ffffffff);

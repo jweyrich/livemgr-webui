@@ -18,26 +18,27 @@ class Rule(models.Model):
 	description = models.TextField(_("description"), max_length=512)
 	def __unicode__(self):
 		return smart_unicode(self.rulename)
-	
+
 class RuleAdmin(admin.ModelAdmin):
 	pass
 
-class LocalizedRules():
-	alert = Rule(1, _('alert'), '')
-	application = Rule(2, _('application'), '')
-	caps = Rule(3, _('caps'), '')
-	crypt = Rule(4, _('crypt'), '')
-	emoticons = Rule(5, _('emoticons'), '')
-	filetransfer = Rule(6, _('filetransfer'), '')
-	filter = Rule(7, _('filter'), '')
-	ink = Rule(8, _('ink'), '')
-	log = Rule(9, _('log'), '')
-	nudge = Rule(10, _('nudge'), '')
-	remotedesktop = Rule(11, _('remotedesktop'), '')
-	voiceclip = Rule(12, _('voiceclip'), '')
-	webcam = Rule(13, _('webcam'), '')
-	wink = Rule(14, _('wink'), '')
-	games = Rule(15, _('games'), '')
-	photo = Rule(16, _('photo'), '')
-	
-# TODO mudar ordem e adicionar GAMES e PHOTO
+class LocalizedRules:
+	RULES = [
+		Rule(1, _('Conversation history'), _('Save instant message conversations')),
+		Rule(2, _('Disclaimer'), _('Notify the user that the messages are being monitored')),
+		Rule(3, _('Block file transfers'), _('Automatically reject file transfers')),
+		Rule(4, _('Block unofficial messages'), ''),
+		Rule(5, _('Block webcam'), ''),
+		Rule(6, _('Block Remote Assistance'), ''),
+		Rule(7, _('Block application sharing'), ''),
+		Rule(8, _('Block custom emoticons'), ''),
+		Rule(9, _('Block handwriting'), ''),
+		Rule(10, _('Block nudges'), ''),
+		Rule(11, _('Block winks'), ''),
+		Rule(12, _('Block voice clips'), ''),
+		Rule(13, _('Block encrypted messages'), ''),
+		Rule(14, _('Badword filtering'), _('Filter messages based on defined badwords')),
+		Rule(15, _('Block MSN Games'), ''),
+		Rule(16, _('Block photo sharing'), '')
+	]
+

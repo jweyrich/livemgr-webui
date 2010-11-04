@@ -9,13 +9,13 @@
 <script type="text/javascript">
 $(document).ready(function() {
 	$('[type=submit]').click(function() { $($(this).attr('target')).submit(); });
-	$('#search form').submit(function() { return SearchUtil.search(this, '{% url webui:acls-index %}'); });
-	$('#search_adv form').submit(function() { return SearchUtil.search(this, '{% url webui:acls-index %}'); });
+	$('#search form').submit(function() { return Search.search(this, '{% url webui:acls-index %}'); });
+	$('#search_adv form').submit(function() { return Search.search(this, '{% url webui:acls-index %}'); });
 	$('#create').click(function() { window.location = '{% url webui:acls-add %}'; });
 
-	FormUtil.make_field_hint('#search', 'search_acl');
-	FormUtil.make_field_hint('#search_adv', 'id_localim');
-	FormUtil.make_field_hint('#search_adv', 'id_remoteim');
+	Form.makeFieldHint('#search', 'search_acl');
+	Form.makeFieldHint('#search_adv', 'id_localim');
+	Form.makeFieldHint('#search_adv', 'id_remoteim');
 
 	function delete_show(caller, callbacks, items) {
 		$("#confirm_delete .description").text(
@@ -31,15 +31,15 @@ $(document).ready(function() {
 	}
 
 	function setup_events() {
-		SelectionUtil.show_actions('.delete');
-		SelectionUtil.bind_list_tr_click({url:'{% url webui:acls-index %}/{0}'});
-		SelectionUtil.bind_action_click_confirm({
+		Selection.showActions('.delete');
+		Selection.bindListRowClick({url:'{% url webui:acls-index %}{0}'});
+		Selection.bindActionClickConfirm({
 			selector: '.delete',
 			url: '{% url webui:acls-delete-many %}',
-			show: delete_show});
+			onShow: delete_show});
 	}
 	setup_events();
-	SearchUtil.afterSearch(setup_events);
+	Search.onComplete = setup_events;
 });
 </script>
 {% endblock %}

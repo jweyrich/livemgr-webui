@@ -1,0 +1,63 @@
+/* dashboard.css */
+.listing .titlebar {
+	background: -moz-linear-gradient(top, #fff, #dadada);
+}
+
+/* form.css */
+input[type='button'],
+input[type='submit'] {
+	background: -moz-linear-gradient(top, #F9F9F9, #E3E3E3);
+	margin-right: 2px;
+}
+form.generic .titlebar {
+	background: -moz-linear-gradient(top, #fff, #dadada);
+}
+form.generic .titlebar.widget.right {
+	background: -moz-linear-gradient(top, #b6d1ea, #698eb9);
+}
+
+/* login.css */
+.login form input {
+	-moz-border-radius: 4px 4px 4px 4px;
+}
+.login form input[type='submit'] {
+	background: -moz-linear-gradient(top, #F9F9F9, #E3E3E3);
+}
+
+/* pagination.css */
+ul.pagination li a {
+	background: -moz-linear-gradient(top, #F9F9F9, #E3E3E3);
+}
+ul.pagination .previous-off,
+ul.pagination .next-off {
+	background: -moz-linear-gradient(top, #F9F9F9, #E3E3E3);
+}
+
+/* search.css */
+#search .field {
+	-moz-border-radius: 7px;
+}
+#search_adv {
+	-moz-border-radius: 5px;
+}
+
+/* theme.css */
+ul#navigator li.selected a {
+	background: -moz-linear-gradient(top, #7f9bca, #5c79aa);
+}
+ul#navigator li:hover,
+ul#navigator li a:hover {
+	background: -moz-linear-gradient(top, #7f9bca, #5c79aa);
+}
+div.actions {
+	background: -moz-linear-gradient(top, #fff, #dadada);
+}
+div.actions [type='button'].default,
+div.actions [type='submit'].default {
+	background: -moz-linear-gradient(top, #7f9bca, #5c79aa);
+}
+
+/* tooltip.css */
+.tooltip {
+	-moz-box-shadow: 0 0 10px #aaa;
+}

@@ -9,25 +9,25 @@
 <script type="text/javascript">
 $(document).ready(function() {
 	$('[type=submit]').click(function() { $($(this).attr('target')).submit(); });
-	$('#search form').submit(function() { return SearchUtil.search(this, '{% url webui:buddies-index from_user.id %}'); });
-	$('#search_adv form').submit(function() { return SearchUtil.search(this, '{% url webui:buddies-index from_user.id %}'); });
+	$('#search form').submit(function() { return Search.search(this, '{% url webui:buddies-index from_user.id %}'); });
+	$('#search_adv form').submit(function() { return Search.search(this, '{% url webui:buddies-index from_user.id %}'); });
 	//$('#create').click(function() { window.location = '{% url webui:users-add %}'; });
 
-	FormUtil.make_field_hint('#search', 'search_username');
-	FormUtil.make_field_hint('#search_adv', 'id_username');
-	FormUtil.make_field_hint('#search_adv', 'id_displayname');
+	Form.makeFieldHint('#search', 'search_username');
+	Form.makeFieldHint('#search_adv', 'id_username');
+	Form.makeFieldHint('#search_adv', 'id_displayname');
 
 	function setup_events() {
-		SelectionUtil.show_actions(['.block', '.unblock']);
-		SelectionUtil.bind_action_click({
+		Selection.showActions(['.block', '.unblock']);
+		Selection.bindActionClick({
 			selector: '.block',
 			url:'{% url webui:buddies-block-many from_user.id %}'});
-		SelectionUtil.bind_action_click({
+		Selection.bindActionClick({
 			selector: '.unblock',
 			url:'{% url webui:buddies-unblock-many from_user.id %}'});
 	}
 	setup_events();
-	SearchUtil.afterSearch(setup_events);
+	Search.onComplete = setup_events;
 });
 </script>
 {% endblock %}

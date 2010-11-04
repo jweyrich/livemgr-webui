@@ -12,9 +12,9 @@
 			<img src="{{MEDIA_URL}}img/django/icon_search.gif"> 
 			<input type="text" id="users_available_filter" />
 		</p>
-		<select id="users_available" name="users_available" multiple style="height: 200px;">
+		<select id="users_available" name="users_available" multiple style="height: 200px; width:250px;">
 		{% for user in available_users %}
-			<option value="{{ user.id }}">{{ user.group.groupname }} | {{ user.username }}</option>
+			<option value="{{ user.id }}" title="{{ user.username }}">{{ user.group.groupname }} | {{ user.username }}</option>
 		{% endfor %}
 		</select>
 	</div>
@@ -35,9 +35,9 @@
 		<div class="titlebar widget right">
 			<span>{% trans "assigned" %}</span>
 		</div>
-		<select id="users" name="users" multiple style="height:225px;">
+		<select id="users" name="users" multiple style="height:225px; width:250px;">
 		{% for user in form.instance.users.all %}
-			<option value="{{ user.id }}" {% if form.instance.id == 1 %}class="actual"{% endif %}>{{ user.group.groupname }} | {{ user.username }}</option>
+			<option value="{{ user.id }}" title="{{ user.username }}" {% if form.instance.id == 1 %}class="actual"{% endif %}>{{ user.group.groupname }} | {{ user.username }}</option>
 		{% endfor %}
 		</select>
 	</div>

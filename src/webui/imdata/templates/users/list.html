@@ -9,26 +9,26 @@
 <script type="text/javascript">
 $(document).ready(function() {
 	$('[type=submit]').click(function() { $($(this).attr('target')).submit(); });
-	$('#search form').submit(function() { return SearchUtil.search(this, '{% url webui:users-index %}'); });
-	$('#search_adv form').submit(function() { return SearchUtil.search(this, '{% url webui:users-index %}'); });
+	$('#search form').submit(function() { return Search.search(this, '{% url webui:users-index %}'); });
+	$('#search_adv form').submit(function() { return Search.search(this, '{% url webui:users-index %}'); });
 	$('#create').click(function() { window.location = '{% url webui:users-add %}'; });
 
-	FormUtil.make_field_hint('#search', 'search_username');
-	FormUtil.make_field_hint('#search_adv', 'id_username');
-	FormUtil.make_field_hint('#search_adv', 'id_displayname');
+	Form.makeFieldHint('#search', 'search_username');
+	Form.makeFieldHint('#search_adv', 'id_username');
+	Form.makeFieldHint('#search_adv', 'id_displayname');
 
 	function setup_events() {
-		//SelectionUtil.show_actions('.delete');
-		SelectionUtil.bind_list_tr_click({url:'{% url webui:users-index %}/{0}'});
+		//Selection.showActions('.delete');
+		Selection.bindListRowClick({url:'{% url webui:users-index %}{0}'});
 		{% comment %}
-		SelectionUtil.bind_action_click({
+		Selection.bindActionClick({
 			selector: '.delete',
 			url:'{% url webui:users-delete-many %}',
 			confirm:'{% trans "Are you sure?" %}'});
 		{% endcomment %}
 	}
 	setup_events();
-	SearchUtil.afterSearch(setup_events);
+	Search.onComplete = setup_events;
 });
 </script>
 {% endblock %}

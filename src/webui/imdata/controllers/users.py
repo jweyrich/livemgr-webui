@@ -3,16 +3,16 @@ from django.contrib.auth.decorators import login_required, permission_required
 from django.core.urlresolvers import reverse
 from django.forms.models import ModelForm
 from django.http import HttpResponseBadRequest, HttpResponseRedirect, \
-	HttpResponse
+	HttpResponse, HttpResponseForbidden
 from django.shortcuts import render_to_response, get_object_or_404
 from django.template import RequestContext
 from django.utils.safestring import mark_safe
 from django.utils.translation import ugettext as _, ugettext_lazy
 from webui.common import CustomPaginator
-from webui.common.decorators.rest import rest_multiple
+from webui.common.decorators.rest import rest_multiple, rest_get
 from webui.common.http import method
-from webui.common.utils import request_has_error, FormAction, flash_info, InView, \
-	flash_success, flash_form_error
+from webui.common.utils import FormAction, flash_info, InView, flash_success, \
+	flash_form_error, flash_error, request_has_error
 from webui.imdata.models import User
 from webui.imdata.models.profile import Profile
 from webui.imdata.models.usergroup import UserGroup
@@ -69,8 +69,16 @@ class UserForm(ModelForm):
 			#self.fields['id'] = forms.IntegerField(widget=forms.HiddenInput())
 			if not instance.lastlogin == None:
 				self.fields['username'].widget.attrs['readonly'] = True
-#	def clean_username(self):
-#		return self.instance.username
+	def clean(self):
+		cleaned_data = self.cleaned_data
+		username = cleaned_data.get('username')
+		if self.instance.lastlogin:
+			if self.instance.username != username:
+				msg = _('Changing the username for a user that already logged '
+					'is not permitted.')
+				self._errors["username"] = self.error_class([msg])
+				del cleaned_data["username"]
+		return cleaned_data
 
 class UserSearchForm(forms.Form):
 	username = forms.CharField(required=False, label=ugettext_lazy("username"))
@@ -139,6 +147,7 @@ def index(request):
 def edit(request, object_id):
 	object_id = long(object_id)
 	model = get_object_or_404(User, pk=object_id)
+	can_delete = model.lastlogin == None
 	if request.method == method.GET:
 		form = UserForm(instance=model)
 	elif request.method == method.POST:
@@ -156,6 +165,8 @@ def edit(request, object_id):
 	extra_context = {
 		'menu': 'users',
 		'form': form,
+		'model':  model,
+		'can_delete': can_delete,
 	}
 	return render_to_response(template_name, extra_context, context_instance)
 
@@ -185,13 +196,24 @@ def add(request):
 	extra_context = { 'menu': 'users', 'form': form }
 	return render_to_response(template_name, extra_context, context_instance)
 
-#@rest_post
-#@login_required
-#@permission_required('imdata.delete_user')
-#def delete(request, object_id):
-#	model = get_object_or_404(User, pk=object_id)
-#	model.delete()
-#	return HttpResponse()
+@rest_get
+@login_required
+@permission_required('imdata.delete_user')
+def delete(request, object_id):
+	object_id = long(object_id)
+	model = get_object_or_404(User, pk=object_id)
+	if model.lastlogin:
+		message = _('Deleting a user that already logged is not permitted.')
+		if request.method == method.POST:
+			return HttpResponseForbidden(message)
+		else:
+			flash_error(request, message)
+			return HttpResponseRedirect(reverse('webui:users-edit', args=[object_id]))
+	model.delete()
+	if request.method == method.POST:
+		return HttpResponse()
+	else:
+		return HttpResponseRedirect(reverse('webui:users-index'))
 
 #@rest_post
 #@login_required

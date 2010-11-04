@@ -8,7 +8,7 @@
 		<tr>
 			<th class="selector" style="{% if show_selection == 0 %}display: none;{% endif %}">
 				<input type="checkbox"
-					onclick="SelectionUtil.select_all(this);" />
+					onclick="Selection.selectAll(this);" />
 			</th>
 			{% for column in table.columns %}
 				<th class="{{ column.name }}">
@@ -45,7 +45,7 @@
 				<td style="{% if show_selection == 0 %}display: none;{% endif %}">
 					<input id="selection" name="selection"
 						type="checkbox" value="{{ row.conversation_id }}"
-						onclick="SelectionUtil.select_one(this);" />
+						onclick="Selection.onSelect(this);" />
 				</td>
 				{% for value in row %}
 					<td>{{ value }}</td>

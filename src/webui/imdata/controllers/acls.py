@@ -35,6 +35,14 @@ class AclForm(ModelForm):
 	class Meta:
 		model = Acl
 		fields = ('action', 'localim', 'remoteim')
+	def __init__(self, *args, **kwargs):
+		super(AclForm, self).__init__(*args, **kwargs)
+		self.fields['localim'].widget.attrs = \
+			{'title':_('You can use the asterisk as a wildcard character. '
+					'Example:<br/><b>*@example.com</b>')}
+		self.fields['remoteim'].widget.attrs = \
+			{'title':_('You can use the asterisk as a wildcard character. '
+					'Example:<br/><b>*@example.com</b>')}
 
 class AclSearchForm(forms.Form):
 	acl = forms.CharField(required=False)
@@ -67,7 +75,7 @@ def index(request):
 	elif request.method == method.POST:
 		per_page = request.POST.get('per_page')
 		if per_page != None:
-			Profile.objects.filter(user=request.user).update(per_page_acls = per_page)
+			Profile.objects.filter(user=request.user).update(per_page_acls=per_page)
 			return HttpResponse()
 		form = AclSearchForm(request.POST)
 		if not form.is_valid():
@@ -77,18 +85,18 @@ def index(request):
 		qset = Acl.objects.all()
 		if values['acl']:
 			qset = qset.filter(
-				Q(localim__icontains = values['acl']) |
-				Q(remoteim__icontains = values['acl'])
+				Q(localim__icontains=values['acl']) |
+				Q(remoteim__icontains=values['acl'])
 			)
 		if values['action']:
-			qset = qset.filter(action = values['action'])
+			qset = qset.filter(action=values['action'])
 		if values['localim']:
-			qset = qset.filter(localim__icontains = values['localim'])
+			qset = qset.filter(localim__icontains=values['localim'])
 		if values['remoteim']:
-			qset = qset.filter(remoteim__icontains = values['remoteim'])
+			qset = qset.filter(remoteim__icontains=values['remoteim'])
 	profile = request.user.get_profile()
 	order_by = request.GET.get('sort', 'localim')
-	table = AclTable(qset, order_by = order_by)
+	table = AclTable(qset, order_by=order_by)
 	paginator = CustomPaginator(request, table.rows, profile.per_page_acls)
 	context_instance = RequestContext(request)
 	template_name = 'acls/list.html'
@@ -120,7 +128,11 @@ def edit(request, object_id):
 		if redir != None: return redir
 	context_instance = RequestContext(request)
 	template_name = 'acls/edit.html'
-	extra_context = { 'menu': 'acls', 'form': form }
+	extra_context = {
+		'menu': 'acls',
+		'form': form,
+		'model':  model,
+	}
 	return render_to_response(template_name, extra_context, context_instance)
 
 @rest_multiple([method.GET, method.POST])
@@ -148,13 +160,17 @@ def add(request):
 	extra_context = { 'menu': 'acls', 'form': form }
 	return render_to_response(template_name, extra_context, context_instance)
 
-@rest_post
+@rest_multiple([method.GET, method.POST])
 @login_required
 @permission_required('imdata.delete_acl')
 def delete(request, object_id):
+	object_id = long(object_id)
 	model = get_object_or_404(Acl, pk=object_id)
 	model.delete()
-	return HttpResponse()
+	if request.method == method.POST:
+		return HttpResponse()
+	else:
+		return HttpResponseRedirect(reverse('webui:acls-index'))
 
 @rest_post
 @login_required

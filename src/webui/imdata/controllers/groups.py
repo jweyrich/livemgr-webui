@@ -12,7 +12,7 @@ from webui.common import CustomPaginator
 from webui.common.decorators.rest import rest_multiple, rest_post
 from webui.common.http import method
 from webui.common.utils import request_has_error, FormAction, flash_info, InView, \
-	flash_success, flash_warning, flash_form_error
+	flash_success, flash_warning, flash_form_error, flash_error
 from webui.imdata.models import UserGroup
 from webui.imdata.models.grouprule import GroupRule
 from webui.imdata.models.profile import Profile
@@ -104,6 +104,7 @@ def index(request):
 def edit(request, object_id):
 	object_id = long(object_id)
 	model = get_object_or_404(UserGroup, pk=object_id)
+	can_delete = not model.isbuiltin
 	if request.method == method.GET:
 		form = GroupForm(instance=model)
 	elif request.method == method.POST:
@@ -177,6 +178,8 @@ def edit(request, object_id):
 	extra_context = {
 		'menu': 'groups',
 		'form': form,
+		'model':  model,
+		'can_delete': can_delete,
 		'available_users': available_users,
 		'available_rules': available_rules
 	}
@@ -222,17 +225,26 @@ def add(request):
 	}
 	return render_to_response(template_name, extra_context, context_instance)
 
-@rest_post
+@rest_multiple([method.GET, method.POST])
 @login_required
 @permission_required('imdata.delete_usergroup')
 def delete(request, object_id):
+	object_id = long(object_id)
 	model = get_object_or_404(UserGroup, pk=object_id)
 	if model.isbuiltin:
-		return HttpResponseForbidden(_('Can\'t delete built-in groups.'))
+		message = _('Can\'t delete built-in groups.')
+		if request.method == method.POST:
+			return HttpResponseForbidden(message)
+		else:
+			flash_error(request, message)
+			return HttpResponseRedirect(reverse('webui:groups-edit', args=[object_id]))
 	# Move users to GUEST (built-in) group
 	User.objects.filter(group=object_id).update(group=1L)
 	model.delete()
-	return HttpResponse()
+	if request.method == method.POST:
+		return HttpResponse()
+	else:
+		return HttpResponseRedirect(reverse('webui:groups-index'))
 
 @rest_post
 @login_required

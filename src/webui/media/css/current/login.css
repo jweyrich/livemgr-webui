@@ -34,8 +34,10 @@ body.login  {
 .login form input {
 	background: white;
 	border: 1px solid #DDD;
-	-moz-border-radius: 4px 4px 4px 4px;
+	/* -specific-
 	-webkit-border-radius: 4px 4px 4px 4px;
+	-moz-border-radius: 4px 4px 4px 4px;
+	*/
 	border-bottom-left-radius: 4px 4px;
 	border-bottom-left-radius: 4px 4px;
 	border-bottom-right-radius: 4px 4px;
@@ -59,10 +61,12 @@ body.login  {
 	padding: 0;
 	width: 70px;
 	overflow: visible;
+	/* -specific-
 	background: -webkit-gradient(linear, 0 40%, 0 70%, from(#F9F9F9), to(#E3E3E3));
 	background: -moz-linear-gradient(top, #F9F9F9, #E3E3E3);
 	filter: progid:DXImageTransform.Microsoft.gradient(startColorstr=#FFF9F9F9, endColorstr=#FFE3E3E3);
 	-ms-filter: "progid:DXImageTransform.Microsoft.gradient(startColorstr=#FFF9F9F9, endColorstr=#FFE3E3E3)";
+	*/
 	border: 1px solid #BBB;
 	height: 24px;
 	color: #888;

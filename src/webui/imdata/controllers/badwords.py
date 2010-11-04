@@ -39,7 +39,6 @@ class BadwordForm(ModelForm):
 	def clean(self):
 		cleaned_data = self.cleaned_data
 		isregex = cleaned_data.get('isregex')
-		print isregex
 		badword = cleaned_data.get('badword').lower()
 		if isregex:
 			try:
@@ -121,7 +120,11 @@ def edit(request, object_id):
 		if redir != None: return redir
 	context_instance = RequestContext(request)
 	template_name = 'badwords/edit.html'
-	extra_context = { 'menu': 'badwords', 'form': form }
+	extra_context = {
+		'menu': 'badwords',
+		'form': form,
+		'model':  model,
+	}
 	return render_to_response(template_name, extra_context, context_instance)
 
 @rest_multiple([method.GET, method.POST])
@@ -152,9 +155,13 @@ def add(request):
 @login_required
 @permission_required('imdata.delete_badword')
 def delete(request, object_id):
+	object_id = long(object_id)
 	model = get_object_or_404(Badword, pk=object_id)
 	model.delete()
-	return HttpResponse()
+	if request.method == method.POST:
+		return HttpResponse()
+	else:
+		return HttpResponseRedirect(reverse('webui:badwords-index'))
 
 @rest_post
 @login_required

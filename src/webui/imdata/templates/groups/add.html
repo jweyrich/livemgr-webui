@@ -6,12 +6,12 @@
 {% endblock %}
 
 {% block scripts %}
-	{% include "groups/scripts.html" %}
-	<script type="text/javascript">
-	$(document).ready(function() {
-		$('#id_groupname').focus();
-	});
-	</script>
+{% include "groups/scripts.html" %}
+<script type="text/javascript">
+$(document).ready(function() {
+	$('#id_groupname').focus();
+});
+</script>
 {% endblock %}
 
 {% block content %}

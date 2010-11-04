@@ -11,23 +11,25 @@ CSS_SOURCES = \
 	css/current/pagination.css \
 	css/current/modal.css \
 	css/current/dashboard.css \
-	css/current/login.css
+	css/current/login.css \
+	css/current/tooltip.css
 
 JS_SOURCES = \
-	js/jquery.simplemodal-1.3.5.js \
-	js/i18n.util.js \
+	js/i18n.js \
 	js/string.format.js \
 	js/date.format.js \
-	js/calendar.util.js \
-	js/form.util.js \
-	js/search.util.js \
-	js/selection.util.js \
+	js/calendar.js \
+	js/form.js \
+	js/search.js \
+	js/selection.js \
 	js/googlecharts.js
 
 JS_MINIFIED_DEPS = \
 	jquery-ui-1.8.2.custom/js/jquery-1.4.2.min.js \
 	jquery-ui-1.8.2.custom/js/jquery-ui-1.8.2.custom.min.js \
-	jquery-ui-1.8.2.custom/js/jquery.ui.datepicker-pt-BR.min.js
+	jquery-ui-1.8.2.custom/js/jquery.ui.datepicker-pt-BR.min.js \
+	jquery-ui-1.8.2.custom/js/jquery.simplemodal-1.3.5.min.js \
+	jquery-ui-1.8.2.custom/js/jquery.tools.min.js
 
 CSS_TARGET = css/all.min.css
 JS_TARGET = js/all.min.js

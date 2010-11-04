@@ -36,9 +36,9 @@ function BarChart(target) {
 	};
 	var target = target;
 	this.draw = function(options) {
-		target.innerHTML = '<img src="'+this._format_url(options)+'">';
+		target.innerHTML = '<img src="'+this._formatUrl(options)+'">';
 	};
-	this._format_labels_internal = function(index, labels) {
+	this._formatLabelsInternal = function(index, labels) {
 		if (labels == null || labels == undefined || labels.length == 0)
 			return '';
 		var result = index + ':';
@@ -48,10 +48,10 @@ function BarChart(target) {
 		}
 		return result;
 	};
-	this._format_labels = function(options) {
+	this._formatLabels = function(options) {
 		var array = new Array();
 		for (i in options.data.axes) {
-			var tmp = this._format_labels_internal(i, options.data.axes[i].labels);
+			var tmp = this._formatLabelsInternal(i, options.data.axes[i].labels);
 			if (tmp != '')
 				array.push(tmp);
 		}
@@ -61,7 +61,7 @@ function BarChart(target) {
 		delete array;
 		return result;
 	};
-	this._format_values = function(options) {
+	this._formatValues = function(options) {
 		var array = new Array();
 		for (i in options.data.axes) {
 			var obj = options.data.axes[i].values;
@@ -73,19 +73,19 @@ function BarChart(target) {
 		delete array;
 		return result;
 	};
-	this._format_colors = function(options) {
+	this._formatColors = function(options) {
 		var array = new Array();
 		for (i in options.data.axes) {
 			var obj = options.data.axes[i].color;
 			if (obj == undefined || obj == null)
 				obj = 0x4D89F9;
-			array.push(this.color_to_str(obj));
+			array.push(this.colorToStr(obj));
 		}
 		var result = params.data.axes.color.format(array.join(','));
 		delete array;
 		return result;
 	};
-	this._format_scales = function(options) {
+	this._formatScales = function(options) {
 		var array = new Array();
 		for (i in options.data.axes) {
 			var obj = options.data.axes[i].scale;
@@ -97,7 +97,7 @@ function BarChart(target) {
 		delete array;
 		return result;
 	};
-	this._format_ranges = function(options) {
+	this._formatRanges = function(options) {
 		var array = new Array();
 		for (i in options.data.axes) {
 			var obj = options.data.axes[i].range;
@@ -110,7 +110,7 @@ function BarChart(target) {
 		delete array;
 		return result;
 	};
-	this._format_styles = function(options) {
+	this._formatStyles = function(options) {
 		var array = new Array();
 		for (i in options.data.axes) {
 			var obj = options.data.axes[i].style;
@@ -138,7 +138,7 @@ function BarChart(target) {
 
 			var tmp = new Array();
 			tmp.push(i);
-			tmp.push(this.color_to_str(obj.labels.color));
+			tmp.push(this.colorToStr(obj.labels.color));
 			tmp.push(obj.labels.font_size);
 			tmp.push(obj.labels.alignment);
 			var lt = '';
@@ -149,7 +149,7 @@ function BarChart(target) {
 			if (!obj.line.show && !obj.ticks.show)
 				lt += '_';
 			tmp.push(lt);
-			tmp.push(this.color_to_str(obj.ticks.color));
+			tmp.push(this.colorToStr(obj.ticks.color));
 			array.push(tmp);
 			delete tmp;
 		}
@@ -157,7 +157,7 @@ function BarChart(target) {
 		delete array;
 		return result;
 	};
-	this._format_axes = function(options) {
+	this._formatAxes = function(options) {
 		var array = new Array();
 		for (i in options.data.axes) {
 			var obj = options.data.axes[i].type;
@@ -169,24 +169,24 @@ function BarChart(target) {
 		delete array;
 		return result;
 	};
-	this._format_url = function(options) {
+	this._formatUrl = function(options) {
 		var result = params.url;
-		result += this._format_labels(options);
-		result += this._format_ranges(options); //options.ranges;
-		result += this._format_styles(options);
-		result += this._format_axes(options);
+		result += this._formatLabels(options);
+		result += this._formatRanges(options); //options.ranges;
+		result += this._formatStyles(options);
+		result += this._formatAxes(options);
 		result += params.bar_width.format(options.bar_width);
 		result += params.size.format(options.size.join('x'));
 		result += params.bar_options.format(options.bar_options);
-		result += this._format_colors(options);
-		result += this._format_scales(options);
-		result += this._format_values(options);
+		result += this._formatColors(options);
+		result += this._formatScales(options);
+		result += this._formatValues(options);
 		result += params.data.legend_position.format(options.data.legend_position);
 		result += params.margins.format(options.margins);
 		result += params.title.format(encodeURIComponent(options.title));
 		return result;
 	};
-	this.color_to_str = function(color) {
+	this.colorToStr = function(color) {
 		var r = (color & 0xFF0000) >> 16;
 		var g = (color & 0x00FF00) >> 8;
 		var b = color & 0x0000FF;
@@ -198,7 +198,7 @@ function BarChart(target) {
 	    if (b.length == 1) b = '0' + b;
 	    return r + g + b;
 	};
-	this.get_scale = function(rows, getter) {
+	this.getScale = function(rows, getter) {
 		if (getter == undefined)
 			getter = function(row){return row[0];};
 		var min = getter(rows[0]);
@@ -212,7 +212,7 @@ function BarChart(target) {
 		}
 		return [min, max];
 	};
-	this.round_up = function(value) {
+	this.roundUp = function(value) {
 		var factor = 1;
 		while (Math.floor(value / factor) >= 10) {
 			factor *= 10;

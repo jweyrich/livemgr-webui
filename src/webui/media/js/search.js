@@ -1,8 +1,10 @@
-var SearchUtil = {
+var Search = {
 	current_criteria: null,
-	afterSearchFunc: null,
-	afterSearch: function(func) {
-		SearchUtil.afterSearchFunc = func; 
+	onComplete: null,
+	_onCompleteInternal: function() {
+		Search.hookLinks();
+		if (typeof(Search.onComplete) == 'function')
+			Search.onComplete();
 	},
 	init: function() {
 		if (window.location.hash == '#search') {
@@ -27,22 +29,19 @@ var SearchUtil = {
 			$('#search label:first').attr('accesskey', 's');
 			$('#search_adv label:first').removeAttr('accesskey');
 		});
-		SearchUtil.hook_links();
+		Search.hookLinks();
 	},
 	search: function(form, url) {
 		if (form != null)
-			SearchUtil.current_criteria = $(form).serialize();
+			Search.current_criteria = $(form).serialize();
 		$.ajax({
 			type: 'POST',
 			url: url,
-			data: SearchUtil.current_criteria,
+			data: Search.current_criteria,
 			dataType: 'html',
 			success: function(response) {
 				$('#list').html($('#list', response));
-				SearchUtil.hook_links();
-				if (typeof SearchUtil.afterSearchFunc == 'function') {
-					SearchUtil.afterSearchFunc();
-				}
+				Search._onCompleteInternal();
 			},
 			error: function(req, status, error) {
 				alert('Error '+req.status+': '+req.responseText);
@@ -50,14 +49,14 @@ var SearchUtil = {
 		});
 		return false;
 	},
-	search_via_link: function() {
-		return SearchUtil.search(null, this.href);
+	searchViaLink: function() {
+		return Search.search(null, this.href);
 	},
-	hook_links: function() {
+	hookLinks: function() {
 		// Hook sort & paging links
-		$('#list thead tr a.sort').click(SearchUtil.search_via_link);
-		$('#list tfoot ul.pagination a').click(SearchUtil.search_via_link);
+		$('#list thead tr a.sort').click(Search.searchViaLink);
+		$('#list tfoot ul.pagination a').click(Search.searchViaLink);
 	}
 };
 
-$(document).ready(SearchUtil.init);
+$(document).ready(Search.init);

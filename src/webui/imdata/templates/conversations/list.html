@@ -19,28 +19,28 @@
 <script type="text/javascript">
 $(document).ready(function() {
 	$('[type=submit]').click(function() { $($(this).attr('target')).submit(); });
-	$('#search form').submit(function() { return SearchUtil.search(this, '{% url webui:conversations-index %}'); });
-	$('#search_adv form').submit(function() { return SearchUtil.search(this, '{% url webui:conversations-index %}'); });
+	$('#search form').submit(function() { return Search.search(this, '{% url webui:conversations-index %}'); });
+	$('#search_adv form').submit(function() { return Search.search(this, '{% url webui:conversations-index %}'); });
 
-	FormUtil.make_field_hint('#search', 'search_message');
-	FormUtil.make_field_hint('#search_adv', 'id_message');
-	FormUtil.make_field_hint('#search_adv', 'id_localim');
-	FormUtil.make_field_hint('#search_adv', 'id_remoteim');
-	FormUtil.make_field_hint('#search_adv', 'id_from_date');
-	FormUtil.make_field_hint('#search_adv', 'id_to_date');
+	Form.makeFieldHint('#search', 'search_message');
+	Form.makeFieldHint('#search_adv', 'id_message');
+	Form.makeFieldHint('#search_adv', 'id_localim');
+	Form.makeFieldHint('#search_adv', 'id_remoteim');
+	Form.makeFieldHint('#search_adv', 'id_from_date');
+	Form.makeFieldHint('#search_adv', 'id_to_date');
 
 	function setup_events() {
-		SelectionUtil.bind_list_tr_click({callback: popup_conversation});
+		Selection.bindListRowClick({callback: popup_conversation});
 	}
 	setup_events();
-	SearchUtil.afterSearch(setup_events);
+	Search.onComplete = setup_events;
 
 	function popup_conversation(id) {
 		if (id == undefined)
 			return;
-		//$('#messages').html('').load('{% url webui:conversations-index %}/'+id, highlight_messages);
+		//$('#messages').html('').load('{% url webui:conversations-index %}'+id, highlight_messages);
 		new_window = window.open(
-			'{% url webui:conversations-index %}/'+id,
+			'{% url webui:conversations-index %}'+id,
 			'conversation',
 			'height=600,width=800,menubar=no,toolbar=no,status=no,scrollbars=yes'
 		);

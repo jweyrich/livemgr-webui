@@ -1,0 +1,70 @@
+select {
+	padding-top: -2px;
+}
+div.actions [type='button'],
+div.actions [type='submit'] {
+	margin-right: 2px;
+}
+input[type='submit'] {
+	padding: 3px 6px;
+	height: 24px;
+}
+
+/* dashboard.css */
+.listing .titlebar {
+	filter: progid:DXImageTransform.Microsoft.gradient(startColorstr=#ffffffff, endColorstr=#ffdadada);
+	-ms-filter: "progid:DXImageTransform.Microsoft.gradient(startColorstr=#ffffffff, endColorstr=#ffdadada)";
+}
+
+/* form.css */
+input[type='button'],
+input[type='submit'] {
+	filter: progid:DXImageTransform.Microsoft.gradient(startColorstr=#FFF9F9F9, endColorstr=#FFE3E3E3);
+	-ms-filter: "progid:DXImageTransform.Microsoft.gradient(startColorstr=#FFF9F9F9, endColorstr=#FFE3E3E3)";
+	margin-right: 0px;
+}
+form.generic .titlebar {
+	filter: progid:DXImageTransform.Microsoft.gradient(startColorstr=#ffffffff, endColorstr=#ffdadada);
+	-ms-filter: "progid:DXImageTransform.Microsoft.gradient(startColorstr=#ffffffff, endColorstr=#ffdadada)";
+}
+form.generic .titlebar.widget.right {
+	filter: progid:DXImageTransform.Microsoft.gradient(startColorstr=#ffb6d1ea, endColorstr=#ff698eb9);
+	-ms-filter: "progid:DXImageTransform.Microsoft.gradient(startColorstr=#ffb6d1ea, endColorstr=#ff698eb9)";
+}
+
+/* login.css */
+.login form input[type='submit'] {
+	filter: progid:DXImageTransform.Microsoft.gradient(startColorstr=#FFF9F9F9, endColorstr=#FFE3E3E3);
+	-ms-filter: "progid:DXImageTransform.Microsoft.gradient(startColorstr=#FFF9F9F9, endColorstr=#FFE3E3E3)";
+}
+
+/* pagination.css */
+ul.pagination li a {
+	filter: progid:DXImageTransform.Microsoft.gradient(startColorstr=#FFF9F9F9, endColorstr=#FFE3E3E3);
+	-ms-filter: "progid:DXImageTransform.Microsoft.gradient(startColorstr=#FFF9F9F9, endColorstr=#FFE3E3E3)";
+}
+ul.pagination .previous-off,
+ul.pagination .next-off {
+	filter: progid:DXImageTransform.Microsoft.gradient(startColorstr=#FFF9F9F9, endColorstr=#FFE3E3E3);
+	-ms-filter: "progid:DXImageTransform.Microsoft.gradient(startColorstr=#FFF9F9F9, endColorstr=#FFE3E3E3)";
+}
+
+/* theme.css */
+ul#navigator li.selected a {
+	filter: progid:DXImageTransform.Microsoft.gradient(startColorstr=#ff7f9bca, endColorstr=#ff5c79aa);
+	-ms-filter: "progid:DXImageTransform.Microsoft.gradient(startColorstr=#ff7f9bca, endColorstr=#ff5c79aa)";
+}
+ul#navigator li:hover,
+ul#navigator li a:hover {
+	filter: progid:DXImageTransform.Microsoft.gradient(startColorstr=#ff7f9bca, endColorstr=#ff5c79aa);
+	-ms-filter: "progid:DXImageTransform.Microsoft.gradient(startColorstr=#ff7f9bca, endColorstr=#ff5c79aa)";
+}
+div.actions {
+	filter: progid:DXImageTransform.Microsoft.gradient(startColorstr=#ffffffff, endColorstr=#ffdadada);
+	-ms-filter: "progid:DXImageTransform.Microsoft.gradient(startColorstr=#ffffffff, endColorstr=#ffdadada)";
+}
+div.actions [type='button'].default,
+div.actions [type='submit'].default {
+	filter: progid:DXImageTransform.Microsoft.gradient(startColorstr=#ff7f9bca, endColorstr=#ff5c79aa);
+	-ms-filter: "progid:DXImageTransform.Microsoft.gradient(startColorstr=#ff7f9bca, endColorstr=#ff5c79aa)";
+}

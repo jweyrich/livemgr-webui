@@ -30,18 +30,15 @@ input[type='submit'] {
 	width: auto;
 	overflow: visible;
 	padding: 3px 6px;
-	margin-right: 2px;
 	background-color: #E3E3E3;
-	/* WebKit */
+	/* -specific-
 	background: -webkit-gradient(linear, 0 40%, 0 70%, from(#F9F9F9), to(#E3E3E3));
-	/* Mozilla/Gecko */
 	background: -moz-linear-gradient(top, #F9F9F9, #E3E3E3);
-	/* IE 5.5 - 7 */
 	filter: progid:DXImageTransform.Microsoft.gradient(startColorstr=#FFF9F9F9, endColorstr=#FFE3E3E3);
-	/* IE 8 */
 	-ms-filter: "progid:DXImageTransform.Microsoft.gradient(startColorstr=#FFF9F9F9, endColorstr=#FFE3E3E3)";
+	margin-right: 2px;
+	*/
 	border: 1px solid #BBB;
-	margin-right: 0px;
 	height: 25px;
 	font-weight: bold;
 	color: #888;
@@ -114,10 +111,12 @@ form.generic .titlebar {
 	font-weight: bold;
 	color: #888;
 	background-color: #dadada;
+	/* -specific-
 	background: -webkit-gradient(linear, 0 0%, 0 100%, from(#fff), to(#dadada));
 	background: -moz-linear-gradient(top, #fff, #dadada);
 	filter: progid:DXImageTransform.Microsoft.gradient(startColorstr=#ffffffff, endColorstr=#ffdadada);
 	-ms-filter: "progid:DXImageTransform.Microsoft.gradient(startColorstr=#ffffffff, endColorstr=#ffdadada)";
+	*/
 }
 form.generic .titlebar span {
 	margin: 5px;
@@ -129,10 +128,12 @@ form.generic .titlebar.widget {
 form.generic .titlebar.widget.right {
 	color: #fff;
 	background-color: #698eb9;
+	/* -specific-
 	background: -webkit-gradient(linear, 0 0%, 0 100%, from(#b6d1ea), to(#698eb9));
 	background: -moz-linear-gradient(top, #b6d1ea, #698eb9);
 	filter: progid:DXImageTransform.Microsoft.gradient(startColorstr=#ffb6d1ea, endColorstr=#ff698eb9);
 	-ms-filter: "progid:DXImageTransform.Microsoft.gradient(startColorstr=#ffb6d1ea, endColorstr=#ff698eb9)";
+	*/
 }
 form.generic fieldset {
 	padding: 10px;
@@ -170,6 +171,6 @@ form.generic .selector-filter input {
 	vertical-align: middle;
 }
 form.generic .selector-filter input {
-	width: 185px !important;
+	width: 215px !important;
 	height: 13px;
 }

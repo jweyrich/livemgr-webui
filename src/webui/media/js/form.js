@@ -1,5 +1,5 @@
-var FormUtil = {
-	make_field_hint : function(parent, field_id) {
+var Form = {
+	makeFieldHint: function(parent, field_id) {
 		label = $(parent + ' label[for=' + field_id + ']');
 		field = $(parent + ' #' + field_id);
 		field.attr('title', label.attr('textContent'));

@@ -1,27 +1,28 @@
-var SelectionUtil = {
-	_selection_count: function() {
-		return $('input[type="checkbox"][name="selection"]:not([disabled]):checked').length;
+var Selection = {
+	currentSelection: function() {
+		return $('#list tbody tr')
+			.find('input[type="checkbox"][name="selection"]:not([disabled]):checked');
 	},
-	_selection_changed: function() {
-		if (SelectionUtil._selection_count() == 0) {
+	_onChange: function() {
+		if (Selection.currentSelection().length == 0) {
 			$('div.actions .action').attr('disabled', 'true');	
 		} else {
 			$('div.actions .action').removeAttr('disabled');
 		}
 	},
-	select_one: function(caller) {
-		SelectionUtil._selection_changed();
+	onSelect: function(caller) {
+		Selection._onChange();
 	},
-	select_all: function(caller) {
+	selectAll: function(caller) {
 		$('input[type="checkbox"][name="selection"]:not([disabled])')
 			.attr('checked', caller.checked);
-		SelectionUtil._selection_changed();
+		Selection._onChange();
 	},
-	_exec_action: function(args) {
+	_execAction: function(args) {
 		$.ajax({
 			type: 'POST',
 			url: args.url,
-			data: $('#list tbody tr').find('input[type="checkbox"][name="selection"]').serialize(),
+			data: args.items.serialize(),
 			dataType: 'html',
 			success: function(response) {
 				// FIXME: Chromium has a problem with AJAX
@@ -39,10 +40,7 @@ var SelectionUtil = {
 				} else {
 					$.get(window.location, function(response) {
 						$('#list').html($('#list', response));
-						SearchUtil.hook_links();
-						if (typeof SearchUtil.afterSearchFunc == 'function') {
-							SearchUtil.afterSearchFunc();
-						}
+						Search._onCompleteInternal();
 					});
 				}
 			},
@@ -52,47 +50,55 @@ var SelectionUtil = {
 			}
 		});		
 	},
-	show_actions: function(selector) {
+	showActions: function(selector) {
 		if (typeof(selector) == 'Array') {
 			for (s in selector)
-				SelectionUtil.show_actions(s);
+				Selection.showActions(s);
 		} else {
 			$('div.actions '+selector).css('display', 'inline');
 		}
 	},
-	bind_action_click: function(args) {
+	bindActionClick: function(args) {
 		$('div.actions '+args.selector).click(function() {
 			this.disabled = true;
-			SelectionUtil._exec_action(args);
+			if (args.items == undefined)
+				args.items = Selection.currentSelection();
+			Selection._execAction(args);
 			this.disabled = false;
 		});
 	},
-	bind_action_click_confirm: function(args) {
+	bindActionClickConfirm: function(args) {
 		var callbacks = {
 			yes: function() {
-				SelectionUtil._exec_action(args);
+				if (typeof(args.onConfirm) == 'function')
+					args.onConfirm(args);
+				else
+					Selection._execAction(args);
 				args.caller.disabled = false;
 			},
 			no: function() {
+				if (typeof(args.onCancel) == 'function')
+					args.onCancel(args);
 				if (typeof(args.hide) == 'function')
 					args.hide();
 				args.caller.disabled = false;
 			}
 		};
 		$('div.actions '+args.selector).click(function() {
-			if (typeof(args.show) == 'function') {
+			if (typeof(args.onShow) == 'function') {
 				args.caller = this;
 				this.disabled = true;
-				var items = $('#list tbody tr').find('[name="selection"]:checked');
-				args.show(this, callbacks, items);
+				if (args.items == undefined)
+					args.items = Selection.currentSelection();
+				args.onShow(this, callbacks, args.items);
 			}
 		});
 	},
-	bind_list_tr_click: function(args) {
+	bindListRowClick: function(args) {
 		$('#list tbody tr').click(function(event) {
 			if ($(event.target).is('a') || event.target.type == 'checkbox')
 				return;
-			var id = $(this).find('[name="selection"]').val();
+			var id = $(this).find('input[type="checkbox"][name="selection"]').val();
 			if (id == undefined)
 				return;
 			id = encodeURIComponent(id);
@@ -108,10 +114,12 @@ var SelectFilter = {
 	init: function(field_id) {
 		var target = document.getElementById(field_id);
 		var filter = document.getElementById(field_id+'_filter');
-		$(filter).keyup(function(e) { SelectFilter.filter_key_up(e, field_id); });
+		$(filter).keyup(function(e) {
+			SelectFilter.filterKeyUp(e, field_id);
+		});
 		SelectBox.init(field_id);
 	},
-	filter_key_up: function(event, field_id) {
+	filterKeyUp: function(event, field_id) {
 		var filter = document.getElementById(field_id+'_filter');
         SelectBox.filter(field_id, filter.value);
         return true;

@@ -20,7 +20,7 @@
 <script type="text/javascript">
 $(document).ready(query);
 
-//var server_data = eval('({{ data|safe }})');
+{# var server_data = eval('({{ data|safe }})'); #}
 
 function query() {
 	$.ajax({
@@ -38,15 +38,15 @@ function query() {
 }
 
 function update(data) {
-	update_latest_conversations(data.latest_conversations);
-	update_most_active_users(data.most_active_users);
+	updateLatestConversations(data.latest_conversations);
+	updateMostActiveUsers(data.most_active_users);
 	$('#summary #users_online .value').text(data.total_users_online);
 	$('#summary #active_conversations .value').text(data.total_active_conversations);
 	//draw_most_active_users(data.most_active_users);
-	draw_most_active_users_img(data.most_active_users);
+	drawMostActiveUsersImg(data.most_active_users);
 }
 
-function update_latest_conversations(data) {
+function updateLatestConversations(data) {
 	var template =
 		'<tr style="height: 45px;">'+
 		'  <td style="padding-left: 10px;">{0}<br />{1}</td>'+
@@ -59,7 +59,7 @@ function update_latest_conversations(data) {
 		'</tr>';
 	var template_empty =
 		'<tr style="height: 45px;">'+
-		'  <td colspan="4" style="text-align: center;">{% trans "None." %}</td>'+
+		'  <td colspan="4" style="text-align: center; background-color: #fff; cursor: default;">{% trans "None." %}</td>'+
 		'</tr>';
 	var link_user =
 		{% if perms.imdata.see_users %}
@@ -86,12 +86,12 @@ function update_latest_conversations(data) {
 				return;
 			var conv_id = encodeURIComponent($(this).find('#conv_id').val());
 			var msg_id = encodeURIComponent($(this).find('#msg_id').val());
-			popup_conversation(conv_id, msg_id);
+			popupConversation(conv_id, msg_id);
 		});
 	}
 }
 
-function update_most_active_users(data) {
+function updateMostActiveUsers(data) {
 	var template =
 		'<tr style="height: 45px;">'+
 		'  <td style="padding-left: 10px;">{0}</td>'+
@@ -120,7 +120,7 @@ function update_most_active_users(data) {
 	}
 }
 
-function popup_conversation(conv_id, msg_id) {
+function popupConversation(conv_id, msg_id) {
 	if (conv_id == undefined || msg_id == undefined)
 		return;
 	// TODO: evaluate http://code.google.com/p/django-jq/wiki/ProjectDocumentation
@@ -159,20 +159,20 @@ function getWindowSize() {
 	return [width, height];
 }
 
-// TODO(jweyrich): IE may accept const someday
+// IE should accept const someday :-)
 var window_size = getWindowSize();
 var default_options = {
 	width: window_size[0]-40,
 	height: 230,
 };
 
-function draw_most_active_users_img(source) {
+function drawMostActiveUsersImg(source) {
 	if (source.length == 0)
 		return;
 
 	var target = document.getElementById('most_active_users_chart');
 	var chart = new BarChart(target);
-	var date = new Date().format(CalendarUtil.date_format_js);
+	var date = new Date().format(Calendar.date_format_js);
 	var options = {
 		title: '{% trans "Most Active Users" %} ('+date+')',
 		margins: [0,0,0,0],
@@ -236,9 +236,9 @@ function draw_most_active_users_img(source) {
 	}
 
 	// scale
-	var scale = chart.get_scale(rows, function(row){return row[1];});
+	var scale = chart.getScale(rows, function(row){return row[1];});
 	//if (scale[1] < 10) scale[1] = 10;
-	//scale[1] = chart._round_up(scale[1]);
+	//scale[1] = chart.roundUp(scale[1]);
 	options.data.axes[0].scale = [0, scale[1]];
 
 	// range

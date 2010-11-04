@@ -1,0 +1,17 @@
+.tooltip {
+	background-color: #fffcc2;
+	border: 1px solid #ccc;
+	padding: 10px 10px;
+	width: 200px;
+	display: none;
+	color: #000;
+	text-align: left;
+	font-family: 'Lucida Grande', Arial, sans-serif;
+	font-size: 12px;
+	box-shadow: 0 0 10px #aaa;
+	/* -specific-
+	-webkit-box-shadow: 0 0 10px #aaa;
+	-moz-box-shadow: 0 0 10px #aaa;
+	-o-box-shadow: 0 0 10px #aaa;
+	*/
+}
