@@ -1,17 +1,17 @@
 from django import forms
 from django.contrib.auth.decorators import login_required, permission_required
 from django.core.urlresolvers import reverse
+from django.db.utils import IntegrityError
 from django.forms.models import ModelForm
-from django.http import HttpResponseBadRequest, HttpResponse, \
-	HttpResponseRedirect
+from django.http import HttpResponseBadRequest, HttpResponse, HttpResponseRedirect
 from django.shortcuts import render_to_response, get_object_or_404
 from django.template import RequestContext
 from django.utils.translation import ugettext as _, ugettext_lazy
 from webui.common import CustomPaginator
 from webui.common.decorators.rest import rest_multiple, rest_post
 from webui.common.http import method
-from webui.common.utils import request_has_error, InView, FormAction, \
-	flash_success, flash_info, flash_form_error
+from webui.common.utils import request_has_error, InView, FormAction, flash_success, flash_info, \
+	flash_form_error, flash_error
 from webui.imdata.models import Badword
 from webui.imdata.models.profile import Profile
 from webui.imdata.utils.formatters import format_boolean
@@ -38,15 +38,14 @@ class BadwordForm(ModelForm):
 		fields = ('badword', 'isregex', 'isenabled')
 	def clean(self):
 		cleaned_data = self.cleaned_data
-		isregex = cleaned_data.get('isregex')
-		badword = cleaned_data.get('badword').lower()
-		if isregex:
+		cleaned_data['badword'] = cleaned_data['badword'].strip().lower()
+		if cleaned_data['isregex']:
 			try:
-				re.compile(badword, re.IGNORECASE)
+				re.compile(cleaned_data['badword'], re.IGNORECASE)
 			except:
 				msg = _('Invalid regular expression')
-				self._errors["badword"] = self.error_class([msg])
-				del cleaned_data["badword"]
+				self._errors['badword'] = self.error_class([msg])
+				del cleaned_data['badword']
 		return cleaned_data
 
 class BadwordSearchForm(forms.Form):
@@ -110,10 +109,14 @@ def edit(request, object_id):
 		object_id = None
 		form = BadwordForm(request.POST, instance=model)
 		if form.is_valid():
-			model = form.save(True)
-			object_id = model.id
-			flash_success(request,
-				_('The badword \'%s\' was changed successfully.') % model.badword)
+			try:
+				model = form.save(True)
+				object_id = model.id
+				flash_success(request,
+					_('The badword \'%s\' was changed successfully.') % model.badword)
+			except IntegrityError:
+				flash_error(request,
+					_('The badword \'%s\' already exists.') % form.cleaned_data['badword'].strip().lower())
 		else:
 			flash_form_error(request, form)
 		redir = _redirect_if_needed(request, InView.EDIT, object_id)
@@ -137,11 +140,15 @@ def add(request):
 		object_id = None
 		form = BadwordForm(request.POST)
 		if form.is_valid():
-			model = form.save(True)
-			object_id = model.id
-			flash_success(request,
-				_('The badword \'%s\' was created successfully.') % model.badword)
-			form = BadwordForm()
+			try:
+				model = form.save(True)
+				object_id = model.id
+				flash_success(request,
+					_('The badword \'%s\' was created successfully.') % model.badword)
+				form = BadwordForm()
+			except IntegrityError:
+				flash_error(request,
+					_('The badword \'%s\' already exists.') % form.cleaned_data['badword'].strip().lower())
 		else:
 			flash_form_error(request, form)
 		redir = _redirect_if_needed(request, InView.ADD, object_id)

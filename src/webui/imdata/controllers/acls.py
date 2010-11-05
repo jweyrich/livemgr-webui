@@ -39,10 +39,10 @@ class AclForm(ModelForm):
 		super(AclForm, self).__init__(*args, **kwargs)
 		self.fields['localim'].widget.attrs = \
 			{'title':_('You can use the asterisk as a wildcard character. '
-					'Example:<br/><b>*@example.com</b>')}
+					'Example:<br/><i>*@example.com</i>')}
 		self.fields['remoteim'].widget.attrs = \
 			{'title':_('You can use the asterisk as a wildcard character. '
-					'Example:<br/><b>*@example.com</b>')}
+					'Example:<br/><i>*@example.com</i>')}
 
 class AclSearchForm(forms.Form):
 	acl = forms.CharField(required=False)

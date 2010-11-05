@@ -1,9 +1,10 @@
 from django import forms
 from django.contrib.auth.decorators import login_required, permission_required
 from django.core.urlresolvers import reverse
+from django.db.utils import IntegrityError
 from django.forms.models import ModelForm
-from django.http import HttpResponseBadRequest, HttpResponseRedirect, \
-	HttpResponse, HttpResponseForbidden
+from django.http import HttpResponseBadRequest, HttpResponseRedirect, HttpResponse, \
+	HttpResponseForbidden
 from django.shortcuts import render_to_response, get_object_or_404
 from django.template import RequestContext
 from django.utils.safestring import mark_safe
@@ -11,8 +12,8 @@ from django.utils.translation import ugettext as _, ugettext_lazy
 from webui.common import CustomPaginator
 from webui.common.decorators.rest import rest_multiple, rest_get
 from webui.common.http import method
-from webui.common.utils import FormAction, flash_info, InView, flash_success, \
-	flash_form_error, flash_error, request_has_error
+from webui.common.utils import FormAction, flash_info, InView, flash_success, flash_form_error, \
+	flash_error, request_has_error
 from webui.imdata.models import User
 from webui.imdata.models.profile import Profile
 from webui.imdata.models.usergroup import UserGroup
@@ -48,7 +49,7 @@ class UserTable(tables.ModelTable):
 	def render_isenabled(self, instance):
 		return format_boolean(instance.isenabled)
 	def render_contacts(self, instance):
-		# TODO(jweyrich): Don't execute an extra query per-result
+		# TODO(jweyrich): Avoid executing an extra query per user
 		if instance.buddies.count():
 			return mark_safe('<a href="%s">%s</a>' % (
 				reverse('imdata:buddies-index', args=[instance.id]),
@@ -71,13 +72,13 @@ class UserForm(ModelForm):
 				self.fields['username'].widget.attrs['readonly'] = True
 	def clean(self):
 		cleaned_data = self.cleaned_data
-		username = cleaned_data.get('username')
+		cleaned_data['username'] = cleaned_data['username'].strip().lower()
 		if self.instance.lastlogin:
-			if self.instance.username != username:
+			if self.instance.username != cleaned_data['username']:
 				msg = _('Changing the username for a user that already logged '
 					'is not permitted.')
-				self._errors["username"] = self.error_class([msg])
-				del cleaned_data["username"]
+				self._errors['username'] = self.error_class([msg])
+				del cleaned_data['username']
 		return cleaned_data
 
 class UserSearchForm(forms.Form):
@@ -153,9 +154,13 @@ def edit(request, object_id):
 	elif request.method == method.POST:
 		form = UserForm(request.POST, instance=model)
 		if form.is_valid():
-			model = form.save(True)
-			flash_success(request,
-				_('The user \'%s\' was changed successfully.') % model.username)
+			try:
+				model = form.save(True)
+				flash_success(request,
+					_('The user \'%s\' was changed successfully.') % model.username)
+			except IntegrityError:
+				flash_error(request,
+					_('The user \'%s\' already exists.') % form.cleaned_data['username'].strip().lower())
 		else:
 			flash_form_error(request, form)
 		redir = _redirect_if_needed(request, InView.EDIT, object_id)
@@ -180,13 +185,17 @@ def add(request):
 	elif request.method == method.POST:
 		form = UserForm(request.POST)
 		if form.is_valid():
-			model = form.save(False)
-			model.status = 'FLN'
-			model.save()
-			object_id = model.id
-			flash_success(request,
-				_('The user \'%s\' was created successfully.') % model.username)
-			form = UserForm()
+			try:
+				model = form.save(False)
+				model.status = 'FLN'
+				model.save()
+				object_id = model.id
+				flash_success(request,
+					_('The user \'%s\' was created successfully.') % model.username)
+				form = UserForm()
+			except IntegrityError:
+				flash_error(request,
+					_('The user \'%s\' already exists.') % form.cleaned_data['username'].strip().lower())
 		else:
 			flash_form_error(request, form)
 		redir = _redirect_if_needed(request, InView.ADD, object_id)

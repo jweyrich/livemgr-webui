@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2010-11-03 22:07+0000\n"
+"POT-Creation-Date: 2010-11-06 10:55+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -55,35 +55,35 @@ msgstr "ação"
 
 #: imdata/controllers/acls.py:41 imdata/controllers/acls.py:44
 msgid ""
-"You can use the asterisk as a wildcard character. Example:<br/><b>*@example."
-"com</b>"
+"You can use the asterisk as a wildcard character. Example:<br/><i>*@example."
+"com</i>"
 msgstr ""
 "Você pode usar o caractere de curinga asterisco. Por exemplo:<br/"
-"><b>*@example.com</b>"
+"><i>*@example.com</i>"
 
-#: imdata/controllers/acls.py:61 imdata/controllers/badwords.py:60
-#: imdata/controllers/groups.py:58 imdata/controllers/users.py:97
+#: imdata/controllers/acls.py:61 imdata/controllers/badwords.py:59
+#: imdata/controllers/groups.py:63 imdata/controllers/users.py:98
 msgid "You may add another."
 msgstr "Você pode adicionar outro."
 
-#: imdata/controllers/acls.py:82 imdata/controllers/badwords.py:81
+#: imdata/controllers/acls.py:82 imdata/controllers/badwords.py:80
 #: imdata/controllers/buddies.py:57 imdata/controllers/conversations.py:108
-#: imdata/controllers/groups.py:79 imdata/controllers/profiles.py:87
-#: imdata/controllers/users.py:118
+#: imdata/controllers/groups.py:84 imdata/controllers/profiles.py:87
+#: imdata/controllers/users.py:119
 msgid "Invalid search criteria"
 msgstr "Parâmetros de pesquisa inválidos"
 
 #: imdata/controllers/acls.py:124
 #, python-format
 msgid "The acl %d was changed successfully."
-msgstr "A acl% d foi alterada com sucesso."
+msgstr "A acl %d foi alterada com sucesso."
 
 #: imdata/controllers/acls.py:151
 #, python-format
 msgid "The acl %d was created successfully."
 msgstr "A acl %d foi criada com sucesso."
 
-#: imdata/controllers/badwords.py:27 imdata/controllers/badwords.py:53
+#: imdata/controllers/badwords.py:27 imdata/controllers/badwords.py:52
 #: imdata/models/badword.py:12 imdata/models/badword.py:17
 #: imdata/templates/badwords/list.html:22
 msgid "badword"
@@ -93,12 +93,12 @@ msgstr "palavrão"
 msgid "regular expression"
 msgstr "expressão regular"
 
-#: imdata/controllers/badwords.py:29 imdata/controllers/users.py:36
+#: imdata/controllers/badwords.py:29 imdata/controllers/users.py:37
 #: imdata/models/badword.py:19 imdata/models/user.py:37
 msgid "enabled"
 msgstr "habilitado"
 
-#: imdata/controllers/badwords.py:47
+#: imdata/controllers/badwords.py:46
 msgid "Invalid regular expression"
 msgstr "Expressão regular inválida"
 
@@ -107,30 +107,35 @@ msgstr "Expressão regular inválida"
 msgid "The badword '%s' was changed successfully."
 msgstr "O palavrão '%s' foi alterado com sucesso."
 
-#: imdata/controllers/badwords.py:143
+#: imdata/controllers/badwords.py:119 imdata/controllers/badwords.py:151
+#, python-format
+msgid "The badword '%s' already exists."
+msgstr "O palavrão '%s' já existe."
+
+#: imdata/controllers/badwords.py:147
 #, python-format
 msgid "The badword '%s' was created successfully."
 msgstr "O palavrão '%s' foi criado com sucesso."
 
 #: imdata/controllers/buddies.py:24 imdata/controllers/buddies.py:35
 #: imdata/controllers/profiles.py:28 imdata/controllers/profiles.py:74
-#: imdata/controllers/users.py:31 imdata/controllers/users.py:84
+#: imdata/controllers/users.py:32 imdata/controllers/users.py:85
 #: imdata/models/buddy.py:19 imdata/models/user.py:30
 msgid "username"
 msgstr "nome de usuário"
 
 #: imdata/controllers/buddies.py:25 imdata/controllers/buddies.py:36
-#: imdata/controllers/users.py:32 imdata/controllers/users.py:85
+#: imdata/controllers/users.py:33 imdata/controllers/users.py:86
 #: imdata/models/buddy.py:20 imdata/models/user.py:31
 msgid "display name"
 msgstr "nome de exibição"
 
-#: imdata/controllers/buddies.py:26 imdata/controllers/users.py:33
+#: imdata/controllers/buddies.py:26 imdata/controllers/users.py:34
 msgid "personal message"
 msgstr "mensagem pessoal"
 
 #: imdata/controllers/buddies.py:27 imdata/controllers/buddies.py:37
-#: imdata/controllers/users.py:34 imdata/controllers/users.py:87
+#: imdata/controllers/users.py:35 imdata/controllers/users.py:88
 #: imdata/models/buddy.py:23 imdata/models/user.py:34
 msgid "status"
 msgstr "status"
@@ -192,7 +197,7 @@ msgstr "Conversa"
 
 #: imdata/controllers/conversations.py:214
 #: imdata/templates/conversations/show.html:37
-#: imdata/templates/dashboard/index.html:269
+#: imdata/templates/dashboard/index.html:271
 msgid "User"
 msgstr "Usuário"
 
@@ -220,48 +225,53 @@ msgstr "Página %(this)i de %(total)i"
 msgid "%m/%d/%Y %I:%M:%S %p"
 msgstr "%d/%m/%Y %I:%M:%S %p"
 
-#: imdata/controllers/groups.py:30 imdata/controllers/groups.py:50
+#: imdata/controllers/groups.py:31 imdata/controllers/groups.py:55
 #: imdata/models/rule.py:17 imdata/models/setting.py:17
 #: imdata/models/usergroup.py:18
 msgid "name"
 msgstr "nome"
 
-#: imdata/controllers/groups.py:31 imdata/controllers/profiles.py:30
+#: imdata/controllers/groups.py:32 imdata/controllers/profiles.py:30
 #: imdata/models/usergroup.py:19
 msgid "active"
 msgstr "ativo"
 
-#: imdata/controllers/groups.py:32 imdata/models/usergroup.py:20
+#: imdata/controllers/groups.py:33 imdata/models/usergroup.py:20
 msgid "built-in"
 msgstr "permanente"
 
-#: imdata/controllers/groups.py:33 imdata/controllers/groups.py:51
+#: imdata/controllers/groups.py:34 imdata/controllers/groups.py:56
 #: imdata/models/rule.py:18 imdata/models/usergroup.py:21
 msgid "description"
 msgstr "descrição"
 
-#: imdata/controllers/groups.py:34
+#: imdata/controllers/groups.py:35
 msgid "# of users"
 msgstr "# de usuários"
 
-#: imdata/controllers/groups.py:148
+#: imdata/controllers/groups.py:154
 #, python-format
 msgid "The group '%s' was changed successfully."
 msgstr "O grupo '%s' foi alterado com sucesso."
 
-#: imdata/controllers/groups.py:150
+#: imdata/controllers/groups.py:156
 msgid ""
 "However, the users weren't removed because they must belong to one group at "
 "least."
 msgstr ""
 "Mas os usuários não podem ser removidos pois devem fazer parte de um grupo."
 
-#: imdata/controllers/groups.py:210
+#: imdata/controllers/groups.py:160 imdata/controllers/groups.py:222
+#, python-format
+msgid "The group '%s' already exists."
+msgstr "O grupo '%s' já existe."
+
+#: imdata/controllers/groups.py:218
 #, python-format
 msgid "The group '%s' was created successfully."
 msgstr "O grupo '%s' foi criado com sucesso."
 
-#: imdata/controllers/groups.py:235
+#: imdata/controllers/groups.py:246
 msgid "Can't delete built-in groups."
 msgstr "Não é permitido excluir grupos permanentes."
 
@@ -308,7 +318,7 @@ msgstr "A licença foi alterada com sucesso."
 msgid "email"
 msgstr "email"
 
-#: imdata/controllers/profiles.py:31 imdata/controllers/users.py:35
+#: imdata/controllers/profiles.py:31 imdata/controllers/users.py:36
 #: imdata/models/user.py:36
 msgid "last login"
 msgstr "último login"
@@ -349,8 +359,8 @@ msgstr "Idioma"
 msgid "Enable debug"
 msgstr "Habilitar debug"
 
-#: imdata/controllers/profiles.py:76 imdata/controllers/users.py:30
-#: imdata/controllers/users.py:86 imdata/models/grouprule.py:18
+#: imdata/controllers/profiles.py:76 imdata/controllers/users.py:31
+#: imdata/controllers/users.py:87 imdata/models/grouprule.py:18
 #: imdata/models/user.py:29 imdata/templates/groups/list.html:23
 msgid "group"
 msgstr "grupo"
@@ -387,37 +397,42 @@ msgstr "Este campo é necessário"
 msgid "The settings were changed successfully."
 msgstr "As configurações foram alteradas com sucesso."
 
-#: imdata/controllers/users.py:37
+#: imdata/controllers/users.py:38
 msgid "contacts"
 msgstr "contatos"
 
-#: imdata/controllers/users.py:46
+#: imdata/controllers/users.py:47
 msgid "Never logged"
 msgstr "Nunca logou"
 
-#: imdata/controllers/users.py:55
+#: imdata/controllers/users.py:56
 msgid "Manage"
 msgstr "Gerenciar"
 
-#: imdata/controllers/users.py:57
+#: imdata/controllers/users.py:58
 msgid "None"
 msgstr "Nenhum"
 
-#: imdata/controllers/users.py:77
+#: imdata/controllers/users.py:78
 msgid "Changing the username for a user that already logged is not permitted."
 msgstr "Não é permitido alterar o nome de um usuário que já realizou login."
 
-#: imdata/controllers/users.py:158
+#: imdata/controllers/users.py:160
 #, python-format
 msgid "The user '%s' was changed successfully."
 msgstr "O usuário '%s' foi alterado com sucesso."
 
-#: imdata/controllers/users.py:188
+#: imdata/controllers/users.py:163 imdata/controllers/users.py:198
+#, python-format
+msgid "The user '%s' already exists."
+msgstr "O usuário '%s' já existe."
+
+#: imdata/controllers/users.py:194
 #, python-format
 msgid "The user '%s' was created successfully."
 msgstr "O usuário '%s' foi criado com sucesso."
 
-#: imdata/controllers/users.py:206
+#: imdata/controllers/users.py:215
 msgid "Deleting a user that already logged is not permitted."
 msgstr "Não é permitido apagar um usuário que já realizou login."
 
@@ -541,7 +556,7 @@ msgstr "jogos"
 msgid "photo"
 msgstr "foto"
 
-#: imdata/models/message.py:46 imdata/templates/dashboard/index.html:220
+#: imdata/models/message.py:46 imdata/templates/dashboard/index.html:222
 msgid "messages"
 msgstr "mensagens"
 
@@ -731,7 +746,7 @@ msgid "Logout"
 msgstr "Sair"
 
 #: imdata/templates/layout.html:35 imdata/templates/dashboard/index.html:5
-#: imdata/templates/dashboard/index.html:260
+#: imdata/templates/dashboard/index.html:262
 msgid "Dashboard"
 msgstr "Painel"
 
@@ -739,7 +754,7 @@ msgstr "Painel"
 msgid "ACLs"
 msgstr "ACLs"
 
-#: imdata/templates/layout.html:45 imdata/templates/dashboard/index.html:283
+#: imdata/templates/layout.html:45 imdata/templates/dashboard/index.html:285
 #: imdata/templates/license/index.html:58
 #: imdata/templates/settings/update.html:46
 msgid "Users"
@@ -770,7 +785,7 @@ msgstr "Perfis"
 msgid "Add ACL"
 msgstr "Adicionar ACL"
 
-#: imdata/templates/acls/edit.html:5 imdata/templates/acls/edit.html.py:37
+#: imdata/templates/acls/edit.html:5 imdata/templates/acls/edit.html.py:41
 msgid "Change ACL"
 msgstr "Alterar ACL"
 
@@ -796,7 +811,7 @@ msgid "Add Badword"
 msgstr "Adicionar Palavrão"
 
 #: imdata/templates/badwords/edit.html:5
-#: imdata/templates/badwords/edit.html:37
+#: imdata/templates/badwords/edit.html:41
 msgid "Change Badword"
 msgstr "Alterar Palavrão"
 
@@ -879,29 +894,29 @@ msgstr "Nenhum resultado encontrado."
 msgid "None."
 msgstr "Nenhum."
 
-#: imdata/templates/dashboard/index.html:177
-#: imdata/templates/dashboard/index.html:264
+#: imdata/templates/dashboard/index.html:179
+#: imdata/templates/dashboard/index.html:266
 msgid "Most Active Users"
 msgstr "Usuários Mais Ativos"
 
-#: imdata/templates/dashboard/index.html:270
-#: imdata/templates/dashboard/index.html:286
+#: imdata/templates/dashboard/index.html:272
+#: imdata/templates/dashboard/index.html:288
 msgid "Messages"
 msgstr "Mensagens"
 
-#: imdata/templates/dashboard/index.html:278
+#: imdata/templates/dashboard/index.html:280
 msgid "Latest Conversations"
 msgstr "Últimas Conversas"
 
-#: imdata/templates/dashboard/index.html:285
+#: imdata/templates/dashboard/index.html:287
 msgid "Last activity"
 msgstr "Última atividade"
 
-#: imdata/templates/dashboard/index.html:295
+#: imdata/templates/dashboard/index.html:297
 msgid "users online"
 msgstr "usuários online"
 
-#: imdata/templates/dashboard/index.html:299
+#: imdata/templates/dashboard/index.html:301
 msgid "active conversations"
 msgstr "conversas ativas"
 
@@ -996,11 +1011,11 @@ msgstr "<u>N</u>ovo"
 msgid "Add Group"
 msgstr "Adicionar Grupo"
 
-#: imdata/templates/groups/edit.html:5 imdata/templates/groups/edit.html:37
+#: imdata/templates/groups/edit.html:5 imdata/templates/groups/edit.html:42
 msgid "Change Group"
 msgstr "Alterar Grupo"
 
-#: imdata/templates/groups/edit.html:15
+#: imdata/templates/groups/edit.html:16
 msgid "You're about to delete this group."
 msgstr "Você está prestes a apagar este grupo."
 
@@ -1115,7 +1130,7 @@ msgstr "Notificações"
 msgid "Add User"
 msgstr "Adicionar Usuário"
 
-#: imdata/templates/users/edit.html:5 imdata/templates/users/edit.html:37
+#: imdata/templates/users/edit.html:5 imdata/templates/users/edit.html:41
 msgid "Change User"
 msgstr "Alterar Usuário"
 
@@ -1150,9 +1165,3 @@ msgstr "Erro interno"
 #: templates/500.html:12
 msgid "This shouldn't happen! Please, contact "
 msgstr "Isto não deveria acontecer! Por favor, contate "
-
-#~ msgid "first name"
-#~ msgstr "Nome"
-
-#~ msgid "last name"
-#~ msgstr "Sobrenome"
