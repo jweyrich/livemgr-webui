@@ -5,9 +5,7 @@ from webui import settings
 # Uncomment the next two lines to enable the admin:
 admin.autodiscover()
 
-#handler404 = 'django.views.defaults.page_not_found'
-#handler500 = 'django.views.defaults.server_error'
-handler404 = 'webui.controllers.handlers.error_404'
+handler404 = 'django.views.defaults.page_not_found'
 handler500 = 'webui.controllers.handlers.error_500'
 
 urlpatterns = patterns('',
