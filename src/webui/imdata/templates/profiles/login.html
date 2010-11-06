@@ -26,11 +26,7 @@
 	{% endif %}{% endif %}{% endif %}
 </style>
 
-{% if debug %}
-	<script type="text/javascript" src="{{MEDIA_URL}}jquery-ui-1.8.2.custom/js/jquery-1.4.2.min.js"></script>
-{% else %}
-	<script type="text/javascript" src="{{MEDIA_URL}}js/all.min.js"></script>
-{% endif %}
+<script type="text/javascript" src="{{MEDIA_URL}}jquery-ui-1.8.6.custom/js/jquery-1.4.3.min.js"></script>
 <script type="text/javascript">
 $(document).ready(function() {
 	$('#id_username').focus();

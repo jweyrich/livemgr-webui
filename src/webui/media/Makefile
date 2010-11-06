@@ -3,7 +3,7 @@
 #
 
 CSS_SOURCES = \
-	jquery-ui-1.8.2.custom/css/cupertino/jquery-ui-1.8.2.custom.css \
+	jquery-ui-1.8.6.custom/css/cupertino/jquery-ui-1.8.6.custom.css \
 	css/current/theme.css \
 	css/current/form.css \
 	css/current/search.css \
@@ -26,9 +26,9 @@ JS_SOURCES = \
 	js/googlecharts.js
 
 JS_MINIFIED_DEPS = \
-	jquery-ui-1.8.2.custom/js/jquery-ui-1.8.2.custom.min.js \
-	jquery-ui-1.8.2.custom/js/jquery.simplemodal-1.3.5.min.js \
-	jquery-ui-1.8.2.custom/js/jquery.tools.min.js
+	jquery-ui-1.8.6.custom/js/jquery-ui-1.8.6.custom.min.js \
+	jquery-ui-1.8.6.custom/js/jquery.simplemodal-1.3.5.min.js \
+	jquery-ui-1.8.6.custom/js/jquery.tools.min.js
 
 CSS_TARGET = css/all.min.css
 JS_TARGET = js/all.min.js
