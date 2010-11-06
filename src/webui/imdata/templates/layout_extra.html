@@ -21,8 +21,7 @@
 {% endif %}
 
 {# JavaScript Localization #}
-{# Keep it commented - django.views.i18n.javascript_catalog doesn't work on Django 1.2.1 #}
-{# <script type="text/javascript" src="{% url django.views.i18n.javascript_catalog %}"></script> #}
+<script type="text/javascript" src="{% url django.views.i18n.javascript_catalog %}"></script>
 
 {% if debug %}
 	{# Others #}

@@ -20,7 +20,7 @@ urlpatterns = patterns('',
 
 	# Internationalization
 	(r'^i18n/', include('django.conf.urls.i18n')),
-	(r'^jsi18n/$', 'django.views.i18n.javascript_catalog', {'packages': ('webui',),}),
+	(r'^jsi18n/$', 'django.views.i18n.javascript_catalog'),
 
 	# User defined
 	(r'^media/(?P<path>.*)$', 'django.views.static.serve',

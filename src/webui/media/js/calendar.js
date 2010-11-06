@@ -1,20 +1,3 @@
-if (typeof gettext == 'undefined') {
-	//gettext = function(msgid) { return msgid; }
-	// FIXME(jweyrich): Temporary workaround for http://code.djangoproject.com/ticket/5494
-	gettext = function(msgid) {
-		var lang = i18n.langCode;
-		switch (lang) {
-			case 'pt-BR':
-				switch (msgid) {
-					case 'Today': return 'Hoje'
-					default: return msgid
-				}
-			default:
-				return msgid;
-		}
-	}
-}
-
 var Calendar = {
 	date_format: null,
 	date_format_js: null,
