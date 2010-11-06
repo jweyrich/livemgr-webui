@@ -28,13 +28,7 @@ class UserTable(tables.ModelTable):
 			'psm', 'lastlogin', 'group', 'contacts']
 	# Use ugettext_lazy because class definitions are evaluated once!
 	id = tables.Column(visible=False)
-	group = tables.Column(verbose_name=ugettext_lazy('group'), sortable=True)
-	username = tables.Column(verbose_name=ugettext_lazy('username'), sortable=True)
-	displayname = tables.Column(verbose_name=ugettext_lazy('display name'), sortable=True)
 	psm = tables.Column(verbose_name=ugettext_lazy('personal message'), sortable=False)
-	status = tables.Column(verbose_name=ugettext_lazy('status'), sortable=True)
-	lastlogin = tables.Column(verbose_name=ugettext_lazy('last login'), sortable=True)
-	isenabled = tables.Column(verbose_name=ugettext_lazy('enabled'), sortable=False)
 	contacts = tables.Column(verbose_name=ugettext_lazy('contacts'), sortable=False)
 	def render_group(self, instance):
 		return mark_safe('<a href="%s">%s</a>' % (

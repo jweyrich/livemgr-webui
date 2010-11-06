@@ -23,11 +23,7 @@ class AclTable(tables.ModelTable):
 		model = Acl
 		exclude = []
 		columns = ['action', 'localim', 'remoteim']
-	# Use ugettext_lazy because class definitions are evaluated once!
 	id = tables.Column(visible=False)
-	localim = tables.Column(verbose_name=ugettext_lazy('user'), sortable=True)
-	remoteim = tables.Column(verbose_name=ugettext_lazy('buddy'), sortable=True)
-	action = tables.Column(verbose_name=ugettext_lazy('action'), sortable=True)
 	def render_action(self, instance):
 		return format_acl_action(instance.action)
 

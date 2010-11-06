@@ -21,11 +21,7 @@ class BuddyTable(tables.ModelTable):
 		columns = ['username', 'status', 'isblocked', 'displayname', 'psm']
 	# Use ugettext_lazy because class definitions are evaluated once!
 	id = tables.Column(visible=False)
-	username = tables.Column(verbose_name=ugettext_lazy('username'), sortable=True)
-	displayname = tables.Column(verbose_name=ugettext_lazy('display name'), sortable=True)
 	psm = tables.Column(verbose_name=ugettext_lazy('personal message'), sortable=False)
-	status = tables.Column(verbose_name=ugettext_lazy('status'), sortable=True)
-	isblocked = tables.Column(verbose_name=ugettext_lazy('blocked'), sortable=True)
 	def render_status(self, instance):
 		return format_user_status(instance.status)
 	def render_isblocked(self, instance):

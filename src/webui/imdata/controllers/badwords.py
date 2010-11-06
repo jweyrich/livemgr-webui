@@ -22,11 +22,8 @@ class BadwordTable(tables.ModelTable):
 	class Meta:
 		model = Badword
 		exclude = []
-	# Use ugettext_lazy because class definitions are evaluated once!
+		columns = ['badword', 'isregex', 'isenabled']
 	id = tables.Column(visible=False)
-	badword = tables.Column(verbose_name=ugettext_lazy('badword'), sortable=True)
-	isregex = tables.Column(verbose_name=ugettext_lazy('regular expression'), sortable=True)
-	isenabled = tables.Column(verbose_name=ugettext_lazy('enabled'), sortable=True)
 	def render_isregex(self, instance):
 		return format_boolean(instance.isregex)
 	def render_isenabled(self, instance):

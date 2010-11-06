@@ -21,15 +21,11 @@ import django_tables as tables
 class ProfileTable(tables.ModelTable):
 	class Meta:
 		model = User
-		columns = ['id', 'username', 'email', 'is_active',
+		columns = ['username', 'email', 'is_active',
 				'last_login', 'date_joined', 'groups']
 	# Use ugettext_lazy because class definitions are evaluated once!
 	id = tables.Column(visible=False)
-	username = tables.Column(verbose_name=ugettext_lazy('username'), sortable=True)
 	email = tables.Column(verbose_name=ugettext_lazy('email'), sortable=True)
-	is_active = tables.Column(verbose_name=ugettext_lazy('active'), sortable=True)
-	last_login = tables.Column(verbose_name=ugettext_lazy('last login'), sortable=True)
-	date_joined = tables.Column(verbose_name=ugettext_lazy('date joined'), sortable=True)
 	groups = tables.Column(verbose_name=ugettext_lazy('groups'), sortable=False)
 	def render_is_active(self, instance):
 		return format_boolean(instance.is_active)

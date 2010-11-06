@@ -25,11 +25,9 @@ import django_tables as tables
 class GroupTable(tables.ModelTable):
 	class Meta:
 		model = UserGroup
-		exclude = ['rules']
-	id = tables.Column(visible=False)
+		columns = ['groupname', 'isactive', 'description', 'user_count']
 	# Use ugettext_lazy because class definitions are evaluated once!
-	groupname = tables.Column(verbose_name=ugettext_lazy('name'), sortable=True)
-	isactive = tables.Column(verbose_name=ugettext_lazy('active'), sortable=True)
+	id = tables.Column(visible=False)
 	isbuiltin = tables.Column(verbose_name=ugettext_lazy('built-in'), sortable=True, visible=False)
 	description = tables.Column(verbose_name=ugettext_lazy('description'), sortable=False)
 	user_count = tables.Column(verbose_name=ugettext_lazy('# of users'), sortable=False)
