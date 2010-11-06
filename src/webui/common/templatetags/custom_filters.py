@@ -65,6 +65,7 @@ filter_escape.needs_autoescape = True
 @register.filter(name='langcode')
 @stringfilter
 def filter_langcode(value):
+	""" Convert language code from RFC 3282 to ISO 3166. """
 	arr = value.split('-', 2);
 	if len(arr) != 2 or len(arr[1]) != 2:
 		return value

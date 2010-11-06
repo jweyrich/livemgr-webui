@@ -98,6 +98,9 @@
 #search_adv .field div.datepicker {
 	position: relative;
 	top: 7px;
+	color: #CCC;
+	font-weight: normal;
+	white-space: nowrap;
 }
 #search_adv .field input.datepicker {
 	width: 125px;

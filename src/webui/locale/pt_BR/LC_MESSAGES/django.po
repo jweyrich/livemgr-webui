@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2010-11-06 10:55+0000\n"
+"POT-Creation-Date: 2010-11-06 11:00+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -275,7 +275,7 @@ msgstr "O grupo '%s' foi criado com sucesso."
 msgid "Can't delete built-in groups."
 msgstr "Não é permitido excluir grupos permanentes."
 
-#: imdata/controllers/license.py:32 imdata/templates/layout.html:70
+#: imdata/controllers/license.py:32 imdata/templates/layout.html:67
 #: imdata/templates/license/index.html:5
 #: imdata/templates/license/index.html:36
 msgid "License"
@@ -745,38 +745,38 @@ msgstr "Perfil"
 msgid "Logout"
 msgstr "Sair"
 
-#: imdata/templates/layout.html:35 imdata/templates/dashboard/index.html:5
+#: imdata/templates/layout.html:32 imdata/templates/dashboard/index.html:5
 #: imdata/templates/dashboard/index.html:262
 msgid "Dashboard"
 msgstr "Painel"
 
-#: imdata/templates/layout.html:40
+#: imdata/templates/layout.html:37
 msgid "ACLs"
 msgstr "ACLs"
 
-#: imdata/templates/layout.html:45 imdata/templates/dashboard/index.html:285
+#: imdata/templates/layout.html:42 imdata/templates/dashboard/index.html:285
 #: imdata/templates/license/index.html:58
 #: imdata/templates/settings/update.html:46
 msgid "Users"
 msgstr "Usuários"
 
-#: imdata/templates/layout.html:50
+#: imdata/templates/layout.html:47
 msgid "Groups"
 msgstr "Grupos"
 
-#: imdata/templates/layout.html:55
+#: imdata/templates/layout.html:52
 msgid "Conversations"
 msgstr "Conversas"
 
-#: imdata/templates/layout.html:60
+#: imdata/templates/layout.html:57
 msgid "Badwords"
 msgstr "Palavrões"
 
-#: imdata/templates/layout.html:65
+#: imdata/templates/layout.html:62
 msgid "Settings"
 msgstr "Configurações"
 
-#: imdata/templates/layout.html:76 imdata/templates/profiles/list.html:5
+#: imdata/templates/layout.html:73 imdata/templates/profiles/list.html:5
 #: imdata/templates/profiles/list.html:38
 msgid "Profiles"
 msgstr "Perfis"
@@ -1146,22 +1146,30 @@ msgstr "Lista de Usuários"
 msgid "Search for users"
 msgstr "Procura por usuários"
 
-#: templates/404.html:5 templates/404.html.py:10
-msgid "Not found"
-msgstr "Não encontrado"
+#: templates/404.html:5
+msgid "Page not found"
+msgstr "Página não encontrada"
 
-#: templates/404.html:12
-msgid "The url"
-msgstr "A url"
+#: templates/404.html:10
+msgid "Sorry, that page doesn’t exist!"
+msgstr "Desculpe, esta página não existe!"
 
-#: templates/404.html:12
-msgid "doesn't exist."
-msgstr "não existe."
+#: templates/404.html:13
+msgid "The page you are looking for might have been removed, or doesn't exist."
+msgstr ""
+"A página que você está procurando pode ter sido removida, ou não existe."
 
-#: templates/500.html:5 templates/500.html.py:10
+#: templates/500.html:5
 msgid "Internal error"
 msgstr "Erro interno"
 
+#: templates/500.html:10
+msgid "Whoops! Something went wrong."
+msgstr "Oops! Ocorreu algo errado."
+
 #: templates/500.html:12
-msgid "This shouldn't happen! Please, contact "
-msgstr "Isto não deveria acontecer! Por favor, contate "
+msgid ""
+"An unexpected error occurred on the server.<br/>If the problem persists, "
+"contact "
+msgstr ""
+"Ocorreu um erro inesperado no servidor.<br/>Se o problema persistir, contate "

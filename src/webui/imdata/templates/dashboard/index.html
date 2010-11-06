@@ -174,7 +174,7 @@ function drawMostActiveUsersImg(source) {
 
 	var target = document.getElementById('most_active_users_chart');
 	var chart = new BarChart(target);
-	var date = new Date().format(Calendar.date_format_js);
+	var date = new Date().format(Calendar.getLocalizedFormat(true));
 	var options = {
 		title: '{% trans "Most Active Users" %} ('+date+')',
 		margins: [0,0,0,0],

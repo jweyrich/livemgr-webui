@@ -1,3 +1,8 @@
+/**
+ * Depends on:
+ *   search.min.js
+ *   selectbox.min.js
+ */
 var Selection = {
 	currentSelection: function() {
 		return $('#list tbody tr')

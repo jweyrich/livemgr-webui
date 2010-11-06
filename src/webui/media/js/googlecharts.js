@@ -161,7 +161,7 @@ function BarChart(target) {
 		var array = new Array();
 		for (i in options.data.axes) {
 			var obj = options.data.axes[i].type;
-			if (obj == undefined || obj == null || obj == '')
+			if (obj == undefined || obj == null || obj === '')
 				obj = 'x';
 			array.push(obj);
 		}
