@@ -22,6 +22,7 @@ JS_SOURCES = \
 	js/form.js \
 	js/search.js \
 	js/selection.js \
+	js/selectbox.js \
 	js/googlecharts.js
 
 JS_MINIFIED_DEPS = \
