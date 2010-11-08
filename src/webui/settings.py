@@ -145,7 +145,7 @@ INSTALLED_APPS = (
 	'django_tables',
 	'debug_toolbar',
 	'webui.common',
-	'webui.imdata',
+	'webui.livemgr',
 )
 
 # List of locations of the template source files, in search order.
@@ -154,7 +154,7 @@ TEMPLATE_DIRS = (
 	# Always use forward slashes, even on Windows.
 	# Don't forget to use absolute paths, not relative paths.
 	os.path.join(PROJECT_PATH, 'templates'),
-	os.path.join(PROJECT_PATH, 'imdata/templates'),
+	os.path.join(PROJECT_PATH, 'livemgr/templates'),
 )
 
 # List of processors used by RequestContext to populate the context.
@@ -248,7 +248,7 @@ AUTHENTICATION_BACKENDS = ('django.contrib.auth.backends.ModelBackend',)
 LOGIN_URL = '/login'
 LOGOUT_URL = '/logout'
 LOGIN_REDIRECT_URL = '/dashboard'
-AUTH_PROFILE_MODULE = 'imdata.Profile'
+AUTH_PROFILE_MODULE = 'livemgr.Profile'
 
 # The number of days a password reset link is valid for
 PASSWORD_RESET_TIMEOUT_DAYS = 3

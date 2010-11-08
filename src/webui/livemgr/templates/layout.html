@@ -1,0 +1,91 @@
+{% extends "layout_extra.html" %}
+{% load i18n custom_filters %}
+
+{% block head %}
+	{{ block.super }}
+{% endblock %}
+
+{% block body %}
+	{% spaceless %}
+
+	{% block header %}
+		<div id="header">
+			<div class="title">
+				<a href="{% url webui:index %}">{% trans "Live Manager" %}</a>
+			</div>
+			<div class="right">
+				<div id="user">
+					{% if user.is_authenticated %}
+						<span>{% trans "Welcome" %}, {{ user.username }} - </span>
+						 <a href="{% url webui:profiles-update %}">{% trans "Profile" %}</a> |
+						 <a href="{% url webui:profiles-logout %}">{% trans "Logout" %}</a>
+					{% endif %}
+				</div>
+			</div>
+		</div>
+	{% endblock %}
+
+	{% block navigator %}
+		<ul id="navigator" class="clearfix">
+			{% if perms.livemgr.see_dashboard %}
+			<li class="dashboard {{ menu|selected_if:'dashboard' }}">
+				<a href="{% url webui:index %}">{% trans 'Dashboard' %}</a>
+			</li>
+			{% endif %}
+			{% if perms.livemgr.see_acl %}
+			<li class="acls {{ menu|selected_if:'acls' }}">
+				<a href="{% url webui:acls-index %}">{% trans 'ACLs' %}</a>
+			</li>
+			{% endif %}
+			{% if perms.livemgr.see_user %}
+			<li class="users {{ menu|selected_if:'users' }}">
+				<a href="{% url webui:users-index %}">{% trans 'Users' %}</a>
+			</li>
+			{% endif %}
+			{% if perms.livemgr.see_usergroup %}
+			<li class="groups {{ menu|selected_if:'groups' }}">
+				<a href="{% url webui:groups-index %}">{% trans 'Groups' %}</a>
+			</li>
+			{% endif %}
+			{% if perms.livemgr.see_conversation %}
+			<li class="conversations {{ menu|selected_if:'conversations' }}">
+				<a href="{% url webui:conversations-index %}">{% trans 'Conversations' %}</a>
+			</li>
+			{% endif %}
+			{% if perms.livemgr.see_badword %}
+			<li class="badwords {{ menu|selected_if:'badwords' }}">
+				<a href="{% url webui:badwords-index %}">{% trans 'Badwords' %}</a>
+			</li>
+			{% endif %}
+			{% if perms.livemgr.change_setting %}
+			<li class="settings {{ menu|selected_if:'settings' }}">
+				<a href="{% url webui:settings-update %}">{% trans 'Settings' %}</a>
+			</li>
+			{% endif %}
+			{% if perms.livemgr.see_license %}
+			<li class="lciense {{ menu|selected_if:'license' }}">
+				<a href="{% url webui:license-index %}">{% trans 'License' %}</a>
+			</li>
+			{% endif %}
+			{% if 0 %}
+			{% if perms.livemgr.add_user or perms.livemgr.change_user or perms.livemgr.delete_user %}
+			<li class="profiles {{ menu|selected_if:'profiles' }}">
+				<a href="/profiles">{% trans 'Profiles' %}</a>
+			</li>
+			{% endif %}
+			{% endif %}
+		</ul>
+	{% endblock %}
+
+	<div id="body">
+		{% block content %}{% endblock %}
+	</div>
+
+	{% block footer %}
+	<!--
+		<div id="footer"></div>
+ 	-->
+	{% endblock %}
+
+	{% endspaceless %}
+{% endblock %}

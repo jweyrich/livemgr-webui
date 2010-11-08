@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2010-11-06 11:00+0000\n"
+"POT-Creation-Date: 2010-11-08 03:43+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -33,27 +33,27 @@ msgstr "Por favor, corrija os campos abaixo."
 msgid "You don't have permission to access this."
 msgstr "Você não tem permissão para acessar isto."
 
-#: imdata/controllers/acls.py:28 imdata/controllers/acls.py:50
-#: imdata/controllers/conversations.py:35
-#: imdata/controllers/conversations.py:71 imdata/models/acl.py:24
-#: imdata/models/buddy.py:25 imdata/models/conversation.py:18
-#: imdata/models/message.py:59 imdata/models/user.py:24
+#: livemgr/controllers/acls.py:28 livemgr/controllers/acls.py:50
+#: livemgr/controllers/conversations.py:35
+#: livemgr/controllers/conversations.py:71 livemgr/models/acl.py:24
+#: livemgr/models/buddy.py:25 livemgr/models/conversation.py:18
+#: livemgr/models/message.py:59 livemgr/models/user.py:24
 msgid "user"
 msgstr "usuário"
 
-#: imdata/controllers/acls.py:29 imdata/controllers/acls.py:51
-#: imdata/controllers/conversations.py:36
-#: imdata/controllers/conversations.py:72 imdata/models/acl.py:25
-#: imdata/models/buddy.py:14 imdata/models/message.py:60
+#: livemgr/controllers/acls.py:29 livemgr/controllers/acls.py:51
+#: livemgr/controllers/conversations.py:36
+#: livemgr/controllers/conversations.py:72 livemgr/models/acl.py:25
+#: livemgr/models/buddy.py:14 livemgr/models/message.py:60
 msgid "buddy"
 msgstr "contato"
 
-#: imdata/controllers/acls.py:30 imdata/controllers/acls.py:49
-#: imdata/models/acl.py:26
+#: livemgr/controllers/acls.py:30 livemgr/controllers/acls.py:49
+#: livemgr/models/acl.py:26
 msgid "action"
 msgstr "ação"
 
-#: imdata/controllers/acls.py:41 imdata/controllers/acls.py:44
+#: livemgr/controllers/acls.py:41 livemgr/controllers/acls.py:44
 msgid ""
 "You can use the asterisk as a wildcard character. Example:<br/><i>*@example."
 "com</i>"
@@ -61,1088 +61,1094 @@ msgstr ""
 "Você pode usar o caractere de curinga asterisco. Por exemplo:<br/"
 "><i>*@example.com</i>"
 
-#: imdata/controllers/acls.py:61 imdata/controllers/badwords.py:59
-#: imdata/controllers/groups.py:63 imdata/controllers/users.py:98
+#: livemgr/controllers/acls.py:61 livemgr/controllers/badwords.py:59
+#: livemgr/controllers/groups.py:63 livemgr/controllers/users.py:98
 msgid "You may add another."
 msgstr "Você pode adicionar outro."
 
-#: imdata/controllers/acls.py:82 imdata/controllers/badwords.py:80
-#: imdata/controllers/buddies.py:57 imdata/controllers/conversations.py:108
-#: imdata/controllers/groups.py:84 imdata/controllers/profiles.py:87
-#: imdata/controllers/users.py:119
+#: livemgr/controllers/acls.py:82 livemgr/controllers/badwords.py:80
+#: livemgr/controllers/buddies.py:57 livemgr/controllers/conversations.py:108
+#: livemgr/controllers/groups.py:84 livemgr/controllers/profiles.py:87
+#: livemgr/controllers/users.py:119
 msgid "Invalid search criteria"
 msgstr "Parâmetros de pesquisa inválidos"
 
-#: imdata/controllers/acls.py:124
+#: livemgr/controllers/acls.py:124
 #, python-format
 msgid "The acl %d was changed successfully."
 msgstr "A acl %d foi alterada com sucesso."
 
-#: imdata/controllers/acls.py:151
+#: livemgr/controllers/acls.py:151
 #, python-format
 msgid "The acl %d was created successfully."
 msgstr "A acl %d foi criada com sucesso."
 
-#: imdata/controllers/badwords.py:27 imdata/controllers/badwords.py:52
-#: imdata/models/badword.py:12 imdata/models/badword.py:17
-#: imdata/templates/badwords/list.html:22
+#: livemgr/controllers/badwords.py:27 livemgr/controllers/badwords.py:52
+#: livemgr/models/badword.py:12 livemgr/models/badword.py:17
+#: livemgr/templates/badwords/list.html:22
 msgid "badword"
 msgstr "palavrão"
 
-#: imdata/controllers/badwords.py:28 imdata/models/badword.py:18
+#: livemgr/controllers/badwords.py:28 livemgr/models/badword.py:18
 msgid "regular expression"
 msgstr "expressão regular"
 
-#: imdata/controllers/badwords.py:29 imdata/controllers/users.py:37
-#: imdata/models/badword.py:19 imdata/models/user.py:37
+#: livemgr/controllers/badwords.py:29 livemgr/controllers/users.py:37
+#: livemgr/models/badword.py:19 livemgr/models/user.py:37
 msgid "enabled"
 msgstr "habilitado"
 
-#: imdata/controllers/badwords.py:46
+#: livemgr/controllers/badwords.py:46
 msgid "Invalid regular expression"
 msgstr "Expressão regular inválida"
 
-#: imdata/controllers/badwords.py:116
+#: livemgr/controllers/badwords.py:116
 #, python-format
 msgid "The badword '%s' was changed successfully."
 msgstr "O palavrão '%s' foi alterado com sucesso."
 
-#: imdata/controllers/badwords.py:119 imdata/controllers/badwords.py:151
+#: livemgr/controllers/badwords.py:119 livemgr/controllers/badwords.py:151
 #, python-format
 msgid "The badword '%s' already exists."
 msgstr "O palavrão '%s' já existe."
 
-#: imdata/controllers/badwords.py:147
+#: livemgr/controllers/badwords.py:147
 #, python-format
 msgid "The badword '%s' was created successfully."
 msgstr "O palavrão '%s' foi criado com sucesso."
 
-#: imdata/controllers/buddies.py:24 imdata/controllers/buddies.py:35
-#: imdata/controllers/profiles.py:28 imdata/controllers/profiles.py:74
-#: imdata/controllers/users.py:32 imdata/controllers/users.py:85
-#: imdata/models/buddy.py:19 imdata/models/user.py:30
+#: livemgr/controllers/buddies.py:24 livemgr/controllers/buddies.py:35
+#: livemgr/controllers/profiles.py:28 livemgr/controllers/profiles.py:74
+#: livemgr/controllers/users.py:32 livemgr/controllers/users.py:85
+#: livemgr/models/buddy.py:19 livemgr/models/user.py:30
 msgid "username"
 msgstr "nome de usuário"
 
-#: imdata/controllers/buddies.py:25 imdata/controllers/buddies.py:36
-#: imdata/controllers/users.py:33 imdata/controllers/users.py:86
-#: imdata/models/buddy.py:20 imdata/models/user.py:31
+#: livemgr/controllers/buddies.py:25 livemgr/controllers/buddies.py:36
+#: livemgr/controllers/users.py:33 livemgr/controllers/users.py:86
+#: livemgr/models/buddy.py:20 livemgr/models/user.py:31
 msgid "display name"
 msgstr "nome de exibição"
 
-#: imdata/controllers/buddies.py:26 imdata/controllers/users.py:34
+#: livemgr/controllers/buddies.py:26 livemgr/controllers/users.py:34
 msgid "personal message"
 msgstr "mensagem pessoal"
 
-#: imdata/controllers/buddies.py:27 imdata/controllers/buddies.py:37
-#: imdata/controllers/users.py:35 imdata/controllers/users.py:88
-#: imdata/models/buddy.py:23 imdata/models/user.py:34
+#: livemgr/controllers/buddies.py:27 livemgr/controllers/buddies.py:37
+#: livemgr/controllers/users.py:35 livemgr/controllers/users.py:88
+#: livemgr/models/buddy.py:23 livemgr/models/user.py:34
 msgid "status"
 msgstr "status"
 
-#: imdata/controllers/buddies.py:28 imdata/models/buddy.py:24
+#: livemgr/controllers/buddies.py:28 livemgr/models/buddy.py:24
 msgid "blocked"
 msgstr "bloqueado"
 
-#: imdata/controllers/conversations.py:34 imdata/models/conversation.py:19
-#: imdata/models/message.py:51
+#: livemgr/controllers/conversations.py:34 livemgr/models/conversation.py:19
+#: livemgr/models/message.py:51
 msgid "timestamp"
 msgstr "horário"
 
-#: imdata/controllers/conversations.py:50
-#: imdata/controllers/conversations.py:216
+#: livemgr/controllers/conversations.py:50
+#: livemgr/controllers/conversations.py:216
 msgid "%m/%d/%Y - %I:%M:%S %p"
 msgstr "%d/%m/%Y - %I:%M:%S %p"
 
-#: imdata/controllers/conversations.py:70 imdata/models/message.py:45
+#: livemgr/controllers/conversations.py:70 livemgr/models/message.py:45
 msgid "message"
 msgstr "mensagem"
 
-#: imdata/controllers/conversations.py:73 imdata/models/message.py:61
+#: livemgr/controllers/conversations.py:73 livemgr/models/message.py:61
 msgid "filtered"
 msgstr "filtrado"
 
-#: imdata/controllers/conversations.py:79
+#: livemgr/controllers/conversations.py:79
 msgid "from date"
 msgstr "da data"
 
-#: imdata/controllers/conversations.py:82
-#: imdata/controllers/conversations.py:91
+#: livemgr/controllers/conversations.py:82
+#: livemgr/controllers/conversations.py:91
 msgid "mm/dd/yyyy"
 msgstr "dd/mm/yyyy"
 
-#: imdata/controllers/conversations.py:88
+#: livemgr/controllers/conversations.py:88
 msgid "to date"
 msgstr "até a data"
 
-#: imdata/controllers/conversations.py:115
+#: livemgr/controllers/conversations.py:115
 msgid "Invalid date"
 msgstr "Data inválida"
 
-#: imdata/controllers/conversations.py:164
-#: imdata/controllers/conversations.py:187
+#: livemgr/controllers/conversations.py:164
+#: livemgr/controllers/conversations.py:187
 #, python-format
 msgid "Missing argument: %s"
 msgstr "Faltando argumento: %s"
 
-#: imdata/controllers/conversations.py:192
+#: livemgr/controllers/conversations.py:192
 msgid "Conversation not found"
 msgstr "Conversa não encontrada"
 
-#: imdata/controllers/conversations.py:213
-#: imdata/templates/conversations/show.html:5
-#: imdata/templates/conversations/show.html:36
+#: livemgr/controllers/conversations.py:213
+#: livemgr/templates/conversations/show.html:5
+#: livemgr/templates/conversations/show.html:36
 msgid "Conversation"
 msgstr "Conversa"
 
-#: imdata/controllers/conversations.py:214
-#: imdata/templates/conversations/show.html:37
-#: imdata/templates/dashboard/index.html:271
+#: livemgr/controllers/conversations.py:214
+#: livemgr/templates/conversations/show.html:37
+#: livemgr/templates/dashboard/index.html:271
 msgid "User"
 msgstr "Usuário"
 
-#: imdata/controllers/conversations.py:215
-#: imdata/templates/conversations/show.html:39
+#: livemgr/controllers/conversations.py:215
+#: livemgr/templates/conversations/show.html:39
 msgid "Buddy"
 msgstr "Contato"
 
-#: imdata/controllers/conversations.py:216
-#: imdata/templates/conversations/show.html:40
+#: livemgr/controllers/conversations.py:216
+#: livemgr/templates/conversations/show.html:40
 msgid "Started in"
 msgstr "Inciciada em"
 
-#: imdata/controllers/conversations.py:217
-#: imdata/templates/conversations/show.html:41
+#: livemgr/controllers/conversations.py:217
+#: livemgr/templates/conversations/show.html:41
 msgid "Total messages"
 msgstr "Total de mensagens"
 
-#: imdata/controllers/conversations.py:240
+#: livemgr/controllers/conversations.py:240
 #, python-format
 msgid "Page %(this)i of %(total)i"
 msgstr "Página %(this)i de %(total)i"
 
-#: imdata/controllers/conversations.py:247
+#: livemgr/controllers/conversations.py:247
 msgid "%m/%d/%Y %I:%M:%S %p"
 msgstr "%d/%m/%Y %I:%M:%S %p"
 
-#: imdata/controllers/groups.py:31 imdata/controllers/groups.py:55
-#: imdata/models/rule.py:17 imdata/models/setting.py:17
-#: imdata/models/usergroup.py:18
+#: livemgr/controllers/groups.py:31 livemgr/controllers/groups.py:55
+#: livemgr/models/rule.py:17 livemgr/models/setting.py:17
+#: livemgr/models/usergroup.py:18
 msgid "name"
 msgstr "nome"
 
-#: imdata/controllers/groups.py:32 imdata/controllers/profiles.py:30
-#: imdata/models/usergroup.py:19
+#: livemgr/controllers/groups.py:32 livemgr/controllers/profiles.py:30
+#: livemgr/models/usergroup.py:19
 msgid "active"
 msgstr "ativo"
 
-#: imdata/controllers/groups.py:33 imdata/models/usergroup.py:20
+#: livemgr/controllers/groups.py:33 livemgr/models/usergroup.py:20
 msgid "built-in"
 msgstr "permanente"
 
-#: imdata/controllers/groups.py:34 imdata/controllers/groups.py:56
-#: imdata/models/rule.py:18 imdata/models/usergroup.py:21
+#: livemgr/controllers/groups.py:34 livemgr/controllers/groups.py:56
+#: livemgr/models/rule.py:18 livemgr/models/usergroup.py:21
 msgid "description"
 msgstr "descrição"
 
-#: imdata/controllers/groups.py:35
+#: livemgr/controllers/groups.py:35
 msgid "# of users"
 msgstr "# de usuários"
 
-#: imdata/controllers/groups.py:154
+#: livemgr/controllers/groups.py:154
 #, python-format
 msgid "The group '%s' was changed successfully."
 msgstr "O grupo '%s' foi alterado com sucesso."
 
-#: imdata/controllers/groups.py:156
+#: livemgr/controllers/groups.py:156
 msgid ""
 "However, the users weren't removed because they must belong to one group at "
 "least."
 msgstr ""
 "Mas os usuários não podem ser removidos pois devem fazer parte de um grupo."
 
-#: imdata/controllers/groups.py:160 imdata/controllers/groups.py:222
+#: livemgr/controllers/groups.py:160 livemgr/controllers/groups.py:222
 #, python-format
 msgid "The group '%s' already exists."
 msgstr "O grupo '%s' já existe."
 
-#: imdata/controllers/groups.py:218
+#: livemgr/controllers/groups.py:218
 #, python-format
 msgid "The group '%s' was created successfully."
 msgstr "O grupo '%s' foi criado com sucesso."
 
-#: imdata/controllers/groups.py:246
+#: livemgr/controllers/groups.py:246
 msgid "Can't delete built-in groups."
 msgstr "Não é permitido excluir grupos permanentes."
 
-#: imdata/controllers/license.py:32 imdata/templates/layout.html:67
-#: imdata/templates/license/index.html:5
-#: imdata/templates/license/index.html:36
+#: livemgr/controllers/license.py:32 livemgr/templates/layout.html:67
+#: livemgr/templates/license/index.html:5
+#: livemgr/templates/license/index.html:36
 msgid "License"
 msgstr "Licença"
 
-#: imdata/controllers/license.py:74
+#: livemgr/controllers/license.py:74
 #, python-format
 msgid "Server returned %(status)i %(reason)s"
 msgstr "Servidor retornou %(status)i %(reason)s"
 
-#: imdata/controllers/license.py:111
+#: livemgr/controllers/license.py:111
 msgid "Valid"
 msgstr "Válida"
 
-#: imdata/controllers/license.py:112
+#: livemgr/controllers/license.py:112
 msgid "Expired"
 msgstr "Expirada"
 
-#: imdata/controllers/license.py:116 imdata/controllers/license.py:119
-#: imdata/controllers/license.py:155 imdata/controllers/license.py:161
+#: livemgr/controllers/license.py:116 livemgr/controllers/license.py:119
+#: livemgr/controllers/license.py:155 livemgr/controllers/license.py:161
 msgid "Please, inform a valid license."
 msgstr "Por favor, informe uma licença válida."
 
-#: imdata/controllers/license.py:122 imdata/controllers/license.py:164
+#: livemgr/controllers/license.py:122 livemgr/controllers/license.py:164
 msgid "Connection problem. Try again in few minutes."
 msgstr "Problema de conexão. Tente novamente em poucos minutos."
 
-#: imdata/controllers/license.py:147
+#: livemgr/controllers/license.py:147
 msgid ""
 "Unable to save the uploaded file. Please, report this to your administrator."
 msgstr ""
 "Não foi possível salvar o arquivo enviado. Por favor, informe seu "
 "administrador."
 
-#: imdata/controllers/license.py:166
+#: livemgr/controllers/license.py:166
 msgid "The license was changed successfully."
 msgstr "A licença foi alterada com sucesso."
 
-#: imdata/controllers/profiles.py:29 imdata/controllers/profiles.py:75
+#: livemgr/controllers/profiles.py:29 livemgr/controllers/profiles.py:75
 msgid "email"
 msgstr "email"
 
-#: imdata/controllers/profiles.py:31 imdata/controllers/users.py:36
-#: imdata/models/user.py:36
+#: livemgr/controllers/profiles.py:31 livemgr/controllers/users.py:36
+#: livemgr/models/user.py:36
 msgid "last login"
 msgstr "último login"
 
-#: imdata/controllers/profiles.py:32
+#: livemgr/controllers/profiles.py:32
 msgid "date joined"
 msgstr "Data de registro"
 
-#: imdata/controllers/profiles.py:33 imdata/templates/groups/list.html:23
+#: livemgr/controllers/profiles.py:33 livemgr/templates/groups/list.html:23
 msgid "groups"
 msgstr "Grupos"
 
-#: imdata/controllers/profiles.py:43
+#: livemgr/controllers/profiles.py:43
 msgid "Current password"
 msgstr "Senha atual"
 
-#: imdata/controllers/profiles.py:44
+#: livemgr/controllers/profiles.py:44
 msgid "New password"
 msgstr "Nova senha"
 
-#: imdata/controllers/profiles.py:45
+#: livemgr/controllers/profiles.py:45
 msgid "New password confirmation"
 msgstr "Nova senha (confirmação)"
 
-#: imdata/controllers/profiles.py:49
+#: livemgr/controllers/profiles.py:49
 msgid "Your current password is incorrect. Please type it again."
 msgstr "Sua senha atual está incorreta. Por favor, digite novamente."
 
-#: imdata/controllers/profiles.py:56
+#: livemgr/controllers/profiles.py:56
 msgid "The two password fields don't match."
 msgstr "Os 2 campos de senha não conferem."
 
-#: imdata/controllers/profiles.py:70
+#: livemgr/controllers/profiles.py:70
 msgid "Language"
 msgstr "Idioma"
 
-#: imdata/controllers/profiles.py:71
+#: livemgr/controllers/profiles.py:71
 msgid "Enable debug"
 msgstr "Habilitar debug"
 
-#: imdata/controllers/profiles.py:76 imdata/controllers/users.py:31
-#: imdata/controllers/users.py:87 imdata/models/grouprule.py:18
-#: imdata/models/user.py:29 imdata/templates/groups/list.html:23
+#: livemgr/controllers/profiles.py:76 livemgr/controllers/users.py:31
+#: livemgr/controllers/users.py:87 livemgr/models/grouprule.py:18
+#: livemgr/models/user.py:29 livemgr/templates/groups/list.html:23
 msgid "group"
 msgstr "grupo"
 
-#: imdata/controllers/profiles.py:139
+#: livemgr/controllers/profiles.py:139
 msgid "Your profile was updated successfully."
 msgstr "Seu perfil foi atualizado com sucesso."
 
-#: imdata/controllers/settings.py:25
+#: livemgr/controllers/settings.py:25
 msgid "Minimum"
 msgstr "Mínimo"
 
-#: imdata/controllers/settings.py:26
+#: livemgr/controllers/settings.py:26
 msgid "Maximum"
 msgstr "Máximo"
 
-#: imdata/controllers/settings.py:27
+#: livemgr/controllers/settings.py:27
 msgid "Allow self registration"
 msgstr "Permitir auto-registro"
 
-#: imdata/controllers/settings.py:28
+#: livemgr/controllers/settings.py:28
 msgid "Filtered"
 msgstr "Filtrado"
 
-#: imdata/controllers/settings.py:29 imdata/models/rule.py:28
+#: livemgr/controllers/settings.py:29 livemgr/models/rule.py:28
 msgid "Disclaimer"
 msgstr "Aviso legal"
 
-#: imdata/controllers/settings.py:46 imdata/controllers/settings.py:52
+#: livemgr/controllers/settings.py:46 livemgr/controllers/settings.py:52
 msgid "This field is required."
 msgstr "Este campo é necessário"
 
-#: imdata/controllers/settings.py:81
+#: livemgr/controllers/settings.py:81
 msgid "The settings were changed successfully."
 msgstr "As configurações foram alteradas com sucesso."
 
-#: imdata/controllers/users.py:38
+#: livemgr/controllers/users.py:38
 msgid "contacts"
 msgstr "contatos"
 
-#: imdata/controllers/users.py:47
+#: livemgr/controllers/users.py:47
 msgid "Never logged"
 msgstr "Nunca logou"
 
-#: imdata/controllers/users.py:56
+#: livemgr/controllers/users.py:56
 msgid "Manage"
 msgstr "Gerenciar"
 
-#: imdata/controllers/users.py:58
+#: livemgr/controllers/users.py:58
 msgid "None"
 msgstr "Nenhum"
 
-#: imdata/controllers/users.py:78
+#: livemgr/controllers/users.py:78
 msgid "Changing the username for a user that already logged is not permitted."
 msgstr "Não é permitido alterar o nome de um usuário que já realizou login."
 
-#: imdata/controllers/users.py:160
+#: livemgr/controllers/users.py:160
 #, python-format
 msgid "The user '%s' was changed successfully."
 msgstr "O usuário '%s' foi alterado com sucesso."
 
-#: imdata/controllers/users.py:163 imdata/controllers/users.py:198
+#: livemgr/controllers/users.py:163 livemgr/controllers/users.py:198
 #, python-format
 msgid "The user '%s' already exists."
 msgstr "O usuário '%s' já existe."
 
-#: imdata/controllers/users.py:194
+#: livemgr/controllers/users.py:194
 #, python-format
 msgid "The user '%s' was created successfully."
 msgstr "O usuário '%s' foi criado com sucesso."
 
-#: imdata/controllers/users.py:215
+#: livemgr/controllers/users.py:215
 msgid "Deleting a user that already logged is not permitted."
 msgstr "Não é permitido apagar um usuário que já realizou login."
 
-#: imdata/models/acl.py:10
+#: livemgr/models/acl.py:10
 msgid "Allow"
 msgstr "Permitir"
 
-#: imdata/models/acl.py:11
+#: livemgr/models/acl.py:11
 msgid "Block"
 msgstr "Bloquear"
 
-#: imdata/models/acl.py:19 imdata/templates/acls/list.html:25
+#: livemgr/models/acl.py:19 livemgr/templates/acls/list.html:25
 msgid "acl"
 msgstr "acl"
 
-#: imdata/models/acl.py:20 imdata/templates/acls/list.html:25
+#: livemgr/models/acl.py:20 livemgr/templates/acls/list.html:25
 msgid "acls"
 msgstr "acls"
 
-#: imdata/models/badword.py:13 imdata/templates/badwords/list.html:22
+#: livemgr/models/badword.py:13 livemgr/templates/badwords/list.html:22
 msgid "badwords"
 msgstr "palavrões"
 
-#: imdata/models/buddy.py:15
+#: livemgr/models/buddy.py:15
 msgid "buddies"
 msgstr "contatos"
 
-#: imdata/models/buddy.py:21 imdata/models/user.py:32
+#: livemgr/models/buddy.py:21 livemgr/models/user.py:32
 msgid "status message"
 msgstr "mensagem de status"
 
-#: imdata/models/conversation.py:13
+#: livemgr/models/conversation.py:13
 msgid "conversation"
 msgstr "conversa"
 
-#: imdata/models/conversation.py:14
+#: livemgr/models/conversation.py:14
 msgid "conversations"
 msgstr "conversas"
 
-#: imdata/models/conversation.py:20 imdata/templates/license/index.html:62
+#: livemgr/models/conversation.py:20 livemgr/templates/license/index.html:62
 msgid "Status"
 msgstr "Status"
 
-#: imdata/models/dummy.py:9
+#: livemgr/models/dummy.py:9
 msgid "dashboard"
 msgstr "painel"
 
-#: imdata/models/dummy.py:19
+#: livemgr/models/dummy.py:19
 msgid "support"
 msgstr "suporte"
 
-#: imdata/models/grouprule.py:15
+#: livemgr/models/grouprule.py:15
 msgid "grouprule"
 msgstr "regra de grupo"
 
-#: imdata/models/grouprule.py:16
+#: livemgr/models/grouprule.py:16
 msgid "grouprules"
 msgstr "regras de grupo"
 
-#: imdata/models/grouprule.py:17 imdata/models/rule.py:12
+#: livemgr/models/grouprule.py:17 livemgr/models/rule.py:12
 msgid "rule"
 msgstr "regra"
 
-#: imdata/models/message.py:24
+#: livemgr/models/message.py:24
 msgid "unknown"
 msgstr "desconhecido"
 
-#: imdata/models/message.py:25
+#: livemgr/models/message.py:25
 msgid "msg"
 msgstr "mensagem"
 
-#: imdata/models/message.py:26
+#: livemgr/models/message.py:26
 msgid "file"
 msgstr "arquivo"
 
-#: imdata/models/message.py:27
+#: livemgr/models/message.py:27
 msgid "typing"
 msgstr "digitando"
 
-#: imdata/models/message.py:28
+#: livemgr/models/message.py:28
 msgid "caps"
 msgstr "capacidades"
 
-#: imdata/models/message.py:29
+#: livemgr/models/message.py:29
 msgid "webcam"
 msgstr "webcam"
 
-#: imdata/models/message.py:30
+#: livemgr/models/message.py:30
 msgid "remotedesktop"
 msgstr "desktop remoto"
 
-#: imdata/models/message.py:31
+#: livemgr/models/message.py:31
 msgid "application"
 msgstr "aplicação"
 
-#: imdata/models/message.py:32
+#: livemgr/models/message.py:32
 msgid "emoticon"
 msgstr "emoticon"
 
-#: imdata/models/message.py:33
+#: livemgr/models/message.py:33
 msgid "ink"
 msgstr "tinta"
 
-#: imdata/models/message.py:34
+#: livemgr/models/message.py:34
 msgid "nudge"
 msgstr "atenção"
 
-#: imdata/models/message.py:35
+#: livemgr/models/message.py:35
 msgid "wink"
 msgstr "wink"
 
-#: imdata/models/message.py:36
+#: livemgr/models/message.py:36
 msgid "voiceclip"
 msgstr "clipe de voz"
 
-#: imdata/models/message.py:37
+#: livemgr/models/message.py:37
 msgid "games"
 msgstr "jogos"
 
-#: imdata/models/message.py:38
+#: livemgr/models/message.py:38
 msgid "photo"
 msgstr "foto"
 
-#: imdata/models/message.py:46 imdata/templates/dashboard/index.html:222
+#: livemgr/models/message.py:46 livemgr/templates/dashboard/index.html:222
 msgid "messages"
 msgstr "mensagens"
 
-#: imdata/models/message.py:50
+#: livemgr/models/message.py:50
 msgid "conversation #"
 msgstr "conversa #"
 
-#: imdata/models/message.py:55
+#: livemgr/models/message.py:55
 msgid "client IP"
 msgstr "IP do cliente"
 
-#: imdata/models/message.py:56
+#: livemgr/models/message.py:56
 msgid "inbound"
 msgstr "recebido"
 
-#: imdata/models/message.py:57
+#: livemgr/models/message.py:57
 msgid "type"
 msgstr "tipo"
 
-#: imdata/models/message.py:62
+#: livemgr/models/message.py:62
 msgid "content"
 msgstr "conteúdo"
 
-#: imdata/models/profile.py:10
+#: livemgr/models/profile.py:10
 msgid "language"
 msgstr "idioma"
 
-#: imdata/models/profile.py:11
+#: livemgr/models/profile.py:11
 msgid "enable debug"
 msgstr "habilitar debug"
 
-#: imdata/models/rule.py:13 imdata/templates/groups/form-fieldset-rules.html:4
+#: livemgr/models/rule.py:13
+#: livemgr/templates/groups/form-fieldset-rules.html:4
 msgid "rules"
 msgstr "regras"
 
-#: imdata/models/rule.py:27
+#: livemgr/models/rule.py:27
 msgid "Conversation history"
 msgstr "Histórico de conversas"
 
-#: imdata/models/rule.py:27
+#: livemgr/models/rule.py:27
 msgid "Save instant message conversations"
 msgstr "Salva todas as conversas de mensagem instantânea"
 
-#: imdata/models/rule.py:28
+#: livemgr/models/rule.py:28
 msgid "Notify the user that the messages are being monitored"
 msgstr "Notifica o usuário que as mensagens estão sendo monitoradas"
 
-#: imdata/models/rule.py:29
+#: livemgr/models/rule.py:29
 msgid "Block file transfers"
 msgstr "Bloquear transferência de arquivos"
 
-#: imdata/models/rule.py:29
+#: livemgr/models/rule.py:29
 msgid "Automatically reject file transfers"
 msgstr "Rejeita automaticamente transferência de arquivos"
 
-#: imdata/models/rule.py:30
+#: livemgr/models/rule.py:30
 msgid "Block unofficial messages"
 msgstr "Bloquear mensagens não oficiais"
 
-#: imdata/models/rule.py:31
+#: livemgr/models/rule.py:31
 msgid "Block webcam"
 msgstr "Bloquear webcam"
 
-#: imdata/models/rule.py:32
+#: livemgr/models/rule.py:32
 msgid "Block Remote Assistance"
 msgstr "Bloquear Assistência Remota"
 
-#: imdata/models/rule.py:33
+#: livemgr/models/rule.py:33
 msgid "Block application sharing"
 msgstr "Bloquear compartilhamento de aplicativos"
 
-#: imdata/models/rule.py:34
+#: livemgr/models/rule.py:34
 msgid "Block custom emoticons"
 msgstr "Bloquear emoticons personalizados"
 
-#: imdata/models/rule.py:35
+#: livemgr/models/rule.py:35
 msgid "Block handwriting"
 msgstr "Bloquear manuscritos"
 
-#: imdata/models/rule.py:36
+#: livemgr/models/rule.py:36
 msgid "Block nudges"
 msgstr "Bloquear chamados de atenção"
 
-#: imdata/models/rule.py:37
+#: livemgr/models/rule.py:37
 msgid "Block winks"
 msgstr "Bloquear winks"
 
-#: imdata/models/rule.py:38
+#: livemgr/models/rule.py:38
 msgid "Block voice clips"
 msgstr "Bloquear clipes de voz"
 
-#: imdata/models/rule.py:39
+#: livemgr/models/rule.py:39
 msgid "Block encrypted messages"
 msgstr "Bloquear mensagens criptografadas"
 
-#: imdata/models/rule.py:40
+#: livemgr/models/rule.py:40
 msgid "Badword filtering"
 msgstr "Filtro de palavrões"
 
-#: imdata/models/rule.py:40
+#: livemgr/models/rule.py:40
 msgid "Filter messages based on defined badwords"
 msgstr "Filtra mensagens baseado nos palavrões definidos"
 
-#: imdata/models/rule.py:41
+#: livemgr/models/rule.py:41
 msgid "Block MSN Games"
 msgstr "Bloquear jogos MSN"
 
-#: imdata/models/rule.py:42
+#: livemgr/models/rule.py:42
 msgid "Block photo sharing"
 msgstr "Bloquear compartilhamento de fotos"
 
-#: imdata/models/setting.py:12
+#: livemgr/models/setting.py:12
 msgid "setting"
 msgstr "configuração"
 
-#: imdata/models/setting.py:13
+#: livemgr/models/setting.py:13
 msgid "settings"
 msgstr "configurações"
 
-#: imdata/models/setting.py:18
+#: livemgr/models/setting.py:18
 msgid "value"
 msgstr "valor"
 
-#: imdata/models/user.py:9
+#: livemgr/models/user.py:9
 msgid "Online"
 msgstr "Conectado"
 
-#: imdata/models/user.py:10
+#: livemgr/models/user.py:10
 msgid "Busy"
 msgstr "Ocupado"
 
-#: imdata/models/user.py:11
+#: livemgr/models/user.py:11
 msgid "Idle"
 msgstr "Inativo"
 
-#: imdata/models/user.py:12
+#: livemgr/models/user.py:12
 msgid "Away"
 msgstr "Ausente"
 
-#: imdata/models/user.py:13
+#: livemgr/models/user.py:13
 msgid "Be right back"
 msgstr "Volto logo"
 
-#: imdata/models/user.py:14
+#: livemgr/models/user.py:14
 msgid "On the phone"
 msgstr "No telefone"
 
-#: imdata/models/user.py:15
+#: livemgr/models/user.py:15
 msgid "Out to lunch"
 msgstr "Almoçando"
 
-#: imdata/models/user.py:16
+#: livemgr/models/user.py:16
 msgid "Invisible"
 msgstr "Invisível"
 
-#: imdata/models/user.py:17
+#: livemgr/models/user.py:17
 msgid "Offline"
 msgstr "Desconectado"
 
-#: imdata/models/user.py:25 imdata/templates/groups/form-fieldset-users.html:4
+#: livemgr/models/user.py:25
+#: livemgr/templates/groups/form-fieldset-users.html:4
 msgid "users"
 msgstr "usuários"
 
-#: imdata/models/usergroup.py:13
+#: livemgr/models/usergroup.py:13
 msgid "usergroup"
 msgstr "grupo"
 
-#: imdata/models/usergroup.py:14
+#: livemgr/models/usergroup.py:14
 msgid "usergroups"
 msgstr "grupos"
 
-#: imdata/templates/layout.html:14 imdata/templates/layout_base.html:19
-#: imdata/templates/profiles/login.html:12
+#: livemgr/templates/layout.html:14 livemgr/templates/layout_base.html:19
+#: livemgr/templates/profiles/login.html:12
 msgid "Live Manager"
 msgstr "Live Manager"
 
-#: imdata/templates/layout.html:19
+#: livemgr/templates/layout.html:19
 msgid "Welcome"
 msgstr "Bem vindo"
 
-#: imdata/templates/layout.html:20
+#: livemgr/templates/layout.html:20
 msgid "Profile"
 msgstr "Perfil"
 
-#: imdata/templates/layout.html:21
+#: livemgr/templates/layout.html:21
 msgid "Logout"
 msgstr "Sair"
 
-#: imdata/templates/layout.html:32 imdata/templates/dashboard/index.html:5
-#: imdata/templates/dashboard/index.html:262
+#: livemgr/templates/layout.html:32 livemgr/templates/dashboard/index.html:5
+#: livemgr/templates/dashboard/index.html:262
 msgid "Dashboard"
 msgstr "Painel"
 
-#: imdata/templates/layout.html:37
+#: livemgr/templates/layout.html:37
 msgid "ACLs"
 msgstr "ACLs"
 
-#: imdata/templates/layout.html:42 imdata/templates/dashboard/index.html:285
-#: imdata/templates/license/index.html:58
-#: imdata/templates/settings/update.html:46
+#: livemgr/templates/layout.html:42 livemgr/templates/dashboard/index.html:285
+#: livemgr/templates/license/index.html:58
+#: livemgr/templates/settings/update.html:46
 msgid "Users"
 msgstr "Usuários"
 
-#: imdata/templates/layout.html:47
+#: livemgr/templates/layout.html:47
 msgid "Groups"
 msgstr "Grupos"
 
-#: imdata/templates/layout.html:52
+#: livemgr/templates/layout.html:52
 msgid "Conversations"
 msgstr "Conversas"
 
-#: imdata/templates/layout.html:57
+#: livemgr/templates/layout.html:57
 msgid "Badwords"
 msgstr "Palavrões"
 
-#: imdata/templates/layout.html:62
+#: livemgr/templates/layout.html:62
 msgid "Settings"
 msgstr "Configurações"
 
-#: imdata/templates/layout.html:73 imdata/templates/profiles/list.html:5
-#: imdata/templates/profiles/list.html:38
+#: livemgr/templates/layout.html:73 livemgr/templates/profiles/list.html:5
+#: livemgr/templates/profiles/list.html:38
 msgid "Profiles"
 msgstr "Perfis"
 
-#: imdata/templates/acls/add.html:5 imdata/templates/acls/add.html.py:18
+#: livemgr/templates/acls/add.html:5 livemgr/templates/acls/add.html.py:18
 msgid "Add ACL"
 msgstr "Adicionar ACL"
 
-#: imdata/templates/acls/edit.html:5 imdata/templates/acls/edit.html.py:41
+#: livemgr/templates/acls/edit.html:5 livemgr/templates/acls/edit.html:41
 msgid "Change ACL"
 msgstr "Alterar ACL"
 
-#: imdata/templates/acls/edit.html:15
+#: livemgr/templates/acls/edit.html:15
 msgid "You're about to delete this acl."
 msgstr "Você está prestes a apagar esta acl."
 
-#: imdata/templates/acls/list.html:5 imdata/templates/acls/list.html.py:49
+#: livemgr/templates/acls/list.html:5 livemgr/templates/acls/list.html:49
 msgid "ACL Summary"
 msgstr "Lista de ACLs"
 
-#: imdata/templates/acls/list.html:22 imdata/templates/badwords/list.html:19
-#: imdata/templates/groups/list.html:20
+#: livemgr/templates/acls/list.html:22 livemgr/templates/badwords/list.html:19
+#: livemgr/templates/groups/list.html:20
 msgid "You're about to delete {0} {1}."
 msgstr "Você está prestes a apagar {0} {1}."
 
-#: imdata/templates/acls/list.html:51
+#: livemgr/templates/acls/list.html:51
 msgid "Search for acls"
 msgstr "Procura por acls"
 
-#: imdata/templates/badwords/add.html:5 imdata/templates/badwords/add.html:18
+#: livemgr/templates/badwords/add.html:5
+#: livemgr/templates/badwords/add.html:18
 msgid "Add Badword"
 msgstr "Adicionar Palavrão"
 
-#: imdata/templates/badwords/edit.html:5
-#: imdata/templates/badwords/edit.html:41
+#: livemgr/templates/badwords/edit.html:5
+#: livemgr/templates/badwords/edit.html:41
 msgid "Change Badword"
 msgstr "Alterar Palavrão"
 
-#: imdata/templates/badwords/edit.html:15
+#: livemgr/templates/badwords/edit.html:15
 msgid "You're about to delete this badword."
 msgstr "Você está prestes a apagar esta badword."
 
-#: imdata/templates/badwords/list.html:5
-#: imdata/templates/badwords/list.html:52
+#: livemgr/templates/badwords/list.html:5
+#: livemgr/templates/badwords/list.html:52
 msgid "Badword Summary"
 msgstr "Lista de Palavrões"
 
-#: imdata/templates/badwords/list.html:54
+#: livemgr/templates/badwords/list.html:54
 msgid "Search for badwords"
 msgstr "Procura por palavrões"
 
-#: imdata/templates/buddies/list.html:5 imdata/templates/buddies/list.html:37
+#: livemgr/templates/buddies/list.html:5
+#: livemgr/templates/buddies/list.html:37
 msgid "Contacts of"
 msgstr "Contatos de"
 
-#: imdata/templates/buddies/list.html:39
+#: livemgr/templates/buddies/list.html:39
 msgid "Search for contacts"
 msgstr "Procura por contatos"
 
-#: imdata/templates/conversations/list.html:5
-#: imdata/templates/conversations/list.html:87
+#: livemgr/templates/conversations/list.html:5
+#: livemgr/templates/conversations/list.html:87
 msgid "Conversation Summary"
 msgstr "Lista de Conversas"
 
-#: imdata/templates/conversations/list.html:89
+#: livemgr/templates/conversations/list.html:89
 msgid "Search for messages"
 msgstr "Procura por mensagens"
 
-#: imdata/templates/conversations/show.html:42
+#: livemgr/templates/conversations/show.html:42
 msgid "Export as"
 msgstr "Exportar como"
 
-#: imdata/templates/conversations/show.html:49
+#: livemgr/templates/conversations/show.html:49
 msgid "Time"
 msgstr "Horário"
 
-#: imdata/templates/conversations/show.html:50
+#: livemgr/templates/conversations/show.html:50
 msgid "Author"
 msgstr "Autor"
 
-#: imdata/templates/conversations/show.html:51
+#: livemgr/templates/conversations/show.html:51
 msgid "Message"
 msgstr "Mensagem"
 
-#: imdata/templates/conversations/show.html:59
+#: livemgr/templates/conversations/show.html:59
 #, python-format
 msgid "%(total)s message"
 msgid_plural "%(total)s messages"
 msgstr[0] "%(total)s mensagem"
 msgstr[1] "%(total)s mensagens"
 
-#: imdata/templates/conversations/show.html:77
+#: livemgr/templates/conversations/show.html:77
 msgid "This message was filtered."
 msgstr "Esta mensagem foi filtrada."
 
-#: imdata/templates/conversations/show.html:84
+#: livemgr/templates/conversations/show.html:84
 msgid "File transfer: "
 msgstr "Transferência de arquivo: "
 
-#: imdata/templates/conversations/show.html:86
+#: livemgr/templates/conversations/show.html:86
 msgid "Filename: "
 msgstr "Nome do arquivo: "
 
-#: imdata/templates/conversations/show.html:87
+#: livemgr/templates/conversations/show.html:87
 msgid "Size: "
 msgstr "Tamanho: "
 
-#: imdata/templates/conversations/table.html:57
-#: imdata/templates/generic/table.html:57
+#: livemgr/templates/conversations/table.html:57
+#: livemgr/templates/generic/table.html:57
 msgid "No results found."
 msgstr "Nenhum resultado encontrado."
 
-#: imdata/templates/dashboard/index.html:62
-#: imdata/templates/dashboard/index.html:102
+#: livemgr/templates/dashboard/index.html:62
+#: livemgr/templates/dashboard/index.html:102
 msgid "None."
 msgstr "Nenhum."
 
-#: imdata/templates/dashboard/index.html:179
-#: imdata/templates/dashboard/index.html:266
+#: livemgr/templates/dashboard/index.html:179
+#: livemgr/templates/dashboard/index.html:266
 msgid "Most Active Users"
 msgstr "Usuários Mais Ativos"
 
-#: imdata/templates/dashboard/index.html:272
-#: imdata/templates/dashboard/index.html:288
+#: livemgr/templates/dashboard/index.html:272
+#: livemgr/templates/dashboard/index.html:288
 msgid "Messages"
 msgstr "Mensagens"
 
-#: imdata/templates/dashboard/index.html:280
+#: livemgr/templates/dashboard/index.html:280
 msgid "Latest Conversations"
 msgstr "Últimas Conversas"
 
-#: imdata/templates/dashboard/index.html:287
+#: livemgr/templates/dashboard/index.html:287
 msgid "Last activity"
 msgstr "Última atividade"
 
-#: imdata/templates/dashboard/index.html:297
+#: livemgr/templates/dashboard/index.html:297
 msgid "users online"
 msgstr "usuários online"
 
-#: imdata/templates/dashboard/index.html:301
+#: livemgr/templates/dashboard/index.html:301
 msgid "active conversations"
 msgstr "conversas ativas"
 
-#: imdata/templates/generic/actions.html:21
+#: livemgr/templates/generic/actions.html:21
 msgid "disable"
 msgstr "desabilitar"
 
-#: imdata/templates/generic/actions.html:22
+#: livemgr/templates/generic/actions.html:22
 msgid "enable"
 msgstr "habilitar"
 
-#: imdata/templates/generic/actions.html:23
+#: livemgr/templates/generic/actions.html:23
 msgid "block"
 msgstr "bloquear"
 
-#: imdata/templates/generic/actions.html:24
+#: livemgr/templates/generic/actions.html:24
 msgid "unblock"
 msgstr "desbloquear"
 
-#: imdata/templates/generic/actions.html:25
+#: livemgr/templates/generic/actions.html:25
 msgid "delete"
 msgstr "apagar"
 
-#: imdata/templates/generic/actions.html:28
+#: livemgr/templates/generic/actions.html:28
 msgid "show"
 msgstr "mostrar"
 
-#: imdata/templates/generic/form-submit.html:3
-#: imdata/templates/license/edit.html:15
-#: imdata/templates/profiles/update.html:137
-#: imdata/templates/settings/update.html:77
+#: livemgr/templates/generic/form-submit.html:3
+#: livemgr/templates/license/edit.html:15
+#: livemgr/templates/profiles/update.html:137
+#: livemgr/templates/settings/update.html:77
 msgid "Save"
 msgstr "Salvar"
 
-#: imdata/templates/generic/form-submit.html:4
+#: livemgr/templates/generic/form-submit.html:4
 msgid "Save and continue editing"
 msgstr "Salvar e editar"
 
-#: imdata/templates/generic/form-submit.html:5
+#: livemgr/templates/generic/form-submit.html:5
 msgid "Save and add another"
 msgstr "Salvar e adicionar"
 
-#: imdata/templates/generic/form-submit.html:7
+#: livemgr/templates/generic/form-submit.html:7
 msgid "Delete"
 msgstr "Apagar"
 
-#: imdata/templates/generic/modal-delete.html:3
+#: livemgr/templates/generic/modal-delete.html:3
 msgid "Do you want to proceed?"
 msgstr "Deseja continuar?"
 
-#: imdata/templates/generic/modal-delete.html:6
+#: livemgr/templates/generic/modal-delete.html:6
 msgid "No"
 msgstr "Não"
 
-#: imdata/templates/generic/modal-delete.html:7
+#: livemgr/templates/generic/modal-delete.html:7
 msgid "Yes"
 msgstr "Sim"
 
-#: imdata/templates/generic/paginator.html:6
-#: imdata/templates/generic/paginator.html:9
+#: livemgr/templates/generic/paginator.html:6
+#: livemgr/templates/generic/paginator.html:9
 msgid "previous"
 msgstr "anterior"
 
-#: imdata/templates/generic/paginator.html:22
-#: imdata/templates/generic/paginator.html:25
+#: livemgr/templates/generic/paginator.html:22
+#: livemgr/templates/generic/paginator.html:25
 msgid "next"
 msgstr "próxima"
 
-#: imdata/templates/generic/paginator.html:30
+#: livemgr/templates/generic/paginator.html:30
 msgid "of"
 msgstr "de"
 
-#: imdata/templates/generic/search-advanced.html:7
+#: livemgr/templates/generic/search-advanced.html:7
 msgid "<u>B</u>ack to simple search"
 msgstr "Voltar para <u>b</u>usca simples"
 
-#: imdata/templates/generic/search-advanced.html:15
-#: imdata/templates/generic/search-advanced.html:16
-#: imdata/templates/generic/search.html:12
+#: livemgr/templates/generic/search-advanced.html:15
+#: livemgr/templates/generic/search-advanced.html:16
+#: livemgr/templates/generic/search.html:12
 msgid "Search"
 msgstr "Procurar"
 
-#: imdata/templates/generic/search.html:17
+#: livemgr/templates/generic/search.html:17
 msgid "<u>A</u>dvanced search"
 msgstr "Busca <u>a</u>vançada"
 
-#: imdata/templates/generic/search.html:22
+#: livemgr/templates/generic/search.html:22
 msgid "<u>N</u>ew"
 msgstr "<u>N</u>ovo"
 
-#: imdata/templates/groups/add.html:5 imdata/templates/groups/add.html:19
+#: livemgr/templates/groups/add.html:5 livemgr/templates/groups/add.html:19
 msgid "Add Group"
 msgstr "Adicionar Grupo"
 
-#: imdata/templates/groups/edit.html:5 imdata/templates/groups/edit.html:42
+#: livemgr/templates/groups/edit.html:5 livemgr/templates/groups/edit.html:42
 msgid "Change Group"
 msgstr "Alterar Grupo"
 
-#: imdata/templates/groups/edit.html:16
+#: livemgr/templates/groups/edit.html:16
 msgid "You're about to delete this group."
 msgstr "Você está prestes a apagar este grupo."
 
-#: imdata/templates/groups/form-fieldset-rules.html:9
-#: imdata/templates/groups/form-fieldset-users.html:9
+#: livemgr/templates/groups/form-fieldset-rules.html:9
+#: livemgr/templates/groups/form-fieldset-users.html:9
 msgid "available"
 msgstr "disponíveis"
 
-#: imdata/templates/groups/form-fieldset-rules.html:23
-#: imdata/templates/groups/form-fieldset-users.html:23
+#: livemgr/templates/groups/form-fieldset-rules.html:23
+#: livemgr/templates/groups/form-fieldset-users.html:23
 msgid "Add"
 msgstr "Adicionar"
 
-#: imdata/templates/groups/form-fieldset-rules.html:24
-#: imdata/templates/groups/form-fieldset-users.html:24
+#: livemgr/templates/groups/form-fieldset-rules.html:24
+#: livemgr/templates/groups/form-fieldset-users.html:24
 msgid "Remove"
 msgstr "Remover"
 
-#: imdata/templates/groups/form-fieldset-rules.html:36
-#: imdata/templates/groups/form-fieldset-users.html:36
+#: livemgr/templates/groups/form-fieldset-rules.html:36
+#: livemgr/templates/groups/form-fieldset-users.html:36
 msgid "assigned"
 msgstr "atribuídos"
 
-#: imdata/templates/groups/list.html:5 imdata/templates/groups/list.html:47
+#: livemgr/templates/groups/list.html:5 livemgr/templates/groups/list.html:47
 msgid "Group Summary"
 msgstr "Lista de Grupos"
 
-#: imdata/templates/groups/list.html:49
+#: livemgr/templates/groups/list.html:49
 msgid "Search for groups"
 msgstr "Procura por grupos"
 
-#: imdata/templates/license/edit.html:5 imdata/templates/license/edit.html:10
+#: livemgr/templates/license/edit.html:5
+#: livemgr/templates/license/edit.html:10
 msgid "Change License"
 msgstr "Alterar Licença"
 
-#: imdata/templates/license/index.html:42
+#: livemgr/templates/license/index.html:42
 msgid "Serial"
 msgstr "Serial"
 
-#: imdata/templates/license/index.html:46
+#: livemgr/templates/license/index.html:46
 msgid "Licensee"
 msgstr "Titular"
 
-#: imdata/templates/license/index.html:50
+#: livemgr/templates/license/index.html:50
 msgid "Validity"
 msgstr "Validade"
 
-#: imdata/templates/license/index.html:68
+#: livemgr/templates/license/index.html:68
 msgid "Change"
 msgstr "Alterar"
 
-#: imdata/templates/profiles/list.html:27 imdata/templates/users/list.html:27
+#: livemgr/templates/profiles/list.html:27
+#: livemgr/templates/users/list.html:27
 msgid "Are you sure?"
 msgstr "Você tem certeza?"
 
-#: imdata/templates/profiles/list.html:40
+#: livemgr/templates/profiles/list.html:40
 msgid "Search for profiles"
 msgstr "Procura por perfis"
 
-#: imdata/templates/profiles/login.html:56
+#: livemgr/templates/profiles/login.html:52
 msgid "login"
 msgstr "login"
 
-#: imdata/templates/profiles/login.html:60
+#: livemgr/templates/profiles/login.html:56
 msgid "Remember me"
 msgstr "Lembrar"
 
-#: imdata/templates/profiles/login.html:65
+#: livemgr/templates/profiles/login.html:61
 msgid "Forgot password?"
 msgstr "Esqueceu a senha?"
 
-#: imdata/templates/profiles/login.html:71
+#: livemgr/templates/profiles/login.html:67
 msgid "Invalid user or password."
 msgstr "Usuário ou senha inválida."
 
-#: imdata/templates/profiles/update.html:5
-#: imdata/templates/profiles/update.html:58
+#: livemgr/templates/profiles/update.html:5
+#: livemgr/templates/profiles/update.html:58
 msgid "Change Profile"
 msgstr "Alterar Perfil"
 
-#: imdata/templates/profiles/update.html:31
+#: livemgr/templates/profiles/update.html:31
 msgid "Please, type the current password."
 msgstr "Por favor, digite a senha atual."
 
-#: imdata/templates/profiles/update.html:36
-#: imdata/templates/profiles/update.html:41
+#: livemgr/templates/profiles/update.html:36
+#: livemgr/templates/profiles/update.html:41
 msgid "Please, type the new password."
 msgstr "Por favor, digite a nova senha."
 
-#: imdata/templates/profiles/update.html:46
+#: livemgr/templates/profiles/update.html:46
 msgid "The two password fields don\\'t match."
 msgstr "Os 2 campos de senha não conferem."
 
-#: imdata/templates/profiles/update.html:111
+#: livemgr/templates/profiles/update.html:111
 msgid "change password"
 msgstr "alterar senha"
 
-#: imdata/templates/settings/update.html:5
-#: imdata/templates/settings/update.html:21
+#: livemgr/templates/settings/update.html:5
+#: livemgr/templates/settings/update.html:21
 msgid "Change Settings"
 msgstr "Alterar Configurações"
 
-#: imdata/templates/settings/update.html:27
+#: livemgr/templates/settings/update.html:27
 msgid "Protocol Versions"
 msgstr "Versões do Protocolo"
 
-#: imdata/templates/settings/update.html:58
+#: livemgr/templates/settings/update.html:58
 msgid "Notifications"
 msgstr "Notificações"
 
-#: imdata/templates/users/add.html:5 imdata/templates/users/add.html.py:18
+#: livemgr/templates/users/add.html:5 livemgr/templates/users/add.html:18
 msgid "Add User"
 msgstr "Adicionar Usuário"
 
-#: imdata/templates/users/edit.html:5 imdata/templates/users/edit.html:41
+#: livemgr/templates/users/edit.html:5 livemgr/templates/users/edit.html:41
 msgid "Change User"
 msgstr "Alterar Usuário"
 
-#: imdata/templates/users/edit.html:15
+#: livemgr/templates/users/edit.html:15
 msgid "You're about to delete this user."
 msgstr "Você está prestes a apagar este usuário."
 
-#: imdata/templates/users/list.html:5 imdata/templates/users/list.html:38
+#: livemgr/templates/users/list.html:5 livemgr/templates/users/list.html:38
 msgid "User Summary"
 msgstr "Lista de Usuários"
 
-#: imdata/templates/users/list.html:40
+#: livemgr/templates/users/list.html:40
 msgid "Search for users"
 msgstr "Procura por usuários"
 

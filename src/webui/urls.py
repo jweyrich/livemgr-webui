@@ -23,8 +23,6 @@ urlpatterns = patterns('',
 	# User defined
 	(r'^media/(?P<path>.*)$', 'django.views.static.serve',
 		{ 'document_root': settings.MEDIA_ROOT }),
-	#(r'^', include('improj.imdata.urls',
-	#	namespace='improj', app_name='imdata')),
-	(r'^', include('webui.imdata.urls',
-		namespace='webui', app_name='imdata')),
+	(r'^', include('webui.livemgr.urls',
+		namespace='webui', app_name='livemgr')),
 )
