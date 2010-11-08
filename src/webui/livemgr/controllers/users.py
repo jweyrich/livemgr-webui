@@ -69,8 +69,7 @@ class UserForm(ModelForm):
 		cleaned_data['username'] = cleaned_data['username'].strip().lower()
 		if self.instance.lastlogin:
 			if self.instance.username != cleaned_data['username']:
-				msg = _('Changing the username for a user that already logged '
-					'is not permitted.')
+				msg = _('Changing the username for a user that already logged in is not permitted.')
 				self._errors['username'] = self.error_class([msg])
 				del cleaned_data['username']
 		return cleaned_data
@@ -206,7 +205,7 @@ def delete(request, object_id):
 	object_id = long(object_id)
 	model = get_object_or_404(User, pk=object_id)
 	if model.lastlogin:
-		message = _('Deleting a user that already logged is not permitted.')
+		message = _('Deleting a user that already logged in is not permitted.')
 		if request.method == method.POST:
 			return HttpResponseForbidden(message)
 		else:

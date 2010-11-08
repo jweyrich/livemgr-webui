@@ -5,6 +5,13 @@ from itertools import izip
 #from django.db.backends import BaseDatabaseWrapper
 #from django.db.backends.mysql.base import DatabaseWrapper
 
+def print_queries():
+	for query in connection.queries:
+		print 'Query   : %s' % query['sql'].replace('`', '')
+		duration = query.get('duration')
+		if duration:
+			print 'Duration: %s ms' % duration
+
 def fetchone_to_dict(query_string, *query_args):
 	cursor = connection.cursor()
 	cursor.execute(query_string, query_args)

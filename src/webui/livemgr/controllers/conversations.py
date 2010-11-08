@@ -134,13 +134,12 @@ def index(request):
 #			)
 		if values['filtered']:
 			qset = qset.filter(filtered=values['filtered'])
+
 	qset.query.group_by = ['conversation_id']
 	profile = request.user.get_profile()
 	order_by = request.GET.get('sort', '-timestamp')
 	table = ViewMessagesTable(request, qset, order_by=order_by)
-	#
-	# DO NOT REMOVE NOR MOVE
-	#
+	# DO NOT REMOVE NOR MOVE THE FOLLOWING LINE
 	print 'Found %i' % len(table.data)
 	paginator = CustomPaginator(request, table.rows, profile.per_page_conversations)
 	context_instance = RequestContext(request)
