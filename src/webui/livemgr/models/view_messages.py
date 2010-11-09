@@ -20,5 +20,5 @@ class ViewMessages(models.Model):
 	is_active = models.BooleanField()
 	def __unicode__(self):
 		return smart_unicode('%d %d %s %s %s %d' % (
-			self.id, self.id_conversation, self.timestamp,
+			self.id, self.conversation_id, self.timestamp,
 			self.localim, self.remoteim, self.is_active))

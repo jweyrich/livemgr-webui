@@ -37,7 +37,8 @@ class ViewMessagesTable(tables.ModelTable):
 	#is_active = tables.Column(verbose_name=ugettext_lazy("Active"))
 	def __init__(self, request, *args, **kwargs):
 		super(ViewMessagesTable, self).__init__(*args, **kwargs)
-		self.see_users = request.user.has_perm('see_users')
+		if request:
+			self.see_users = request.user.has_perm('see_users')
 	def render_localim(self, instance):
 		# TODO(jweyrich): should we care about XSS on localim?
 		if self.see_users:
@@ -107,7 +108,6 @@ def index(request):
 		if not form.is_valid():
 			return HttpResponseBadRequest(_('Invalid search criteria'))
 		values = form.cleaned_data
-		#print values
 		try:
 			if values['to_date']:
 				values['to_date'] = adjust_date(values['to_date'], True)
@@ -134,20 +134,38 @@ def index(request):
 #			)
 		if values['filtered']:
 			qset = qset.filter(filtered=values['filtered'])
-
-	qset.query.group_by = ['conversation_id']
 	profile = request.user.get_profile()
+# ---
+#	order_by = request.GET.get('sort', '-timestamp')
+#	qset.query.group_by = ['conversation_id']
+#	table = ViewMessagesTable(request, qset, order_by=order_by)
+#	# DO NOT REMOVE NOR MOVE THE FOLLOWING LINE
+#	print 'Found %i' % len(table.data)
+#	paginator = CustomPaginator(table.rows, request, profile.per_page_conversations)
+# ---
+#	# Record count
+#	# TODO(jweyrich): There's performance penalty using ViewMessage instead of Message?
+#	qset2 = deepcopy(qset)
+#	total = qset2.values('conversation_id').distinct().count()
+#	# Actual query
+#	qset.query.group_by = ['conversation_id']
+#	order_by = request.GET.get('sort', '-timestamp')
+#	table = ViewMessagesTable(request, qset, order_by=order_by)
+#	page = CustomPaginator(table.rows, profile.per_page_conversations) \
+#		.page(request, total=total)
+# ---
 	order_by = request.GET.get('sort', '-timestamp')
-	table = ViewMessagesTable(request, qset, order_by=order_by)
-	# DO NOT REMOVE NOR MOVE THE FOLLOWING LINE
-	print 'Found %i' % len(table.data)
-	paginator = CustomPaginator(request, table.rows, profile.per_page_conversations)
+	result = CustomPaginator(qset) \
+		.instantiate(ViewMessagesTable, request, qset, order_by=order_by) \
+		.with_request(request) \
+		.group_by(True, 'conversation_id')
+	page = result.page(None, profile.per_page_conversations)
 	context_instance = RequestContext(request)
 	template_name = 'conversations/list.html'
 	extra_context = {
 		'menu': 'conversations',
-		'table': table,
-		'paginator': paginator,
+		'table': result.instance,
+		'page': page,
 		'search_form': ViewMessagesSearchForm()
 	}
 	return render_to_response(template_name, extra_context, context_instance)

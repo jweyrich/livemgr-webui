@@ -3,16 +3,15 @@ from django.contrib.auth.decorators import login_required, permission_required
 from django.core.urlresolvers import reverse
 from django.db.models.query_utils import Q
 from django.forms.models import ModelForm
-from django.http import HttpResponseBadRequest, HttpResponse, \
-	HttpResponseRedirect
+from django.http import HttpResponseBadRequest, HttpResponse, HttpResponseRedirect
 from django.shortcuts import render_to_response, get_object_or_404
 from django.template import RequestContext
 from django.utils.translation import ugettext as _, ugettext_lazy
 from webui.common import CustomPaginator
 from webui.common.decorators.rest import rest_multiple, rest_post
 from webui.common.http import method
-from webui.common.utils import request_has_error, FormAction, flash_info, InView, \
-	flash_success, flash_form_error
+from webui.common.utils import request_has_error, FormAction, flash_info, InView, flash_success, \
+	flash_form_error
 from webui.livemgr.models import Acl
 from webui.livemgr.models.profile import Profile
 from webui.livemgr.utils.formatters import format_acl_action
@@ -92,14 +91,18 @@ def index(request):
 			qset = qset.filter(remoteim__icontains=values['remoteim'])
 	profile = request.user.get_profile()
 	order_by = request.GET.get('sort', 'localim')
-	table = AclTable(qset, order_by=order_by)
-	paginator = CustomPaginator(request, table.rows, profile.per_page_acls)
+	#table = AclTable(qset, order_by=order_by)
+	#page = CustomPaginatorDeprecated(table.rows, profile.per_page_acls).page(request)
+	result = CustomPaginator(qset) \
+		.instantiate(AclTable, qset, order_by=order_by) \
+		.with_request(request)
+	page = result.page(None, profile.per_page_acls)
 	context_instance = RequestContext(request)
 	template_name = 'acls/list.html'
 	extra_context = {
 		'menu': 'acls',
-		'table': table,
-		'paginator': paginator,
+		'table': result.instance,
+		'page': page,
 		'search_form': AclSearchForm()
 	}
 	return render_to_response(template_name, extra_context, context_instance)

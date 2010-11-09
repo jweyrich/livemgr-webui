@@ -6,11 +6,10 @@ from django.forms.models import ModelForm
 from django.http import HttpResponseBadRequest
 from django.shortcuts import get_object_or_404, render_to_response
 from django.template.context import RequestContext
-from django.utils.translation import gettext as _, ugettext_lazy, \
-	check_for_language
+from django.utils.translation import gettext as _, ugettext_lazy, check_for_language
 from django.views.i18n import set_language
 from webui import settings
-from webui.common.custom_paginator import CustomPaginator
+from webui.common import CustomPaginator
 from webui.common.decorators.rest import rest_multiple
 from webui.common.http import method
 from webui.common.utils import flash_success, flash_form_error
@@ -91,14 +90,18 @@ def index(request):
 		if values['group']:
 			qset = qset.filter(groups=values['group'])
 	order_by = request.GET.get('sort', 'username')
-	table = ProfileTable(qset, order_by=order_by)
-	paginator = CustomPaginator(request, table.rows, 5)
+#	table = ProfileTable(qset, order_by=order_by)
+#	page = CustomPaginatorDeprecated(table.rows, 5).page(request)
+	result = CustomPaginator(qset) \
+		.using_class(ProfileTable, qset, order_by=order_by) \
+		.with_request(request)
+	page = result.page(None, 5)
 	context_instance = RequestContext(request)
 	template_name = 'profiles/list.html'
 	extra_context = {
 		'menu': 'profiles',
-		'table': table,
-		'paginator': paginator,
+		'table': result.table,
+		'page': page,
 		'search_form': ProfileSearchForm()
 	}
 	return render_to_response(template_name, extra_context, context_instance)

@@ -82,14 +82,18 @@ def index(request):
 			qset = qset.filter(badword__icontains=values['badword'])
 	profile = request.user.get_profile()
 	order_by = request.GET.get('sort', 'badword')
-	table = BadwordTable(qset, order_by=order_by)
-	paginator = CustomPaginator(request, table.rows, profile.per_page_badwords)
+#	table = BadwordTable(qset, order_by=order_by)
+#	page = CustomPaginatorDeprecated(table.rows, profile.per_page_badwords).page(request)
+	result = CustomPaginator(qset) \
+		.instantiate(BadwordTable, qset, order_by=order_by) \
+		.with_request(request)
+	page = result.page(None, profile.per_page_badwords)
 	context_instance = RequestContext(request)
 	template_name = 'badwords/list.html'
 	extra_context = {
 		'menu': 'badwords',
-		'table': table,
-		'paginator': paginator,
+		'table': result.instance,
+		'page': page,
 		'search_form': BadwordSearchForm()
 	}
 	return render_to_response(template_name, extra_context, context_instance)

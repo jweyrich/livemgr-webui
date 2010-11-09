@@ -1,6 +1,7 @@
 from django import forms
 from django.contrib.auth.decorators import login_required, permission_required
 from django.core.urlresolvers import reverse
+from django.db.models.aggregates import Count
 from django.db.models.query_utils import Q
 from django.db.utils import IntegrityError
 from django.forms.models import ModelForm
@@ -33,6 +34,8 @@ class GroupTable(tables.ModelTable):
 	user_count = tables.Column(verbose_name=ugettext_lazy('# of users'), sortable=False)
 	def render_isactive(self, instance):
 		return format_boolean(instance.isactive)
+	def render_user_count(self, instance):
+		return instance.user_count
 
 class GroupForm(ModelForm):
 	class Meta:
@@ -89,14 +92,20 @@ def index(request):
 			qset = qset.filter(description__icontains=values['description'])
 	profile = request.user.get_profile()
 	order_by = request.GET.get('sort', 'groupname')
-	table = GroupTable(qset, order_by=order_by)
-	paginator = CustomPaginator(request, table.rows, profile.per_page_usergroups)
+#	table = GroupTable(qset, order_by=order_by)
+#	page = CustomPaginatorDeprecated(table.rows, profile.per_page_usergroups).page(request)
+	qset2 = qset.select_related('user').annotate(user_count=Count('users'))
+	result = CustomPaginator(qset) \
+		.instantiate(GroupTable, qset2, order_by=order_by) \
+		.with_request(request) \
+		.with_count(qset.count())
+	page = result.page(None, profile.per_page_usergroups)
 	context_instance = RequestContext(request)
 	template_name = 'groups/list.html'
 	extra_context = {
 		'menu': 'groups',
-		'table': table,
-		'paginator': paginator,
+		'table': result.instance,
+		'page': page,
 		'search_form': GroupSearchForm()
 	}
 	return render_to_response(template_name, extra_context, context_instance)

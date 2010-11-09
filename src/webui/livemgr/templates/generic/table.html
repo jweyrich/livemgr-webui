@@ -40,7 +40,7 @@
 		</tr>
 	</tfoot>
 	<tbody>
-		{% for row in paginator.page.object_list %}
+		{% for row in page.object_list %}
 			<tr class="{% cycle 'odd' 'even' %}">
 				<td style="{% if show_selection == 0 %}display: none;{% endif %}">
 					<input id="selection" name="selection"

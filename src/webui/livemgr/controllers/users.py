@@ -1,6 +1,7 @@
 from django import forms
 from django.contrib.auth.decorators import login_required, permission_required
 from django.core.urlresolvers import reverse
+from django.db.models.aggregates import Count
 from django.db.utils import IntegrityError
 from django.forms.models import ModelForm
 from django.http import HttpResponseBadRequest, HttpResponseRedirect, HttpResponse, \
@@ -44,7 +45,8 @@ class UserTable(tables.ModelTable):
 		return format_boolean(instance.isenabled)
 	def render_contacts(self, instance):
 		# TODO(jweyrich): Avoid executing an extra query per user
-		if instance.buddies.count():
+		#if instance.buddies.count():
+		if instance.buddy_count:
 			return mark_safe('<a href="%s">%s</a>' % (
 				reverse('livemgr:buddies-index', args=[instance.id]),
 				_('Manage')))
@@ -111,7 +113,6 @@ def index(request):
 		if not form.is_valid():
 			return HttpResponseBadRequest(_('Invalid search criteria'))
 		values = form.cleaned_data
-		#print values
 		qset = User.objects.all()
 		if values['username']:
 			qset = qset.filter(username__icontains=values['username'])
@@ -123,14 +124,20 @@ def index(request):
 			qset = qset.filter(status=values['status'])
 	profile = request.user.get_profile()
 	order_by = request.GET.get('sort', 'username')
-	table = UserTable(qset, order_by=order_by)
-	paginator = CustomPaginator(request, table.rows, profile.per_page_users)
+#	table = UserTable(qset, order_by=order_by)
+#	page = CustomPaginatorDeprecated(table.rows, profile.per_page_users).page(request)
+	qset2 = qset.select_related('group', 'buddy').annotate(buddy_count=Count('buddies'))
+	result = CustomPaginator(qset) \
+		.instantiate(UserTable, qset2, order_by=order_by) \
+		.with_request(request) \
+		.with_count(qset.count())
+	page = result.page(None, profile.per_page_users)
 	context_instance = RequestContext(request)
 	template_name = 'users/list.html'
 	extra_context = {
 		'menu': 'users',
-		'table': table,
-		'paginator': paginator,
+		'table': result.instance,
+		'page': page,
 		'search_form': UserSearchForm(),
 	}
 	return render_to_response(template_name, extra_context, context_instance)

@@ -62,15 +62,19 @@ def index(request, user_id):
 			qset = qset.filter(status=values['status'])
 	profile = request.user.get_profile()
 	order_by = request.GET.get('sort', 'username')
-	table = BuddyTable(qset, order_by=order_by)
-	paginator = CustomPaginator(request, table.rows, profile.per_page_buddies)
+#	table = BuddyTable(qset, order_by=order_by)
+#	page = CustomPaginatorDeprecated(table.rows, profile.per_page_buddies).page(request)
+	result = CustomPaginator(qset) \
+		.instantiate(BuddyTable, qset, order_by=order_by) \
+		.with_request(request)
+	page = result.page(None, profile.per_page_buddies)
 	context_instance = RequestContext(request)
 	template_name = 'buddies/list.html'
 	extra_context = {
 		'menu': 'users',
-		'table': table,
+		'table': result.instance,
+		'page': page,
 		'from_user': from_user,
-		'paginator': paginator,
 		'search_form': BuddySearchForm()
 	}
 	return render_to_response(template_name, extra_context, context_instance)

@@ -1,15 +1,15 @@
 {% load i18n append_to_get %}
-{% if paginator.page.has_other_pages %}
+{% if page.has_other_pages %}
 <ul class="pagination">
-	{% if paginator.page.has_previous %}
+	{% if page.has_previous %}
 		<li class="previous">
-			<a href="{% append_to_get page=paginator.page.previous_page_number %}">{% trans "previous" %}</a>
+			<a href="{% append_to_get page=page.previous_page_number %}">{% trans "previous" %}</a>
 		</li>
 	{% else %}
 		<li class="previous-off">{% trans "previous" %}</li>
 	{% endif %}
-	{% for number in paginator.limited_page_range %}
-		{% if number == paginator.page.number %}
+	{% for number in page.paginator.limited_page_range %}
+		{% if number == page.number %}
 				<li class="active">{{ number }}</li>
 		{% else %}
 				<li>
@@ -17,9 +17,9 @@
 				</li>
 		{% endif %}
 	{% endfor %}
-	{% if paginator.page.has_next %}
+	{% if page.has_next %}
 		<li class="next">
-			<a href="{% append_to_get page=paginator.page.next_page_number %}">{% trans "next" %}</a>
+			<a href="{% append_to_get page=page.next_page_number %}">{% trans "next" %}</a>
 		</li>
 	{% else %}
 		<li class="next-off">{% trans "next" %}</li>
@@ -27,5 +27,5 @@
 </ul>
 {% endif %}
 <div style="padding-top: 4px; padding-bottom: 4px;">
-	{{ paginator.page.start_index }} - {{ paginator.page.end_index }} {% trans "of" %} {{ paginator.count }}
+	{{ page.start_index }} - {{ page.end_index }} {% trans "of" %} {{ page.paginator.count }}
 </div>
