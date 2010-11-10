@@ -63,7 +63,7 @@ function updateLatestConversations(data) {
 		'</tr>';
 	var link_user =
 		{% if perms.livemgr.see_users %}
-			'<a href="{% url webui:users-index %}/{1}">{0}</a>';
+			'<a href="{% url webui:users-index %}{1}">{0}</a>';
 		{% else %}
 			'{0}';
 		{% endif %}
@@ -103,7 +103,7 @@ function updateMostActiveUsers(data) {
 		'</tr>';
 	var link_user =
 		{% if perms.livemgr.see_users %}
-			'<a href="{% url webui:users-index %}/{1}">{0}</a>';
+			'<a href="{% url webui:users-index %}{1}">{0}</a>';
 		{% else %}
 			'{0}';
 		{% endif %}
@@ -113,10 +113,10 @@ function updateMostActiveUsers(data) {
 		$tbody.append(template_empty);
 	for (i in data) {
 		var obj = data[i];
-		$tbody.append(template.format(
-			link_user.format(obj.username, obj.user_id),
-			obj.total
-		));
+		var subject = obj.username;
+		if (typeof(obj.user_id) == 'number')
+			subject = link_user.format(obj.username, obj.user_id);
+		$tbody.append(template.format(subject, obj.total));
 	}
 }
 
@@ -128,7 +128,7 @@ function popupConversation(conv_id, msg_id) {
 	//$('#messages').html('').load('{% url webui:conversations-show 1 %}');
 	//$('#messages').html('').load('{% url webui:conversations-index %}/'+id, highlight_messages);
 	{% endcomment %}
-	var url = '{% url webui:conversations-index %}/{0}#msg-{1}';
+	var url = '{% url webui:conversations-index %}{0}#msg-{1}';
 	new_window = window.open(
 		url.format(conv_id, msg_id),
 		'conversation',
@@ -225,10 +225,26 @@ function drawMostActiveUsersImg(source) {
 		}
 	};
 
+	{% if debug %}
+	var gen_username = function(count_a, count_b) {
+		var result = '';
+		for (var i=0; i<count_a; ++i)
+			result += String.fromCharCode('a'.charCodeAt(0)+Math.floor(Math.random() * 24))
+		result += '@';
+		for (var i=0; i<count_b; ++i)
+			result += String.fromCharCode('a'.charCodeAt(0)+Math.floor(Math.random() * 24))
+		return result;
+	};
+	{% endif %}
 	var rows = new Array();
 	for (i in source) {
 		obj = source[i];
 		rows.push([obj.username, obj.total]);
+		{% if debug %}
+		rows.push([gen_username(7, 6), Math.floor(Math.random() * 101)]);
+		rows.push([gen_username(5, 8), Math.floor(Math.random() * 101)]);
+		rows.push([gen_username(6, 5), Math.floor(Math.random() * 101)]);
+		{% endif %}
 	}
 	rows.sort(function(a,b){return a[1]-b[1];});
 

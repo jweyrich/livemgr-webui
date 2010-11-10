@@ -128,6 +128,7 @@ def query_most_active_users(limit, period, initial_localdate=datetime.now()):
 			FROM messages as m
 			LEFT OUTER JOIN users as u ON u.username = m.localim
 			WHERE 
+				m.inbound = 0 AND
 		""" + period_cond + """
 			GROUP BY user_id
 			ORDER BY total DESC
