@@ -38,7 +38,7 @@ $(document).ready(function() {
 	function popup_conversation(id) {
 		if (id == undefined)
 			return;
-		//$('#messages').html('').load('{% url webui:conversations-index %}'+id, highlight_messages);
+		{# /* $('#messages').html('').load('{% url webui:conversations-index %}'+id, highlight_messages); */ #} 
 		new_window = window.open(
 			'{% url webui:conversations-index %}'+id,
 			'conversation',
@@ -48,6 +48,7 @@ $(document).ready(function() {
 			$(new_window).focus();
 		}
 	}
+{% comment %}
 /*
 	$('#search #field').keyup(highlight_messages);
 	$('#search_adv #message').keyup(highlight_messages);
@@ -78,6 +79,7 @@ $(document).ready(function() {
 			$('#matches').text(matching_count + ' match');
 	}
 */
+{% endcomment %}
 });
 </script>
 {% endblock %}

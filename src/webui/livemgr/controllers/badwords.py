@@ -82,8 +82,6 @@ def index(request):
 			qset = qset.filter(badword__icontains=values['badword'])
 	profile = request.user.get_profile()
 	order_by = request.GET.get('sort', 'badword')
-#	table = BadwordTable(qset, order_by=order_by)
-#	page = CustomPaginatorDeprecated(table.rows, profile.per_page_badwords).page(request)
 	result = CustomPaginator(qset) \
 		.instantiate(BadwordTable, qset, order_by=order_by) \
 		.with_request(request)

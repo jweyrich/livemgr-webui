@@ -92,8 +92,6 @@ def index(request):
 			qset = qset.filter(description__icontains=values['description'])
 	profile = request.user.get_profile()
 	order_by = request.GET.get('sort', 'groupname')
-#	table = GroupTable(qset, order_by=order_by)
-#	page = CustomPaginatorDeprecated(table.rows, profile.per_page_usergroups).page(request)
 	qset2 = qset.select_related('user').annotate(user_count=Count('users'))
 	result = CustomPaginator(qset) \
 		.instantiate(GroupTable, qset2, order_by=order_by) \

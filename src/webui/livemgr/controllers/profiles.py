@@ -90,8 +90,6 @@ def index(request):
 		if values['group']:
 			qset = qset.filter(groups=values['group'])
 	order_by = request.GET.get('sort', 'username')
-#	table = ProfileTable(qset, order_by=order_by)
-#	page = CustomPaginatorDeprecated(table.rows, 5).page(request)
 	result = CustomPaginator(qset) \
 		.using_class(ProfileTable, qset, order_by=order_by) \
 		.with_request(request)

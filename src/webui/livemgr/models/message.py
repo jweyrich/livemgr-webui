@@ -61,8 +61,8 @@ class Message(models.Model):
 	filtered = models.BooleanField(_("filtered"))
 	content = models.TextField(_("content"), max_length=2000)
 	def __unicode__(self):
-		return smart_unicode('%d %s %s %s' % (self.id, self.timestamp, self.localim,
-										   self.remoteim))
+		return smart_unicode('%d %d %s %s %s' % (self.id, self.timestamp,
+			self.conversation_id, self.localim, self.remoteim))
 
 class MessageAdmin(admin.ModelAdmin):
 	pass

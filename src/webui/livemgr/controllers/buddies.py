@@ -62,8 +62,6 @@ def index(request, user_id):
 			qset = qset.filter(status=values['status'])
 	profile = request.user.get_profile()
 	order_by = request.GET.get('sort', 'username')
-#	table = BuddyTable(qset, order_by=order_by)
-#	page = CustomPaginatorDeprecated(table.rows, profile.per_page_buddies).page(request)
 	result = CustomPaginator(qset) \
 		.instantiate(BuddyTable, qset, order_by=order_by) \
 		.with_request(request)

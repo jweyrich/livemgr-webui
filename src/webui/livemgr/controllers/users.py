@@ -124,8 +124,6 @@ def index(request):
 			qset = qset.filter(status=values['status'])
 	profile = request.user.get_profile()
 	order_by = request.GET.get('sort', 'username')
-#	table = UserTable(qset, order_by=order_by)
-#	page = CustomPaginatorDeprecated(table.rows, profile.per_page_users).page(request)
 	qset2 = qset.select_related('group', 'buddy').annotate(buddy_count=Count('buddies'))
 	result = CustomPaginator(qset) \
 		.instantiate(UserTable, qset2, order_by=order_by) \

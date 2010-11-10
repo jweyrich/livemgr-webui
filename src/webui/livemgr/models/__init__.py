@@ -9,4 +9,3 @@ from profile import Profile
 from setting import Setting
 from user import User
 from usergroup import UserGroup
-from view_messages import ViewMessages

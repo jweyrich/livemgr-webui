@@ -1,11 +1,9 @@
 from StringIO import StringIO
 from django import forms
 from django.contrib.auth.decorators import login_required, permission_required
-from django.core.urlresolvers import reverse
 from django.http import HttpResponseBadRequest, HttpResponse, Http404
 from django.shortcuts import render_to_response
 from django.template import RequestContext
-from django.utils.safestring import mark_safe
 from django.utils.translation import ugettext as _, ugettext_lazy
 from reportlab.lib.pagesizes import A4
 from reportlab.lib.styles import getSampleStyleSheet
@@ -20,54 +18,21 @@ from webui.common.http import method
 from webui.common.report import coord_tl, NumberedCanvas, coord_tr
 from webui.livemgr.models import Message
 from webui.livemgr.models.profile import Profile
-from webui.livemgr.models.view_messages import ViewMessages
 from webui.livemgr.utils.formatters import ip_long_to_str
 from webui.livemgr.utils.local_datetime import adjust_date
 import django_tables as tables
 
-class ViewMessagesTable(tables.ModelTable):
+class MessageTable(tables.ModelTable):
 	class Meta:
-		model = ViewMessages
-		exclude = ['id', 'content', 'inbound', 'is_active', 'localuser_id', 'filtered', 'clientip']
+		model = Message
+		#exclude = ['id', 'content', 'inbound', 'is_active', 'localuser_id', 'filtered', 'clientip']
+		columns = ['conversation_id', 'timestamp', 'localim', 'remoteim']
 	# Use ugettext_lazy because class definitions are evaluated once!
 	conversation_id = tables.Column(name='conversation_id', visible=False)
-	timestamp = tables.Column(verbose_name=ugettext_lazy("timestamp"))
-	localim = tables.Column(verbose_name=ugettext_lazy("user"))
-	remoteim = tables.Column(verbose_name=ugettext_lazy("buddy"))
-	#is_active = tables.Column(verbose_name=ugettext_lazy("Active"))
-	def __init__(self, request, *args, **kwargs):
-		super(ViewMessagesTable, self).__init__(*args, **kwargs)
-		if request:
-			self.see_users = request.user.has_perm('see_users')
-	def render_localim(self, instance):
-		# TODO(jweyrich): should we care about XSS on localim?
-		if self.see_users:
-			return mark_safe('<a href="%s">%s</a>' % (
-				reverse('livemgr:users-edit', args=[instance.localuser_id]),
-				instance.localim))
-		else:
-			return mark_safe(instance.localim)
 	def render_timestamp(self, instance):
 		return instance.timestamp.strftime(_('%m/%d/%Y - %I:%M:%S %p'))
 
-#class MyDateInput(forms.DateInput):
-#	raw_html = u'''
-#		<div class="datepicker">
-#			&nbsp;<a href="javascript:CalendarUtil.dateNow('#id_%(name)s');" style="text-decoration: none;">Today</a>
-#			&nbsp;|&nbsp;
-#			<img src="/media/img/django/icon_calendar.gif" style="vertical-align: middle; cursor: pointer;">
-#		</div>
-#	'''
-#	def __init__(self, *args, **kwargs):
-#		super(MyDateInput, self).__init__(*args, **kwargs)
-#	def render(self, name, value, attrs=None):
-#		if value is None: value = ''
-#		final_attrs = self.build_attrs(attrs, type=self.input_type, name=name)
-#		input = u'<input%s />' % forms.util.flatatt(final_attrs)
-#		div = self.raw_html % {'name': name}
-#		return mark_safe(input + div)
-
-class ViewMessagesSearchForm(forms.Form):
+class MessageSearchForm(forms.Form):
 	message = forms.CharField(required=False, label=ugettext_lazy("message"))
 	localim = forms.CharField(required=False, label=ugettext_lazy("user"))
 	remoteim = forms.CharField(required=False, label=ugettext_lazy("buddy"))
@@ -98,13 +63,13 @@ class ViewMessagesSearchForm(forms.Form):
 @permission_required('livemgr.see_conversation')
 def index(request):
 	if request.method == method.GET:
-		qset = ViewMessages.objects.all().exclude(conversation_id=0)
+		qset = Message.objects.all()
 	elif request.method == method.POST:
 		per_page = request.POST.get('per_page')
 		if per_page != None:
 			Profile.objects.filter(user=request.user).update(per_page_conversations=per_page)
 			return HttpResponse()
-		form = ViewMessagesSearchForm(request.POST)
+		form = MessageSearchForm(request.POST)
 		if not form.is_valid():
 			return HttpResponseBadRequest(_('Invalid search criteria'))
 		values = form.cleaned_data
@@ -113,7 +78,7 @@ def index(request):
 				values['to_date'] = adjust_date(values['to_date'], True)
 		except ValueError:
 			return HttpResponseBadRequest(_('Invalid date'))
-		qset = ViewMessages.objects.all()
+		qset = Message.objects.all()
 		if values['from_date']:
 			qset = qset.filter(timestamp__gte=values['from_date'])
 		if values['to_date']:
@@ -135,28 +100,9 @@ def index(request):
 		if values['filtered']:
 			qset = qset.filter(filtered=values['filtered'])
 	profile = request.user.get_profile()
-# ---
-#	order_by = request.GET.get('sort', '-timestamp')
-#	qset.query.group_by = ['conversation_id']
-#	table = ViewMessagesTable(request, qset, order_by=order_by)
-#	# DO NOT REMOVE NOR MOVE THE FOLLOWING LINE
-#	print 'Found %i' % len(table.data)
-#	paginator = CustomPaginator(table.rows, request, profile.per_page_conversations)
-# ---
-#	# Record count
-#	# TODO(jweyrich): There's performance penalty using ViewMessage instead of Message?
-#	qset2 = deepcopy(qset)
-#	total = qset2.values('conversation_id').distinct().count()
-#	# Actual query
-#	qset.query.group_by = ['conversation_id']
-#	order_by = request.GET.get('sort', '-timestamp')
-#	table = ViewMessagesTable(request, qset, order_by=order_by)
-#	page = CustomPaginator(table.rows, profile.per_page_conversations) \
-#		.page(request, total=total)
-# ---
 	order_by = request.GET.get('sort', '-timestamp')
 	result = CustomPaginator(qset) \
-		.instantiate(ViewMessagesTable, request, qset, order_by=order_by) \
+		.instantiate(MessageTable, qset, order_by=order_by) \
 		.with_request(request) \
 		.group_by(True, 'conversation_id')
 	page = result.page(None, profile.per_page_conversations)
@@ -166,7 +112,7 @@ def index(request):
 		'menu': 'conversations',
 		'table': result.instance,
 		'page': page,
-		'search_form': ViewMessagesSearchForm()
+		'search_form': MessageSearchForm()
 	}
 	return render_to_response(template_name, extra_context, context_instance)
 
