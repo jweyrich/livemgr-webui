@@ -2,6 +2,14 @@
 .listing .titlebar {
 	background: -webkit-gradient(linear, 0 0%, 0 100%, from(#fff), to(#dadada));
 }
+.panel.listing,
+.listing table tbody tr td {
+	-webkit-border-bottom-left-radius: 5px;
+	-webkit-border-bottom-right-radius: 5px;
+}
+#most_active_users_chart img {
+	-webkit-border-radius: 5px;
+}
 
 /* form.css */
 input[type='button'],
@@ -22,6 +30,11 @@ form.generic .titlebar.widget.right {
 }
 .login form input[type='submit'] {
 	background: -webkit-gradient(linear, 0 40%, 0 70%, from(#F9F9F9), to(#E3E3E3));
+}
+
+/* modal.css */
+.simplemodal-container {
+	-webkit-border-radius: 5px;
 }
 
 /* pagination.css */

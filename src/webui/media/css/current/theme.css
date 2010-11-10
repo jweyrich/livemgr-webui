@@ -258,9 +258,8 @@ ul#navigator li a:hover {
 div.actions {
 	border: 1px solid #dfdfdf;
 	height: 21px;
-	padding: 3px;
+	padding: 5px;
 	margin-top: 10px;
-	padding-bottom: 8px;
 	background-color: #dadada;
 	/* -specific-
 	background: -webkit-gradient(linear, 0 0%, 0 100%, from(#fff), to(#dadada));
@@ -273,6 +272,8 @@ div.actions [type='button'],
 div.actions [type='submit'] {
 	width: auto;
 	height: auto;
+	margin-top: 0px;
+	margin-bottom: 0px;
 }
 div.actions [type='button'].default,
 div.actions [type='submit'].default {
@@ -296,7 +297,7 @@ div.actions .action {
 }
 div.actions .delete-box {
 	float: right;
-	margin: 5px 5px 5px 5px;
+	margin: 3px 5px 0px 0px;
     background: url('/media/admin/img/admin/icon_deletelink.gif') 0 50% no-repeat;
     padding-left: 14px;
 }

@@ -2,6 +2,17 @@
 .listing .titlebar {
 	background: -moz-linear-gradient(top, #fff, #dadada);
 }
+.panel.listing,
+.listing table tbody tr td {
+	/*
+	NOTE: Hovered elements with different bg-color don't show rounded borders in Firefox (4b06).
+	*/
+	-moz-border-radius-bottomleft: 5px 5px;
+	-moz-border-radius-bottomright: 5px 5px;
+}
+#most_active_users_chart img {
+	-moz-border-radius: 5px;
+}
 
 /* form.css */
 input[type='button'],
@@ -22,6 +33,11 @@ form.generic .titlebar.widget.right {
 }
 .login form input[type='submit'] {
 	background: -moz-linear-gradient(top, #F9F9F9, #E3E3E3);
+}
+
+/* modal.css */
+.simplemodal-container {
+	-moz-border-radius: 5px;
 }
 
 /* pagination.css */
@@ -51,6 +67,10 @@ ul#navigator li a:hover {
 }
 div.actions {
 	background: -moz-linear-gradient(top, #fff, #dadada);
+}
+div.actions [type='button'],
+div.actions [type='submit'] {
+	margin-top: -1px;
 }
 div.actions [type='button'].default,
 div.actions [type='submit'].default {

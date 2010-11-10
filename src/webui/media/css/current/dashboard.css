@@ -61,7 +61,6 @@
 	According to http://www.quirksmode.org/css/contents.html:
 	- IE7 does support ":first-child", but doesn’t update the styles when elements are added dynamically; 
  	- IE7 does NOT support ":last-child";
- 
 .listing table th:first-child,
 .listing table td:first-child,
 .listing table th:last-child,
@@ -70,11 +69,24 @@
 	padding: 0 10px 0 10px;
 }
 */
+
 .listing table tbody tr {
 	border-bottom: 1px solid #ccc;
 }
 .listing table tbody tr:last-child {
 	border-bottom: 0;
+}
+.panel.listing,
+.listing table tbody tr td {
+	/* -specific-
+	-webkit-border-bottom-left-radius: 5px;
+	-webkit-border-bottom-right-radius: 5px;
+	NOTE: Hovered elements with different bg-color don't show rounded borders in Firefox (4b06).
+	-moz-border-radius-bottomleft: 5px 5px;
+	-moz-border-radius-bottomright: 5px 5px;
+	*/
+	border-bottom-left-radius: 5px 5px;
+	border-bottom-right-radius: 5px 5px;
 }
 
 .chart {
@@ -90,4 +102,9 @@
 	/*float: right;*/
 	padding: 5px;
 	border: 1px solid #d6d7d7;
+	/* -specific-
+	-webkit-border-radius: 5px;
+	-moz-border-radius: 5px;
+	*/
+	border-radius: 5px 5px 5px 5px;
 }

@@ -16,6 +16,11 @@
 	background-color: #fff;
 	border: 4px solid #ccc;
 	padding: 12px;
+	/* -specific-
+	-webkit-border-radius: 5px;
+	-moz-border-radius: 5px;
+	*/
+	border-radius: 5px 5px 5px 5px;
 }
 .simplemodal-container h1 {
 	margin: 0;

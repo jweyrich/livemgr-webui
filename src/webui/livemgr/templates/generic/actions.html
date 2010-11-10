@@ -24,7 +24,7 @@ function change_per_page(caller) {
 		<input type="button" class="action unblock" value="{% trans "unblock" %}" disabled />
 		<input type="button" class="action delete" value="{% trans "delete" %}" disabled />
 	</div>
-	<div align="right" style="padding: 2px; color: #474747; font-size: 0.95em;">
+	<div align="right" style="color: #474747; font-size: 0.95em;">
 		<label for="id_per_page">{% trans "show" %} </label>
 		<select id="id_per_page" name="per_page" onchange="change_per_page(this);" style="width: 50px; height: 24px;">
 			<!-- <option value="2" {% if page.paginator.per_page == 2 %}selected{% endif %}>2</option> -->
