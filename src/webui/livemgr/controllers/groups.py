@@ -49,7 +49,10 @@ class GroupForm(ModelForm):
 		#	self.fields['description'].widget.attrs = {'rows': '3'}
 	def clean(self):
 		cleaned_data = self.cleaned_data
-		cleaned_data['groupname'] = cleaned_data['groupname'].strip()
+		groupname = cleaned_data.get('groupname')
+		if not groupname:
+			return cleaned_data
+		cleaned_data['groupname'] = groupname.strip()
 		return cleaned_data
 
 class GroupSearchForm(forms.Form):

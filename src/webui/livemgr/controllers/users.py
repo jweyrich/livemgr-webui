@@ -68,12 +68,16 @@ class UserForm(ModelForm):
 				self.fields['username'].widget.attrs['readonly'] = True
 	def clean(self):
 		cleaned_data = self.cleaned_data
-		cleaned_data['username'] = cleaned_data['username'].strip().lower()
+		username = cleaned_data.get('username')
+		if not username:
+			return cleaned_data
+		username = username.strip().lower()
 		if self.instance.lastlogin:
-			if self.instance.username != cleaned_data['username']:
+			if self.instance.username != username:
 				msg = _('Changing the username for a user that already logged in is not permitted.')
 				self._errors['username'] = self.error_class([msg])
 				del cleaned_data['username']
+		cleaned_data['username'] = username
 		return cleaned_data
 
 class UserSearchForm(forms.Form):

@@ -35,14 +35,18 @@ class BadwordForm(ModelForm):
 		fields = ('badword', 'isregex', 'isenabled')
 	def clean(self):
 		cleaned_data = self.cleaned_data
-		cleaned_data['badword'] = cleaned_data['badword'].strip().lower()
+		badword = cleaned_data.get('badword')
+		if not badword:
+			return cleaned_data
+		badword = badword.strip().lower()
 		if cleaned_data['isregex']:
 			try:
-				re.compile(cleaned_data['badword'], re.IGNORECASE)
+				re.compile(badword, re.IGNORECASE)
 			except:
 				msg = _('Invalid regular expression')
 				self._errors['badword'] = self.error_class([msg])
 				del cleaned_data['badword']
+		cleaned_data['badword'] = badword
 		return cleaned_data
 
 class BadwordSearchForm(forms.Form):
