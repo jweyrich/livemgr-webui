@@ -35,8 +35,9 @@ var Calendar = {
 		$(today_link).css('text-decoration', 'none');
 		$(today_link).append(document.createTextNode(gettext('Today')));
 
-		$(calendar_img).attr('src', '/media/img/django/icon_calendar.gif');
-		$(calendar_img).css('vertical-align', 'middle');
+		$(calendar_img).attr('src', '/media/img/trans1x1.gif');
+		$(calendar_img).attr('class', 'icon calendar');
+		//$(calendar_img).css('vertical-align', 'middle');
 		$(calendar_img).css('cursor', 'pointer');
 		
 		$(div).addClass('datepicker');

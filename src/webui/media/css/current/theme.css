@@ -121,35 +121,83 @@ a:hover {
 	width: 16px;
 	height: 16px;
 	vertical-align: middle;
-	background-image: url('/media/img/sprites.gif');
+	background-image: url('/media/img/sprites.png');
 	background-repeat: no-repeat;
 }
+
 /* 1st row */
-.icon.search {
+.icon.add {
 	background-position: 0px 0px;
 }
-.icon.rewind {
+.icon.accept,
+.icon.success {
 	background-position: -16px 0px;
 }
-.icon.forward {
+.icon.config {
 	background-position: -32px 0px;
 }
-.icon.add {
+.icon.comment {
 	background-position: -48px 0px;
 }
+.icon.cross {
+	background-position: -64px 0px;
+}
+.icon.minus {
+	background-position: -80px 0px;
+}
+.icon.warning {
+	background-position: -96px 0px;
+}
+.icon.error {
+	background-position: -112px 0px;
+}
 /* 2nd row */
-.icon.success {
+.icon.help {
 	background-position: 0px -16px;
 }
 .icon.info {
 	background-position: -16px -16px;
 }
-.icon.error {
+.icon.magnifier {
 	background-position: -32px -16px;
 }
+.icon.status-away {
+	background-position: -48px -16px;
+}
+.icon.status-busy {
+	background-position: -64px -16px;
+}
+.icon.status-offline {
+	background-position: -80px -16px;
+}
+.icon.status-online {
+	background-position: -96px -16px;
+}
+.icon.tick {
+	background-position: -112px -16px;
+}
 /* 3rd row */
-.icon.warning {
+.icon.search {
 	background-position: 0px -32px;
+}
+.icon.accept-gray {
+	background-position: -16px -32px;
+}
+/* 4th row */
+.icon.filter {
+	background-position: 0px -48px;
+}
+.icon.calendar {
+	background-position: -16px -48px;
+}
+.icon.delete {
+	background-position: -32px -48px;
+}
+.icon.arrow-up {
+	background-position: -48px -48px;
+}
+.icon.arrow-down {
+	background-position: -64px -48px;
 }
 
 /* Body blocks -------------------------------------------------------------- */
@@ -307,13 +355,13 @@ ul#navigator li a:hover {
 }
 .actions-box .delete-box {
 	float: right;
-	margin: 3px 5px 0px 0px;
-    background: url('/media/admin/img/admin/icon_deletelink.gif') 0 50% no-repeat;
-    padding-left: 14px;
+	margin: 0px;
+	height: 100%;
 }
 a.delete:link,
 a.delete:visited {
 	color: #CC3434;
+	vertical-align: middle;
 }
 a.delete:hover {
 	color: #993333;
