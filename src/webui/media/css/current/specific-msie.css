@@ -1,8 +1,8 @@
 select {
 	padding-top: -2px;
 }
-div.actions [type='button'],
-div.actions [type='submit'] {
+.actions-box [type='button'],
+.actions-box [type='submit'] {
 	margin-right: 2px;
 }
 input[type='submit'] {
@@ -59,12 +59,12 @@ ul#navigator li a:hover {
 	filter: progid:DXImageTransform.Microsoft.gradient(startColorstr=#ff7f9bca, endColorstr=#ff5c79aa);
 	-ms-filter: "progid:DXImageTransform.Microsoft.gradient(startColorstr=#ff7f9bca, endColorstr=#ff5c79aa)";
 }
-div.actions {
+.actions-box {
 	filter: progid:DXImageTransform.Microsoft.gradient(startColorstr=#ffffffff, endColorstr=#ffdadada);
 	-ms-filter: "progid:DXImageTransform.Microsoft.gradient(startColorstr=#ffffffff, endColorstr=#ffdadada)";
 }
-div.actions [type='button'].default,
-div.actions [type='submit'].default {
+.actions-box [type='button'].default,
+.actions-box [type='submit'].default {
 	filter: progid:DXImageTransform.Microsoft.gradient(startColorstr=#ff7f9bca, endColorstr=#ff5c79aa);
 	-ms-filter: "progid:DXImageTransform.Microsoft.gradient(startColorstr=#ff7f9bca, endColorstr=#ff5c79aa)";
 }

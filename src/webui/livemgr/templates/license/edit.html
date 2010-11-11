@@ -11,7 +11,7 @@
 	<form method="post" action="" enctype="multipart/form-data" class="generic">
 		{% csrf_token %}
 		{% include "generic/form-fieldset.html" %}
-		<div class="actions">
+		<div class="actions-box">
 			<input type="submit" value="{% trans "Save" %}" class="default" />
 		</div>
 	</form>

@@ -263,9 +263,9 @@ ul#navigator li a:hover {
 	*/
 }
 
-/* div.actions -------------------------------------------------------------- */
+/* .actions-box -------------------------------------------------------------- */
 
-div.actions {
+.actions-box {
 	border: 1px solid #dfdfdf;
 	height: 21px;
 	padding: 5px;
@@ -278,15 +278,15 @@ div.actions {
 	-ms-filter: "progid:DXImageTransform.Microsoft.gradient(startColorstr=#ffffffff, endColorstr=#ffdadada)";
 	*/
 }
-div.actions [type='button'],
-div.actions [type='submit'] {
+.actions-box [type='button'],
+.actions-box [type='submit'] {
 	width: auto;
 	height: auto;
 	margin-top: 0px;
 	margin-bottom: 0px;
 }
-div.actions [type='button'].default,
-div.actions [type='submit'].default {
+.actions-box [type='button'].default,
+.actions-box [type='submit'].default {
 	color: #fff;
 	border: 1px solid #5B80B2;
 	background-color: #7f9bca;
@@ -297,15 +297,15 @@ div.actions [type='submit'].default {
 	-ms-filter: "progid:DXImageTransform.Microsoft.gradient(startColorstr=#ff7f9bca, endColorstr=#ff5c79aa)";
 	*/
 }
-div.actions [type='button'].default:hover,
-div.actions [type='submit'].default:hover {
+.actions-box [type='button'].default:hover,
+.actions-box [type='submit'].default:hover {
 	color: #fff;
 	border: 1px solid #5B80B2;
 }
-div.actions .action {
+.actions-box .action {
 	display: none;
 }
-div.actions .delete-box {
+.actions-box .delete-box {
 	float: right;
 	margin: 3px 5px 0px 0px;
     background: url('/media/admin/img/admin/icon_deletelink.gif') 0 50% no-repeat;

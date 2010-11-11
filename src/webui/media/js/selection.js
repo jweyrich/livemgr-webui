@@ -10,9 +10,9 @@ var Selection = {
 	},
 	_onChange: function() {
 		if (Selection.currentSelection().length == 0) {
-			$('div.actions .action').attr('disabled', 'true');	
+			$('.actions-box .action').attr('disabled', 'true');
 		} else {
-			$('div.actions .action').removeAttr('disabled');
+			$('.actions-box .action').removeAttr('disabled');
 		}
 	},
 	onSelect: function(caller) {
@@ -60,11 +60,11 @@ var Selection = {
 			for (s in selector)
 				Selection.showActions(s);
 		} else {
-			$('div.actions '+selector).css('display', 'inline');
+			$('.actions-box '+selector).css('display', 'inline');
 		}
 	},
 	bindActionClick: function(args) {
-		$('div.actions '+args.selector).click(function() {
+		$('.actions-box '+args.selector).click(function() {
 			this.disabled = true;
 			if (args.items == undefined)
 				args.items = Selection.currentSelection();
@@ -89,7 +89,7 @@ var Selection = {
 				args.caller.disabled = false;
 			}
 		};
-		$('div.actions '+args.selector).click(function() {
+		$('.actions-box '+args.selector).click(function() {
 			if (typeof(args.onShow) == 'function') {
 				args.caller = this;
 				this.disabled = true;

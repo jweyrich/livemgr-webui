@@ -65,15 +65,15 @@ ul#navigator li:hover,
 ul#navigator li a:hover {
 	background: -moz-linear-gradient(top, #7f9bca, #5c79aa);
 }
-div.actions {
+.actions-box {
 	background: -moz-linear-gradient(top, #fff, #dadada);
 }
-div.actions [type='button'],
-div.actions [type='submit'] {
+.actions-box [type='button'],
+.actions-box [type='submit'] {
 	margin-top: -1px;
 }
-div.actions [type='button'].default,
-div.actions [type='submit'].default {
+.actions-box [type='button'].default,
+.actions-box [type='submit'].default {
 	background: -moz-linear-gradient(top, #7f9bca, #5c79aa);
 }
 
