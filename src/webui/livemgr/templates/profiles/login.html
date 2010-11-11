@@ -35,8 +35,8 @@ $(document).ready(function() {
 </head>
 <body class="login">
 
-<div id="outer-container">
-	<div id="inner-container">
+<div class="body-outer-container">
+	<div class="body-inner-container">
 		<form method="post" action="{% url webui:profiles-login %}">
 			{% csrf_token %}
 			<fieldset>

@@ -2,7 +2,7 @@
 	border-color: #ccc;
 	height: 28px;
 	position: relative;
-	margin-bottom: 10px;
+	margin: 0px;
 }
 #search form {
 	width: auto;
@@ -22,7 +22,7 @@
 	position: relative;
 	z-index: 1;
 	border: 1px solid #ccc;
-	border-radius: 7px;
+	border-radius: 7px 7px 7px 7px;
 	/* -specific-
 	-webkit-border-radius: 7px;
 	-moz-border-radius: 7px;
@@ -48,8 +48,10 @@
 	position: relative;
 	z-index: 0;
 	right: 15px;
-	top: 1px;
 	line-height: 30px;
+}
+#search .links > * {
+	vertical-align: middle;
 }
 
 #search_adv {
@@ -62,7 +64,7 @@
 	-moz-border-radius: 5px;
 	*/
 	padding: 10px;
-	margin-bottom: 10px;
+	margin: 0px;
 }
 #search_adv #simple .icon {
 	float: left;

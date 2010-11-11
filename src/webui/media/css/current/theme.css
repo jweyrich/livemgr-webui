@@ -7,12 +7,6 @@ html {
 	overflow: auto;
 }
 
-body {
-	font-family: 'Lucida Grande', Arial, sans-serif;
-	font-size: 12px;
-	background-color: #fff;
-}
-
 html, body, div,
 img, dl, dt, dd, ol, ul, li,
 table, caption, tbody, tfoot, thead, tr, th, td,
@@ -20,6 +14,19 @@ form, fieldset, embed, object, applet {
 	border: 0;
 	margin: 0;
 	padding: 0;
+}
+
+body {
+	font-family: 'Lucida Grande', Arial, sans-serif;
+	font-size: 12px;
+	background-color: #fff;
+}
+.body-container {
+	margin: 0px auto;
+	border: 1px solid #ccc;
+	height: 100%;
+	min-width: 990px;
+	max-width: 1280px;
 }
 
 h1, h2, h3, h4, h5, h6 {
@@ -79,7 +86,7 @@ a:hover {
 	font-size: 1.2em;
 	color: #000;
 	padding: 5px 5px 5px 10px;
-	margin-bottom: 10px;
+	margin: 10px 0px 10px 0px;
 	border-width: 2px;
 	border-style: solid;
 }
@@ -145,11 +152,9 @@ a:hover {
 	background-position: 0px -32px;
 }
 
-
 /* Body blocks -------------------------------------------------------------- */
 
 #header {
-	border-bottom: 1px solid #ccc;
 	padding: 10px;
 	color: #5c79aa;
 	/* -specific- NOT USED
@@ -187,7 +192,11 @@ a:hover {
 	width: 140px;
 }
 #body {
-	margin: 0px 10px 10px 10px;
+	padding: 15px;
+	overflow: auto;
+}
+#body h2 {
+	margin: 0px 0px 8px 0px;
 }
 /*
 #footer {
@@ -206,6 +215,7 @@ a:hover {
 /* ul#navigator ------------------------------------------------------------- */
 
 ul#navigator {
+	border-top: 1px solid #ccc;
 	border-bottom: 1px solid #ccc;
 	/* -specific- NOT USED
 	background-color: #dadada;

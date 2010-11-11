@@ -7,6 +7,8 @@ select {
 	height: 18px;
 	padding: 3px;
 	vertical-align: middle;
+	font-family: 'Lucida Grande', Arial, sans-serif;
+	font-size: 11px;
 }
 textarea {
 	height: auto;
@@ -100,9 +102,6 @@ form .field .error {
 }
 
 /* .generic */
-form.generic {
-	padding: 0px 10px 10px 10px;
-}
 form.generic .titlebar {
 	border: solid 1px #ddd;
 	border-bottom: none;
