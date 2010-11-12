@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2010-11-08 07:37+0000\n"
+"POT-Creation-Date: 2010-11-12 18:54+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -33,27 +33,7 @@ msgstr "Por favor, corrija os campos abaixo."
 msgid "You don't have permission to access this."
 msgstr "Você não tem permissão para acessar isto."
 
-#: livemgr/controllers/acls.py:28 livemgr/controllers/acls.py:50
-#: livemgr/controllers/conversations.py:35
-#: livemgr/controllers/conversations.py:71 livemgr/models/acl.py:24
-#: livemgr/models/buddy.py:25 livemgr/models/conversation.py:18
-#: livemgr/models/message.py:59 livemgr/models/user.py:24
-msgid "user"
-msgstr "usuário"
-
-#: livemgr/controllers/acls.py:29 livemgr/controllers/acls.py:51
-#: livemgr/controllers/conversations.py:36
-#: livemgr/controllers/conversations.py:72 livemgr/models/acl.py:25
-#: livemgr/models/buddy.py:14 livemgr/models/message.py:60
-msgid "buddy"
-msgstr "contato"
-
-#: livemgr/controllers/acls.py:30 livemgr/controllers/acls.py:49
-#: livemgr/models/acl.py:26
-msgid "action"
-msgstr "ação"
-
-#: livemgr/controllers/acls.py:41 livemgr/controllers/acls.py:44
+#: livemgr/controllers/acls.py:36 livemgr/controllers/acls.py:39
 msgid ""
 "You can use the asterisk as a wildcard character. Example:<br/><i>*@example."
 "com</i>"
@@ -61,217 +41,206 @@ msgstr ""
 "Você pode usar o caractere de curinga asterisco. Por exemplo:<br/"
 "><i>*@example.com</i>"
 
-#: livemgr/controllers/acls.py:61 livemgr/controllers/badwords.py:59
-#: livemgr/controllers/groups.py:63 livemgr/controllers/users.py:97
+#: livemgr/controllers/acls.py:44 livemgr/models/acl.py:26
+msgid "action"
+msgstr "ação"
+
+#: livemgr/controllers/acls.py:45 livemgr/controllers/conversations.py:37
+#: livemgr/models/acl.py:24 livemgr/models/buddy.py:25
+#: livemgr/models/conversation.py:18 livemgr/models/message.py:59
+#: livemgr/models/user.py:24
+msgid "user"
+msgstr "usuário"
+
+#: livemgr/controllers/acls.py:46 livemgr/controllers/conversations.py:38
+#: livemgr/models/acl.py:25 livemgr/models/buddy.py:14
+#: livemgr/models/message.py:60
+msgid "buddy"
+msgstr "contato"
+
+#: livemgr/controllers/acls.py:56 livemgr/controllers/badwords.py:60
+#: livemgr/controllers/groups.py:67 livemgr/controllers/users.py:97
 msgid "You may add another."
 msgstr "Você pode adicionar outro."
 
-#: livemgr/controllers/acls.py:82 livemgr/controllers/badwords.py:80
-#: livemgr/controllers/buddies.py:57 livemgr/controllers/conversations.py:108
-#: livemgr/controllers/groups.py:84 livemgr/controllers/profiles.py:87
+#: livemgr/controllers/acls.py:77 livemgr/controllers/badwords.py:81
+#: livemgr/controllers/buddies.py:53 livemgr/controllers/conversations.py:74
+#: livemgr/controllers/groups.py:88 livemgr/controllers/profiles.py:82
 #: livemgr/controllers/users.py:118
 msgid "Invalid search criteria"
 msgstr "Parâmetros de pesquisa inválidos"
 
-#: livemgr/controllers/acls.py:124
+#: livemgr/controllers/acls.py:121
 #, python-format
 msgid "The acl %d was changed successfully."
 msgstr "A acl %d foi alterada com sucesso."
 
-#: livemgr/controllers/acls.py:151
+#: livemgr/controllers/acls.py:148
 #, python-format
 msgid "The acl %d was created successfully."
 msgstr "A acl %d foi criada com sucesso."
-
-#: livemgr/controllers/badwords.py:27 livemgr/controllers/badwords.py:52
-#: livemgr/models/badword.py:12 livemgr/models/badword.py:17
-#: livemgr/templates/badwords/list.html:22
-msgid "badword"
-msgstr "palavrão"
-
-#: livemgr/controllers/badwords.py:28 livemgr/models/badword.py:18
-msgid "regular expression"
-msgstr "expressão regular"
-
-#: livemgr/controllers/badwords.py:29 livemgr/controllers/users.py:37
-#: livemgr/models/badword.py:19 livemgr/models/user.py:37
-msgid "enabled"
-msgstr "habilitado"
 
 #: livemgr/controllers/badwords.py:46
 msgid "Invalid regular expression"
 msgstr "Expressão regular inválida"
 
-#: livemgr/controllers/badwords.py:116
+#: livemgr/controllers/badwords.py:53 livemgr/models/badword.py:12
+#: livemgr/models/badword.py:17 livemgr/templates/badwords/list.html:22
+msgid "badword"
+msgstr "palavrão"
+
+#: livemgr/controllers/badwords.py:119
 #, python-format
 msgid "The badword '%s' was changed successfully."
 msgstr "O palavrão '%s' foi alterado com sucesso."
 
-#: livemgr/controllers/badwords.py:119 livemgr/controllers/badwords.py:151
+#: livemgr/controllers/badwords.py:122 livemgr/controllers/badwords.py:154
 #, python-format
 msgid "The badword '%s' already exists."
 msgstr "O palavrão '%s' já existe."
 
-#: livemgr/controllers/badwords.py:147
+#: livemgr/controllers/badwords.py:150
 #, python-format
 msgid "The badword '%s' was created successfully."
 msgstr "O palavrão '%s' foi criado com sucesso."
 
-#: livemgr/controllers/buddies.py:24 livemgr/controllers/buddies.py:35
-#: livemgr/controllers/profiles.py:28 livemgr/controllers/profiles.py:74
-#: livemgr/controllers/users.py:32 livemgr/controllers/users.py:84
-#: livemgr/models/buddy.py:19 livemgr/models/user.py:30
+#: livemgr/controllers/buddies.py:24 livemgr/controllers/users.py:32
+msgid "personal message"
+msgstr "mensagem pessoal"
+
+#: livemgr/controllers/buddies.py:31 livemgr/controllers/profiles.py:69
+#: livemgr/controllers/users.py:84 livemgr/models/buddy.py:19
+#: livemgr/models/user.py:30
 msgid "username"
 msgstr "nome de usuário"
 
-#: livemgr/controllers/buddies.py:25 livemgr/controllers/buddies.py:36
-#: livemgr/controllers/users.py:33 livemgr/controllers/users.py:85
+#: livemgr/controllers/buddies.py:32 livemgr/controllers/users.py:85
 #: livemgr/models/buddy.py:20 livemgr/models/user.py:31
 msgid "display name"
 msgstr "nome de exibição"
 
-#: livemgr/controllers/buddies.py:26 livemgr/controllers/users.py:34
-msgid "personal message"
-msgstr "mensagem pessoal"
-
-#: livemgr/controllers/buddies.py:27 livemgr/controllers/buddies.py:37
-#: livemgr/controllers/users.py:35 livemgr/controllers/users.py:87
+#: livemgr/controllers/buddies.py:33 livemgr/controllers/users.py:87
 #: livemgr/models/buddy.py:23 livemgr/models/user.py:34
 msgid "status"
 msgstr "status"
 
-#: livemgr/controllers/buddies.py:28 livemgr/models/buddy.py:24
-msgid "blocked"
-msgstr "bloqueado"
-
-#: livemgr/controllers/conversations.py:34 livemgr/models/conversation.py:19
-#: livemgr/models/message.py:51
-msgid "timestamp"
-msgstr "horário"
-
-#: livemgr/controllers/conversations.py:50
-#: livemgr/controllers/conversations.py:215
+#: livemgr/controllers/conversations.py:33
+#: livemgr/controllers/conversations.py:179
 msgid "%m/%d/%Y - %I:%M:%S %p"
 msgstr "%d/%m/%Y - %I:%M:%S %p"
 
-#: livemgr/controllers/conversations.py:70 livemgr/models/message.py:45
+#: livemgr/controllers/conversations.py:36 livemgr/models/message.py:45
 msgid "message"
 msgstr "mensagem"
 
-#: livemgr/controllers/conversations.py:73 livemgr/models/message.py:61
+#: livemgr/controllers/conversations.py:39 livemgr/models/message.py:61
 msgid "filtered"
 msgstr "filtrado"
 
-#: livemgr/controllers/conversations.py:79
+#: livemgr/controllers/conversations.py:45
 msgid "from date"
 msgstr "da data"
 
-#: livemgr/controllers/conversations.py:82
-#: livemgr/controllers/conversations.py:91
+#: livemgr/controllers/conversations.py:48
+#: livemgr/controllers/conversations.py:57
 msgid "mm/dd/yyyy"
 msgstr "dd/mm/yyyy"
 
-#: livemgr/controllers/conversations.py:88
+#: livemgr/controllers/conversations.py:54
 msgid "to date"
 msgstr "até a data"
 
-#: livemgr/controllers/conversations.py:115
+#: livemgr/controllers/conversations.py:80
 msgid "Invalid date"
 msgstr "Data inválida"
 
-#: livemgr/controllers/conversations.py:163
-#: livemgr/controllers/conversations.py:186
+#: livemgr/controllers/conversations.py:127
+#: livemgr/controllers/conversations.py:150
 #, python-format
 msgid "Missing argument: %s"
 msgstr "Faltando argumento: %s"
 
-#: livemgr/controllers/conversations.py:191
+#: livemgr/controllers/conversations.py:155
 msgid "Conversation not found"
 msgstr "Conversa não encontrada"
 
-#: livemgr/controllers/conversations.py:212
+#: livemgr/controllers/conversations.py:176
 #: livemgr/templates/conversations/show.html:5
-#: livemgr/templates/conversations/show.html:36
+#: livemgr/templates/conversations/show.html:39
 msgid "Conversation"
 msgstr "Conversa"
 
-#: livemgr/controllers/conversations.py:213
-#: livemgr/templates/conversations/show.html:37
-#: livemgr/templates/dashboard/index.html:271
+#: livemgr/controllers/conversations.py:177
+#: livemgr/templates/conversations/show.html:40
+#: livemgr/templates/dashboard/index.html:287
 msgid "User"
 msgstr "Usuário"
 
-#: livemgr/controllers/conversations.py:214
-#: livemgr/templates/conversations/show.html:39
+#: livemgr/controllers/conversations.py:178
+#: livemgr/templates/conversations/show.html:42
 msgid "Buddy"
 msgstr "Contato"
 
-#: livemgr/controllers/conversations.py:215
-#: livemgr/templates/conversations/show.html:40
+#: livemgr/controllers/conversations.py:179
+#: livemgr/templates/conversations/show.html:43
 msgid "Started in"
 msgstr "Inciciada em"
 
-#: livemgr/controllers/conversations.py:216
-#: livemgr/templates/conversations/show.html:41
+#: livemgr/controllers/conversations.py:180
+#: livemgr/templates/conversations/show.html:44
 msgid "Total messages"
 msgstr "Total de mensagens"
 
-#: livemgr/controllers/conversations.py:239
+#: livemgr/controllers/conversations.py:203
 #, python-format
 msgid "Page %(this)i of %(total)i"
 msgstr "Página %(this)i de %(total)i"
 
-#: livemgr/controllers/conversations.py:246
+#: livemgr/controllers/conversations.py:210
 msgid "%m/%d/%Y %I:%M:%S %p"
 msgstr "%d/%m/%Y %I:%M:%S %p"
 
-#: livemgr/controllers/groups.py:31 livemgr/controllers/groups.py:55
-#: livemgr/models/rule.py:17 livemgr/models/setting.py:17
-#: livemgr/models/usergroup.py:18
-msgid "name"
-msgstr "nome"
-
-#: livemgr/controllers/groups.py:32 livemgr/controllers/profiles.py:30
-#: livemgr/models/usergroup.py:19
-msgid "active"
-msgstr "ativo"
-
-#: livemgr/controllers/groups.py:33 livemgr/models/usergroup.py:20
+#: livemgr/controllers/groups.py:32 livemgr/models/usergroup.py:20
 msgid "built-in"
 msgstr "permanente"
 
-#: livemgr/controllers/groups.py:34 livemgr/controllers/groups.py:56
+#: livemgr/controllers/groups.py:33 livemgr/controllers/groups.py:60
 #: livemgr/models/rule.py:18 livemgr/models/usergroup.py:21
 msgid "description"
 msgstr "descrição"
 
-#: livemgr/controllers/groups.py:35
+#: livemgr/controllers/groups.py:34
 msgid "# of users"
 msgstr "# de usuários"
 
-#: livemgr/controllers/groups.py:154
+#: livemgr/controllers/groups.py:59 livemgr/models/rule.py:17
+#: livemgr/models/setting.py:17 livemgr/models/usergroup.py:18
+msgid "name"
+msgstr "nome"
+
+#: livemgr/controllers/groups.py:162
 #, python-format
 msgid "The group '%s' was changed successfully."
 msgstr "O grupo '%s' foi alterado com sucesso."
 
-#: livemgr/controllers/groups.py:156
+#: livemgr/controllers/groups.py:164
 msgid ""
 "However, the users weren't removed because they must belong to one group at "
 "least."
 msgstr ""
 "Mas os usuários não podem ser removidos pois devem fazer parte de um grupo."
 
-#: livemgr/controllers/groups.py:160 livemgr/controllers/groups.py:222
+#: livemgr/controllers/groups.py:168 livemgr/controllers/groups.py:230
 #, python-format
 msgid "The group '%s' already exists."
 msgstr "O grupo '%s' já existe."
 
-#: livemgr/controllers/groups.py:218
+#: livemgr/controllers/groups.py:226
 #, python-format
 msgid "The group '%s' was created successfully."
 msgstr "O grupo '%s' foi criado com sucesso."
 
-#: livemgr/controllers/groups.py:246
+#: livemgr/controllers/groups.py:254
 msgid "Can't delete built-in groups."
 msgstr "Não é permitido excluir grupos permanentes."
 
@@ -314,58 +283,49 @@ msgstr ""
 msgid "The license was changed successfully."
 msgstr "A licença foi alterada com sucesso."
 
-#: livemgr/controllers/profiles.py:29 livemgr/controllers/profiles.py:75
+#: livemgr/controllers/profiles.py:27 livemgr/controllers/profiles.py:70
 msgid "email"
 msgstr "email"
 
-#: livemgr/controllers/profiles.py:31 livemgr/controllers/users.py:36
-#: livemgr/models/user.py:36
-msgid "last login"
-msgstr "último login"
-
-#: livemgr/controllers/profiles.py:32
-msgid "date joined"
-msgstr "Data de registro"
-
-#: livemgr/controllers/profiles.py:33 livemgr/templates/groups/list.html:23
+#: livemgr/controllers/profiles.py:28 livemgr/templates/groups/list.html:23
 msgid "groups"
 msgstr "Grupos"
 
-#: livemgr/controllers/profiles.py:43
+#: livemgr/controllers/profiles.py:38
 msgid "Current password"
 msgstr "Senha atual"
 
-#: livemgr/controllers/profiles.py:44
+#: livemgr/controllers/profiles.py:39
 msgid "New password"
 msgstr "Nova senha"
 
-#: livemgr/controllers/profiles.py:45
+#: livemgr/controllers/profiles.py:40
 msgid "New password confirmation"
 msgstr "Nova senha (confirmação)"
 
-#: livemgr/controllers/profiles.py:49
+#: livemgr/controllers/profiles.py:44
 msgid "Your current password is incorrect. Please type it again."
 msgstr "Sua senha atual está incorreta. Por favor, digite novamente."
 
-#: livemgr/controllers/profiles.py:56
+#: livemgr/controllers/profiles.py:51
 msgid "The two password fields don't match."
 msgstr "Os 2 campos de senha não conferem."
 
-#: livemgr/controllers/profiles.py:70
+#: livemgr/controllers/profiles.py:65
 msgid "Language"
 msgstr "Idioma"
 
-#: livemgr/controllers/profiles.py:71
+#: livemgr/controllers/profiles.py:66
 msgid "Enable debug"
 msgstr "Habilitar debug"
 
-#: livemgr/controllers/profiles.py:76 livemgr/controllers/users.py:31
-#: livemgr/controllers/users.py:86 livemgr/models/grouprule.py:18
-#: livemgr/models/user.py:29 livemgr/templates/groups/list.html:23
+#: livemgr/controllers/profiles.py:71 livemgr/controllers/users.py:86
+#: livemgr/models/grouprule.py:18 livemgr/models/user.py:29
+#: livemgr/templates/groups/list.html:23
 msgid "group"
 msgstr "grupo"
 
-#: livemgr/controllers/profiles.py:139
+#: livemgr/controllers/profiles.py:136
 msgid "Your profile was updated successfully."
 msgstr "Seu perfil foi atualizado com sucesso."
 
@@ -397,43 +357,43 @@ msgstr "Este campo é necessário"
 msgid "The settings were changed successfully."
 msgstr "As configurações foram alteradas com sucesso."
 
-#: livemgr/controllers/users.py:38
+#: livemgr/controllers/users.py:33
 msgid "contacts"
 msgstr "contatos"
 
-#: livemgr/controllers/users.py:47
+#: livemgr/controllers/users.py:42
 msgid "Never logged"
 msgstr "Nunca logou"
 
-#: livemgr/controllers/users.py:56
+#: livemgr/controllers/users.py:52
 msgid "Manage"
 msgstr "Gerenciar"
 
-#: livemgr/controllers/users.py:58
+#: livemgr/controllers/users.py:54
 msgid "None"
 msgstr "Nenhum"
 
-#: livemgr/controllers/users.py:78
+#: livemgr/controllers/users.py:77
 msgid ""
 "Changing the username for a user that already logged in is not permitted."
 msgstr "Não é permitido alterar o nome de um usuário que já realizou login."
 
-#: livemgr/controllers/users.py:159
+#: livemgr/controllers/users.py:162
 #, python-format
 msgid "The user '%s' was changed successfully."
 msgstr "O usuário '%s' foi alterado com sucesso."
 
-#: livemgr/controllers/users.py:162 livemgr/controllers/users.py:197
+#: livemgr/controllers/users.py:165 livemgr/controllers/users.py:200
 #, python-format
 msgid "The user '%s' already exists."
 msgstr "O usuário '%s' já existe."
 
-#: livemgr/controllers/users.py:193
+#: livemgr/controllers/users.py:196
 #, python-format
 msgid "The user '%s' was created successfully."
 msgstr "O usuário '%s' foi criado com sucesso."
 
-#: livemgr/controllers/users.py:214
+#: livemgr/controllers/users.py:217
 msgid "Deleting a user that already logged in is not permitted."
 msgstr "Não é permitido apagar um usuário que já realizou login."
 
@@ -457,6 +417,14 @@ msgstr "acls"
 msgid "badwords"
 msgstr "palavrões"
 
+#: livemgr/models/badword.py:18
+msgid "regular expression"
+msgstr "expressão regular"
+
+#: livemgr/models/badword.py:19 livemgr/models/user.py:37
+msgid "enabled"
+msgstr "habilitado"
+
 #: livemgr/models/buddy.py:15
 msgid "buddies"
 msgstr "contatos"
@@ -465,6 +433,10 @@ msgstr "contatos"
 msgid "status message"
 msgstr "mensagem de status"
 
+#: livemgr/models/buddy.py:24
+msgid "blocked"
+msgstr "bloqueado"
+
 #: livemgr/models/conversation.py:13
 msgid "conversation"
 msgstr "conversa"
@@ -472,6 +444,10 @@ msgstr "conversa"
 #: livemgr/models/conversation.py:14
 msgid "conversations"
 msgstr "conversas"
+
+#: livemgr/models/conversation.py:19 livemgr/models/message.py:51
+msgid "timestamp"
+msgstr "horário"
 
 #: livemgr/models/conversation.py:20 livemgr/templates/license/index.html:62
 msgid "Status"
@@ -723,6 +699,10 @@ msgstr "Desconectado"
 msgid "users"
 msgstr "usuários"
 
+#: livemgr/models/user.py:36
+msgid "last login"
+msgstr "último login"
+
 #: livemgr/models/usergroup.py:13
 msgid "usergroup"
 msgstr "grupo"
@@ -730,6 +710,10 @@ msgstr "grupo"
 #: livemgr/models/usergroup.py:14
 msgid "usergroups"
 msgstr "grupos"
+
+#: livemgr/models/usergroup.py:19
+msgid "active"
+msgstr "ativo"
 
 #: livemgr/templates/layout.html:14 livemgr/templates/layout_base.html:19
 #: livemgr/templates/profiles/login.html:12
@@ -749,7 +733,7 @@ msgid "Logout"
 msgstr "Sair"
 
 #: livemgr/templates/layout.html:32 livemgr/templates/dashboard/index.html:5
-#: livemgr/templates/dashboard/index.html:262
+#: livemgr/templates/dashboard/index.html:278
 msgid "Dashboard"
 msgstr "Painel"
 
@@ -757,7 +741,7 @@ msgstr "Painel"
 msgid "ACLs"
 msgstr "ACLs"
 
-#: livemgr/templates/layout.html:42 livemgr/templates/dashboard/index.html:285
+#: livemgr/templates/layout.html:42 livemgr/templates/dashboard/index.html:301
 #: livemgr/templates/license/index.html:58
 #: livemgr/templates/settings/update.html:46
 msgid "Users"
@@ -842,50 +826,50 @@ msgid "Search for contacts"
 msgstr "Procura por contatos"
 
 #: livemgr/templates/conversations/list.html:5
-#: livemgr/templates/conversations/list.html:87
+#: livemgr/templates/conversations/list.html:89
 msgid "Conversation Summary"
 msgstr "Lista de Conversas"
 
-#: livemgr/templates/conversations/list.html:89
+#: livemgr/templates/conversations/list.html:91
 msgid "Search for messages"
 msgstr "Procura por mensagens"
 
-#: livemgr/templates/conversations/show.html:42
+#: livemgr/templates/conversations/show.html:45
 msgid "Export as"
 msgstr "Exportar como"
 
-#: livemgr/templates/conversations/show.html:49
+#: livemgr/templates/conversations/show.html:52
 msgid "Time"
 msgstr "Horário"
 
-#: livemgr/templates/conversations/show.html:50
+#: livemgr/templates/conversations/show.html:53
 msgid "Author"
 msgstr "Autor"
 
-#: livemgr/templates/conversations/show.html:51
+#: livemgr/templates/conversations/show.html:54
 msgid "Message"
 msgstr "Mensagem"
 
-#: livemgr/templates/conversations/show.html:59
+#: livemgr/templates/conversations/show.html:62
 #, python-format
 msgid "%(total)s message"
 msgid_plural "%(total)s messages"
 msgstr[0] "%(total)s mensagem"
 msgstr[1] "%(total)s mensagens"
 
-#: livemgr/templates/conversations/show.html:77
+#: livemgr/templates/conversations/show.html:80
 msgid "This message was filtered."
 msgstr "Esta mensagem foi filtrada."
 
-#: livemgr/templates/conversations/show.html:84
+#: livemgr/templates/conversations/show.html:87
 msgid "File transfer: "
 msgstr "Transferência de arquivo: "
 
-#: livemgr/templates/conversations/show.html:86
+#: livemgr/templates/conversations/show.html:89
 msgid "Filename: "
 msgstr "Nome do arquivo: "
 
-#: livemgr/templates/conversations/show.html:87
+#: livemgr/templates/conversations/show.html:90
 msgid "Size: "
 msgstr "Tamanho: "
 
@@ -900,28 +884,28 @@ msgid "None."
 msgstr "Nenhum."
 
 #: livemgr/templates/dashboard/index.html:179
-#: livemgr/templates/dashboard/index.html:266
+#: livemgr/templates/dashboard/index.html:282
 msgid "Most Active Users"
 msgstr "Usuários Mais Ativos"
 
-#: livemgr/templates/dashboard/index.html:272
 #: livemgr/templates/dashboard/index.html:288
+#: livemgr/templates/dashboard/index.html:304
 msgid "Messages"
 msgstr "Mensagens"
 
-#: livemgr/templates/dashboard/index.html:280
+#: livemgr/templates/dashboard/index.html:296
 msgid "Latest Conversations"
 msgstr "Últimas Conversas"
 
-#: livemgr/templates/dashboard/index.html:287
+#: livemgr/templates/dashboard/index.html:303
 msgid "Last activity"
 msgstr "Última atividade"
 
-#: livemgr/templates/dashboard/index.html:297
+#: livemgr/templates/dashboard/index.html:313
 msgid "users online"
 msgstr "usuários online"
 
-#: livemgr/templates/dashboard/index.html:301
+#: livemgr/templates/dashboard/index.html:317
 msgid "active conversations"
 msgstr "conversas ativas"
 
@@ -964,7 +948,7 @@ msgstr "Salvar e editar"
 msgid "Save and add another"
 msgstr "Salvar e adicionar"
 
-#: livemgr/templates/generic/form-submit.html:7
+#: livemgr/templates/generic/form-submit.html:10
 msgid "Delete"
 msgstr "Apagar"
 

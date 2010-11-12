@@ -63,7 +63,7 @@
 			</li>
 			{% endif %}
 			{% if perms.livemgr.see_license %}
-			<li class="lciense {{ menu|selected_if:'license' }}">
+			<li class="license {{ menu|selected_if:'license' }}">
 				<a href="{% url webui:license-index %}">{% trans 'License' %}</a>
 			</li>
 			{% endif %}
