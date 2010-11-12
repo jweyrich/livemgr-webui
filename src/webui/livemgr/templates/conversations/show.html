@@ -77,45 +77,48 @@
 						</td>
 						<td style="text-align: justify; padding-right: 10px;">
 							{% if msg.filtered %}
-								<img src="{{MEDIA_URL}}img/fam/icons/cross.png" style="vertical-align: middle;" title="{% trans 'This message was filtered.' %}"/>
+								<img src="{{MEDIA_URL}}img/trans1x1.gif" class="icon cross" style="vertical-align: middle;" title="{% trans 'This message was filtered.' %}"/>
 							{% endif %}
 							{% switch msg.type %}
 								{% case 1 %}
 									{{ msg.content }}
 								{% endcase %}
 								{% case 2 %}
-									<b>{% trans "File transfer: " %}</b><br/>
+									<b>{% trans "File transfer" %}: </b><br/>
 									{% with msg.content|split as fileinfo %}
-										<b>{% trans "Filename: " %}</b>{{ fileinfo|index_start:1 }}<br/>
-										<b>{% trans "Size: " %}</b>{{ fileinfo|index:0|filesizeformat }}
+										<b>{% trans "Filename" %}</b> {{ fileinfo|index_start:1 }}<br/>
+										<b>{% trans "Size" %}</b> {{ fileinfo|index:0|filesizeformat }}
 									{% endwith %}
 								{% endcase %}
 								{% case 5 %}
-									WEBCAM: {{ msg.content }}
+									<b>{% trans "Video Call" %}</b>
 								{% endcase %}
 								{% case 6 %}
-									REMOTEDESKTOP: {{ msg.content }}
+									<b>{% trans "Remote Desktop" %}</b>
 								{% endcase %}
 								{% case 7 %}
-									APPLICATION: {{ msg.content }}
+									<b>{% trans "MSN Activity" %}</b>
+								{% endcase %}
+								{% case 8 %}
+									<b>{% trans "Custom emoticon" %}</b>
 								{% endcase %}
 								{% case 9 %}
-									INK: {{ msg.content }}
+									<b>{% trans "Handwriting" %}</b>
 								{% endcase %}
 								{% case 10 %}
-									NUDGE: {{ msg.content }}
+									<b>{% trans "Nudge" %}</b>
 								{% endcase %}
 								{% case 11 %}
-									WINK: {{ msg.content }}
+									<b>{% trans "Wink" %}</b>
 								{% endcase %}
 								{% case 12 %}
-									VOICECLIP: {{ msg.content }}
+									<b>{% trans "Voice clip" %}</b>
 								{% endcase %}
 								{% case 13 %}
-									GAMES: {{ msg.content }}
+									<b>{% trans "MSG Game" %}</b>
 								{% endcase %}
 								{% case 14 %}
-									PHOTO: {{ msg.content }}
+									<b>{% trans "Photo sharing" %}</b>
 								{% endcase %}
 							{% endswitch %}
 						</td>

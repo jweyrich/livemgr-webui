@@ -4,6 +4,7 @@ from django.contrib.auth.decorators import login_required, permission_required
 from django.http import HttpResponseBadRequest, HttpResponse, Http404
 from django.shortcuts import render_to_response
 from django.template import RequestContext
+from django.template.defaultfilters import filesizeformat
 from django.utils.translation import ugettext as _, ugettext_lazy
 from reportlab.lib.pagesizes import A4
 from reportlab.lib.styles import getSampleStyleSheet
@@ -206,34 +207,61 @@ def report_pdf(request, object_id):
 				}
 			)
 
-	def format_default(msg, colors):
+	def format_sender(msg, colors):
+		sender = msg.remoteim if msg.inbound else msg.localim
+		return '<font color="' + colors.get(sender) + '">' + sender + '</font>'
+	def format_prefix(msg, colors):
 		time = msg.timestamp.strftime(_('%m/%d/%Y %I:%M:%S %p'))
-		if not msg.inbound:
-			sender = '<font color="' + colors.get(msg.localim) + '">' + msg.localim + '</font>'
-		else:
-			sender = '<font color="' + colors.get(msg.remoteim) + '">' + msg.remoteim + '</font>'
-		text = '<strong>' + time + ' - ' + sender + '</strong>'
+		sender = format_sender(msg, colors)
+		text = '<strong>' + time + ' - ' + sender + '</strong>: '
 		if msg.filtered:
-			return text + ': <font color="red"><b>[x]</b></font> ' + msg.content
-		else:
-			return text + ': ' + msg.content
+			return text + '<font color="red"><b>[x]</b></font> '
+		return text
+	def format_msg(msg, colors):
+		return format_prefix(msg, colors) + msg.content
+	def format_file(msg, colors):
+		parts = msg.content.split(' ')
+		message = '<b>%s</b>: %s (%s)' % (
+			_('File transfer'), ' '.join(parts[1:]), filesizeformat(parts[0])
+		)
+		return format_prefix(msg, colors) + message
+	def format_webcam(msg, colors):
+		return format_prefix(msg, colors) + '<b>%s</b>' % _('Video Call')
+	def format_remotedesktop(msg, colors):
+		return format_prefix(msg, colors) + '<b>%s</b>' % _('Remote Desktop')
+	def format_application(msg, colors):
+		return format_prefix(msg, colors) + '<b>%s</b>' % _('MSN Activity')
+	def format_emoticon(msg, colors):
+		return format_prefix(msg, colors) + '<b>%s</b>' % _('Custom emoticon')
+	def format_ink(msg, colors):
+		return format_prefix(msg, colors) + '<b>%s</b>' % _('Handwriting')
+	def format_nudge(msg, colors):
+		return format_prefix(msg, colors) + '<b>%s</b>' % _('Nudge')
+	def format_wink(msg, colors):
+		return format_prefix(msg, colors) + '<b>%s</b>' % _('Wink')
+	def format_voiceclip(msg, colors):
+		return format_prefix(msg, colors) + '<b>%s</b>' % _('Voice clip')
+	def format_games(msg, colors):
+		return format_prefix(msg, colors) + '<b>%s</b>' % _('MSN Game')
+	def format_photo(msg, colors):
+		return format_prefix(msg, colors) + '<b>%s</b>' % _('Photo sharing')
 	def para_from_message(msg, colors):
 		formatters = {
-			Message.Type.UNKNOWN: format_default,
-			Message.Type.MSG: format_default,
-			Message.Type.FILE: format_default,
-			Message.Type.TYPING: format_default,
-			Message.Type.CAPS: format_default,
-			Message.Type.WEBCAM: format_default,
-			Message.Type.REMOTEDESKTOP: format_default,
-			Message.Type.APPLICATION: format_default,
-			Message.Type.EMOTICON: format_default,
-			Message.Type.INK: format_default,
-			Message.Type.NUDGE: format_default,
-			Message.Type.WINK: format_default,
-			Message.Type.VOICECLIP: format_default,
-			Message.Type.GAMES: format_default,
-			Message.Type.PHOTO: format_default,
+			#Message.Type.UNKNOWN: format_msg,
+			Message.Type.MSG: format_msg,
+			Message.Type.FILE: format_file,
+			#Message.Type.TYPING: format_msg,
+			#Message.Type.CAPS: format_msg,
+			Message.Type.WEBCAM: format_webcam,
+			Message.Type.REMOTEDESKTOP: format_remotedesktop,
+			Message.Type.APPLICATION: format_application,
+			Message.Type.EMOTICON: format_emoticon,
+			Message.Type.INK: format_ink,
+			Message.Type.NUDGE: format_nudge,
+			Message.Type.WINK: format_wink,
+			Message.Type.VOICECLIP: format_voiceclip,
+			Message.Type.GAMES: format_games,
+			Message.Type.PHOTO: format_photo,
 		}
 		text = formatters.get(msg.type, lambda x: None)(msg, colors)
 		return Paragraph(text, styles['Normal'])

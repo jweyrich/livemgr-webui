@@ -5,11 +5,11 @@ from django.utils.translation import ugettext_lazy as _
 
 class Message(models.Model):
 	class Type:
-		UNKNOWN = 0
+		UNKNOWN = 0 # never used
 		MSG = 1
 		FILE = 2
-		TYPING = 3
-		CAPS = 4
+		TYPING = 3 # never used
+		CAPS = 4 # never used
 		WEBCAM = 5
 		REMOTEDESKTOP = 6
 		APPLICATION = 7
