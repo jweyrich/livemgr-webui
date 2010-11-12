@@ -1,20 +1,15 @@
-﻿ul.pagination {
-	border: 0;
-	margin: 0;
-	padding: 0;
+ul.pagination {
+	float: left;
 }
 
 ul.pagination li {
-	border: 0;
-	margin: 0;
-	padding: 0;
 	font-size: 11px;
 	list-style: none;
 	margin-right: 2px;
+	float: left;
 }
 
 ul.pagination li a {
-	margin-right: 2px;
 	font-weight: bold;
 	/* -specific-
 	background: -webkit-gradient(linear, 0 40%, 0 70%, from(#F9F9F9), to(#E3E3E3));
@@ -29,7 +24,6 @@ ul.pagination li a:link,
 ul.pagination li a:visited {
 	color: #888;
 	display: block;
-	float: left;
 	padding: 3px 6px;
 	text-decoration: none;
 }
@@ -39,8 +33,8 @@ ul.pagination li a:hover {
 	color: #888;
 }
 
-ul.pagination .previous-off,
-ul.pagination .next-off {
+ul.pagination li.previous-off,
+ul.pagination li.next-off {
 	/* -specific-
 	background: -webkit-gradient(linear, 0 40%, 0 70%, from(#F9F9F9), to(#E3E3E3));
 	background: -moz-linear-gradient(top, #F9F9F9, #E3E3E3);
@@ -50,16 +44,14 @@ ul.pagination .next-off {
 	border: 1px solid #BBB;
 	color: #BBB;
 	display: block;
-	float: left;
 	font-weight: bold;
-	margin-right: 2px;
 	padding: 3px 6px;
 }
 
-ul.pagination .active {
+ul.pagination li.active {
 	color: #555;
 	font-weight: bold;
 	display: block;
-	float: left;
-	padding: 4px 6px;
+	padding: 3px 6px;
+	border: 1px solid transparent;
 }

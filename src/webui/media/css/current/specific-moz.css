@@ -27,6 +27,12 @@ form.generic .titlebar.widget.right {
 	background: -moz-linear-gradient(top, #b6d1ea, #698eb9);
 }
 
+/* list.css */
+table.list thead,
+table.list tfoot {
+	background: -moz-linear-gradient(top, #fff, #dadada);
+}
+
 /* login.css */
 .login form input {
 	-moz-border-radius: 4px 4px 4px 4px;

@@ -12,9 +12,9 @@ table.list input {
 }
 
 /* header */
-
-table.list thead {
-	/* -specific- NOT USED
+table.list thead,
+table.list tfoot {
+	/* -specific-
 	background: -webkit-gradient(linear, 0 0%, 0 100%, from(#dadada), to(#fff));
 	background: -moz-linear-gradient(top, #dadada, #fff);
 	filter: progid:DXImageTransform.Microsoft.gradient(startColorstr=#ffdadada, endColorstr=#ffffffff);
@@ -23,8 +23,10 @@ table.list thead {
 	background-color: #eee;
 	border-bottom: 1px solid #ccc;
 }
-table.list thead tr {
-	height: 27px;
+table.list thead tr,
+table.list tfoot tr,
+table.list tbody tr {
+	height: 28px;
 }
 table.list thead tr th {
 	border: 1px solid #dfdfdf;
@@ -38,23 +40,14 @@ table.list thead tr th.selector {
 }
 
 /* footer */
-
-table.list tfoot {
-	background-color: #eee;
-	border-top: 1px solid #ccc;
-}
 table.list tfoot tr td {
-	height: 27px;
 	padding-left: 5px;
 	padding-right: 8px;
-	text-align: right;
 }
 
 /* body */
-
 table.list tbody tr {
 	border-bottom: 1px solid #dfdfdf;
-	height: 27px;
 }
 table.list tbody tr:last-child {
 	border-bottom: 1px solid #ccc;

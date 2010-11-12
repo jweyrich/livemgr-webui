@@ -32,6 +32,12 @@ form.generic .titlebar.widget.right {
 	background: -webkit-gradient(linear, 0 40%, 0 70%, from(#F9F9F9), to(#E3E3E3));
 }
 
+/* list.css */
+table.list thead,
+table.list tfoot {
+	background: -webkit-gradient(linear, 0 0%, 0 100%, from(#fff), to(#dadada));
+}
+
 /* modal.css */
 .simplemodal-container {
 	-webkit-border-radius: 5px;

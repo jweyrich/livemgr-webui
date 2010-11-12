@@ -86,12 +86,12 @@ body.login  {
 .login .icon {
 	width: 16px;
 	height: 16px;
-	background-image: url('/media/img/sprites.gif');
+	background-image: url('/media/img/sprites.png');
 	background-repeat: no-repeat;
 } 
 .login .icon.error {
-	background-position: -32px -16px;
+	background-position: -112px 0px;
 }
 .login .icon.info {
-	background-position: 0px -16px;
+	background-position: -16px -16px;
 }
