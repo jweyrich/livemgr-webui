@@ -7,8 +7,7 @@
 	<thead>
 		<tr>
 			<th class="selector" style="{% if show_selection == 0 %}display: none;{% endif %}">
-				<input type="checkbox"
-					onclick="Selection.selectAll(this);" />
+				<input type="checkbox" onclick="Selection.selectAll(this);" />
 			</th>
 			{% for column in table.columns %}
 				<th class="{{ column.name }}">

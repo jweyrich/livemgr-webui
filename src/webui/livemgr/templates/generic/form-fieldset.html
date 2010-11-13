@@ -1,6 +1,6 @@
 {% load i18n custom_filters %}
+{% include "generic/flash.html" %}
 <fieldset>
-	{% include "generic/flash.html" %}
 	{% for field in form %}
 		{% if not field.is_hidden %}
 			<div class="field">

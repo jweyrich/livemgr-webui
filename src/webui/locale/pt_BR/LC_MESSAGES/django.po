@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2010-11-13 06:56+0000\n"
+"POT-Creation-Date: 2010-11-13 07:44+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -927,8 +927,8 @@ msgstr "Tamanho"
 msgid "MSG Game"
 msgstr "Jogo do MSN"
 
-#: livemgr/templates/conversations/table.html:57
-#: livemgr/templates/generic/table.html:57
+#: livemgr/templates/conversations/table.html:56
+#: livemgr/templates/generic/table.html:56
 msgid "No results found."
 msgstr "Nenhum resultado encontrado."
 
