@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2010-11-13 05:21+0000\n"
+"POT-Creation-Date: 2010-11-13 06:56+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -17,11 +17,11 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 
-#: settings.py:68
+#: settings.py:68 settings_production.py:62
 msgid "English"
 msgstr "Inglês"
 
-#: settings.py:69
+#: settings.py:69 settings_production.py:63
 msgid "Brazilian Portuguese"
 msgstr "Português"
 
@@ -172,7 +172,7 @@ msgstr "Conversa"
 
 #: livemgr/controllers/conversations.py:196
 #: livemgr/templates/conversations/show.html:40
-#: livemgr/templates/dashboard/index.html:287
+#: livemgr/templates/dashboard/index.html:254
 msgid "User"
 msgstr "Usuário"
 
@@ -587,7 +587,7 @@ msgstr "jogos"
 msgid "photo"
 msgstr "foto"
 
-#: livemgr/models/message.py:46 livemgr/templates/dashboard/index.html:222
+#: livemgr/models/message.py:46 livemgr/templates/dashboard/index.html:189
 msgid "messages"
 msgstr "mensagens"
 
@@ -787,7 +787,7 @@ msgid "Logout"
 msgstr "Sair"
 
 #: livemgr/templates/layout.html:32 livemgr/templates/dashboard/index.html:5
-#: livemgr/templates/dashboard/index.html:278
+#: livemgr/templates/dashboard/index.html:245
 msgid "Dashboard"
 msgstr "Painel"
 
@@ -795,7 +795,7 @@ msgstr "Painel"
 msgid "ACLs"
 msgstr "ACLs"
 
-#: livemgr/templates/layout.html:42 livemgr/templates/dashboard/index.html:301
+#: livemgr/templates/layout.html:42 livemgr/templates/dashboard/index.html:268
 #: livemgr/templates/license/index.html:58
 #: livemgr/templates/settings/update.html:46
 msgid "Users"
@@ -880,11 +880,11 @@ msgid "Search for contacts"
 msgstr "Procura por contatos"
 
 #: livemgr/templates/conversations/list.html:5
-#: livemgr/templates/conversations/list.html:89
+#: livemgr/templates/conversations/list.html:79
 msgid "Conversation Summary"
 msgstr "Lista de Conversas"
 
-#: livemgr/templates/conversations/list.html:91
+#: livemgr/templates/conversations/list.html:81
 msgid "Search for messages"
 msgstr "Procura por mensagens"
 
@@ -932,34 +932,34 @@ msgstr "Jogo do MSN"
 msgid "No results found."
 msgstr "Nenhum resultado encontrado."
 
-#: livemgr/templates/dashboard/index.html:62
-#: livemgr/templates/dashboard/index.html:102
+#: livemgr/templates/dashboard/index.html:51
+#: livemgr/templates/dashboard/index.html:91
 msgid "None."
 msgstr "Nenhum."
 
-#: livemgr/templates/dashboard/index.html:179
-#: livemgr/templates/dashboard/index.html:282
+#: livemgr/templates/dashboard/index.html:146
+#: livemgr/templates/dashboard/index.html:249
 msgid "Most Active Users"
 msgstr "Usuários Mais Ativos"
 
-#: livemgr/templates/dashboard/index.html:288
-#: livemgr/templates/dashboard/index.html:304
+#: livemgr/templates/dashboard/index.html:255
+#: livemgr/templates/dashboard/index.html:271
 msgid "Messages"
 msgstr "Mensagens"
 
-#: livemgr/templates/dashboard/index.html:296
+#: livemgr/templates/dashboard/index.html:263
 msgid "Latest Conversations"
 msgstr "Últimas Conversas"
 
-#: livemgr/templates/dashboard/index.html:303
+#: livemgr/templates/dashboard/index.html:270
 msgid "Last activity"
 msgstr "Última atividade"
 
-#: livemgr/templates/dashboard/index.html:313
+#: livemgr/templates/dashboard/index.html:280
 msgid "users online"
 msgstr "usuários online"
 
-#: livemgr/templates/dashboard/index.html:317
+#: livemgr/templates/dashboard/index.html:284
 msgid "active conversations"
 msgstr "conversas ativas"
 
@@ -1120,19 +1120,19 @@ msgstr "Você tem certeza?"
 msgid "Search for profiles"
 msgstr "Procura por perfis"
 
-#: livemgr/templates/profiles/login.html:52
+#: livemgr/templates/profiles/login.html:40
 msgid "login"
 msgstr "login"
 
-#: livemgr/templates/profiles/login.html:56
+#: livemgr/templates/profiles/login.html:44
 msgid "Remember me"
 msgstr "Lembrar"
 
-#: livemgr/templates/profiles/login.html:61
+#: livemgr/templates/profiles/login.html:50
 msgid "Forgot password?"
 msgstr "Esqueceu a senha?"
 
-#: livemgr/templates/profiles/login.html:67
+#: livemgr/templates/profiles/login.html:57
 msgid "Invalid user or password."
 msgstr "Usuário ou senha inválida."
 

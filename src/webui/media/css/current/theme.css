@@ -77,7 +77,7 @@ a:hover {
 }
 .spinner {
 	display: none;
-	position: relative;
+	position: absolute;
 }
 
 /* .flash ------------------------------------------------------------------- */

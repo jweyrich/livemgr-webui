@@ -6,7 +6,7 @@
 <script type="text/javascript" src="{{MEDIA_URL}}jquery-ui-1.8.6.custom/js/jquery-1.4.3.min.js"></script>
 {% if debug %}
 	<style type="text/css" media="screen, print">
-		@import url("{{MEDIA_URL}}jquery-ui-1.8.6.custom/css/cupertino/jquery-ui-1.8.6.custom.css");
+		@import url('{{MEDIA_URL}}jquery-ui-1.8.6.custom/css/cupertino/jquery-ui-1.8.6.custom.css');
 	</style>
 	{# jQuery UI #}
 	<script type="text/javascript" src="{{MEDIA_URL}}jquery-ui-1.8.6.custom/js/jquery-ui-1.8.6.custom.min.js"></script>
@@ -33,6 +33,8 @@
 	<script type="text/javascript" src="{{MEDIA_URL}}js/search.js"></script>
 	<script type="text/javascript" src="{{MEDIA_URL}}js/selection.js"></script>
 	<script type="text/javascript" src="{{MEDIA_URL}}js/selectbox.js"></script>
+	<script type="text/javascript" src="{{MEDIA_URL}}js/googlecharts.js"></script>
+	<script type="text/javascript" src="{{MEDIA_URL}}js/utils.js"></script>
 {% else %}
 	{# All minified scripts #}
 	<script type="text/javascript" src="{{MEDIA_URL}}js/all.min.js"></script>
@@ -42,14 +44,22 @@
 i18n.changeLanguage('{{ LANGUAGE_CODE|langcode }}');
 $(document).ready(function() {
 	$('a[rel=external]').attr('target', '_blank');
+	$(document).ajaxStart(function() {
+		var spinner = $('.spinner');
+		var position = getWindowSize();
+		spinner.css({
+			'left': position[0] /2 - 12 + 'px',
+			'top': position[1] / 2 - 12 + 'px'
+	    });
+		spinner.show();
+	});
+	$(document).ajaxStop(function() { $('.spinner').hide(); });
 	$("form input[title]").tooltip({
 		position: "center right",
 		offset: [0,10],
 		effect: "fade",
 		opacity: 0.7
 	});
-	$(document).ajaxStart(function() { $('.spinner').show(); });
-	$(document).ajaxStop(function() { $('.spinner').hide(); });
 });
 </script>
 

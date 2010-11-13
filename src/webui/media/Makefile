@@ -9,10 +9,15 @@ CSS_SOURCES = \
 	css/current/search.css \
 	css/current/list.css \
 	css/current/pagination.css \
-	css/current/modal.css \
 	css/current/dashboard.css \
 	css/current/login.css \
-	css/current/tooltip.css
+	css/current/tooltip.css \
+	css/current/modal.css
+
+CSS_SOURCES_EXTRA = \
+	css/current/specific-moz.css \
+	css/current/specific-msie.css \
+	css/current/specific-webkit.css
 
 JS_SOURCES = \
 	js/i18n.js \
@@ -23,7 +28,10 @@ JS_SOURCES = \
 	js/search.js \
 	js/selection.js \
 	js/selectbox.js \
-	js/googlecharts.js
+	js/googlecharts.js \
+	js/utils.js
+
+JS_SOURCES_EXTRA =
 
 JS_MINIFIED_DEPS = \
 	jquery-ui-1.8.6.custom/js/jquery-ui-1.8.6.custom.min.js \
@@ -39,14 +47,16 @@ JS_TARGET = js/all.min.js
 
 CSS_MINIFIED = $(addsuffix .min.css, $(basename ${CSS_SOURCES}))
 JS_MINIFIED = $(addsuffix .min.js, $(basename ${JS_SOURCES}))
+CSS_MINIFIED_EXTRA = $(addsuffix .min.css, $(basename ${CSS_SOURCES_EXTRA}))
+JS_MINIFIED_EXTRA = $(addsuffix .min.js, $(basename ${JS_SOURCES_EXTRA}))
 
 .PHONY: all clean minify_css concat_css minify_js concat_js
 
 all: minify_css concat_css minify_js concat_js
 	@echo Done.
 
-minify_css: $(CSS_MINIFIED)
-minify_js: $(JS_MINIFIED)
+minify_css: $(CSS_MINIFIED) $(CSS_MINIFIED_EXTRA)
+minify_js: $(JS_MINIFIED) $(JS_MINIFIED_EXTRA)
 concat_css: $(CSS_TARGET)
 concat_js: $(JS_TARGET)
 	
@@ -74,6 +84,6 @@ $(JS_TARGET): $(JS_MINIFIED)
 
 clean:
 	-@rm -f \
-		$(CSS_MINIFIED) $(CSS_TARGET) \
-		$(JS_MINIFIED) $(JS_TARGET)
+		$(CSS_MINIFIED) $(CSS_MINIFIED_EXTRA) $(CSS_TARGET) \
+		$(JS_MINIFIED) $(JS_MINIFIED_EXTRA) $(JS_TARGET)
 	@echo Cleaned.

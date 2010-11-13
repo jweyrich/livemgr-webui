@@ -19,26 +19,7 @@
 <title>{% block title %}{% trans "Live Manager" %}{% endblock %}</title>
 
 {# CSS #}
-<style type="text/css" media="screen, print">
-	{% if debug %}
-		@import url("{{MEDIA_URL}}css/current/theme.css");
-		@import url('{{MEDIA_URL}}css/current/form.css');
-		@import url('{{MEDIA_URL}}css/current/search.css');
-		@import url('{{MEDIA_URL}}css/current/list.css');
-		@import url('{{MEDIA_URL}}css/current/pagination.css');
-		@import url('{{MEDIA_URL}}css/current/modal.css');
-		@import url('{{MEDIA_URL}}css/current/tooltip.css');
-	{% else %}
-		@import url("{{MEDIA_URL}}css/all.min.css");
-	{% endif %}
-	{% if "MSIE" in request.META.HTTP_USER_AGENT %}
-		@import url("{{MEDIA_URL}}css/current/specific-msie.css");
-	{% else %}{% if "WebKit" in request.META.HTTP_USER_AGENT %}
-		@import url("{{MEDIA_URL}}css/current/specific-webkit.css");
-	{% else %}{% if "Gecko" in request.META.HTTP_USER_AGENT %}
-		@import url("{{MEDIA_URL}}css/current/specific-moz.css");
-	{% endif %}{% endif %}{% endif %}
-</style>
+{% include "styles.html" %}
 
 {% block extrahead %}{% endblock %}
 
@@ -52,7 +33,7 @@
 	<div class="body-container">
 		{% block body %}{% endblock %}
 		<div class="spinner">
-			<img src="{{ MEDIA_URL }}/img/spinner.gif" alt="Loading"/>
+			<img src="{{MEDIA_URL}}/img/spinner.gif" alt="Loading"/>
 		</div>
 	</div>
 </body>

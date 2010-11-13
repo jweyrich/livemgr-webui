@@ -11,20 +11,8 @@
 
 <title>{% trans "Live Manager" %}</title>
 
-<style type="text/css" media="screen">
-	{% if debug %}
-		@import url("{{MEDIA_URL}}css/current/login.css");
-	{% else %}
-		@import url("{{MEDIA_URL}}css/all.min.css");
-	{% endif %}
-	{% if "MSIE" in request.META.HTTP_USER_AGENT %}
-		@import url("{{MEDIA_URL}}css/current/specific-msie.css");
-	{% else %}{% if "WebKit" in request.META.HTTP_USER_AGENT %}
-		@import url("{{MEDIA_URL}}css/current/specific-webkit.css");
-	{% else %}{% if "Gecko" in request.META.HTTP_USER_AGENT %}
-		@import url("{{MEDIA_URL}}css/current/specific-moz.css");
-	{% endif %}{% endif %}{% endif %}
-</style>
+{# CSS #}
+{% include "styles.html" %}
 
 <script type="text/javascript" src="{{MEDIA_URL}}jquery-ui-1.8.6.custom/js/jquery-1.4.3.min.js"></script>
 <script type="text/javascript">
@@ -56,11 +44,13 @@ $(document).ready(function() {
 					<label for="remember">{% trans "Remember me" %}</label>
 					-->
 				</p>
+				{% comment %}
 				<!--
 				<p class="forgot">
 					<a href="#" id="resend_password_link">{% trans "Forgot password?" %}</a>
 				</p>
 				-->
+				{% endcomment %}
 				{% if form.errors %}
 					<div class="flash error">
 						<div class="icon error"></div>

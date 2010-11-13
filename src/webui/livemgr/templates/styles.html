@@ -1,0 +1,29 @@
+<style type="text/css" media="screen, print">
+{% if debug %}
+	@import url("{{MEDIA_URL}}css/current/theme.css");
+	@import url('{{MEDIA_URL}}css/current/form.css');
+	@import url('{{MEDIA_URL}}css/current/search.css');
+	@import url('{{MEDIA_URL}}css/current/list.css');
+	@import url('{{MEDIA_URL}}css/current/pagination.css');
+	@import url('{{MEDIA_URL}}css/current/dashboard.css');
+	@import url('{{MEDIA_URL}}css/current/login.css');
+	@import url('{{MEDIA_URL}}css/current/tooltip.css');
+	@import url('{{MEDIA_URL}}css/current/modal.css');
+	{% if "MSIE" in request.META.HTTP_USER_AGENT %}
+		@import url("{{MEDIA_URL}}css/current/specific-msie.css");
+	{% else %}{% if "WebKit" in request.META.HTTP_USER_AGENT %}
+		@import url("{{MEDIA_URL}}css/current/specific-webkit.css");
+	{% else %}{% if "Gecko" in request.META.HTTP_USER_AGENT %}
+		@import url("{{MEDIA_URL}}css/current/specific-moz.css");
+	{% endif %}{% endif %}{% endif %}			
+{% else %}
+	@import url("{{MEDIA_URL}}css/all.min.css");
+	{% if "MSIE" in request.META.HTTP_USER_AGENT %}
+		@import url("{{MEDIA_URL}}css/current/specific-msie.min.css");
+	{% else %}{% if "WebKit" in request.META.HTTP_USER_AGENT %}
+		@import url("{{MEDIA_URL}}css/current/specific-webkit.min.css");
+	{% else %}{% if "Gecko" in request.META.HTTP_USER_AGENT %}
+		@import url("{{MEDIA_URL}}css/current/specific-moz.min.css");
+	{% endif %}{% endif %}{% endif %}
+{% endif %}
+</style>
