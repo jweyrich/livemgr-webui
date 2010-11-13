@@ -15,19 +15,22 @@ var Search = {
 		$('#search label:first').attr('accesskey', 'f');
 		$('#search a#advanced').attr('accesskey', 'a');
 		$('#search a#create').attr('accesskey', 'n');
-		$('#search_adv a#simple').attr('accesskey', 'b');
 		// Events
 		$('#search a#advanced').click(function() {
 			$('#search').hide('blind', { direction : 'vertical' }, 200);
 			$('#search_adv').show('blind', { direction : 'vertical' }, 200);
 			$('#search label:first').removeAttr('accesskey');
 			$('#search_adv label:first').attr('accesskey', 's');
+			$('#search a#advanced').removeAttr('accesskey');
+			$('#search_adv a#simple').attr('accesskey', 'b');
 		});
 		$('#search_adv a#simple').click(function() {
 			$('#search_adv').hide('blind', { direction : 'vertical' }, 200);
 			$('#search').show('blind', { direction : 'vertical' }, 200);
 			$('#search label:first').attr('accesskey', 's');
 			$('#search_adv label:first').removeAttr('accesskey');
+			$('#search_adv a#simple').removeAttr('accesskey');
+			$('#search a#advanced').attr('accesskey', 'a');
 		});
 		Search.hookLinks();
 	},
