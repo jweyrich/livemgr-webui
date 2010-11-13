@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2010-11-12 18:54+0000\n"
+"POT-Creation-Date: 2010-11-13 05:21+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -45,14 +45,14 @@ msgstr ""
 msgid "action"
 msgstr "ação"
 
-#: livemgr/controllers/acls.py:45 livemgr/controllers/conversations.py:37
+#: livemgr/controllers/acls.py:45 livemgr/controllers/conversations.py:40
 #: livemgr/models/acl.py:24 livemgr/models/buddy.py:25
 #: livemgr/models/conversation.py:18 livemgr/models/message.py:59
 #: livemgr/models/user.py:24
 msgid "user"
 msgstr "usuário"
 
-#: livemgr/controllers/acls.py:46 livemgr/controllers/conversations.py:38
+#: livemgr/controllers/acls.py:46 livemgr/controllers/conversations.py:41
 #: livemgr/models/acl.py:25 livemgr/models/buddy.py:14
 #: livemgr/models/message.py:60
 msgid "buddy"
@@ -64,7 +64,7 @@ msgid "You may add another."
 msgstr "Você pode adicionar outro."
 
 #: livemgr/controllers/acls.py:77 livemgr/controllers/badwords.py:81
-#: livemgr/controllers/buddies.py:53 livemgr/controllers/conversations.py:74
+#: livemgr/controllers/buddies.py:53 livemgr/controllers/conversations.py:77
 #: livemgr/controllers/groups.py:88 livemgr/controllers/profiles.py:82
 #: livemgr/controllers/users.py:118
 msgid "Invalid search criteria"
@@ -124,81 +124,135 @@ msgstr "nome de exibição"
 msgid "status"
 msgstr "status"
 
-#: livemgr/controllers/conversations.py:33
-#: livemgr/controllers/conversations.py:179
+#: livemgr/controllers/conversations.py:36
+#: livemgr/controllers/conversations.py:198
 msgid "%m/%d/%Y - %I:%M:%S %p"
 msgstr "%d/%m/%Y - %I:%M:%S %p"
 
-#: livemgr/controllers/conversations.py:36 livemgr/models/message.py:45
+#: livemgr/controllers/conversations.py:39 livemgr/models/message.py:45
 msgid "message"
 msgstr "mensagem"
 
-#: livemgr/controllers/conversations.py:39 livemgr/models/message.py:61
+#: livemgr/controllers/conversations.py:42 livemgr/models/message.py:61
 msgid "filtered"
 msgstr "filtrado"
 
-#: livemgr/controllers/conversations.py:45
+#: livemgr/controllers/conversations.py:48
 msgid "from date"
 msgstr "da data"
 
-#: livemgr/controllers/conversations.py:48
-#: livemgr/controllers/conversations.py:57
+#: livemgr/controllers/conversations.py:51
+#: livemgr/controllers/conversations.py:60
 msgid "mm/dd/yyyy"
 msgstr "dd/mm/yyyy"
 
-#: livemgr/controllers/conversations.py:54
+#: livemgr/controllers/conversations.py:57
 msgid "to date"
 msgstr "até a data"
 
-#: livemgr/controllers/conversations.py:80
+#: livemgr/controllers/conversations.py:83
 msgid "Invalid date"
 msgstr "Data inválida"
 
-#: livemgr/controllers/conversations.py:127
-#: livemgr/controllers/conversations.py:150
+#: livemgr/controllers/conversations.py:130
+#: livemgr/controllers/conversations.py:153
 #, python-format
 msgid "Missing argument: %s"
 msgstr "Faltando argumento: %s"
 
-#: livemgr/controllers/conversations.py:155
+#: livemgr/controllers/conversations.py:158
 msgid "Conversation not found"
 msgstr "Conversa não encontrada"
 
-#: livemgr/controllers/conversations.py:176
+#: livemgr/controllers/conversations.py:195
 #: livemgr/templates/conversations/show.html:5
 #: livemgr/templates/conversations/show.html:39
 msgid "Conversation"
 msgstr "Conversa"
 
-#: livemgr/controllers/conversations.py:177
+#: livemgr/controllers/conversations.py:196
 #: livemgr/templates/conversations/show.html:40
 #: livemgr/templates/dashboard/index.html:287
 msgid "User"
 msgstr "Usuário"
 
-#: livemgr/controllers/conversations.py:178
+#: livemgr/controllers/conversations.py:197
 #: livemgr/templates/conversations/show.html:42
 msgid "Buddy"
 msgstr "Contato"
 
-#: livemgr/controllers/conversations.py:179
+#: livemgr/controllers/conversations.py:198
 #: livemgr/templates/conversations/show.html:43
 msgid "Started in"
 msgstr "Inciciada em"
 
-#: livemgr/controllers/conversations.py:180
+#: livemgr/controllers/conversations.py:199
 #: livemgr/templates/conversations/show.html:44
 msgid "Total messages"
 msgstr "Total de mensagens"
 
-#: livemgr/controllers/conversations.py:203
+#: livemgr/controllers/conversations.py:221
 #, python-format
 msgid "Page %(this)i of %(total)i"
 msgstr "Página %(this)i de %(total)i"
 
-#: livemgr/controllers/conversations.py:210
+#: livemgr/controllers/conversations.py:231
 msgid "%m/%d/%Y %I:%M:%S %p"
 msgstr "%d/%m/%Y %I:%M:%S %p"
+
+#: livemgr/controllers/conversations.py:242
+#: livemgr/templates/conversations/show.html:87
+msgid "File transfer"
+msgstr "Transferência de arquivo"
+
+#: livemgr/controllers/conversations.py:248
+#: livemgr/templates/conversations/show.html:94
+msgid "Video Call"
+msgstr "Vídeo chamada"
+
+#: livemgr/controllers/conversations.py:250
+#: livemgr/templates/conversations/show.html:97
+msgid "Remote Desktop"
+msgstr "Desktop remoto"
+
+#: livemgr/controllers/conversations.py:252
+#: livemgr/templates/conversations/show.html:100
+msgid "MSN Activity"
+msgstr "Atividade do MSN"
+
+#: livemgr/controllers/conversations.py:254
+#: livemgr/templates/conversations/show.html:103
+msgid "Custom emoticon"
+msgstr "Emoticons personalizado"
+
+#: livemgr/controllers/conversations.py:256
+#: livemgr/templates/conversations/show.html:106
+msgid "Handwriting"
+msgstr "Manuscrito"
+
+#: livemgr/controllers/conversations.py:258
+#: livemgr/templates/conversations/show.html:109
+msgid "Nudge"
+msgstr "Atenção"
+
+#: livemgr/controllers/conversations.py:260
+#: livemgr/templates/conversations/show.html:112
+msgid "Wink"
+msgstr "Wink"
+
+#: livemgr/controllers/conversations.py:262
+#: livemgr/templates/conversations/show.html:115
+msgid "Voice clip"
+msgstr "Clipe de voz"
+
+#: livemgr/controllers/conversations.py:264
+msgid "MSN Game"
+msgstr "Jogo do MSN"
+
+#: livemgr/controllers/conversations.py:266
+#: livemgr/templates/conversations/show.html:121
+msgid "Photo sharing"
+msgstr "Compartilhamento de foto"
 
 #: livemgr/controllers/groups.py:32 livemgr/models/usergroup.py:20
 msgid "built-in"
@@ -640,7 +694,7 @@ msgstr "Filtra mensagens baseado nos palavrões definidos"
 
 #: livemgr/models/rule.py:41
 msgid "Block MSN Games"
-msgstr "Bloquear jogos MSN"
+msgstr "Bloquear jogos do MSN"
 
 #: livemgr/models/rule.py:42
 msgid "Block photo sharing"
@@ -861,17 +915,17 @@ msgstr[1] "%(total)s mensagens"
 msgid "This message was filtered."
 msgstr "Esta mensagem foi filtrada."
 
-#: livemgr/templates/conversations/show.html:87
-msgid "File transfer: "
-msgstr "Transferência de arquivo: "
-
 #: livemgr/templates/conversations/show.html:89
-msgid "Filename: "
-msgstr "Nome do arquivo: "
+msgid "Filename"
+msgstr "Nome do arquivo"
 
 #: livemgr/templates/conversations/show.html:90
-msgid "Size: "
-msgstr "Tamanho: "
+msgid "Size"
+msgstr "Tamanho"
+
+#: livemgr/templates/conversations/show.html:118
+msgid "MSG Game"
+msgstr "Jogo do MSN"
 
 #: livemgr/templates/conversations/table.html:57
 #: livemgr/templates/generic/table.html:57

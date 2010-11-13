@@ -5,9 +5,11 @@ from django.http import HttpResponseBadRequest, HttpResponse, Http404
 from django.shortcuts import render_to_response
 from django.template import RequestContext
 from django.template.defaultfilters import filesizeformat
+from django.utils.html import escape
 from django.utils.translation import ugettext as _, ugettext_lazy
+from reportlab.lib.enums import TA_JUSTIFY
 from reportlab.lib.pagesizes import A4
-from reportlab.lib.styles import getSampleStyleSheet
+from reportlab.lib.styles import getSampleStyleSheet, ParagraphStyle
 from reportlab.lib.units import cm
 from reportlab.platypus.doctemplate import SimpleDocTemplate
 from reportlab.platypus.flowables import Spacer
@@ -156,17 +158,33 @@ def report_pdf(request, object_id):
 		return HttpResponseBadRequest(_('Conversation not found'))
 	messages[0].clientip = ip_long_to_str(messages[0].clientip)
 
-	# START
+	# PDF generation
 	styles = getSampleStyleSheet()
+	styles.add(ParagraphStyle(name='Header',
+		alignment=TA_JUSTIFY,
+		parent=styles['Normal'],
+		fontName='Times-Roman',
+		fontSize=10,
+		leading=11,
+		firstLineIndent=0,
+		leftIndent=0))
+	styles.add(ParagraphStyle(name='Message',
+		alignment=TA_JUSTIFY,
+		parent=styles['Normal'],
+		fontName='Times-Roman',
+		fontSize=10,
+		leading=11,
+		firstLineIndent=0,
+		leftIndent=0))
 	buffer = StringIO()
 	PAGESIZE = A4
 
 	def renderHeader(canvas, doc):
-		def paraFromHeader(key, value):
-			return Paragraph('<strong>%s</strong>: %s' % (key, value), styles['Normal'])
-		def paraFromHeader2(key1, value1, key2, value2):
+		def headerPara(key, value):
+			return Paragraph('<strong>%s</strong>: %s' % (key, value), styles['Header'])
+		def headerPara2(key1, value1, key2, value2):
 			return Paragraph('<strong>%s</strong>: %s <strong>%s</strong>: %s'
-				% (key1, value1, key2, value2), styles['Normal'])
+				% (key1, value1, key2, value2), styles['Header'])
 #		def renderPageNumber(canvas):
 #			x, y = coord_tr(PAGESIZE, 1.5*cm, 1,5*cm)
 #			canvas.setFont('Helvetica', 10)
@@ -174,11 +192,11 @@ def report_pdf(request, object_id):
 #				_('Page %(this)i of %(total)i') % canvas.getPageNumber(), 0)
 		canvas.saveState()
 		flowables = []
-		flowables.append(paraFromHeader(_('Conversation'), '#%i' % messages[0].conversation_id))
-		flowables.append(paraFromHeader2(_('User'), messages[0].localim, 'IP', messages[0].clientip))
-		flowables.append(paraFromHeader(_('Buddy'), messages[0].remoteim))
-		flowables.append(paraFromHeader(_('Started in'), messages[0].timestamp.strftime(_("%m/%d/%Y - %I:%M:%S %p"))))
-		flowables.append(paraFromHeader(_('Total messages'), '%i' % len(messages)))
+		flowables.append(headerPara(_('Conversation'), '#%i' % messages[0].conversation_id))
+		flowables.append(headerPara2(_('User'), messages[0].localim, 'IP', messages[0].clientip))
+		flowables.append(headerPara(_('Buddy'), messages[0].remoteim))
+		flowables.append(headerPara(_('Started in'), messages[0].timestamp.strftime(_("%m/%d/%Y - %I:%M:%S %p"))))
+		flowables.append(headerPara(_('Total messages'), '%i' % len(messages)))
 		flowables.append(Spacer(0, 0.5 * cm))
 		x, y = coord_tl(PAGESIZE, 1.5 * cm, 1.5 * cm)
 		#renderPageNumber(canvas)
@@ -196,9 +214,8 @@ def report_pdf(request, object_id):
 			self.setSubject('')
 			self.setKeywords('')
 			#self.setEncrypt()
-			self.setFont('Helvetica', 12)
 		def drawPageNumber(self, page_count):
-			self.setFont("Helvetica", 9)
+			self.setFont("Times-Roman", 10)
 			x, y = coord_tr(self._pagesize, 1.5 * cm, 1.5 * cm)
 			self.drawRightString(x, y,
 				_("Page %(this)i of %(total)i") % {
@@ -218,11 +235,13 @@ def report_pdf(request, object_id):
 			return text + '<font color="red"><b>[x]</b></font> '
 		return text
 	def format_msg(msg, colors):
-		return format_prefix(msg, colors) + msg.content
+		return format_prefix(msg, colors) + escape(msg.content)
 	def format_file(msg, colors):
 		parts = msg.content.split(' ')
 		message = '<b>%s</b>: %s (%s)' % (
-			_('File transfer'), ' '.join(parts[1:]), filesizeformat(parts[0])
+			_('File transfer'),
+			escape(' '.join(parts[1:])),
+			filesizeformat(parts[0])
 		)
 		return format_prefix(msg, colors) + message
 	def format_webcam(msg, colors):
@@ -245,7 +264,7 @@ def report_pdf(request, object_id):
 		return format_prefix(msg, colors) + '<b>%s</b>' % _('MSN Game')
 	def format_photo(msg, colors):
 		return format_prefix(msg, colors) + '<b>%s</b>' % _('Photo sharing')
-	def para_from_message(msg, colors):
+	def messagePara(msg, colors):
 		formatters = {
 			#Message.Type.UNKNOWN: format_msg,
 			Message.Type.MSG: format_msg,
@@ -264,15 +283,15 @@ def report_pdf(request, object_id):
 			Message.Type.PHOTO: format_photo,
 		}
 		text = formatters.get(msg.type, lambda x: None)(msg, colors)
-		return Paragraph(text, styles['Normal'])
+		return Paragraph(text, styles['Message'])
 	contents = []
 	colors = color_dict()
-	# force localim and remoteim colors
+	# Force localim and remoteim colors
 	if len(messages) > 0:
 		colors.get(messages[0].localim)
 		colors.get(messages[0].remoteim)
 	for msg in messages:
-		contents.append(para_from_message(msg, colors))
+		contents.append(messagePara(msg, colors))
 
 	doc = SimpleDocTemplate(buffer, pagesize=PAGESIZE,
 		rightMargin=1.5 * cm, leftMargin=1.3 * cm,
