@@ -296,7 +296,7 @@ ul#navigator li a:hover {
 
 .actions-box {
 	border: 1px solid #dfdfdf;
-	height: 21px;
+	height: 20px;
 	padding: 5px;
 	margin-top: 10px;
 	background-color: #dadada;
@@ -307,15 +307,16 @@ ul#navigator li a:hover {
 	-ms-filter: "progid:DXImageTransform.Microsoft.gradient(startColorstr=#ffffffff, endColorstr=#ffdadada)";
 	*/
 }
-.actions-box [type='button'],
-.actions-box [type='submit'] {
+.actions-box .action {
 	width: auto;
 	height: auto;
-	margin-top: 0px;
-	margin-bottom: 0px;
+	margin-right: 2px;
+	display: none;
 }
-.actions-box [type='button'].default,
-.actions-box [type='submit'].default {
+.actions-box .action.submit {
+	display: inline-block;
+}
+.actions-box .action.submit.default {
 	color: #fff;
 	border: 1px solid #5B80B2;
 	background-color: #7f9bca;
@@ -326,25 +327,30 @@ ul#navigator li a:hover {
 	-ms-filter: "progid:DXImageTransform.Microsoft.gradient(startColorstr=#ff7f9bca, endColorstr=#ff5c79aa)";
 	*/
 }
-.actions-box [type='button'].default:hover,
-.actions-box [type='submit'].default:hover {
+.actions-box .action.submit.default:hover {
 	color: #fff;
 	border: 1px solid #5B80B2;
 }
-.actions-box .action {
-	display: none;
+.actions-box .per-page-box {
+	float: right;
+	color: #474747;
+	font-size: 0.95em;
+}
+.actions-box .per-page-box select {
+	width: 50px;
+	height: 22px;
 }
 .actions-box .delete-box {
 	float: right;
 	margin: 0px;
 	height: 100%;
 }
-a.delete:link,
-a.delete:visited {
+.actions-box .delete-box a.delete:link,
+.actions-box .delete-box a.delete:visited {
 	color: #CC3434;
 	vertical-align: middle;
 }
-a.delete:hover {
+.actions-box .delete-box a.delete:hover {
 	color: #993333;
 }
 

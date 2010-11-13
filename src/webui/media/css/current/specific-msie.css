@@ -70,8 +70,7 @@ ul#navigator li a:hover {
 	filter: progid:DXImageTransform.Microsoft.gradient(startColorstr=#ffffffff, endColorstr=#ffdadada);
 	-ms-filter: "progid:DXImageTransform.Microsoft.gradient(startColorstr=#ffffffff, endColorstr=#ffdadada)";
 }
-.actions-box [type='button'].default,
-.actions-box [type='submit'].default {
+.actions-box .action.submit.default {
 	filter: progid:DXImageTransform.Microsoft.gradient(startColorstr=#ff7f9bca, endColorstr=#ff5c79aa);
 	-ms-filter: "progid:DXImageTransform.Microsoft.gradient(startColorstr=#ff7f9bca, endColorstr=#ff5c79aa)";
 }

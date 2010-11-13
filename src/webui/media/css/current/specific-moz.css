@@ -78,8 +78,7 @@ ul#navigator li a:hover {
 .actions-box [type='submit'] {
 	margin-top: -1px;
 }
-.actions-box [type='button'].default,
-.actions-box [type='submit'].default {
+.actions-box .action.submit.default {
 	background: -moz-linear-gradient(top, #7f9bca, #5c79aa);
 }
 

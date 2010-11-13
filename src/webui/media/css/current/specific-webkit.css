@@ -71,8 +71,7 @@ ul#navigator li a:hover {
 .actions-box {
 	background: -webkit-gradient(linear, 0 0%, 0 100%, from(#fff), to(#dadada));
 }
-.actions-box [type='button'].default,
-.actions-box [type='submit'].default {
+.actions-box .action.submit.default {
 	background: -webkit-gradient(linear, 0 0%, 0 100%, from(#7f9bca), to(#5c79aa));
 }
 

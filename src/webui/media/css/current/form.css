@@ -5,6 +5,7 @@ select {
 	border: 1px solid #ccc;
 	color: #474747;
 	height: 18px;
+	margin: 0px;
 	padding: 3px;
 	vertical-align: middle;
 	font-family: 'Lucida Grande', Arial, sans-serif;
