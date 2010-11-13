@@ -7,7 +7,7 @@ def setup_environment():
 	syspath_directory = os.path.join(project_directory, os.pardir)
 	sys.path.insert(0, syspath_directory)
 	os.chdir(project_directory)
-	os.environ['DJANGO_SETTINGS_MODULE'] = 'webui.settings'
+	os.environ['DJANGO_SETTINGS_MODULE'] = 'webui.settings_production'
 
 setup_environment()
 

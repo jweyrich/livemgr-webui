@@ -1,5 +1,4 @@
 # Django settings for webui project.
-from socket import gethostname
 import os
 import stat
 
@@ -9,8 +8,6 @@ gettext_noop = lambda s: s
 
 PROJECT_VERSION = '0.1.0'
 PROJECT_PATH = os.path.realpath(os.path.dirname(__file__))
-#print 'PROJECT_PATH=%s' % PROJECT_PATH
-#VIRTUALENV = "/Users/jweyrich/Desktop/webui/lib/python2.6/site-packages"
 
 PROJECT_KEYSERVER_CERT_FILE = os.path.join(PROJECT_PATH, 'conf', 'certs', 'cert.pem')
 PROJECT_KEYSERVER_HOST = '10.1.1.17'
@@ -31,8 +28,8 @@ ROOT_URLCONF = 'webui.urls'
 # CORE             #
 ####################
 
-DEBUG = True
-TEMPLATE_DEBUG = True
+DEBUG = False
+TEMPLATE_DEBUG = False
 
 # Whether the framework should propagate raw exceptions rather than catching
 # them. This is useful under some testing situations and should never be used
@@ -41,17 +38,14 @@ DEBUG_PROPAGATE_EXCEPTIONS = False
 
 # People who get code error notifications.
 # In the format (('Full Name', 'email@domain.com'), ('Full Name', 'anotheremail@domain.com'))
-ADMINS = (
-# 	('Jardel Weyrich', 'jweyrich@gmail.com'),
-# 	('William Lima', 'wlima@primate.com.br'),
-)
+ADMINS = ()
 
 EMAIL_SUPPORT = 'support@example.com'
 
 # Tuple of IP addresses, as strings, that:
 #   * See debug comments, when DEBUG is true
 #   * Receive x-headers
-INTERNAL_IPS = ('127.0.0.1', '10.1.1.16', '192.168.1.100', '192.168.1.101')
+INTERNAL_IPS = ()
 
 # Local time zone for this installation. All choices can be found here:
 # http://en.wikipedia.org/wiki/List_of_tz_zones_by_name (although not all
@@ -85,7 +79,7 @@ SERVER_EMAIL = 'root@localhost'
 # Whether to send broken-link e-mails.
 SEND_BROKEN_LINK_EMAILS = False
 
-DATABASE_CONFIG_FILE = PROJECT_PATH + '/conf/mysql-%s.conf' % gethostname().split('.')[0]
+DATABASE_CONFIG_FILE = PROJECT_PATH + '/conf/mysql.conf'
 if not os.path.isfile(DATABASE_CONFIG_FILE):
 	raise Exception("Database configuration file for this host does not exist: %s" % DATABASE_CONFIG_FILE)
 
@@ -143,7 +137,6 @@ INSTALLED_APPS = (
 	'django.contrib.admin',
 	'django.contrib.webdesign',
 	'django_tables',
-	'debug_toolbar',
 	'webui.common',
 	'webui.livemgr',
 )
@@ -281,30 +274,3 @@ FILE_UPLOAD_MAX_MEMORY_SIZE = 1024 * 1024 # 1 MB
 FILE_UPLOAD_TEMP_DIR = None # None = '/tmp'
 FILE_UPLOAD_PERMISSIONS = stat.S_IRUSR | stat.S_IWUSR # u+rw
 
-########################
-# DJANGO DEBUG TOOLBAR #
-########################
-
-#DEBUG_TOOLBAR_PANELS = (
-#    'debug_toolbar.panels.version.VersionDebugPanel',
-#    'debug_toolbar.panels.timer.TimerDebugPanel',
-#    'debug_toolbar.panels.settings_vars.SettingsVarsDebugPanel',
-#    'debug_toolbar.panels.headers.HeaderDebugPanel',
-#    'debug_toolbar.panels.request_vars.RequestVarsDebugPanel',
-#    'debug_toolbar.panels.template.TemplateDebugPanel',
-#    'debug_toolbar.panels.sql.SQLDebugPanel',
-#    'debug_toolbar.panels.signals.SignalDebugPanel',
-#    'debug_toolbar.panels.logger.LoggingPanel',
-#)
-
-def show_toolbar(request):
-	user = request.user
-	if hasattr(user, 'get_profile'):
-		return user.get_profile().debug
-	return False
-
-DEBUG_TOOLBAR_CONFIG = {
-    'INTERCEPT_REDIRECTS': False,
-    'SHOW_TOOLBAR_CALLBACK': show_toolbar,
-    'HIDE_DJANGO_SQL': False,
-}
