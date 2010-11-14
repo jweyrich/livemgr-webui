@@ -89,7 +89,7 @@ form .field textarea {
 form .field input[type='checkbox'] {
 	border: none;
 	position: relative;
-	top: 2px; /* FF != Chromium? */
+	top: 2px; /* FF != Chromium */
 	width: auto;
 }
 form .field select {
@@ -138,14 +138,6 @@ form.generic fieldset {
 	padding: 10px;
 	border: solid 1px #ddd;
 }
-form.generic div.datepicker {
-	position: relative;
-	top: 7px;
-}
-form.generic input.datepicker {
-	width: 125px;
-}
-
 /* .selector-filter */
 form.generic .selector-filter {
 	background: white;
@@ -158,8 +150,6 @@ form.generic .selector-filter {
 	text-align: left;
 }
 form.generic .selector-filter input {
-	font-family: 'Lucida Grande', Verdana, Arial, sans-serif;
-	font-size: 11px;
 	font-weight: normal;
 	margin-left: 2px;
 	padding: 2px 3px;

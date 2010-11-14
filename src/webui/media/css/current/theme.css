@@ -2,18 +2,15 @@
 
 /* Common ------------------------------------------------------------------- */
 
-html {
-	/*overflow-y: auto;*/
-	overflow: auto;
-}
-
-html, body, div,
-img, dl, dt, dd, ol, ul, li,
-table, caption, tbody, tfoot, thead, tr, th, td,
-form, fieldset, embed, object, applet {
+* {
 	border: 0;
 	margin: 0;
 	padding: 0;
+}
+
+html {
+	/*overflow-y: auto;*/
+	overflow: auto;
 }
 
 body {
@@ -40,8 +37,6 @@ table {
 	empty-cells: show;
 }
 
-/* Others ------------------------------------------------------------------- */
-
 a {
 	color: #5c79aa;
 	text-decoration: none;
@@ -56,24 +51,6 @@ a:hover {
 	height: 0px;
 	clear: both;
 	visibility: hidden;
-}
-.hcollapse {
-	border-right: 1px solid #d9e7f2;
-	margin-right: 7px;
-	background-image: url('/media/img/container_collapse.jpg');
-	width: 20px;
-	height: 36px;
-	float: left;
-	clear: both;
-}
-.hide {
-	border-left: 1px solid #d9e7f2;
-	margin-left: 7px;
-	background-image: url('/media/img/container_collapse.jpg');
-	width: 20px;
-	height: 36px;
-	float: right;
-	clear: both;
 }
 .spinner {
 	display: none;
