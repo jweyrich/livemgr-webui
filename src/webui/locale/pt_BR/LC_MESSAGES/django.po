@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2010-11-13 07:44+0000\n"
+"POT-Creation-Date: 2010-11-16 06:04+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -166,28 +166,28 @@ msgstr "Conversa não encontrada"
 
 #: livemgr/controllers/conversations.py:195
 #: livemgr/templates/conversations/show.html:5
-#: livemgr/templates/conversations/show.html:39
+#: livemgr/templates/conversations/show.html:41
 msgid "Conversation"
 msgstr "Conversa"
 
 #: livemgr/controllers/conversations.py:196
-#: livemgr/templates/conversations/show.html:40
+#: livemgr/templates/conversations/show.html:42
 #: livemgr/templates/dashboard/index.html:254
 msgid "User"
 msgstr "Usuário"
 
 #: livemgr/controllers/conversations.py:197
-#: livemgr/templates/conversations/show.html:42
+#: livemgr/templates/conversations/show.html:44
 msgid "Buddy"
 msgstr "Contato"
 
 #: livemgr/controllers/conversations.py:198
-#: livemgr/templates/conversations/show.html:43
+#: livemgr/templates/conversations/show.html:45
 msgid "Started in"
 msgstr "Inciciada em"
 
 #: livemgr/controllers/conversations.py:199
-#: livemgr/templates/conversations/show.html:44
+#: livemgr/templates/conversations/show.html:46
 msgid "Total messages"
 msgstr "Total de mensagens"
 
@@ -201,47 +201,47 @@ msgid "%m/%d/%Y %I:%M:%S %p"
 msgstr "%d/%m/%Y %I:%M:%S %p"
 
 #: livemgr/controllers/conversations.py:242
-#: livemgr/templates/conversations/show.html:87
+#: livemgr/templates/conversations/show.html:89
 msgid "File transfer"
 msgstr "Transferência de arquivo"
 
 #: livemgr/controllers/conversations.py:248
-#: livemgr/templates/conversations/show.html:94
+#: livemgr/templates/conversations/show.html:96
 msgid "Video Call"
 msgstr "Vídeo chamada"
 
 #: livemgr/controllers/conversations.py:250
-#: livemgr/templates/conversations/show.html:97
+#: livemgr/templates/conversations/show.html:99
 msgid "Remote Desktop"
 msgstr "Desktop remoto"
 
 #: livemgr/controllers/conversations.py:252
-#: livemgr/templates/conversations/show.html:100
+#: livemgr/templates/conversations/show.html:102
 msgid "MSN Activity"
 msgstr "Atividade do MSN"
 
 #: livemgr/controllers/conversations.py:254
-#: livemgr/templates/conversations/show.html:103
+#: livemgr/templates/conversations/show.html:105
 msgid "Custom emoticon"
 msgstr "Emoticons personalizado"
 
 #: livemgr/controllers/conversations.py:256
-#: livemgr/templates/conversations/show.html:106
+#: livemgr/templates/conversations/show.html:108
 msgid "Handwriting"
 msgstr "Manuscrito"
 
 #: livemgr/controllers/conversations.py:258
-#: livemgr/templates/conversations/show.html:109
+#: livemgr/templates/conversations/show.html:111
 msgid "Nudge"
 msgstr "Atenção"
 
 #: livemgr/controllers/conversations.py:260
-#: livemgr/templates/conversations/show.html:112
+#: livemgr/templates/conversations/show.html:114
 msgid "Wink"
 msgstr "Wink"
 
 #: livemgr/controllers/conversations.py:262
-#: livemgr/templates/conversations/show.html:115
+#: livemgr/templates/conversations/show.html:117
 msgid "Voice clip"
 msgstr "Clipe de voz"
 
@@ -250,7 +250,7 @@ msgid "MSN Game"
 msgstr "Jogo do MSN"
 
 #: livemgr/controllers/conversations.py:266
-#: livemgr/templates/conversations/show.html:121
+#: livemgr/templates/conversations/show.html:123
 msgid "Photo sharing"
 msgstr "Compartilhamento de foto"
 
@@ -888,42 +888,42 @@ msgstr "Lista de Conversas"
 msgid "Search for messages"
 msgstr "Procura por mensagens"
 
-#: livemgr/templates/conversations/show.html:45
+#: livemgr/templates/conversations/show.html:47
 msgid "Export as"
 msgstr "Exportar como"
 
-#: livemgr/templates/conversations/show.html:52
+#: livemgr/templates/conversations/show.html:54
 msgid "Time"
 msgstr "Horário"
 
-#: livemgr/templates/conversations/show.html:53
+#: livemgr/templates/conversations/show.html:55
 msgid "Author"
 msgstr "Autor"
 
-#: livemgr/templates/conversations/show.html:54
+#: livemgr/templates/conversations/show.html:56
 msgid "Message"
 msgstr "Mensagem"
 
-#: livemgr/templates/conversations/show.html:62
+#: livemgr/templates/conversations/show.html:64
 #, python-format
 msgid "%(total)s message"
 msgid_plural "%(total)s messages"
 msgstr[0] "%(total)s mensagem"
 msgstr[1] "%(total)s mensagens"
 
-#: livemgr/templates/conversations/show.html:80
+#: livemgr/templates/conversations/show.html:82
 msgid "This message was filtered."
 msgstr "Esta mensagem foi filtrada."
 
-#: livemgr/templates/conversations/show.html:89
+#: livemgr/templates/conversations/show.html:91
 msgid "Filename"
 msgstr "Nome do arquivo"
 
-#: livemgr/templates/conversations/show.html:90
+#: livemgr/templates/conversations/show.html:92
 msgid "Size"
 msgstr "Tamanho"
 
-#: livemgr/templates/conversations/show.html:118
+#: livemgr/templates/conversations/show.html:120
 msgid "MSG Game"
 msgstr "Jogo do MSN"
 

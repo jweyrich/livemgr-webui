@@ -39,8 +39,8 @@ form.generic .titlebar.widget.right {
 }
 
 /* list.css */
-table.list thead,
-table.list tfoot {
+table.list thead tr th,
+table.list tfoot tr td {
 	filter: progid:DXImageTransform.Microsoft.gradient(startColorstr=#ffffffff, endColorstr=#ffdadada);
 	-ms-filter: "progid:DXImageTransform.Microsoft.gradient(startColorstr=#ffffffff, endColorstr=#ffdadada)";
 }

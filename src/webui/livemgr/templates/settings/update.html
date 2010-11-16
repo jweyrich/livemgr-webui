@@ -26,7 +26,7 @@
 		<div class="titlebar">
 			<span>{% trans "Protocol Versions" %}</span>
 		</div>
-		<fieldset>
+		<fieldset class="entitled">
 			<div class="field">
 				{{ form.min_protocol_version.label_tag }}
 				{{ form.min_protocol_version }}
@@ -45,7 +45,7 @@
 		<div class="titlebar">
 			<span>{% trans "Users" %}</span>
 		</div>
-		<fieldset>
+		<fieldset class="entitled">
 			<div class="field">
 				{{ form.allow_self_reg.label_tag }}
 				{{ form.allow_self_reg }}
@@ -57,7 +57,7 @@
 		<div class="titlebar">
 			<span>{% trans "Notifications" %}</span>
 		</div>
-		<fieldset>
+		<fieldset class="entitled">
 			<div class="field">
 				{{ form.filtered_msg.label_tag }}
 				{{ form.filtered_msg }}

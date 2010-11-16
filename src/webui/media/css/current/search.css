@@ -35,7 +35,7 @@
 	padding-right: 28px;
 	vertical-align: top;
 }
-#search .button {
+#search .magnifier-button {
 	position: relative;
 	cursor: pointer;
 	right: 28px;
@@ -106,4 +106,7 @@
 }
 #search_adv .field input.datepicker {
 	width: 125px;
+}
+#search_adv input.button {
+	height: auto;
 }
