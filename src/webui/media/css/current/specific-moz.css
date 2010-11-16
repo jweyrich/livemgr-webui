@@ -15,11 +15,6 @@
 }
 
 /* form.css */
-input[type='button'],
-input[type='submit'] {
-	background: -moz-linear-gradient(top, #F9F9F9, #E3E3E3);
-	margin-right: 2px;
-}
 form.generic .titlebar {
 	background: -moz-linear-gradient(top, #fff, #dadada);
 }
@@ -37,7 +32,7 @@ table.list tfoot {
 .login form input {
 	-moz-border-radius: 4px 4px 4px 4px;
 }
-.login form input[type='submit'] {
+.login .button {
 	background: -moz-linear-gradient(top, #F9F9F9, #E3E3E3);
 }
 
@@ -47,6 +42,9 @@ table.list tfoot {
 }
 
 /* pagination.css */
+ul.pagination {
+	margin-top: 1px;
+}
 ul.pagination li a {
 	background: -moz-linear-gradient(top, #F9F9F9, #E3E3E3);
 }
@@ -67,19 +65,24 @@ ul.pagination .next-off {
 ul#navigator li.selected a {
 	background: -moz-linear-gradient(top, #7f9bca, #5c79aa);
 }
+ul#navigator li:focus,
 ul#navigator li:hover,
+ul#navigator li a:focus,
 ul#navigator li a:hover {
 	background: -moz-linear-gradient(top, #7f9bca, #5c79aa);
 }
-.actions-box {
+.button {
+	background: -moz-linear-gradient(top, #F9F9F9, #E3E3E3);
+}
+.actions-box,
+.submit-box {
 	background: -moz-linear-gradient(top, #fff, #dadada);
 }
-.actions-box [type='button'],
-.actions-box [type='submit'] {
-	margin-top: -1px;
-}
-.actions-box .action.submit.default {
+.submit-box .submit.default {
 	background: -moz-linear-gradient(top, #7f9bca, #5c79aa);
+}
+.submit-box .delete-box {
+	margin-top: 3px;
 }
 
 /* tooltip.css */

@@ -32,7 +32,7 @@ $(document).ready(function() {
 		Selection.showActions('.delete');
 		Selection.bindListRowClick({url:'{% url webui:groups-index %}{0}'});
 		Selection.bindActionClickConfirm({
-			selector: '.delete',
+			selector: '.actions-box .delete',
 			url: '{% url webui:groups-delete-many %}',
 			onShow: delete_show});
 	}

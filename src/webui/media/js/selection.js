@@ -89,7 +89,7 @@ var Selection = {
 				args.caller.disabled = false;
 			}
 		};
-		$('.actions-box '+args.selector).click(function() {
+		$(args.selector).click(function() {
 			if (typeof(args.onShow) == 'function') {
 				args.caller = this;
 				this.disabled = true;

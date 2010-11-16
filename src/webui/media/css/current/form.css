@@ -28,34 +28,6 @@ input[type='file'] {
 input[type='file'] {
 	height: 22px;
 }
-input[type='button'],
-input[type='submit'] {
-	width: auto;
-	overflow: visible;
-	padding: 3px 6px;
-	background-color: #E3E3E3;
-	/* -specific-
-	background: -webkit-gradient(linear, 0 40%, 0 70%, from(#F9F9F9), to(#E3E3E3));
-	background: -moz-linear-gradient(top, #F9F9F9, #E3E3E3);
-	filter: progid:DXImageTransform.Microsoft.gradient(startColorstr=#FFF9F9F9, endColorstr=#FFE3E3E3);
-	-ms-filter: "progid:DXImageTransform.Microsoft.gradient(startColorstr=#FFF9F9F9, endColorstr=#FFE3E3E3)";
-	margin-right: 2px;
-	*/
-	border: 1px solid #BBB;
-	height: 25px;
-	font-weight: bold;
-	color: #888;
-	cursor: pointer;
-}
-input[type='button']:not([disabled]):hover,
-input[type='submit']:not([disabled]):hover {
-	border-color: #999;
-	color: #888;
-}
-input[type='submit']:not([disabled]).default:hover {
-	color: #fff;
-	border: 1px solid #486285;
-}
 label.inline {
 	display: block;
 	left: 0;

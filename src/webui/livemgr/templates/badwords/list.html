@@ -37,7 +37,7 @@ $(document).ready(function() {
 			selector: '.enable',
 			url:'{% url webui:badwords-enable-many %}'});
 		Selection.bindActionClickConfirm({
-			selector: '.delete',
+			selector: '.actions-box .delete',
 			url: '{% url webui:badwords-delete-many %}',
 			onShow: delete_show});
 	}

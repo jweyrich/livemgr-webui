@@ -34,7 +34,7 @@ $(document).ready(function() {
 		Selection.showActions('.delete');
 		Selection.bindListRowClick({url:'{% url webui:acls-index %}{0}'});
 		Selection.bindActionClickConfirm({
-			selector: '.delete',
+			selector: '.actions-box .delete',
 			url: '{% url webui:acls-delete-many %}',
 			onShow: delete_show});
 	}

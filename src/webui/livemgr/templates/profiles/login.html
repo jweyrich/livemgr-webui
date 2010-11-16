@@ -37,7 +37,7 @@ $(document).ready(function() {
 					{{ form.password }}
 				</p>
 				<p class="remember">
-					<input type="submit" value="{% trans "login" %}"/>
+					<input type="submit" class="button" value="{% trans "login" %}"/>
 					<input type="hidden" name="next" value="{% if next %}{{ next }}{% else %}{% url webui:index %}{% endif %}" />
 					<!--
 					<input type="checkbox" id="remember" name="remember_me" value="1">

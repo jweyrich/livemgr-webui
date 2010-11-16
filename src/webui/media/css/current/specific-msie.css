@@ -1,10 +1,6 @@
 select {
 	padding-top: -2px;
 }
-.actions-box [type='button'],
-.actions-box [type='submit'] {
-	margin-right: 2px;
-}
 input[type='submit'] {
 	padding: 3px 6px;
 	height: 24px;
@@ -17,12 +13,6 @@ input[type='submit'] {
 }
 
 /* form.css */
-input[type='button'],
-input[type='submit'] {
-	filter: progid:DXImageTransform.Microsoft.gradient(startColorstr=#FFF9F9F9, endColorstr=#FFE3E3E3);
-	-ms-filter: "progid:DXImageTransform.Microsoft.gradient(startColorstr=#FFF9F9F9, endColorstr=#FFE3E3E3)";
-	margin-right: 0px;
-}
 form.generic .titlebar {
 	filter: progid:DXImageTransform.Microsoft.gradient(startColorstr=#ffffffff, endColorstr=#ffdadada);
 	-ms-filter: "progid:DXImageTransform.Microsoft.gradient(startColorstr=#ffffffff, endColorstr=#ffdadada)";
@@ -33,7 +23,7 @@ form.generic .titlebar.widget.right {
 }
 
 /* login.css */
-.login form input[type='submit'] {
+.login .button {
 	filter: progid:DXImageTransform.Microsoft.gradient(startColorstr=#FFF9F9F9, endColorstr=#FFE3E3E3);
 	-ms-filter: "progid:DXImageTransform.Microsoft.gradient(startColorstr=#FFF9F9F9, endColorstr=#FFE3E3E3)";
 }
@@ -61,16 +51,26 @@ ul#navigator li.selected a {
 	filter: progid:DXImageTransform.Microsoft.gradient(startColorstr=#ff7f9bca, endColorstr=#ff5c79aa);
 	-ms-filter: "progid:DXImageTransform.Microsoft.gradient(startColorstr=#ff7f9bca, endColorstr=#ff5c79aa)";
 }
+ul#navigator li:focus,
 ul#navigator li:hover,
+ul#navigator li a:focus,
 ul#navigator li a:hover {
 	filter: progid:DXImageTransform.Microsoft.gradient(startColorstr=#ff7f9bca, endColorstr=#ff5c79aa);
 	-ms-filter: "progid:DXImageTransform.Microsoft.gradient(startColorstr=#ff7f9bca, endColorstr=#ff5c79aa)";
 }
-.actions-box {
+.button {
+	filter: progid:DXImageTransform.Microsoft.gradient(startColorstr=#FFF9F9F9, endColorstr=#FFE3E3E3);
+	-ms-filter: "progid:DXImageTransform.Microsoft.gradient(startColorstr=#FFF9F9F9, endColorstr=#FFE3E3E3)";
+}
+.actions-box,
+.submit-box {
 	filter: progid:DXImageTransform.Microsoft.gradient(startColorstr=#ffffffff, endColorstr=#ffdadada);
 	-ms-filter: "progid:DXImageTransform.Microsoft.gradient(startColorstr=#ffffffff, endColorstr=#ffdadada)";
 }
-.actions-box .action.submit.default {
+.submit-box .submit.default {
 	filter: progid:DXImageTransform.Microsoft.gradient(startColorstr=#ff7f9bca, endColorstr=#ff5c79aa);
 	-ms-filter: "progid:DXImageTransform.Microsoft.gradient(startColorstr=#ff7f9bca, endColorstr=#ff5c79aa)";
+}
+.submit-box .delete-box {
+	margin-top: 2px;
 }

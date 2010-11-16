@@ -15,7 +15,7 @@
 		@import url("{{MEDIA_URL}}css/current/specific-webkit.css");
 	{% else %}{% if "Gecko" in request.META.HTTP_USER_AGENT %}
 		@import url("{{MEDIA_URL}}css/current/specific-moz.css");
-	{% endif %}{% endif %}{% endif %}			
+	{% endif %}{% endif %}{% endif %}
 {% else %}
 	@import url("{{MEDIA_URL}}css/all.min.css");
 	{% if "MSIE" in request.META.HTTP_USER_AGENT %}

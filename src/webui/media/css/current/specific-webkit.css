@@ -12,11 +12,6 @@
 }
 
 /* form.css */
-input[type='button'],
-input[type='submit'] {
-	background: -webkit-gradient(linear, 0 40%, 0 70%, from(#F9F9F9), to(#E3E3E3));
-	margin-right: 0px;
-}
 form.generic .titlebar {
 	background: -webkit-gradient(linear, 0 0%, 0 100%, from(#fff), to(#dadada));
 }
@@ -28,7 +23,7 @@ form.generic .titlebar.widget.right {
 .login form input {
 	-webkit-border-radius: 4px 4px 4px 4px;
 }
-.login form input[type='submit'] {
+.login .button {
 	background: -webkit-gradient(linear, 0 40%, 0 70%, from(#F9F9F9), to(#E3E3E3));
 }
 
@@ -64,15 +59,24 @@ ul.pagination .next-off {
 ul#navigator li.selected a {
 	background: -webkit-gradient(linear, 0 0%, 0 100%, from(#7f9bca), to(#5c79aa));
 }
+ul#navigator li:focus,
 ul#navigator li:hover,
+ul#navigator li a:focus,
 ul#navigator li a:hover {
 	background: -webkit-gradient(linear, 0 0%, 0 100%, from(#7f9bca), to(#5c79aa));
 }
-.actions-box {
+.button {
+	background: -webkit-gradient(linear, 0 40%, 0 70%, from(#F9F9F9), to(#E3E3E3));
+}
+.actions-box,
+.submit-box {
 	background: -webkit-gradient(linear, 0 0%, 0 100%, from(#fff), to(#dadada));
 }
-.actions-box .action.submit.default {
+.submit-box .submit.default {
 	background: -webkit-gradient(linear, 0 0%, 0 100%, from(#7f9bca), to(#5c79aa));
+}
+.submit-box .delete-box {
+	margin-top: 1px;
 }
 
 /* tooltip.css */

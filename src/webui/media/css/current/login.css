@@ -4,6 +4,9 @@
 	font-size: 12px;
 	background-color: #fff;
 }
+.login .flash.error {
+	margin-bottom: 0px;
+}
 .login .body-outer-container {
 	position: absolute;
 	width: 100%;
@@ -19,8 +22,10 @@
 .login form fieldset {
 	width: 230px;
 	border: 1px solid #ccc;
-	padding-left: 20px;
-	padding-right: 20px;
+	padding: 20px 20px 20px 20px;
+}
+.login form .textbox {
+	margin-bottom: 10px;
 }
 .login form label {
 	display: block;
@@ -29,7 +34,7 @@
 	color: #666;
 }
 .login form input {
-	border: 1px solid #DDD;
+	border: 1px solid #ddd;
 	/* -specific-
 	-webkit-border-radius: 4px 4px 4px 4px;
 	-moz-border-radius: 4px 4px 4px 4px;
@@ -37,12 +42,15 @@
 	border-radius: 4px 4px 4px 4px;
 	display: block;
 	font: normal normal normal 13px/normal 'Lucida Grande', Arial, sans-serif;
-	padding: 5px;
 	width: 218px;
-	outline: none;
 }
-.login form input[type='submit'] {
+.login form input[type='text'],
+.login form input[type='password'] {
+	padding: 5px;
+}
+.login .button {
 	width: 70px;
+	height: auto;
 	/* -specific-
 	background: -webkit-gradient(linear, 0 40%, 0 70%, from(#F9F9F9), to(#E3E3E3));
 	background: -moz-linear-gradient(top, #F9F9F9, #E3E3E3);
@@ -50,7 +58,7 @@
 	-ms-filter: "progid:DXImageTransform.Microsoft.gradient(startColorstr=#FFF9F9F9, endColorstr=#FFE3E3E3)";
 	*/
 }
-.login form input[type='submit']:hover {
+.login .button:focus,
+.login .button:hover {
 	border-color: #999;
-	color: #888;
 }

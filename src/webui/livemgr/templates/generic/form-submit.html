@@ -1,8 +1,8 @@
 {% load i18n %}
-<div class="actions-box">
-	<input type="submit" class="action submit default" value="{% trans "Save" %}" name="_save_list" />
-	<input type="submit" class="action submit" value="{% trans "Save and continue editing" %}" name="_save_edit" />
-	<input type="submit" class="action submit" value="{% trans "Save and add another" %}" name="_save_add" />
+<div class="submit-box">
+	<input type="submit" class="button submit default" value="{% trans "Save" %}" name="_save_list" />
+	<input type="submit" class="button submit" value="{% trans "Save and continue editing" %}" name="_save_edit" />
+	<input type="submit" class="button submit" value="{% trans "Save and add another" %}" name="_save_add" />
 	{% if delete %}
 	<div class="delete-box">
 		<a href="#" class="delete">
