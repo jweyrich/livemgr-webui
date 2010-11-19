@@ -1,5 +1,5 @@
 /*
- * This an adaptation of Django's SelectBox (/media/admin/js/SelectBox.js)
+ * This is an adaptation of Django's SelectBox (/media/admin/js/SelectBox.js)
  * to support the title attribute.
  */
 var SelectBox = {

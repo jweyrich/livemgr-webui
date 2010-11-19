@@ -4,25 +4,26 @@
 
 CSS_SOURCES = \
 	jquery-ui-1.8.6.custom/css/cupertino/jquery-ui-1.8.6.custom.css \
-	css/current/theme.css \
-	css/current/form.css \
-	css/current/search.css \
-	css/current/list.css \
-	css/current/pagination.css \
-	css/current/dashboard.css \
-	css/current/login.css \
-	css/current/tooltip.css \
-	css/current/modal.css
+	css/theme.css \
+	css/form.css \
+	css/search.css \
+	css/list.css \
+	css/pagination.css \
+	css/dashboard.css \
+	css/login.css \
+	css/tooltip.css \
+	css/modal.css
 
 CSS_SOURCES_EXTRA = \
-	css/current/specific-moz.css \
-	css/current/specific-msie.css \
-	css/current/specific-webkit.css
+	css/specific-moz.css \
+	css/specific-msie.css \
+	css/specific-webkit.css
 
 JS_SOURCES = \
+	js/lib/jquery.simplemodal-1.4.1.js \
+	js/lib/string.format.js \
+	js/lib/date.format.js \
 	js/i18n.js \
-	js/string.format.js \
-	js/date.format.js \
 	js/calendar.js \
 	js/form.js \
 	js/search.js \
@@ -35,8 +36,7 @@ JS_SOURCES_EXTRA =
 
 JS_MINIFIED_DEPS = \
 	jquery-ui-1.8.6.custom/js/jquery-ui-1.8.6.custom.min.js \
-	js/jquery.simplemodal-1.4.1.min.js \
-	js/jquery.tools.min.js
+	js/lib/jquery.tools.min.js
 
 CSS_TARGET = css/all.min.css
 JS_TARGET = js/all.min.js

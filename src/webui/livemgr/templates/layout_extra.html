@@ -11,9 +11,9 @@
 	{# jQuery UI #}
 	<script type="text/javascript" src="{{MEDIA_URL}}jquery-ui-1.8.6.custom/js/jquery-ui-1.8.6.custom.min.js"></script>
 	{# jQuery SimpleModal #}
-	<script type="text/javascript" src="{{MEDIA_URL}}js/jquery.simplemodal-1.4.1.min.js"></script>
+	<script type="text/javascript" src="{{MEDIA_URL}}js/lib/jquery.simplemodal-1.4.1.min.js"></script>
 	{# jQuery Tools (Tooltip only) #}
-	<script type="text/javascript" src="{{MEDIA_URL}}js/jquery.tools.min.js"></script>
+	<script type="text/javascript" src="{{MEDIA_URL}}js/lib/jquery.tools.min.js"></script>
 {% endif %}
 
 {# JavaScript Localization #}
@@ -25,9 +25,9 @@
 
 {% if debug %}
 	{# Others #}
+	<script type="text/javascript" src="{{MEDIA_URL}}js/lib/string.format.js"></script>
+	<script type="text/javascript" src="{{MEDIA_URL}}js/lib/date.format.js"></script>
 	<script type="text/javascript" src="{{MEDIA_URL}}js/i18n.js"></script>
-	<script type="text/javascript" src="{{MEDIA_URL}}js/string.format.js"></script>
-	<script type="text/javascript" src="{{MEDIA_URL}}js/date.format.js"></script>
 	<script type="text/javascript" src="{{MEDIA_URL}}js/calendar.js"></script>
 	<script type="text/javascript" src="{{MEDIA_URL}}js/form.js"></script>
 	<script type="text/javascript" src="{{MEDIA_URL}}js/search.js"></script>
