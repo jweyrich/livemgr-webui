@@ -152,7 +152,7 @@ def update(request):
 def set_language_local(request, response, lang_code):
 	if lang_code and check_for_language(lang_code):
 		if hasattr(request, 'session'):
-			request.session['django_language'] = lang_code
+			request.session[settings.LANGUAGE_COOKIE_NAME] = lang_code
 		else:
 			response.set_cookie(settings.LANGUAGE_COOKIE_NAME, lang_code)
 	return response
@@ -162,3 +162,9 @@ def login(request, *args, **kwargs):
 	if hasattr(request.user, 'get_profile'):
 		set_language_local(request, response, request.user.get_profile().language)
 	return response
+
+def no_cookie(request, *args, **kwargs):
+	context_instance = RequestContext(request)
+	template_name = 'profiles/no_cookie.html'
+	extra_context = {}
+	return render_to_response(template_name, extra_context, context_instance)

@@ -259,7 +259,8 @@ PASSWORD_RESET_TIMEOUT_DAYS = 3
 
 # Dotted path to callable to be used as view when a request is
 # rejected by the CSRF middleware.
-CSRF_FAILURE_VIEW = 'django.views.csrf.csrf_failure'
+#CSRF_FAILURE_VIEW = 'django.views.csrf.csrf_failure'
+CSRF_FAILURE_VIEW = 'webui.livemgr.controllers.profiles.no_cookie'
 
 # Name and domain for CSRF cookie.
 CSRF_COOKIE_NAME = 'csrftoken'
