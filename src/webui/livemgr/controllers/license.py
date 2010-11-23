@@ -66,7 +66,7 @@ def fetch_license_details(cert_path):
 				settings.PROJECT_KEYSERVER_PORT,
 				timeout=settings.PROJECT_KEYSERVER_TIMEOUT)
 		params = urllib.urlencode({'version': '1.0'})
-		conn.request("POST", settings.PROJECT_KEYSERVER_URI, params)
+		conn.request("POST", '/details', params)
 		response = conn.getresponse()
 		data = response.read()
 		conn.close()

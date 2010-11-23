@@ -6,7 +6,6 @@ import stat
 # django.utils.translation -- that module depends on the settings.
 gettext_noop = lambda s: s
 
-PROJECT_VERSION = '0.1.0'
 PROJECT_PATH = os.path.realpath(os.path.dirname(__file__))
 
 PROJECT_KEYSERVER_CERT_FILE = os.path.join(PROJECT_PATH, 'conf', 'certs', 'cert.pem')
@@ -18,10 +17,8 @@ PROJECT_KEYSERVER_SSL = True
 #PROJECT_KEYSERVER_PORT = 8081
 #PROJECT_KEYSERVER_SSL = False
 PROJECT_KEYSERVER_TIMEOUT = 5 # Seconds
-PROJECT_KEYSERVER_URI = '/details'
 
 # DONT CHANGE THESE
-SITE_ID = 1
 ROOT_URLCONF = 'webui.urls'
 
 ####################
@@ -132,7 +129,6 @@ INSTALLED_APPS = (
 	'django.contrib.auth',
 	'django.contrib.contenttypes',
 	'django.contrib.sessions',
-	'django.contrib.sites',
 	'django.contrib.messages',
 	'django.contrib.admin',
 	'django.contrib.webdesign',
