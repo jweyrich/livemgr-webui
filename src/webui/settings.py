@@ -11,15 +11,11 @@ PROJECT_PATH = os.path.realpath(os.path.dirname(__file__))
 #print 'PROJECT_PATH=%s' % PROJECT_PATH
 #VIRTUALENV = "/Users/jweyrich/Desktop/webui/lib/python2.6/site-packages"
 
-PROJECT_KEYSERVER_CERT_FILE = os.path.join(PROJECT_PATH, 'conf', 'certs', 'cert.pem')
-PROJECT_KEYSERVER_HOST = '10.1.1.17'
-#PROJECT_KEYSERVER_HOST = '192.168.1.150'
-PROJECT_KEYSERVER_PORT = 443 # httplib.HTTPS_PORT
-PROJECT_KEYSERVER_SSL = True
-#PROJECT_KEYSERVER_HOST = '127.0.0.1'
-#PROJECT_KEYSERVER_PORT = 8081
-#PROJECT_KEYSERVER_SSL = False
-PROJECT_KEYSERVER_TIMEOUT = 5 # Seconds
+LICENSE_FILE = os.path.join(PROJECT_PATH, 'conf', 'certs', 'cert.pem')
+KEYSERVER_HOST = '10.1.1.17'
+KEYSERVER_PORT = 443 # httplib.HTTPS_PORT
+KEYSERVER_USE_SSL = True
+KEYSERVER_TIMEOUT = 5 # Seconds
 
 # DONT CHANGE THESE
 ROOT_URLCONF = 'webui.urls'

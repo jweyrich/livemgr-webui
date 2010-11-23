@@ -54,17 +54,17 @@ def save_uploaded_license(path, uploaded_file):
 
 def fetch_license_details(cert_path):
 	try:
-		if settings.PROJECT_KEYSERVER_SSL:
+		if settings.KEYSERVER_USE_SSL:
 			conn = httplib.HTTPSConnection(
-				settings.PROJECT_KEYSERVER_HOST,
-				settings.PROJECT_KEYSERVER_PORT,
+				settings.KEYSERVER_HOST,
+				settings.KEYSERVER_PORT,
 				cert_path, cert_path,
-				timeout=settings.PROJECT_KEYSERVER_TIMEOUT)
+				timeout=settings.KEYSERVER_TIMEOUT)
 		else:
 			conn = httplib.HTTPConnection(
-				settings.PROJECT_KEYSERVER_HOST,
-				settings.PROJECT_KEYSERVER_PORT,
-				timeout=settings.PROJECT_KEYSERVER_TIMEOUT)
+				settings.KEYSERVER_HOST,
+				settings.KEYSERVER_PORT,
+				timeout=settings.KEYSERVER_TIMEOUT)
 		params = urllib.urlencode({'version': '1.0'})
 		conn.request("POST", '/details', params)
 		response = conn.getresponse()
@@ -93,7 +93,7 @@ def fetch_license_details(cert_path):
 def index(request):
 	license = None
 	try:
-		cert_path = settings.PROJECT_KEYSERVER_CERT_FILE
+		cert_path = settings.LICENSE_FILE
 		# Get details from KeyServer
 		license_details = fetch_license_details(cert_path)
 		now = datetime.now(UTC)
@@ -141,7 +141,7 @@ def edit(request):
 				flash_form_error(request, form)
 				break
 			uploaded_file = form.cleaned_data['file']
-			cert_path = settings.PROJECT_KEYSERVER_CERT_FILE
+			cert_path = settings.LICENSE_FILE
 			# Save certificate file
 			if not save_uploaded_license(cert_path, uploaded_file):
 				flash_error(request, _('Unable to save the uploaded file. '
