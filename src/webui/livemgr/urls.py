@@ -46,7 +46,6 @@ urlpatterns = patterns('webui.livemgr.controllers',
 	url(r'^settings/$', settings.update, name='settings-update'),
 	# License
 	url(r'^license/$', license.index, name='license-index'),
-	url(r'^license/edit/$', license.edit, name='license-edit'),
 	# Profiles
 	url(r'^login/$', profiles.login,
 		{'template_name': 'profiles/login.html'},

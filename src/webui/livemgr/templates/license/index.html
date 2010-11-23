@@ -21,16 +21,6 @@
 </style>
 {% endblock %}
 
-{% block scripts %}
-<script type="text/javascript">
-$(document).ready(function() {
-	$('#id_change').click(function() {
-		window.location = '{% url webui:license-edit %}';
-	});
-});
-</script>
-{% endblock %}
-
 {% block content %}
 <div id="license">
 	<h2>{% trans "License" %}</h2>
@@ -64,9 +54,6 @@ $(document).ready(function() {
 				</p>
 			</div>
 		</fieldset>
-		<div class="submit-box">
-			<input id="id_change" type="button" class="button submit default" value="{% trans "Change" %}" />
-		</div>
 	</form>
 </div>
 {% endblock %}

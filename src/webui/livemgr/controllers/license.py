@@ -4,15 +4,12 @@ from M2Crypto.X509 import X509Error
 from datetime import datetime
 from django import forms
 from django.contrib.auth.decorators import login_required, permission_required
-from django.core.urlresolvers import reverse
-from django.http import HttpResponseRedirect
 from django.shortcuts import render_to_response
 from django.template.context import RequestContext
 from django.utils.translation import ugettext as _, ugettext_lazy
 from webui import settings
-from webui.common.decorators.rest import rest_multiple, rest_get
-from webui.common.http import method
-from webui.common.utils import flash_success, flash_form_error, flash_error
+from webui.common.decorators.rest import rest_get
+from webui.common.utils import flash_error
 import errno
 import httplib
 import json
@@ -111,13 +108,9 @@ def index(request):
 			status = _('Valid') if now >= valid_since \
 				and now <= valid_until else _('Expired')
 		license = LicensePresenter()
-	except (ValueError, X509Error):
+	except (InvalidLicense, ValueError, X509Error):
 		print "Exception:", sys.exc_info()[0]
 		flash_error(request, _('Please, inform a valid license.'))
-		return HttpResponseRedirect(reverse('webui:license-edit'))
-	except InvalidLicense:
-		flash_error(request, _('Please, inform a valid license.'))
-		return HttpResponseRedirect(reverse('webui:license-edit'))
 	except ConnectionProblem:
 		flash_error(request, _('Connection problem. Try again in few minutes.'))
 	context_instance = RequestContext(request)
@@ -125,50 +118,5 @@ def index(request):
 	extra_context = {
 		'menu': 'license',
 		'license': license,
-	}
-	return render_to_response(template_name, extra_context, context_instance)
-
-@rest_multiple([method.GET, method.POST])
-@login_required
-@permission_required('livemgr.change_license')
-def edit(request):
-	if request.method == method.GET:
-		form = LicenseFileForm()
-	elif request.method == method.POST:
-		form = LicenseFileForm(request.POST, request.FILES)
-		while True: # Shame on me :-)
-			if not form.is_valid():
-				flash_form_error(request, form)
-				break
-			uploaded_file = form.cleaned_data['file']
-			cert_path = settings.LICENSE_FILE
-			# Save certificate file
-			if not save_uploaded_license(cert_path, uploaded_file):
-				flash_error(request, _('Unable to save the uploaded file. '
-					'Please, report this to your administrator.'))
-				break
-			# Validate locally
-			try:
-				X509.load_cert(cert_path, X509.FORMAT_PEM)
-			except (ValueError, X509Error):
-				print 'Exception:', sys.exc_info()[0]
-				flash_error(request, _('Please, inform a valid license.'))
-				break
-			# Validate on KeyServer
-			try:
-				license = fetch_license_details(cert_path)
-			except InvalidLicense:
-				flash_error(request, _('Please, inform a valid license.'))
-				break
-			except ConnectionProblem:
-				flash_error(request, _('Connection problem. Try again in few minutes.'))
-				break
-			flash_success(request, _('The license was changed successfully.'))
-			return HttpResponseRedirect(reverse('livemgr:license-index'))
-	context_instance = RequestContext(request)
-	template_name = 'license/edit.html'
-	extra_context = {
-		'menu': 'license',
-		'form': form,
 	}
 	return render_to_response(template_name, extra_context, context_instance)
