@@ -91,10 +91,10 @@ def index(request):
 	license = None
 	try:
 		cert_path = settings.LICENSE_FILE
+		cert = X509.load_cert(cert_path, X509.FORMAT_PEM)
 		# Get details from KeyServer
 		license_details = fetch_license_details(cert_path)
 		now = datetime.now(UTC)
-		cert = X509.load_cert(cert_path, X509.FORMAT_PEM)
 		class LicensePresenter:
 			#issuer = cert.get_issuer()
 			#fingerprint = cert.get_fingerprint()
@@ -108,6 +108,8 @@ def index(request):
 			status = _('Valid') if now >= valid_since \
 				and now <= valid_until else _('Expired')
 		license = LicensePresenter()
+	except IOError:
+		flash_error(request, _('Please, place your license file in %s.') % cert_path)
 	except (InvalidLicense, ValueError, X509Error):
 		print "Exception:", sys.exc_info()[0]
 		flash_error(request, _('Please, inform a valid license.'))
