@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2010-11-16 21:53+0000\n"
+"POT-Creation-Date: 2010-11-24 01:45+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -17,11 +17,11 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 
-#: settings.py:68 settings_production.py:62
+#: settings.py:34
 msgid "English"
 msgstr "Inglês"
 
-#: settings.py:69 settings_production.py:63
+#: settings.py:35
 msgid "Brazilian Portuguese"
 msgstr "Português"
 
@@ -298,44 +298,37 @@ msgstr "O grupo '%s' foi criado com sucesso."
 msgid "Can't delete built-in groups."
 msgstr "Não é permitido excluir grupos permanentes."
 
-#: livemgr/controllers/license.py:32 livemgr/templates/layout.html:67
+#: livemgr/controllers/license.py:29 livemgr/templates/layout.html:67
 #: livemgr/templates/license/index.html:5
-#: livemgr/templates/license/index.html:36
+#: livemgr/templates/license/index.html:26
 msgid "License"
 msgstr "Licença"
 
-#: livemgr/controllers/license.py:74
+#: livemgr/controllers/license.py:71
 #, python-format
 msgid "Server returned %(status)i %(reason)s"
 msgstr "Servidor retornou %(status)i %(reason)s"
 
-#: livemgr/controllers/license.py:111
+#: livemgr/controllers/license.py:109
 msgid "Valid"
 msgstr "Válida"
 
-#: livemgr/controllers/license.py:112
+#: livemgr/controllers/license.py:110
 msgid "Expired"
 msgstr "Expirada"
 
-#: livemgr/controllers/license.py:116 livemgr/controllers/license.py:119
-#: livemgr/controllers/license.py:155 livemgr/controllers/license.py:161
+#: livemgr/controllers/license.py:113
+#, python-format
+msgid "Please, place your license file in %s."
+msgstr "Por favor, coloque seu arquivo de licença em %s."
+
+#: livemgr/controllers/license.py:116
 msgid "Please, inform a valid license."
 msgstr "Por favor, informe uma licença válida."
 
-#: livemgr/controllers/license.py:122 livemgr/controllers/license.py:164
+#: livemgr/controllers/license.py:118
 msgid "Connection problem. Try again in few minutes."
 msgstr "Problema de conexão. Tente novamente em poucos minutos."
-
-#: livemgr/controllers/license.py:147
-msgid ""
-"Unable to save the uploaded file. Please, report this to your administrator."
-msgstr ""
-"Não foi possível salvar o arquivo enviado. Por favor, informe seu "
-"administrador."
-
-#: livemgr/controllers/license.py:166
-msgid "The license was changed successfully."
-msgstr "A licença foi alterada com sucesso."
 
 #: livemgr/controllers/profiles.py:27 livemgr/controllers/profiles.py:70
 msgid "email"
@@ -503,7 +496,7 @@ msgstr "conversas"
 msgid "timestamp"
 msgstr "horário"
 
-#: livemgr/models/conversation.py:20 livemgr/templates/license/index.html:62
+#: livemgr/models/conversation.py:20 livemgr/templates/license/index.html:52
 msgid "Status"
 msgstr "Status"
 
@@ -796,7 +789,7 @@ msgid "ACLs"
 msgstr "ACLs"
 
 #: livemgr/templates/layout.html:42 livemgr/templates/dashboard/index.html:268
-#: livemgr/templates/license/index.html:58
+#: livemgr/templates/license/index.html:48
 #: livemgr/templates/settings/update.html:46
 msgid "Users"
 msgstr "Usuários"
@@ -988,7 +981,6 @@ msgid "show"
 msgstr "mostrar"
 
 #: livemgr/templates/generic/form-submit.html:3
-#: livemgr/templates/license/edit.html:15
 #: livemgr/templates/profiles/update.html:137
 #: livemgr/templates/settings/update.html:77
 msgid "Save"
@@ -1090,26 +1082,17 @@ msgstr "Lista de Grupos"
 msgid "Search for groups"
 msgstr "Procura por grupos"
 
-#: livemgr/templates/license/edit.html:5
-#: livemgr/templates/license/edit.html:10
-msgid "Change License"
-msgstr "Alterar Licença"
-
-#: livemgr/templates/license/index.html:42
+#: livemgr/templates/license/index.html:32
 msgid "Serial"
 msgstr "Serial"
 
-#: livemgr/templates/license/index.html:46
+#: livemgr/templates/license/index.html:36
 msgid "Licensee"
 msgstr "Titular"
 
-#: livemgr/templates/license/index.html:50
+#: livemgr/templates/license/index.html:40
 msgid "Validity"
 msgstr "Validade"
-
-#: livemgr/templates/license/index.html:68
-msgid "Change"
-msgstr "Alterar"
 
 #: livemgr/templates/profiles/list.html:27
 #: livemgr/templates/users/list.html:27

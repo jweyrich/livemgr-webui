@@ -3,11 +3,11 @@ from M2Crypto.ASN1 import UTC
 from M2Crypto.X509 import X509Error
 from datetime import datetime
 from django import forms
+from django.conf import settings
 from django.contrib.auth.decorators import login_required, permission_required
 from django.shortcuts import render_to_response
 from django.template.context import RequestContext
 from django.utils.translation import ugettext as _, ugettext_lazy
-from webui import settings
 from webui.common.decorators.rest import rest_get
 from webui.common.utils import flash_error
 import errno

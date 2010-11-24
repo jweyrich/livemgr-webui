@@ -1,4 +1,4 @@
-from webui import settings
+from django.conf import settings
 
 class Resources:
 	_media = settings.MEDIA_URL
