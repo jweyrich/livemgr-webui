@@ -35,7 +35,7 @@ TIME_ZONE = 'America/SaoPaulo'
 LANGUAGE_CODE = 'en-us'
 LANGUAGES = (
 	('en', gettext_noop('English')),
-	('pt-BR', gettext_noop('Brazilian Portuguese')),
+	('pt-br', gettext_noop('Brazilian Portuguese')),
 )
 USE_I18N = True
 USE_L10N = True
