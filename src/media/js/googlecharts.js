@@ -1,10 +1,10 @@
 /**
  * GoogleChartTools API
  * by Jardel Weyrich <jweyrich@gmail.com>
- * 
+ *
  * This generates those awful URLs ;-)
  * Supports Bar charts only.
- * 
+ *
  * References:
  * 	http://code.google.com/apis/chart/docs/chart_wizard.html
  * 	http://code.google.com/apis/chart/docs/data_formats.html#axis_scale

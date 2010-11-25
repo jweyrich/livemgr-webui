@@ -1,5 +1,5 @@
 # Django settings for webui project.
-from webui.settings import *
+from settings import *
 
 MIDDLEWARE_CLASSES += (
 	'debug_toolbar.middleware.DebugToolbarMiddleware',
@@ -11,7 +11,7 @@ INSTALLED_APPS += (
 
 INTERNAL_IPS += ('10.1.1.16', '192.168.1.100', '192.168.1.101',)
 
-LICENSE_FILE = os.path.join(PROJECT_PATH, 'conf', 'certs', 'cert.pem')
+LICENSE_FILE = os.path.join(PROJECT_PATH, os.pardir, 'conf', 'certs', 'cert.pem')
 KEYSERVER_HOST = '10.1.1.17'
 
 ########################

@@ -59,8 +59,8 @@ $(document).ready(function() {
 	<form method="post" action="" class="generic">
 		{% csrf_token %}
 		{#% include "generic/form-fieldset.html" %#}
+		{% include "generic/flash.html" %}
 		<fieldset>
-			{% include "generic/flash.html" %}
 			<div class="field">
 				{{ form_user.first_name.label_tag }}
 				{{ form_user.first_name }}

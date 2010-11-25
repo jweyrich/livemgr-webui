@@ -39,14 +39,14 @@ var Calendar = {
 		$(calendar_img).attr('class', 'icon calendar');
 		//$(calendar_img).css('vertical-align', 'middle');
 		$(calendar_img).css('cursor', 'pointer');
-		
+
 		$(div).addClass('datepicker');
 		$(div).append(document.createTextNode('\240'));
 		$(div).append(today_link);
 		$(div).append(document.createTextNode('\240|\240'));
 		$(div).append(calendar_img);
 		$(div).insertAfter(this);
-		
+
 		$(this).css('float', 'left');
 		$(this).css('position', 'relative');
 		$(this).css('z-index', '1');

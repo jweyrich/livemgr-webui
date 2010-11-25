@@ -53,7 +53,7 @@ var Selection = {
 				alert('Error '+req.status+': '+req.responseText);
 				this.disabled = false;
 			}
-		});		
+		});
 	},
 	showActions: function(selector) {
 		if (typeof(selector) == 'Array') {

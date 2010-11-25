@@ -60,7 +60,7 @@
 	position: relative;
 	border-radius: 5px;
 	/* -specific-
-  	-webkit-border-radius: 5px;
+	-webkit-border-radius: 5px;
 	-moz-border-radius: 5px;
 	*/
 	padding: 10px;
@@ -93,7 +93,7 @@
 #search_adv .field input {
 	width: 400px;
 }
-#search_adv .field input[type='checkbox'] { 
+#search_adv .field input[type='checkbox'] {
 	margin-right: 6px;
 	width: auto;
 }

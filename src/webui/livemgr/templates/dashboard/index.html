@@ -192,7 +192,7 @@ function drawMostActiveUsersImg(source) {
 		}
 	};
 
-	{% if debug %}
+	{% comment %}
 	var gen_username = function(count_a, count_b) {
 		var result = '';
 		for (var i=0; i<count_a; ++i)
@@ -202,16 +202,16 @@ function drawMostActiveUsersImg(source) {
 			result += String.fromCharCode('a'.charCodeAt(0)+Math.floor(Math.random() * 24))
 		return result;
 	};
-	{% endif %}
+	{% endcomment %}
 	var rows = new Array();
 	for (i in source) {
 		obj = source[i];
 		rows.push([obj.username, obj.total]);
-		{% if debug %}
+		{% comment %}
 		rows.push([gen_username(7, 6), Math.floor(Math.random() * 101)]);
 		rows.push([gen_username(5, 8), Math.floor(Math.random() * 101)]);
 		rows.push([gen_username(6, 5), Math.floor(Math.random() * 101)]);
-		{% endif %}
+		{% endcomment %}
 	}
 	rows.sort(function(a,b){return a[1]-b[1];});
 

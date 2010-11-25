@@ -79,6 +79,6 @@ function ColorSerie() {
 		delete diffColor;
 		delete toColor;
 		delete fromColor;
-		return result;		
+		return result;
 	};
 }

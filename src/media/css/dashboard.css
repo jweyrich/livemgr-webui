@@ -60,7 +60,7 @@
 /*
 	According to http://www.quirksmode.org/css/contents.html:
 	- IE7 does support ":first-child", but doesn’t update the styles when elements are added dynamically; 
- 	- IE7 does NOT support ":last-child";
+	- IE7 does NOT support ":last-child";
 .listing table th:first-child,
 .listing table td:first-child,
 .listing table th:last-child,

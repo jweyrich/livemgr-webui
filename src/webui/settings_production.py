@@ -1,4 +1,4 @@
-from webui.settings import *
+from settings import *
 
 DEBUG = TEMPLATE_DEBUG = False
 MEDIA_ROOT = '/usr/share/webui/media'

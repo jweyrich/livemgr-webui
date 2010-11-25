@@ -3,12 +3,15 @@ import os
 
 # This is defined here as a do-nothing function because we can't import
 # django.utils.translation -- that module depends on the settings.
-_ = lambda s: s
+gettext_noop = lambda s: s
 
 DEBUG = True
 TEMPLATE_DEBUG = DEBUG
 
-# People who get code error notifications.
+# This is shown when an error 500 occurs.
+EMAIL_SUPPORT = 'support@example.com'
+
+# People who get error notifications.
 ADMINS = (
 	# ('Your Name', 'your_email@domain.com'),
 )
@@ -31,14 +34,14 @@ TIME_ZONE = 'America/SaoPaulo'
 # http://www.i18nguy.com/unicode/language-identifiers.html
 LANGUAGE_CODE = 'en-us'
 LANGUAGES = (
- 	('en', _('English')),
- 	('pt-BR', _('Brazilian Portuguese')),
+	('en', gettext_noop('English')),
+	('pt-BR', gettext_noop('Brazilian Portuguese')),
 )
 USE_I18N = True
 USE_L10N = True
 
 PROJECT_PATH = os.path.realpath(os.path.dirname(__file__))
-MEDIA_ROOT = os.path.join(PROJECT_PATH, 'media')
+MEDIA_ROOT = os.path.join(PROJECT_PATH, os.pardir, 'media')
 MEDIA_URL = '/media/'
 ADMIN_MEDIA_PREFIX = '/admin_media/'
 
@@ -58,10 +61,7 @@ MIDDLEWARE_CLASSES = (
 ROOT_URLCONF = 'webui.urls'
 
 # Search order.
-TEMPLATE_DIRS = (
-	os.path.join(PROJECT_PATH, 'livemgr/templates'),
-	os.path.join(PROJECT_PATH, 'templates'),
-)
+TEMPLATE_DIRS = ()
 
 INSTALLED_APPS = (
 	'django.contrib.auth',
@@ -89,9 +89,7 @@ TEMPLATE_CONTEXT_PROCESSORS = (
 MESSAGE_STORAGE = 'django.contrib.messages.storage.session.SessionStorage'
 
 # General stuff
-EMAIL_SUPPORT = 'support@example.com'
 INTERNAL_IPS = ('127.0.0.1',)
-LANGUAGE_COOKIE_NAME = 'django_language'
 CSRF_FAILURE_VIEW = 'webui.livemgr.controllers.profiles.no_cookie'
 
 # Authentication
