@@ -87,3 +87,8 @@ clean:
 		$(CSS_MINIFIED) $(CSS_MINIFIED_EXTRA) $(CSS_TARGET) \
 		$(JS_MINIFIED) $(JS_MINIFIED_EXTRA) $(JS_TARGET)
 	@echo Cleaned.
+
+delete_original:
+	-@rm -f \
+		${CSS_SOURCES} ${CSS_SOURCES_EXTRA} \
+		${JS_SOURCES} ${JS_SOURCES_EXTRA}
