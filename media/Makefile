@@ -62,11 +62,11 @@ concat_js: $(JS_TARGET)
 
 %.min.css: %.css
 	@echo [css] $<
-	@java -jar ../lib/yuicompressor-2.4.2.jar $< -o $@
+	@java -jar ../tools/yuicompressor-2.4.2.jar $< -o $@
 
 %.min.js: %.js
 	@echo [js] $<
-	@java -jar ../lib/yuicompressor-2.4.2.jar $< -o $@
+	@java -jar ../tools/yuicompressor-2.4.2.jar $< -o $@
 
 $(CSS_TARGET): $(CSS_MINIFIED)
 #	@> $@ # truncate
