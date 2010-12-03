@@ -49,4 +49,4 @@ def format_user_status(value):
 def ip_long_to_str(ip_as_long):
 	#return socket.inet_ntoa(struct.pack('L', socket.ntohl(ip_as_long)))
 	# We decided to store it as BigEndian on the database
-	return socket.inet_ntoa(struct.pack('L', ip_as_long))
+	return socket.inet_ntoa(struct.pack('I', ip_as_long))
