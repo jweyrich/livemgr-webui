@@ -1,0 +1,67 @@
+HOW TO SETUP IT FOR LOCAL TESTING
+---------------------------------
+
+# Clone this repository:
+git clone https://github.com/jweyrich/livemgr-webui.git
+cd livemgr-webui
+
+# Install pip (globally):
+sudo easy_install pip
+#
+# Alternatives:
+#	On Debian or Ubuntu:
+#		sudo apt-get install python-pip
+#	On RedHat, Fedora, or CentOS:
+#		sudo yum install python-pip
+#	On Mac OS X:
+#		curl --sSL https://raw.github.com/pypa/pip/master/contrib/get-pip.py | sudo python2.7
+
+# Install virtualenv (globally):
+sudo pip install virtualenvwrapper
+
+# Create a virtual environment for our Python dependencies:
+virtualenv env
+
+# Activate it
+. ./activate.sh
+
+# Install swig - required by M2Crypto:
+#
+#	On Debian or Ubuntu:
+#		sudo apt-get install swig
+#	On RedHat, Fedora, or CentOS:
+#		sudo yum install swig
+# 	On Mac OS X using MacPorts:
+#		sudo port install swig
+#	On Mac OS X using HomeBrew:
+#		brew install swig # no sudo, thanks!
+
+# Install our Python dependencies:
+pip install -r requirements.txt
+
+# If the last step failed because of MySQL-python (something like '-mno-fused-madd'), try the following instead:
+export CFLAGS=-Qunused-arguments
+export CPPFLAGS=-Qunused-arguments
+pip install -r requirements.txt
+
+# If you're on Mac OS X, it's likely that you have to fix the libmysqlclient path in _mysql.so:
+./fix_mysqldb.sh
+
+# Setup the MySQL database:
+mysql -u root -p -h localhost
+> CREATE DATABASE livemgr;
+> CREATE USER 'livemgr'@'localhost' IDENTIFIED BY 'livemgr';
+> GRANT INDEX,ALTER,CREATE,SELECT,INSERT,UPDATE,DELETE ON livemgr.* TO 'livemgr'@'localhost';
+> USE livemgr;
+> quit
+mysql -u root -p -h localhost livemgr < bootstrap/db/create_mysql.sql
+
+# Minify and concatenate media files (.css and .js):
+make -C media all
+
+# Create all auth related tables that have not already been created:
+cd webui
+python manage.py syncdb --settings=settings_example
+
+# Test it! - After running the following command, navigate to http://127.0.0.1:8000/
+python manage.py runserver --settings=settings_example
