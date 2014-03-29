@@ -3,8 +3,8 @@
     functionality to the template language.
     
     Currently, it contains code from:
-        * http://www.djangosnippets.org/snippets/130/  (pyif)
-        * http://www.djangosnippets.org/snippets/9/    (pyexpr)
+        * http://djangosnippets.org/snippets/130/  (pyif)
+        * http://djangosnippets.org/snippets/9/    (pyexpr)
 """
 
 from django import template
@@ -15,7 +15,7 @@ import re
 register = template.Library()
 
 """
-    PyExpr (from http://www.djangosnippets.org/snippets/9/)
+    PyExpr (from http://djangosnippets.org/snippets/9/)
     
     This tag can be used to calculate a python expression, and 
     save it into a template variable which you can reuse later 
@@ -88,7 +88,7 @@ def do_expr(parser, token):
 do_expr = register.tag('expr', do_expr)
 
 """
-    PyIf (from http://www.djangosnippets.org/snippets/130/)
+    PyIf (from http://djangosnippets.org/snippets/130/)
 
     This is an adaptation/enhancement to Django's built in IfNode {% if ... %} 
     that combines if ifequal ifnotequal into one and then adds even more. 

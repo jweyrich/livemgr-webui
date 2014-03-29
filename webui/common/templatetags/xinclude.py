@@ -1,5 +1,5 @@
 """
-	Based on: http://www.djangosnippets.org/snippets/11/
+	Based on: http://djangosnippets.org/snippets/11/
 	Author: limodou
 	Posted: February 25, 2007
 

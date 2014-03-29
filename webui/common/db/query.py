@@ -24,6 +24,8 @@ def fetchone_to_dict(query_string, *query_args):
 def fetchall_to_dict(query_string, *query_args):
 	"""
 	Code from: http://blog.doughellmann.com/2007/12/using-raw-sql-in-django.html
+	Copyright (C) 2006-2014, Doug Hellmann
+
 	Run a simple query and produce a generator
 	that returns the results as a bunch of dictionaries
 	with keys for the column values selected.

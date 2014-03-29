@@ -13,7 +13,7 @@
     view, too, so be careful.
 
     Some of the argument parsing code is based on:
-        http://www.djangosnippets.org/snippets/11/
+        http://djangosnippets.org/snippets/11/
 
     Examples:
 

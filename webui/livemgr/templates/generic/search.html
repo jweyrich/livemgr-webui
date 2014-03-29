@@ -1,7 +1,29 @@
+{#
+	Copyright (C) 2010 Jardel Weyrich
+
+	This file is part of livemgr-webui.
+
+	livemgr-webui is free software: you can redistribute it and/or modify
+	it under the terms of the GNU General Public License as published by
+	the Free Software Foundation, either version 3 of the License, or
+	(at your option) any later version.
+
+	livemgr-webui is distributed in the hope that it will be useful,
+	but WITHOUT ANY WARRANTY; without even the implied warranty of
+	MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+	GNU General Public License for more details.
+
+	You should have received a copy of the GNU General Public License
+	along with livemgr-webui. If not, see <http://www.gnu.org/licenses/>.
+
+	Authors:
+	  Jardel Weyrich <jweyrich@gmail.com>
+#}
+
 {% load i18n evaluate %}
 
 <div id="search">
-    <form method="post" action="">
+	<form method="post" action="">
 		{% csrf_token %}
 		<fieldset>
 			{% evaluate as field_name %}{% if field %}{{ field }}{% else %}q{% endif %}{% endevaluate %}
@@ -12,15 +34,15 @@
 			<input type="image" src="/media/img/btn-search.gif" alt="{% trans "Search" %}" class="magnifier-button" />
 		</fieldset>
 	</form>
-    <div class="links">
-    	{% if can_advsearch %}
-    		<a id="advanced" href="#search">{% trans "<u>A</u>dvanced search" %}</a> 
-    	{% endif %}
-    	{% if can_advsearch and can_create %} | {% endif %}
-    	{% if can_create %}
-    		<a id="create" href="#">
-    			{% trans "<u>N</u>ew" %}
-    		</a>
-    	{% endif %}
-    </div>
+	<div class="links">
+		{% if can_advsearch %}
+			<a id="advanced" href="#search">{% trans "<u>A</u>dvanced search" %}</a>
+		{% endif %}
+		{% if can_advsearch and can_create %} | {% endif %}
+		{% if can_create %}
+			<a id="create" href="#">
+				{% trans "<u>N</u>ew" %}
+			</a>
+		{% endif %}
+	</div>
 </div>

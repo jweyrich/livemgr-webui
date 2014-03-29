@@ -1,5 +1,5 @@
 """
-	Based on: http://www.djangosnippets.org/snippets/300/
+	Based on: http://djangosnippets.org/snippets/300/
 	Author: jacobian
 	Posted: July 3, 2007
 
