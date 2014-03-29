@@ -17,13 +17,16 @@ sudo easy_install pip
 #		curl --sSL https://raw.github.com/pypa/pip/master/contrib/get-pip.py | sudo python2.7
 
 # Install virtualenv (globally):
-sudo pip install virtualenvwrapper
+sudo pip install virtualenv
 
 # Create a virtual environment for our Python dependencies:
 virtualenv env
 
-# Activate it
+# Activate it:
 . ./activate.sh
+
+# Check if the activation succeeeded - the printed path must reside within your cloned directory:
+which python
 
 # Install swig - required by M2Crypto:
 #
