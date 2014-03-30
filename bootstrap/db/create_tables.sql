@@ -22,12 +22,6 @@
  *   Jardel Weyrich <jweyrich@gmail.com>
  */
 
-/*
-CREATE DATABASE livemgr;
-CREATE USER 'livemgr'@'localhost' IDENTIFIED BY 'livemgr';
-GRANT INDEX,ALTER,CREATE,SELECT,INSERT,UPDATE,DELETE ON livemgr.* TO 'livemgr'@'localhost';
-*/
-
 CREATE TABLE IF NOT EXISTS acls (
 	id INT UNSIGNED NOT NULL AUTO_INCREMENT,
 	localim VARCHAR(128) NOT NULL,

@@ -55,7 +55,6 @@ mysql -u root -p -h localhost
 > CREATE DATABASE livemgr;
 > CREATE USER 'livemgr'@'localhost' IDENTIFIED BY 'livemgr';
 > GRANT INDEX,ALTER,CREATE,SELECT,INSERT,UPDATE,DELETE ON livemgr.* TO 'livemgr'@'localhost';
-> USE livemgr;
 > quit
 mysql -u root -p -h localhost livemgr < bootstrap/db/create_mysql.sql
 
@@ -63,8 +62,7 @@ mysql -u root -p -h localhost livemgr < bootstrap/db/create_mysql.sql
 make -C media all
 
 # Create all auth related tables that have not already been created:
-cd webui
-python manage.py syncdb --settings=settings_example
+python webui/manage.py syncdb --settings=settings_example
 
 # Test it! - After running the following command, navigate to http://127.0.0.1:8000/
-python manage.py runserver --settings=settings_example
+python webui/manage.py runserver --settings=settings_example
