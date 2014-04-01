@@ -1,17 +1,30 @@
+# -*- coding: utf-8 -*-
+
 # Django settings for webui project.
 from settings import *
 
+DATABASES = {
+    'default': {
+        'ENGINE': 'django.db.backends.mysql',
+        'NAME': 'livemgr',
+        'USER': 'livemgr',
+        'PASSWORD': 'livemgr',
+        'HOST': '',
+        'PORT': '',
+    }
+}
+
 MIDDLEWARE_CLASSES += (
-	'debug_toolbar.middleware.DebugToolbarMiddleware',
+    'debug_toolbar.middleware.DebugToolbarMiddleware',
 )
 
 INSTALLED_APPS += (
-	'debug_toolbar',
+    'debug_toolbar',
 )
 
 INTERNAL_IPS += ('10.1.1.16', '192.168.1.100', '192.168.1.101',)
 
-LICENSE_FILE = os.path.join(PROJECT_PATH, os.pardir, 'conf', 'certs', 'cert.pem')
+LICENSE_FILE = os.path.join(ROOT, os.pardir, 'conf', 'certs', 'cert.pem')
 KEYSERVER_HOST = '10.1.1.17'
 
 ########################
@@ -31,10 +44,10 @@ KEYSERVER_HOST = '10.1.1.17'
 #)
 
 def show_toolbar(request):
-	user = request.user
-	if hasattr(user, 'get_profile'):
-		return user.get_profile().debug
-	return False
+    user = request.user
+    if hasattr(user, 'get_profile'):
+        return user.get_profile().debug
+    return False
 
 DEBUG_TOOLBAR_CONFIG = {
     'INTERCEPT_REDIRECTS': False,
