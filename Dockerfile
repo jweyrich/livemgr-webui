@@ -22,6 +22,19 @@ RUN DEBIAN_FRONTEND=noninteractive apt-get install -y \
 	libmysqlclient-dev \
 	;
 
+# Install Java 8
+RUN echo "deb http://ppa.launchpad.net/webupd8team/java/ubuntu precise main" > /etc/apt/sources.list.d/webupd8team-java.list
+RUN echo "deb-src http://ppa.launchpad.net/webupd8team/java/ubuntu precise main" >> /etc/apt/sources.list.d/webupd8team-java.list
+RUN apt-key adv --keyserver keyserver.ubuntu.com --recv-keys EEA14886
+RUN apt-get update
+# Accept license
+RUN /bin/echo debconf shared/accepted-oracle-license-v1-1 select true | /usr/bin/debconf-set-selections
+# Mark license as seen
+RUN /bin/echo debconf shared/accepted-oracle-license-v1-1 seen true | /usr/bin/debconf-set-selections
+RUN DEBIAN_FRONTEND=noninteractive apt-get install -y \
+	oracle-java8-installer \
+	;
+
 # Configure MySQL to listen on 0.0.0.0
 #RUN sed -i "s/^bind-address/#bind-address/" /etc/mysql/my.cnf
 RUN sed -i -e "/bind-address\s*=\s*/s/127.0.0.1/0.0.0.0/" /etc/mysql/my.cnf
