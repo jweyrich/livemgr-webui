@@ -56,6 +56,11 @@ function Color(color) {
 			this.r = (color & 0xFF0000) >> 16;
 			this.g = (color & 0x00FF00) >> 8;
 			this.b = color & 0x0000FF;
+		} else if (typeof(color) == 'string') {
+			var components = color.match(/[0-9a-f]{2}/gi); // returns an array of strings.
+			this.r = parseInt(components[0], 16);
+			this.g = parseInt(components[1], 16);
+			this.b = parseInt(components[2], 16);
 		} else {
 			alert('Invalid color input.');
 			// My mind told me to not use alert(), but I didn't care.
