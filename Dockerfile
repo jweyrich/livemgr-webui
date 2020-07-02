@@ -1,7 +1,23 @@
-FROM debian:wheezy
-MAINTAINER Jardel Weyrich, jweyrich@gmail.com
+FROM node:latest AS media_build
 
-# Update the repository
+WORKDIR /media
+
+COPY package*.json ./
+
+# Install gulp and other dependencies
+RUN npm install -g gulp && npm install
+
+COPY media/ ./
+
+# Minify and concatenate media files (.css and .js):
+RUN gulp --gulpfile gulpfile.js all
+
+###
+
+FROM debian:stretch
+LABEL maintainer="jweyrich@gmail.com"
+
+# Install prerequisites
 RUN apt-get -qq update
 
 # Install system requirements
@@ -13,18 +29,14 @@ RUN DEBIAN_FRONTEND=noninteractive apt-get install -y \
 	python2.7-dev \
 	python-pip \
 	swig \
+	libssl-dev \
 	;
 
 # Install database requirements
 RUN DEBIAN_FRONTEND=noninteractive apt-get install -y \
-	mysql-server \
 	mysql-client \
-	libmysqlclient-dev \
+	libmariadbclient-dev \
 	;
-
-# Configure MySQL to listen on 0.0.0.0
-#RUN sed -i "s/^bind-address/#bind-address/" /etc/mysql/my.cnf
-RUN sed -i -e "/bind-address\s*=\s*/s/127.0.0.1/0.0.0.0/" /etc/mysql/my.cnf
 
 # Remove cached packages
 RUN apt-get clean
@@ -37,37 +49,27 @@ RUN pip install uwsgi
 
 # Create a virtual environment for our application
 # The `--no-size-packages` makes virtualenv remove the system's default site-packages from sys.path
-RUN virtualenv --no-site-packages /opt/envs/livemgr-webui
+RUN virtualenv /opt/envs/livemgr-webui
 
-# Copy files
+# Copy files (TODO: Reorganize to avoid installing dependencies from scratch every time a file changes!)
 ADD . /opt/apps/livemgr-webui
 ADD .docker/supervisor.conf /opt/supervisor.conf
 ADD .docker/run.sh /usr/local/bin/run
 
+WORKDIR /opt/apps/livemgr-webui
+
 # Update Git remote to the public address
-RUN cd /opt/apps/livemgr-webui \
-	&& git remote rm origin \
-	&& git remote add origin https://github.com/jweyrich/livemgr-webui.git \
-	;
+RUN git remote set-url origin https://github.com/jweyrich/livemgr-webui.git
 
 # Install app dependencies
-RUN /opt/envs/livemgr-webui/bin/pip install -r /opt/apps/livemgr-webui/requirements.txt
+RUN /opt/envs/livemgr-webui/bin/pip install -r requirements.txt
 
-# Setup database
-RUN service mysql start \
-	&& sleep 5 \
-	&& mysql -u root -h localhost < /opt/apps/livemgr-webui/bootstrap/db/create_schema.sql \
-	&& mysql -u root -h localhost livemgr < /opt/apps/livemgr-webui/bootstrap/db/create_tables.sql \
-	&& cd /opt/apps/livemgr-webui/webui \
-	&& /opt/envs/livemgr-webui/bin/python manage.py syncdb --noinput --settings=settings_example \
-	&& mysqladmin -u root -h localhost password '123456'  \
-	;
-
-# Minify and concatenate media files (.css and .js):
-RUN cd /opt/apps/livemgr-webui && make -C media all
+# Copy minified media files back to this container
+COPY --from=media_build /media/css/all.min.css ./media/css/
+COPY --from=media_build /media/js/all.min.js ./media/js/
 
 # Expose ports
-EXPOSE 3306 8000
+EXPOSE 8000
 
 # Run baby, run!
 CMD ["/bin/sh", "-e", "/usr/local/bin/run"]

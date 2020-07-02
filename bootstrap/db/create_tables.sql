@@ -22,6 +22,8 @@
  *   Jardel Weyrich <jweyrich@gmail.com>
  */
 
+USE livemgr;
+
 CREATE TABLE IF NOT EXISTS acls (
 	id INT UNSIGNED NOT NULL AUTO_INCREMENT,
 	localim VARCHAR(128) NOT NULL,

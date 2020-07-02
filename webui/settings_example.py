@@ -29,7 +29,7 @@ DATABASES = {
         'NAME': 'livemgr',
         'USER': 'livemgr',
         'PASSWORD': 'livemgr',
-        'HOST': '',
+        'HOST': 'db',
         'PORT': '',
     }
 }
