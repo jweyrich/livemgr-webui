@@ -1,4 +1,4 @@
-Django==1.2.3
+Django==2.2.24
 MySQL-python==1.2.3
 https://github.com/miracle2k/django-tables/tarball/0.3
 reportlab==2.5
