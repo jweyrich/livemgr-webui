@@ -11,10 +11,12 @@ services:
     image: mariadb:10.4.13
     restart: on-failure
     volumes:
-      - ./bootstrap/db:/docker-entrypoint-initdb.d
+      - type: bind
+        source: ./bootstrap/db
+        target: /mnt/initdb
+        read_only: true
     environment:
       MYSQL_ROOT_PASSWORD: 123456
     ports:
       - 3306:3306
-
 

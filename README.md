@@ -18,15 +18,13 @@ The backend is still closed-source, but if you invite me for ☕  we can talk ab
 
 ## How to run?
 
-	docker build -t . livemgr-webui:latest
-	
-	docker-compose up
-
-	docker-compose run db "mysql -uroot --password=123456 < /docker-entrypoint-initdb.d/create_schema.sql"
-
-	docker-compose run db "mysql -uroot --password=123456 < /docker-entrypoint-initdb.d/create_tables.sql"
-
-	docker-compose run app /opt/envs/livemgr-webui/bin/python webui/manage.py syncdb --noinput --settings=settings_example
+```sh
+docker build . -t livemgr-webui:latest
+docker-compose up
+docker-compose run db "mysql -uroot --password=123456 < /mnt/initdb/create_schema.sql"
+docker-compose run db "mysql -uroot --password=123456 < /mnt/initdb/create_tables.sql"
+docker-compose run app /opt/envs/livemgr-webui/bin/python webui/manage.py syncdb --noinput --settings=settings_example
+````
 
 ## How to access?
 
