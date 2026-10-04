@@ -23,6 +23,7 @@
 {% endcomment %}
 
 {% load i18n webdesign xinclude evaluate %}
+{% load url from future %}
 
 {% block title %}
 {% trans "Group Summary" %}
@@ -32,9 +33,9 @@
 <script type="text/javascript">
 $(document).ready(function() {
 	$('[type=submit]').click(function() { $($(this).attr('target')).submit(); });
-	$('#search form').submit(function() { return Search.search(this, '{% url webui:groups-index %}'); });
-	$('#search_adv form').submit(function() { return Search.search(this, '{% url webui:groups-index %}'); });
-	$('#create').click(function() { window.location = '{% url webui:groups-add %}'; });
+	$('#search form').submit(function() { return Search.search(this, '{% url 'webui:groups-index' %}'); });
+	$('#search_adv form').submit(function() { return Search.search(this, '{% url 'webui:groups-index' %}'); });
+	$('#create').click(function() { window.location = '{% url 'webui:groups-add' %}'; });
 
 	Form.makeFieldHint('#search', 'search_groupname');
 
@@ -53,10 +54,10 @@ $(document).ready(function() {
 
 	function setup_events() {
 		Selection.showActions('.delete');
-		Selection.bindListRowClick({url:'{% url webui:groups-index %}{0}'});
+		Selection.bindListRowClick({url:'{% url 'webui:groups-index' %}{0}'});
 		Selection.bindActionClickConfirm({
 			selector: '.actions-box .delete',
-			url: '{% url webui:groups-delete-many %}',
+			url: '{% url 'webui:groups-delete-many' %}',
 			onShow: delete_show});
 	}
 	setup_events();

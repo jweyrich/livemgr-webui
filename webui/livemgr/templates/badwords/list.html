@@ -23,6 +23,7 @@
 {% endcomment %}
 
 {% load i18n webdesign xinclude evaluate %}
+{% load url from future %}
 
 {% block title %}
 {% trans "Badword Summary" %}
@@ -32,8 +33,8 @@
 <script type="text/javascript">
 $(document).ready(function() {
 	$('[type=submit]').click(function() { $($(this).attr('target')).submit(); });
-	$('#search form').submit(function() { return Search.search(this, '{% url webui:badwords-index %}'); });
-	$('#create').click(function() { window.location = '{% url webui:badwords-add %}'; });
+	$('#search form').submit(function() { return Search.search(this, '{% url 'webui:badwords-index' %}'); });
+	$('#create').click(function() { window.location = '{% url 'webui:badwords-add' %}'; });
 
 	Form.makeFieldHint('#search', 'search_badword');
 
@@ -52,16 +53,16 @@ $(document).ready(function() {
 	
 	function setup_events() {
 		Selection.showActions(['.disable', '.enable', '.delete']);
-		Selection.bindListRowClick({url:'{% url webui:badwords-index %}{0}'});
+		Selection.bindListRowClick({url:'{% url 'webui:badwords-index' %}{0}'});
 		Selection.bindActionClick({
 			selector: '.disable',
-			url:'{% url webui:badwords-disable-many %}'});
+			url:'{% url 'webui:badwords-disable-many' %}'});
 		Selection.bindActionClick({
 			selector: '.enable',
-			url:'{% url webui:badwords-enable-many %}'});
+			url:'{% url 'webui:badwords-enable-many' %}'});
 		Selection.bindActionClickConfirm({
 			selector: '.actions-box .delete',
-			url: '{% url webui:badwords-delete-many %}',
+			url: '{% url 'webui:badwords-delete-many' %}',
 			onShow: delete_show});
 	}
 	setup_events();

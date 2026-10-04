@@ -255,7 +255,7 @@ class HttpMethodTest(LivemgrTestCase):
 
 class DjangoInstallationTest(LivemgrTestCase):
 	"""
-	Django 1.2 and 1.3 install their data files with a setup.py trick that breaks when
+	Django 1.2 to 1.4 install their data files with a setup.py trick that breaks when
 	pip builds a wheel (see requirements.txt): translations and the admin
 	templates silently go missing.
 	"""
@@ -268,6 +268,15 @@ class DjangoInstallationTest(LivemgrTestCase):
 		response = self.client.get('/admin/')
 		self.assertEqual(response.status_code, 200)
 		self.assertTemplateUsed(response, 'admin/index.html')
+
+	def test_admin_static_files(self):
+		# Django 1.4 links them under STATIC_URL + 'admin/', and the web
+		# servers map that to django/contrib/admin/static/admin/.
+		import django, os
+		self.login_superuser()
+		self.assertContains(self.client.get('/admin/'), '/static/admin/css/base.css')
+		self.assertTrue(os.path.isfile(os.path.join(os.path.dirname(django.__file__),
+			'contrib', 'admin', 'static', 'admin', 'css', 'base.css')))
 
 class ErrorPagesTest(LivemgrTestCase):
 	def test_404(self):

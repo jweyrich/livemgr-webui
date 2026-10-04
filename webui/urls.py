@@ -20,7 +20,7 @@
 # Authors:
 #   Jardel Weyrich <jweyrich@gmail.com>
 
-from django.conf.urls.defaults import patterns, include
+from django.conf.urls import patterns, include
 from django.contrib import admin
 from webui import settings
 

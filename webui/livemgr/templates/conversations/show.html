@@ -23,6 +23,7 @@
 {% endcomment %}
 
 {% load i18n switch custom_filters %}
+{% load url from future %}
 
 {% block title %}
 {% trans "Conversation" %} #{{ first_message.conversation_id }}
@@ -67,7 +68,7 @@
 		<b>{% trans "Buddy" %}</b>: {{ first_message.remoteim }}<br/>
 		<b>{% trans "Started in" %}</b>: {{ first_message.timestamp }}<br/>
 		<b>{% trans "Total messages" %}</b>: {{ messages|length }}<br/>
-		<b>{% trans "Export as" %}</b>: <a href="{% url webui:conversations-report-pdf first_message.conversation_id %}">pdf</a>
+		<b>{% trans "Export as" %}</b>: <a href="{% url 'webui:conversations-report-pdf' first_message.conversation_id %}">pdf</a>
 	</div>
 
 	<div style="overflow: auto;">

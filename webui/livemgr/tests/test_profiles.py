@@ -75,6 +75,13 @@ class ProfileUpdateTest(LivemgrTestCase):
 		self.post(old_password=self.PASSWORD, new_password1='n3w', new_password2='n3w')
 		self.assertTrue(self.reload().check_password('n3w'))
 
+	def test_passwords_stay_readable_by_django_1_3(self):
+		# Logging in and changing the password must not switch to PBKDF2 yet
+		# (see PASSWORD_HASHERS).
+		self.assertTrue(self.reload().password.startswith('sha1$'))
+		self.post(old_password=self.PASSWORD, new_password1='n3w', new_password2='n3w')
+		self.assertTrue(self.reload().password.startswith('sha1$'))
+
 	def test_wrong_current_password(self):
 		response = self.post(old_password='wrong', new_password1='n3w', new_password2='n3w')
 		self.assertEqual(response.status_code, 200)

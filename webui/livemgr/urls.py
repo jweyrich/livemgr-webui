@@ -20,7 +20,7 @@
 # Authors:
 #   Jardel Weyrich <jweyrich@gmail.com>
 
-from django.conf.urls.defaults import patterns, url
+from django.conf.urls import patterns, url
 from django.contrib.auth import views
 from webui.livemgr.controllers import profiles, settings, acls, badwords, \
 	conversations, groups, users, buddies, dashboard, license

@@ -65,16 +65,15 @@ def filter_strip(str, arg):
 	"Removes all values of arg from the given string"
 	return str.replace(arg, '')
 
-@register.filter(name='selected_if')
+@register.filter(name='selected_if', is_safe=True)
 @stringfilter
 def filter_selected_if(value, arg):
 	if (value == arg):
 		return mark_safe("selected")
 	else:
 		return mark_safe("")
-filter_selected_if.is_safe = True
 
-@register.filter(name='escape')
+@register.filter(name='escape', needs_autoescape=True)
 def filter_escape(value, autoescape=None):
 	"Returns the respective escaped value"
 	if autoescape:
@@ -82,7 +81,6 @@ def filter_escape(value, autoescape=None):
 	else:
 		esc = lambda x: x
 	return esc(value)
-filter_escape.needs_autoescape = True
 
 @register.filter(name='langcode')
 @stringfilter
