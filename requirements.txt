@@ -4,3 +4,5 @@ https://github.com/miracle2k/django-tables/tarball/0.3
 reportlab==2.5
 M2Crypto==0.35.2
 django-debug-toolbar==0.11.0
+# debug-toolbar 0.11's SQL filters use the sqlparse < 0.2 filter API
+sqlparse==0.1.19
