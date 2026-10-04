@@ -44,21 +44,22 @@ from webui.livemgr.models.profile import Profile
 from webui.livemgr.models.rule import Rule
 from webui.livemgr.models.user import User
 from webui.livemgr.utils.formatters import format_boolean
-import django_tables as tables
+import django_tables2 as tables
 
-class GroupTable(tables.ModelTable):
+class GroupTable(tables.Table):
 	class Meta:
 		model = UserGroup
-		columns = ['groupname', 'isactive', 'description', 'user_count']
+		fields = ('groupname', 'isactive', 'description', 'user_count')
+		default = '' # Not '—' for empty values
 	# Use ugettext_lazy because class definitions are evaluated once!
 	id = tables.Column(visible=False)
-	isbuiltin = tables.Column(verbose_name=ugettext_lazy('built-in'), sortable=True, visible=False)
-	description = tables.Column(verbose_name=ugettext_lazy('description'), sortable=False)
-	user_count = tables.Column(verbose_name=ugettext_lazy('# of users'), sortable=False)
-	def render_isactive(self, instance):
-		return format_boolean(instance.isactive)
-	def render_user_count(self, instance):
-		return instance.user_count
+	isbuiltin = tables.Column(verbose_name=ugettext_lazy('built-in'), orderable=True, visible=False)
+	description = tables.Column(verbose_name=ugettext_lazy('description'), orderable=False)
+	user_count = tables.Column(verbose_name=ugettext_lazy('# of users'), orderable=False)
+	def render_isactive(self, record):
+		return format_boolean(record.isactive)
+	def render_user_count(self, record):
+		return record.user_count
 
 class GroupForm(NoLabelSuffixMixin, ModelForm):
 	class Meta:

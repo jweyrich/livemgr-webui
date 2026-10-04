@@ -61,8 +61,8 @@ mysql -u root -p -h localhost livemgr < bootstrap/db/create_mysql.sql
 # Minify and concatenate media files (.css and .js):
 make -C media all
 
-# Create all auth related tables that have not already been created:
-python webui/manage.py syncdb --settings=settings_example
+# Create the web UI tables that have not already been created:
+python webui/manage.py migrate --settings=settings_example
 
 # Test it! - After running the following command, navigate to http://127.0.0.1:8000/
 python webui/manage.py runserver --settings=settings_example

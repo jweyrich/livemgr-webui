@@ -52,15 +52,15 @@ KEYSERVER_HOST = '127.0.0.1' # No need to change this.
 ########################
 
 #DEBUG_TOOLBAR_PANELS = (
-#    'debug_toolbar.panels.version.VersionDebugPanel',
-#    'debug_toolbar.panels.timer.TimerDebugPanel',
-#    'debug_toolbar.panels.settings_vars.SettingsVarsDebugPanel',
-#    'debug_toolbar.panels.headers.HeaderDebugPanel',
-#    'debug_toolbar.panels.request_vars.RequestVarsDebugPanel',
-#    'debug_toolbar.panels.template.TemplateDebugPanel',
-#    'debug_toolbar.panels.sql.SQLDebugPanel',
-#    'debug_toolbar.panels.signals.SignalDebugPanel',
-#    'debug_toolbar.panels.logger.LoggingPanel',
+#    'debug_toolbar.panels.versions.VersionsPanel',
+#    'debug_toolbar.panels.timer.TimerPanel',
+#    'debug_toolbar.panels.settings.SettingsPanel',
+#    'debug_toolbar.panels.headers.HeadersPanel',
+#    'debug_toolbar.panels.request.RequestPanel',
+#    'debug_toolbar.panels.templates.TemplatesPanel',
+#    'debug_toolbar.panels.sql.SQLPanel',
+#    'debug_toolbar.panels.signals.SignalsPanel',
+#    'debug_toolbar.panels.logging.LoggingPanel',
 #)
 
 def show_toolbar(request):
@@ -69,8 +69,8 @@ def show_toolbar(request):
         return user.profile.debug
     return False
 
+# django-debug-toolbar 1.x no longer intercepts redirects by default, and
+# dropped HIDE_DJANGO_SQL.
 DEBUG_TOOLBAR_CONFIG = {
-    'INTERCEPT_REDIRECTS': False,
     'SHOW_TOOLBAR_CALLBACK': show_toolbar,
-    'HIDE_DJANGO_SQL': False,
 }

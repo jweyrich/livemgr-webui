@@ -48,6 +48,8 @@ class CustomPaginator:
 		return self
 
 	def group_by(self, distinct=True, *field_names):
+		# Call before instantiate(): it changes the queryset in place, and
+		# django-tables2 tables keep their own (ordered) copy of it.
 		self._group_by = field_names
 		self._distinct = distinct
 		# Tuple to list

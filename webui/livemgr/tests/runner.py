@@ -88,7 +88,7 @@ def schema_statements(path=SCHEMA_FILE):
 def load_schema(path=SCHEMA_FILE):
 	cursor = connection.cursor()
 	with warnings.catch_warnings():
-		# "Table 'auth_user_profile' already exists": syncdb created it first.
+		# "Table 'auth_user_profile' already exists": Django created it first.
 		warnings.simplefilter('ignore')
 		for statement in schema_statements(path):
 			cursor.execute(statement)

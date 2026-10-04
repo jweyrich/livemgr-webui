@@ -45,17 +45,18 @@ from webui.livemgr.models import Message
 from webui.livemgr.models.profile import Profile
 from webui.livemgr.utils.formatters import ip_long_to_str
 from webui.livemgr.utils.local_datetime import adjust_date
-import django_tables as tables
+import django_tables2 as tables
 
-class MessageTable(tables.ModelTable):
+class MessageTable(tables.Table):
 	class Meta:
 		model = Message
 		#exclude = ['id', 'content', 'inbound', 'is_active', 'localuser_id', 'filtered', 'clientip']
-		columns = ['conversation_id', 'timestamp', 'localim', 'remoteim']
+		fields = ('conversation_id', 'timestamp', 'localim', 'remoteim')
+		default = '' # Not '—' for empty values
 	# Use ugettext_lazy because class definitions are evaluated once!
-	conversation_id = tables.Column(name='conversation_id', visible=False)
-	def render_timestamp(self, instance):
-		return instance.timestamp.strftime(_('%m/%d/%Y - %I:%M:%S %p'))
+	conversation_id = tables.Column(visible=False)
+	def render_timestamp(self, record):
+		return record.timestamp.strftime(_('%m/%d/%Y - %I:%M:%S %p'))
 
 class MessageSearchForm(forms.Form):
 	message = forms.CharField(required=False, label=ugettext_lazy("message"))
@@ -127,9 +128,9 @@ def index(request):
 	profile = request.user.profile
 	order_by = request.GET.get('sort', '-timestamp')
 	result = CustomPaginator(qset) \
+		.group_by(True, 'conversation_id') \
 		.instantiate(MessageTable, qset, order_by=order_by) \
-		.with_request(request) \
-		.group_by(True, 'conversation_id')
+		.with_request(request)
 	page = result.page(None, profile.per_page_conversations)
 	context_instance = RequestContext(request)
 	template_name = 'conversations/list.html'

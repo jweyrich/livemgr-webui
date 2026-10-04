@@ -34,20 +34,21 @@ from webui.livemgr.models import User
 from webui.livemgr.models.buddy import Buddy
 from webui.livemgr.models.profile import Profile
 from webui.livemgr.utils.formatters import format_boolean, format_user_status
-import django_tables as tables
+import django_tables2 as tables
 
-class BuddyTable(tables.ModelTable):
+class BuddyTable(tables.Table):
 	class Meta:
 		model = Buddy
 		exclude = ['user']
-		columns = ['username', 'status', 'isblocked', 'displayname', 'psm']
+		fields = ('username', 'status', 'isblocked', 'displayname', 'psm')
+		default = '' # Not '—' for empty values
 	# Use ugettext_lazy because class definitions are evaluated once!
 	id = tables.Column(visible=False)
-	psm = tables.Column(verbose_name=ugettext_lazy('personal message'), sortable=False)
-	def render_status(self, instance):
-		return format_user_status(instance.status)
-	def render_isblocked(self, instance):
-		return format_boolean(instance.isblocked)
+	psm = tables.Column(verbose_name=ugettext_lazy('personal message'), orderable=False)
+	def render_status(self, record):
+		return format_user_status(record.status)
+	def render_isblocked(self, record):
+		return format_boolean(record.isblocked)
 
 class BuddySearchForm(forms.Form):
 	username = forms.CharField(required=False, label=ugettext_lazy("username"))

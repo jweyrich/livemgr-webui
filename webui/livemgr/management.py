@@ -24,7 +24,7 @@ from django.contrib.auth.models import Permission as DjangoPermission
 from django.contrib.auth.models import User as DjangoUser
 from django.contrib.auth.models import Group as DjangoGroup
 from django.db.models import signals
-from webui.livemgr import models as livemgr_models
+import django
 
 def bla():
     permissions = [
@@ -37,7 +37,7 @@ def bla():
     result = DjangoPermission.objects.filter(codename__in=permissions).values_list('id', flat=True).order_by('id')
     return result
 
-def install(app, created_models, **kwargs):
+def install(**kwargs):
     audit_group, created = DjangoGroup.objects.get_or_create(name='auditor')
     audit_group.permissions = bla()
     audit_group.save()
@@ -67,4 +67,13 @@ def install(app, created_models, **kwargs):
         user.set_password('auditor')
         user.save()
 
-signals.post_syncdb.connect(install, sender=livemgr_models)
+# Django 1.7 replaces post_syncdb with post_migrate, whose sender is the app's
+# AppConfig. migrate imports this module after django.contrib.auth's, so the
+# permissions the hook assigns are created first. Django 1.9 stops importing
+# management modules: the hook should move to an AppConfig.ready() by then.
+if django.VERSION >= (1, 7):
+    from django.apps import apps
+    signals.post_migrate.connect(install, sender=apps.get_app_config('livemgr'))
+else:
+    from webui.livemgr import models as livemgr_models
+    signals.post_syncdb.connect(install, sender=livemgr_models)

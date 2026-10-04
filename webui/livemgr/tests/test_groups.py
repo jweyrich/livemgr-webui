@@ -24,7 +24,7 @@ from webui.livemgr.models import GroupRule, User, UserGroup
 from webui.livemgr.tests.base import LivemgrTestCase, GUEST_GROUP_ID
 
 def listed(response):
-	return [row.data for row in response.context['page'].object_list]
+	return [row.record for row in response.context['page'].object_list]
 
 def rules_of(group):
 	return sorted(GroupRule.objects.filter(group=group).values_list('rule_id', flat=True))

@@ -24,7 +24,7 @@ from webui.livemgr.models import Buddy, User
 from webui.livemgr.tests.base import LivemgrTestCase, GUEST_GROUP_ID, at
 
 def listed(response):
-	return [row.data for row in response.context['page'].object_list]
+	return [row.record for row in response.context['page'].object_list]
 
 class UserListTest(LivemgrTestCase):
 	def setUp(self):

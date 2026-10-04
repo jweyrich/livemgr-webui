@@ -28,6 +28,7 @@
 # runner creates and destroys its own `test_<NAME>` database, so it needs a
 # MySQL user allowed to CREATE/DROP databases.
 from settings import *
+import django
 import os
 
 DATABASES = {
@@ -38,11 +39,13 @@ DATABASES = {
         'PASSWORD': os.environ.get('LIVEMGR_TEST_DB_PASSWORD', '123456'),
         'HOST': os.environ.get('LIVEMGR_TEST_DB_HOST', 'db'),
         'PORT': os.environ.get('LIVEMGR_TEST_DB_PORT', ''),
-        # Django < 1.7 reads TEST_CHARSET; newer versions read TEST['CHARSET'].
-        'TEST_CHARSET': 'utf8',
         'TEST': {'CHARSET': 'utf8'},
     }
 }
+# Django < 1.7 reads TEST_CHARSET; newer versions read TEST['CHARSET'] and
+# deprecate the TEST_* keys.
+if django.VERSION < (1, 7):
+    DATABASES['default']['TEST_CHARSET'] = 'utf8'
 
 TEST_RUNNER = 'webui.livemgr.tests.runner.LivemgrTestRunner'
 
