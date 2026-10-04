@@ -24,7 +24,8 @@ import django
 
 # Django < 1.6 only collects tests found in the app's `tests` module, so the
 # modules must be re-exported here. Newer versions discover test_*.py on their
-# own and would run these twice. Remove this block once on Django >= 1.6.
+# own and would run these twice. Remove this block once rolling back to
+# Django 1.5 is no longer an option.
 if django.VERSION < (1, 6):
 	from webui.livemgr.tests.test_access import *
 	from webui.livemgr.tests.test_acls import *

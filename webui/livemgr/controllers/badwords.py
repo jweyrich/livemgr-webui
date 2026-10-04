@@ -30,10 +30,11 @@ from django.shortcuts import render_to_response, get_object_or_404
 from django.template import RequestContext
 from django.utils.translation import ugettext as _, ugettext_lazy
 from webui.common import CustomPaginator
+from webui.common.db import atomic
 from webui.common.decorators.rest import rest_multiple, rest_post
 from webui.common.http import method
 from webui.common.utils import request_has_error, InView, FormAction, flash_success, flash_info, \
-	flash_form_error, flash_error
+	flash_form_error, flash_error, NoLabelSuffixMixin
 from webui.livemgr.models import Badword
 from webui.livemgr.models.profile import Profile
 from webui.livemgr.utils.formatters import format_boolean
@@ -51,7 +52,7 @@ class BadwordTable(tables.ModelTable):
 	def render_isenabled(self, instance):
 		return format_boolean(instance.isenabled)
 
-class BadwordForm(ModelForm):
+class BadwordForm(NoLabelSuffixMixin, ModelForm):
 	class Meta:
 		model = Badword
 		fields = ('badword', 'isregex', 'isenabled')
@@ -135,7 +136,8 @@ def edit(request, object_id):
 		form = BadwordForm(request.POST, instance=model)
 		if form.is_valid():
 			try:
-				model = form.save(True)
+				with atomic():
+					model = form.save(True)
 				object_id = model.id
 				flash_success(request,
 					_('The badword \'%s\' was changed successfully.') % model.badword)
@@ -166,7 +168,8 @@ def add(request):
 		form = BadwordForm(request.POST)
 		if form.is_valid():
 			try:
-				model = form.save(True)
+				with atomic():
+					model = form.save(True)
 				object_id = model.id
 				flash_success(request,
 					_('The badword \'%s\' was created successfully.') % model.badword)

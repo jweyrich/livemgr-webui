@@ -24,6 +24,7 @@ from django import forms
 from django.conf import settings
 from django.contrib.auth import views
 from django.contrib.auth.decorators import login_required
+from django.contrib.auth.forms import AuthenticationForm
 from django.contrib.auth.models import User, Group
 from django.forms.models import ModelForm
 from django.http import HttpResponseBadRequest
@@ -34,7 +35,7 @@ from django.views.i18n import set_language
 from webui.common import CustomPaginator
 from webui.common.decorators.rest import rest_multiple
 from webui.common.http import method
-from webui.common.utils import flash_success, flash_form_error
+from webui.common.utils import flash_success, flash_form_error, NoLabelSuffixMixin
 from webui.livemgr.models.profile import Profile
 from webui.livemgr.utils.formatters import format_boolean
 import django_tables as tables
@@ -53,7 +54,7 @@ class ProfileTable(tables.ModelTable):
 	def render_groups(self, instance):
 		return ', '.join([g.name for g in instance.groups.all()])
 
-class UserUpdateForm(ModelForm): # Do NOT use PasswordChangeForm
+class UserUpdateForm(NoLabelSuffixMixin, ModelForm): # Do NOT use PasswordChangeForm
 	class Meta:
 		model = User
 		fields = ('first_name', 'last_name', 'email')
@@ -80,12 +81,15 @@ class UserUpdateForm(ModelForm): # Do NOT use PasswordChangeForm
 			self.instance.save()
 		return self.instance
 
-class ProfileUpdateForm(ModelForm):
+class ProfileUpdateForm(NoLabelSuffixMixin, ModelForm):
 	class Meta:
 		model = Profile
 		fields = ['language', 'debug']
 	language = forms.ChoiceField(settings.LANGUAGES, label=ugettext_lazy('Language'), required=False)
 	debug = forms.BooleanField(label=ugettext_lazy('Enable debug'), required=False)
+
+class LoginForm(NoLabelSuffixMixin, AuthenticationForm):
+	pass
 
 class ProfileSearchForm(forms.Form):
 	username = forms.CharField(required=False, label=ugettext_lazy('username'))
@@ -180,6 +184,7 @@ def set_language_local(request, response, lang_code):
 	return response
 
 def login(request, *args, **kwargs):
+	kwargs.setdefault('authentication_form', LoginForm)
 	response = views.login(request, *args, **kwargs)
 	if hasattr(request.user, 'profile'):
 		set_language_local(request, response, request.user.profile.language)

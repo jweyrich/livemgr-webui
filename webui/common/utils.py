@@ -75,6 +75,15 @@ def request_has_error(request):
 		return False
 	return request._errors > 0
 
+class NoLabelSuffixMixin(object):
+	"""
+	Django 1.6 appends the form's label_suffix (':' by default) to the labels
+	rendered by {{ field.label_tag }}. The templates render labels without it.
+	"""
+	def __init__(self, *args, **kwargs):
+		kwargs.setdefault('label_suffix', '')
+		super(NoLabelSuffixMixin, self).__init__(*args, **kwargs)
+
 class InView:
 	EDIT	 = 0
 	ADD		 = 1
