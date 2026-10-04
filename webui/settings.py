@@ -142,6 +142,12 @@ PASSWORD_HASHERS = (
 INTERNAL_IPS = ('127.0.0.1', )
 CSRF_FAILURE_VIEW = 'webui.livemgr.controllers.profiles.no_cookie'
 
+# Sessions
+# Django 1.6 serializes sessions as JSON instead of pickle, so they only hold
+# JSON values (the messages below and the language code are). Sessions saved
+# by an older version fail to decode, which logs those users out once.
+SESSION_SERIALIZER = 'django.contrib.sessions.serializers.JSONSerializer'
+
 # Messages
 MESSAGE_STORAGE = 'django.contrib.messages.storage.session.SessionStorage'
 

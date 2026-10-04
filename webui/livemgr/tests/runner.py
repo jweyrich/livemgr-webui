@@ -92,9 +92,8 @@ def load_schema(path=SCHEMA_FILE):
 		warnings.simplefilter('ignore')
 		for statement in schema_statements(path):
 			cursor.execute(statement)
-	commit_unless_managed = getattr(transaction, 'commit_unless_managed', None)
-	if commit_unless_managed: # Django < 1.6 doesn't autocommit
-		commit_unless_managed()
+	if django.VERSION < (1, 6): # Newer versions autocommit
+		transaction.commit_unless_managed()
 
 class LivemgrTestRunner(BaseRunner):
 	def setup_databases(self, *args, **kwargs):

@@ -33,7 +33,7 @@ from webui.common import CustomPaginator
 from webui.common.decorators.rest import rest_multiple, rest_post
 from webui.common.http import method
 from webui.common.utils import request_has_error, FormAction, flash_info, InView, flash_success, \
-	flash_form_error
+	flash_form_error, NoLabelSuffixMixin
 from webui.livemgr.models import Acl
 from webui.livemgr.models.profile import Profile
 from webui.livemgr.utils.formatters import format_acl_action
@@ -48,7 +48,7 @@ class AclTable(tables.ModelTable):
 	def render_action(self, instance):
 		return format_acl_action(instance.action)
 
-class AclForm(ModelForm):
+class AclForm(NoLabelSuffixMixin, ModelForm):
 	class Meta:
 		model = Acl
 		fields = ('action', 'localim', 'remoteim')

@@ -75,12 +75,12 @@ class Message(models.Model):
 	#								verbose_name="Conversation")
 	# NOTE: Avoiding IPAddressField because it stores text instead of int
 	clientip = models.IntegerField(_("client IP"))
-	inbound = models.BooleanField(_("inbound"))
+	inbound = models.BooleanField(_("inbound"), default=False)
 	type = models.IntegerField(_("type"), choices=CHOICES_TYPES)
 	# NOTE: Avoiding EmailField because most protocols don't use email addresses
 	localim = models.CharField(_("user"), max_length=128)
 	remoteim = models.CharField(_("buddy"), max_length=128)
-	filtered = models.BooleanField(_("filtered"))
+	filtered = models.BooleanField(_("filtered"), default=False)
 	content = models.TextField(_("content"), max_length=2000)
 	def __unicode__(self):
 		return smart_unicode('%d %d %s %s %s' % (self.id, self.timestamp,

@@ -27,10 +27,10 @@ from django.template import RequestContext
 from django.utils.translation import ugettext as _, ugettext_lazy
 from webui.common.decorators.rest import rest_multiple
 from webui.common.http import method
-from webui.common.utils import flash_success, flash_form_error
+from webui.common.utils import flash_success, flash_form_error, NoLabelSuffixMixin
 from webui.livemgr.models.setting import Setting
 
-class SettingsUpdateForm(forms.Form):
+class SettingsUpdateForm(NoLabelSuffixMixin, forms.Form):
 	PROTOCOL_CHOICES = (
 		(8, '8'),
 		(9, '9'),

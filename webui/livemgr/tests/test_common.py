@@ -38,10 +38,11 @@ from webui.common.decorators.rest import rest_delete, rest_get, rest_multiple, \
 from webui.common.json import ComplexTypeEncoder
 from webui.common.report import NumberedCanvas, coord_tl, coord_tr
 from webui.common.utils import flash_error, flash_form_error, flash_success, \
-	request_has_error
+	request_has_error, NoLabelSuffixMixin
 from webui.livemgr.controllers.acls import AclTable
 from webui.livemgr.models import Acl
 from webui.livemgr.tests.base import LivemgrTestCase
+import django
 import json
 import unittest
 
@@ -165,6 +166,35 @@ class FlashTest(unittest.TestCase):
 		flash_form_error(request, form)
 		self.assertEqual(request._messages.added,
 			[(messages.ERROR, u'Please, correct the fields below.')])
+
+class NoLabelSuffixTest(LivemgrTestCase):
+	"""
+	Django 1.6 appends the form's label_suffix to {{ field.label_tag }}; the
+	templates that render it show labels without a trailing colon.
+	"""
+	PAGES = ('/settings/', '/profile/update/', '/acls/add/', '/badwords/add/',
+		'/users/add/', '/groups/add/')
+
+	def test_label_tag(self):
+		class Form(NoLabelSuffixMixin, forms.Form):
+			name = forms.CharField(label='Name')
+		self.assertEqual(Form()['name'].label_tag(), '<label for="id_name">Name</label>')
+		self.assertEqual(Form(label_suffix='?')['name'].label_tag(),
+			'<label for="id_name">Name</label>' if django.VERSION < (1, 6)
+			else '<label for="id_name">Name?</label>')
+
+	def test_login_page(self):
+		response = self.client.get('/login/')
+		self.assertContains(response, '<label for="id_username">Username</label>', html=True)
+		self.assertNotContains(response, ':</label>')
+
+	def test_form_pages(self):
+		self.login_superuser()
+		for path in self.PAGES:
+			response = self.client.get(path)
+			self.assertEqual(response.status_code, 200, path)
+			self.assertTrue('</label>' in response.content, path)
+			self.assertFalse(':</label>' in response.content, path)
 
 class RestDecoratorsTest(unittest.TestCase):
 	def view(self, request):

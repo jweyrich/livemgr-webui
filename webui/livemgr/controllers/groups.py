@@ -33,10 +33,11 @@ from django.shortcuts import render_to_response, get_object_or_404
 from django.template import RequestContext
 from django.utils.translation import ugettext as _, ugettext_lazy
 from webui.common import CustomPaginator
+from webui.common.db import atomic
 from webui.common.decorators.rest import rest_multiple, rest_post
 from webui.common.http import method
 from webui.common.utils import request_has_error, FormAction, flash_info, InView, flash_success, \
-	flash_warning, flash_form_error, flash_error
+	flash_warning, flash_form_error, flash_error, NoLabelSuffixMixin
 from webui.livemgr.models import UserGroup
 from webui.livemgr.models.grouprule import GroupRule
 from webui.livemgr.models.profile import Profile
@@ -59,7 +60,7 @@ class GroupTable(tables.ModelTable):
 	def render_user_count(self, instance):
 		return instance.user_count
 
-class GroupForm(ModelForm):
+class GroupForm(NoLabelSuffixMixin, ModelForm):
 	class Meta:
 		model = UserGroup
 		fields = ('groupname', 'description', 'isactive')
@@ -170,16 +171,17 @@ def edit(request, object_id):
 			users = ChangedUsers()
 			rules = ChangedRules()
 			try:
-				model = form.save(True)
-				if users.added:
-					User.objects.filter(pk__in=users.added).update(group=object_id)
-				if users.removed:
-					User.objects.filter(pk__in=users.removed).update(group=1L)
-				if rules.added:
-					for rule_id in rules.added:
-						GroupRule(group_id=object_id, rule_id=rule_id).save()
-				if rules.removed:
-					GroupRule.objects.filter(rule__in=rules.removed).delete()
+				with atomic():
+					model = form.save(True)
+					if users.added:
+						User.objects.filter(pk__in=users.added).update(group=object_id)
+					if users.removed:
+						User.objects.filter(pk__in=users.removed).update(group=1L)
+					if rules.added:
+						for rule_id in rules.added:
+							GroupRule(group_id=object_id, rule_id=rule_id).save()
+					if rules.removed:
+						GroupRule.objects.filter(rule__in=rules.removed).delete()
 				flash_success(request,
 					_('The group \'%s\' was changed successfully.') % model.groupname)
 				if users.removed and object_id == 1L:
@@ -237,13 +239,14 @@ def add(request):
 			users_added = map(long, request.POST.getlist('users'))
 			rules_added = map(long, request.POST.getlist('rules'))
 			try:
-				model = form.save(True)
-				object_id = model.id
-				if users_added:
-					User.objects.filter(pk__in=users_added).update(group=object_id)
-				if rules_added:
-					for rule_id in rules_added:
-						GroupRule(group_id=object_id, rule_id=rule_id).save()
+				with atomic():
+					model = form.save(True)
+					object_id = model.id
+					if users_added:
+						User.objects.filter(pk__in=users_added).update(group=object_id)
+					if rules_added:
+						for rule_id in rules_added:
+							GroupRule(group_id=object_id, rule_id=rule_id).save()
 				flash_success(request,
 					_('The group \'%s\' was created successfully.') % model.groupname)
 				form = GroupForm()

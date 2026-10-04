@@ -108,6 +108,16 @@ class ModelBehaviorTest(LivemgrTestCase):
 		self.assertEqual(user.lastlogin, None)
 		self.assertEqual(user.group_id, GUEST_GROUP_ID)
 
+	def test_new_message_defaults(self):
+		# Django 1.6 no longer defaults a BooleanField to False
+		conversation = self.make_conversation(self.make_user())
+		message = Message.objects.create(conversation_id=conversation.id, clientip=0,
+			type=Message.Type.MSG, localim='alice@example.com', remoteim='bob@example.com',
+			content='hello')
+		message = Message.objects.get(pk=message.pk)
+		self.assertEqual(message.inbound, False)
+		self.assertEqual(message.filtered, False)
+
 	def test_lookup_user_status(self):
 		self.assertEqual(lookup_user_status('NLN')[0], 'NLN')
 		self.assertEqual(unicode(lookup_user_status('NLN')[1]), u'Online')

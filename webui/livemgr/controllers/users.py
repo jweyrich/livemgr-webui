@@ -33,10 +33,11 @@ from django.template import RequestContext
 from django.utils.safestring import mark_safe
 from django.utils.translation import ugettext as _, ugettext_lazy
 from webui.common import CustomPaginator
+from webui.common.db import atomic
 from webui.common.decorators.rest import rest_multiple, rest_get
 from webui.common.http import method
 from webui.common.utils import FormAction, flash_info, InView, flash_success, flash_form_error, \
-	flash_error, request_has_error
+	flash_error, request_has_error, NoLabelSuffixMixin
 from webui.livemgr.models import User
 from webui.livemgr.models.profile import Profile
 from webui.livemgr.models.usergroup import UserGroup
@@ -75,7 +76,7 @@ class UserTable(tables.ModelTable):
 		else:
 			return mark_safe(_('None'))
 
-class UserForm(ModelForm):
+class UserForm(NoLabelSuffixMixin, ModelForm):
 #	id = forms.IntegerField(widget=forms.HiddenInput())
 	class Meta:
 		model = User
@@ -179,7 +180,8 @@ def edit(request, object_id):
 		form = UserForm(request.POST, instance=model)
 		if form.is_valid():
 			try:
-				model = form.save(True)
+				with atomic():
+					model = form.save(True)
 				flash_success(request,
 					_('The user \'%s\' was changed successfully.') % model.username)
 			except IntegrityError:
@@ -212,7 +214,8 @@ def add(request):
 			try:
 				model = form.save(False)
 				model.status = 'FLN'
-				model.save()
+				with atomic():
+					model.save()
 				object_id = model.id
 				flash_success(request,
 					_('The user \'%s\' was created successfully.') % model.username)
