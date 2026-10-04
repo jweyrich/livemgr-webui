@@ -255,7 +255,7 @@ class HttpMethodTest(LivemgrTestCase):
 
 class DjangoInstallationTest(LivemgrTestCase):
 	"""
-	Django 1.2 installs its data files with a setup.py trick that breaks when
+	Django 1.2 and 1.3 install their data files with a setup.py trick that breaks when
 	pip builds a wheel (see requirements.txt): translations and the admin
 	templates silently go missing.
 	"""
@@ -292,4 +292,36 @@ class ErrorPagesTest(LivemgrTestCase):
 		from django.test.client import Client
 		client = Client(enforce_csrf_checks=True)
 		response = client.post('/login/', {'username': 'x', 'password': 'y'})
+		self.assertTemplateUsed(response, 'profiles/no_cookie.html')
+
+class AjaxCsrfTest(LivemgrTestCase):
+	"""
+	Since Django 1.2.5 AJAX requests go through the CSRF check too. The layout
+	makes jQuery send the token in the X-CSRFToken header.
+	"""
+	def setUp(self):
+		from django.test.client import Client
+		self.client = Client(enforce_csrf_checks=True)
+		self.account = self.login_superuser()
+
+	def csrf_token(self):
+		response = self.client.get('/dashboard/')
+		token = self.client.cookies['csrftoken'].value
+		self.assertContains(response, "xhr.setRequestHeader('X-CSRFToken', '%s')" % token)
+		return token
+
+	def test_dashboard_query(self):
+		response = self.client.post('/dashboard/query/', {'period': 'month'},
+			HTTP_X_CSRFTOKEN=self.csrf_token(), HTTP_X_REQUESTED_WITH='XMLHttpRequest')
+		self.assertEqual(response['Content-Type'], 'application/json')
+
+	def test_change_page_size(self):
+		self.client.post('/acls/', {'per_page': '50'},
+			HTTP_X_CSRFTOKEN=self.csrf_token(), HTTP_X_REQUESTED_WITH='XMLHttpRequest')
+		self.assertEqual(self.profile_of(self.account).per_page_acls, 50)
+
+	def test_without_the_header(self):
+		self.csrf_token()
+		response = self.client.post('/dashboard/query/', {'period': 'month'},
+			HTTP_X_REQUESTED_WITH='XMLHttpRequest')
 		self.assertTemplateUsed(response, 'profiles/no_cookie.html')

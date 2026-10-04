@@ -64,6 +64,23 @@
 {% endif %}
 
 <script type="text/javascript">
+// Django checks the CSRF token on AJAX requests too, so send it in a header.
+// Rendering the token also makes sure the csrftoken cookie is set.
+$(document).ajaxSend(function(event, xhr, settings) {
+	function sameOrigin(url) {
+		var host = document.location.host;
+		var protocol = document.location.protocol;
+		var sr_origin = '//' + host;
+		var origin = protocol + sr_origin;
+		return (url == origin || url.slice(0, origin.length + 1) == origin + '/') ||
+			(url == sr_origin || url.slice(0, sr_origin.length + 1) == sr_origin + '/') ||
+			!(/^(\/\/|http:|https:).*/.test(url)); // relative
+	}
+	if (!/^(GET|HEAD|OPTIONS|TRACE)$/i.test(settings.type) && sameOrigin(settings.url)) {
+		xhr.setRequestHeader('X-CSRFToken', '{{ csrf_token }}');
+	}
+});
+
 i18n.changeLanguage('{{ LANGUAGE_CODE|langcode }}');
 $(document).ready(function() {
 	$('a[rel=external]').attr('target', '_blank');

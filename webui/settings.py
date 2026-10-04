@@ -57,6 +57,11 @@ LANGUAGES = (
 )
 USE_I18N = True
 USE_L10N = True
+# Django 1.3 deprecates loading translations from the project's locale
+# directory implicitly. Listing it here also serves its djangojs catalog.
+LOCALE_PATHS = (
+    os.path.join(ROOT, 'locale'),
+)
 
 MEDIA_ROOT = os.path.join(ROOT, '..', 'media')
 MEDIA_URL = '/media/'
@@ -97,7 +102,7 @@ INSTALLED_APPS = (
 )
 
 TEMPLATE_CONTEXT_PROCESSORS = (
-    'django.core.context_processors.auth',
+    'django.contrib.auth.context_processors.auth',
     'django.core.context_processors.debug',
     'django.core.context_processors.i18n',
     'django.core.context_processors.media',
