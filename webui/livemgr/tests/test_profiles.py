@@ -67,6 +67,10 @@ class ProfileUpdateTest(LivemgrTestCase):
 		self.assertContains(response, 'Sair') # "Logout"
 		self.assertContains(response, 'Perfil') # "Profile"
 
+	def test_language_switch_applies_to_javascript(self):
+		self.post(language='pt-br')
+		self.assertContains(self.client.get('/jsi18n/'), 'Hoje') # "Today", from LOCALE_PATHS
+
 	def test_change_password(self):
 		self.post(old_password=self.PASSWORD, new_password1='n3w', new_password2='n3w')
 		self.assertTrue(self.reload().check_password('n3w'))
