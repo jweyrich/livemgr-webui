@@ -1,0 +1,64 @@
+name: Tests
+
+on:
+  push:
+    branches: [master]
+  pull_request:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: ${{ github.event_name == 'pull_request' }}
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+
+    services:
+      db:
+        image: mariadb:10.4
+        env:
+          MYSQL_ROOT_PASSWORD: 123456
+          # Django connects to NAME before creating test_livemgr, so it must exist
+          MYSQL_DATABASE: livemgr
+        ports:
+          - 3306:3306
+        # Ping over TCP: the entrypoint's temporary init server answers on the
+        # socket only, then restarts
+        options: >-
+          --health-cmd="mysqladmin ping -h 127.0.0.1 -uroot -p123456 --silent"
+          --health-interval=5s
+          --health-timeout=5s
+          --health-retries=20
+
+    steps:
+      - uses: actions/checkout@v7
+
+      - uses: docker/setup-buildx-action@v4
+
+      # Python 2.7 is no longer available on the runners, so the tests run in
+      # the devcontainer image. Its layers are cached between runs.
+      - name: Build devcontainer image
+        uses: docker/build-push-action@v7
+        with:
+          context: .
+          file: .devcontainer/Dockerfile
+          tags: livemgr-webui-dev:ci
+          load: true
+          cache-from: type=gha
+          cache-to: type=gha,mode=max
+
+      # 127.0.0.1 rather than localhost, which the MySQL client resolves to a socket
+      - name: Run tests
+        run: |
+          docker run --rm --network host \
+            -v "$GITHUB_WORKSPACE:/workspace" -w /workspace \
+            -e PYTHONDONTWRITEBYTECODE=1 \
+            -e LIVEMGR_TEST_DB_HOST=127.0.0.1 \
+            -e LIVEMGR_TEST_DB_PORT=3306 \
+            livemgr-webui-dev:ci \
+            python webui/manage.py test --settings=settings_test --noinput

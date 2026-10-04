@@ -1,3 +1,5 @@
+[![Tests](https://github.com/jweyrich/livemgr-webui/actions/workflows/tests.yml/badge.svg)](https://github.com/jweyrich/livemgr-webui/actions/workflows/tests.yml)
+
 ## What is (was) it?
 
 Live Manager was a complete corporate solution built to monitor and control all interactions over Microsoft MSN Messenger, which is now dead.
