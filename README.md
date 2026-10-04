@@ -26,6 +26,14 @@ docker-compose run db "mysql -uroot --password=123456 < /mnt/initdb/create_table
 docker-compose run app /opt/envs/livemgr-webui/bin/python webui/manage.py syncdb --noinput --settings=settings_example
 ````
 
+## How to develop?
+
+Open the repository in VS Code and choose **Reopen in Container** (requires the Dev Containers extension and Docker). The database is created and seeded on first start, and the media files are built. Then, from the container's terminal:
+
+```sh
+python webui/manage.py runserver 0.0.0.0:8000 --settings=settings_example
+```
+
 ## How to access?
 
 Navigate to http://127.0.0.1:8000

@@ -1,0 +1,26 @@
+services:
+  app:
+    build:
+      context: ..
+      dockerfile: .devcontainer/Dockerfile
+    volumes:
+      - ..:/workspace:cached
+      - node_modules:/workspace/node_modules
+    # Keep the container alive; the dev server is started from the terminal
+    command: sleep infinity
+    depends_on:
+      - db
+
+  db:
+    image: mariadb:10.4
+    restart: unless-stopped
+    environment:
+      MYSQL_ROOT_PASSWORD: 123456
+    volumes:
+      - db_data:/var/lib/mysql
+      # Runs create_schema.sql then create_tables.sql on first start only
+      - ../bootstrap/db:/docker-entrypoint-initdb.d:ro
+
+volumes:
+  db_data:
+  node_modules:

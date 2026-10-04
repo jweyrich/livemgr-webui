@@ -1,0 +1,14 @@
+{
+	"name": "livemgr-webui",
+	"dockerComposeFile": "docker-compose.yml",
+	"service": "app",
+	"runServices": ["app", "db"],
+	"workspaceFolder": "/workspace",
+	"remoteUser": "vscode",
+	"forwardPorts": [8000],
+	"portsAttributes": {
+		"8000": { "label": "Django runserver", "onAutoForward": "notify" }
+	},
+	"postCreateCommand": "sudo chown vscode:vscode node_modules && npm ci && npx gulp --gulpfile media/gulpfile.js all",
+	"postStartCommand": "until mysqladmin ping -h db -uroot -p123456 --silent; do sleep 1; done && python webui/manage.py syncdb --noinput --settings=settings_example"
+}
