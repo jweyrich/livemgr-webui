@@ -181,8 +181,8 @@ def set_language_local(request, response, lang_code):
 
 def login(request, *args, **kwargs):
 	response = views.login(request, *args, **kwargs)
-	if hasattr(request.user, 'get_profile'):
-		set_language_local(request, response, request.user.get_profile().language)
+	if hasattr(request.user, 'profile'):
+		set_language_local(request, response, request.user.profile.language)
 	return response
 
 def no_cookie(request, *args, **kwargs):

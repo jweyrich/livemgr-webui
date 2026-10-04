@@ -124,7 +124,7 @@ def index(request):
 #			)
 		if values['filtered']:
 			qset = qset.filter(filtered=values['filtered'])
-	profile = request.user.get_profile()
+	profile = request.user.profile
 	order_by = request.GET.get('sort', '-timestamp')
 	result = CustomPaginator(qset) \
 		.instantiate(MessageTable, qset, order_by=order_by) \
@@ -325,7 +325,7 @@ def report_pdf(request, object_id):
 		canvasmaker=ReportCanvas
 	)
 
-	response = HttpResponse(buffer.getvalue(), mimetype='application/pdf')
+	response = HttpResponse(buffer.getvalue(), content_type='application/pdf')
 	response['Content-Disposition'] = 'attachment; filename=report-%i.pdf' % object_id
 	buffer.close()
 	return response

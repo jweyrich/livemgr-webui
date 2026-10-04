@@ -25,11 +25,11 @@ from django.contrib.auth.decorators import login_required, permission_required
 from django.http import HttpResponse
 from django.shortcuts import render_to_response
 from django.template import RequestContext
-from django.utils import simplejson
 from webui.common.db.query import fetchall_to_dict, fetchone_to_dict
 from webui.common.decorators.rest import rest_get, rest_multiple
 from webui.common.http import method
 from webui.common.json import ComplexTypeEncoder
+import json
 
 class DataTree:
 	def __init__(self, limit, period, localdt=datetime.now()):
@@ -63,7 +63,7 @@ class DataTree:
 @permission_required('livemgr.see_dashboard')
 def index(request):
 	data = DataTree(5, 'day', datetime.now())
-	data = simplejson.dumps(data, cls=ComplexTypeEncoder)
+	data = json.dumps(data, cls=ComplexTypeEncoder)
 	context_instance = RequestContext(request)
 	template_name = 'dashboard/index.html'
 	extra_context = {
@@ -80,8 +80,8 @@ def query(request):
 	limit = int(request.POST.get('limit', '5'))
 	period = request.POST.get('period', 'day')
 	data = DataTree(limit, period)
-	result = simplejson.dumps(data, cls=ComplexTypeEncoder)
-	return HttpResponse(result, mimetype='application/json')
+	result = json.dumps(data, cls=ComplexTypeEncoder)
+	return HttpResponse(result, content_type='application/json')
 
 def query_total_users_online():
 	query = "SELECT count(*) as total FROM users where status<>'FLN'"

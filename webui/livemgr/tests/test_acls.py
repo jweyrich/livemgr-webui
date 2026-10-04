@@ -52,9 +52,16 @@ class AclListTest(LivemgrTestCase):
 		response = self.client.get('/acls/')
 		self.assertEqual(len(listed(response)), 10)
 		self.assertEqual(response.context['page'].paginator.count, 15)
+		# Since Django 1.5 previous_page_number() and next_page_number() raise
+		# on the first and last pages, so the links must depend on has_previous
+		# and has_next.
+		self.assertContains(response, '<li class="previous-off">')
+		self.assertContains(response, '<li class="next">')
 		response = self.client.get('/acls/?page=2')
 		self.assertEqual(len(listed(response)), 5)
 		self.assertContains(response, '11 - 15')
+		self.assertContains(response, '<li class="previous">')
+		self.assertContains(response, '<li class="next-off">')
 
 	def test_change_page_size(self):
 		response = self.client.post('/acls/', {'per_page': '20'})

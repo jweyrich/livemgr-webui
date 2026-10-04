@@ -27,6 +27,7 @@
 from django.contrib.auth.models import AnonymousUser, Group
 from django.core.urlresolvers import reverse
 from django.http import HttpRequest
+from django.test.utils import override_settings
 from webui.controllers.handlers import error_500
 from webui.livemgr.models import Acl
 from webui.livemgr.tests.base import LivemgrTestCase
@@ -255,9 +256,10 @@ class HttpMethodTest(LivemgrTestCase):
 
 class DjangoInstallationTest(LivemgrTestCase):
 	"""
-	Django 1.2 to 1.4 install their data files with a setup.py trick that breaks when
-	pip builds a wheel (see requirements.txt): translations and the admin
-	templates silently go missing.
+	Django 1.2 to 1.4 installed their data files with a setup.py trick that
+	broke when pip built a wheel: translations and the admin templates went
+	missing without an error. Django 1.5 ships them as package data, so a wheel
+	works again; these tests make sure they are still there.
 	"""
 	def test_django_translations_are_installed(self):
 		from django.utils.translation import check_for_language
@@ -277,6 +279,22 @@ class DjangoInstallationTest(LivemgrTestCase):
 		self.assertContains(self.client.get('/admin/'), '/static/admin/css/base.css')
 		self.assertTrue(os.path.isfile(os.path.join(os.path.dirname(django.__file__),
 			'contrib', 'admin', 'static', 'admin', 'css', 'base.css')))
+
+	def test_dev_server_finds_admin_static_files(self):
+		# Since Django 1.5 only staticfiles' runserver serves them.
+		from django.contrib.staticfiles import finders
+		self.assertTrue(finders.find('admin/css/base.css'))
+
+class ProductionSettingsTest(LivemgrTestCase):
+	def test_allowed_hosts(self):
+		# With DEBUG off, Django 1.5 rejects requests for hosts not listed in
+		# ALLOWED_HOSTS, which defaults to none. (The test runner allows all.)
+		from webui import settings_production
+		self.assertFalse(settings_production.DEBUG)
+		with override_settings(DEBUG=False, ALLOWED_HOSTS=settings_production.ALLOWED_HOSTS):
+			response = self.client.get('/login/', HTTP_HOST='livemgr.example.com')
+		self.assertEqual(response.status_code, 200)
+		self.assertTemplateUsed(response, 'profiles/login.html')
 
 class ErrorPagesTest(LivemgrTestCase):
 	def test_404(self):

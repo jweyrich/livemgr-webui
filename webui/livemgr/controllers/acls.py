@@ -111,7 +111,7 @@ def index(request):
 			qset = qset.filter(localim__icontains=values['localim'])
 		if values['remoteim']:
 			qset = qset.filter(remoteim__icontains=values['remoteim'])
-	profile = request.user.get_profile()
+	profile = request.user.profile
 	order_by = request.GET.get('sort', 'localim')
 	result = CustomPaginator(qset) \
 		.instantiate(AclTable, qset, order_by=order_by) \
