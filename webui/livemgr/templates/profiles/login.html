@@ -21,6 +21,7 @@
 {% endcomment %}
 
 {% load i18n %}
+{% load url from future %}
 
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
 	"http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
@@ -47,7 +48,7 @@ $(document).ready(function() {
 
 <div class="body-outer-container">
 	<div class="body-inner-container">
-		<form method="post" action="{% url webui:profiles-login %}">
+		<form method="post" action="{% url 'webui:profiles-login' %}">
 			{% csrf_token %}
 			<fieldset>
 				<p class="textbox">
@@ -60,7 +61,7 @@ $(document).ready(function() {
 				</p>
 				<p class="remember">
 					<input type="submit" class="button" value="{% trans "login" %}"/>
-					<input type="hidden" name="next" value="{% if next %}{{ next }}{% else %}{% url webui:index %}{% endif %}" />
+					<input type="hidden" name="next" value="{% if next %}{{ next }}{% else %}{% url 'webui:index' %}{% endif %}" />
 					<!--
 					<input type="checkbox" id="remember" name="remember_me" value="1">
 					<label for="remember">{% trans "Remember me" %}</label>

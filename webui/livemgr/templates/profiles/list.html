@@ -23,6 +23,7 @@
 {% endcomment %}
 
 {% load i18n webdesign xinclude evaluate %}
+{% load url from future %}
 
 {% block title %}
 {% trans "Profiles" %}
@@ -32,9 +33,9 @@
 <script type="text/javascript">
 $(document).ready(function() {
 	$('[type=submit]').click(function() { $($(this).attr('target')).submit(); });
-	$('#search form').submit(function() { return Search.search(this, '{% url webui:profiles-index %}'); });
-	$('#search_adv form').submit(function() { return Search.search(this, '{% url webui:profiles-index %}'); });
-	$('#create').click(function() { window.location = '{% url webui:users-add %}'; });
+	$('#search form').submit(function() { return Search.search(this, '{% url 'webui:profiles-index' %}'); });
+	$('#search_adv form').submit(function() { return Search.search(this, '{% url 'webui:profiles-index' %}'); });
+	$('#create').click(function() { window.location = '{% url 'webui:users-add' %}'; });
 
 	Form.makeFieldHint('#search', 'search_username');
 	Form.makeFieldHint('#search_adv', 'id_username');
@@ -42,11 +43,11 @@ $(document).ready(function() {
 
 	function setup_events() {
 		Selection.showActions('.delete');
-		Selection.bindListRowClick({url:'{% url webui:profiles-index %}/{0}'});
+		Selection.bindListRowClick({url:'{% url 'webui:profiles-index' %}/{0}'});
 		{% comment %}
 		Selection.bindActionClick({
 			selector: '.delete',
-			url:'{% url webui:profiles-delete-many %}',
+			url:'{% url 'webui:profiles-delete-many' %}',
 			confirm:'{% trans "Are you sure?" %}'});
 		{% endcomment %}
 	}

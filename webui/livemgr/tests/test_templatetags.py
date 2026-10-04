@@ -29,10 +29,33 @@ from django import forms
 from django.http import HttpRequest, QueryDict
 from django.template import Context, Template, TemplateSyntaxError
 from webui.common.color_dict import color_dict
+import os
+import sys
 import unittest
+import warnings
+
+TEMPLATES_DIR = os.path.join(os.path.dirname(os.path.abspath(__file__)), os.pardir, 'templates')
 
 def render(source, **context):
 	return Template(source).render(Context(context))
+
+class TemplatesTest(unittest.TestCase):
+	def test_compile_without_deprecation_warnings(self):
+		# e.g. the {% url %} syntax with unquoted view names, deprecated in
+		# Django 1.4 and removed in 1.5: the templates load the new one with
+		# {% load url from future %}.
+		for module in sys.modules.values():
+			# Python 2 skips warnings it has already seen, even when ignored.
+			getattr(module, '__warningregistry__', {}).clear()
+		with warnings.catch_warnings():
+			warnings.simplefilter('error', DeprecationWarning)
+			for dirpath, dirnames, filenames in os.walk(TEMPLATES_DIR):
+				for filename in filenames:
+					path = os.path.join(dirpath, filename)
+					try:
+						Template(open(path).read())
+					except DeprecationWarning, e:
+						self.fail('%s: %s' % (os.path.relpath(path, TEMPLATES_DIR), e))
 
 class SwitchTagTest(unittest.TestCase):
 	SOURCE = ('{% load switch %}{% switch value %}'

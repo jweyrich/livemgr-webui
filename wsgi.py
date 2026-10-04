@@ -24,6 +24,6 @@ import os
 
 os.environ['DJANGO_SETTINGS_MODULE'] = 'webui.settings_example'
 
-import django.core.handlers.wsgi
+from django.core.wsgi import get_wsgi_application
 
-application = django.core.handlers.wsgi.WSGIHandler()
+application = get_wsgi_application()

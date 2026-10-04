@@ -60,14 +60,13 @@ class InstallHookTest(LivemgrTestCase):
 		self.assertEqual([g.name for g in auditor.groups.all()], ['auditor'])
 
 	def test_auditor_group_permissions(self):
-		# The hook selects permissions by codename only, so it also picks up
-		# auth.change_message (django.contrib.auth's Message model, removed in
-		# Django 1.4).
+		# The hook selects permissions by codename only. Up to Django 1.3 that
+		# also picked up auth.change_message, from django.contrib.auth's
+		# Message model, which Django 1.4 removed.
 		auditor = Group.objects.get(name='auditor')
 		self.assertEqual(
 			sorted(auditor.permissions.values_list('content_type__app_label', 'codename')),
 			[
-				('auth', 'change_message'),
 				('livemgr', 'change_message'),
 				('livemgr', 'see_conversation'),
 				('livemgr', 'see_dashboard'),

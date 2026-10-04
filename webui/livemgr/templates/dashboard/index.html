@@ -23,6 +23,7 @@
 {% endcomment %}
 
 {% load i18n %}
+{% load url from future %}
 
 {% block title %}
 {% trans "Dashboard" %}
@@ -37,7 +38,7 @@ $(document).ready(query);
 function query() {
 	$.ajax({
 		type: 'POST',
-		url: '{% url webui:dashboard-query %}',
+		url: '{% url 'webui:dashboard-query' %}',
 		data: '&limit=5&period=month', // TODO(jweyrich): change to day?
 		dataType: 'json',
 		success: function(data) {
@@ -75,7 +76,7 @@ function updateLatestConversations(data) {
 		'</tr>';
 	var link_user =
 		{% if perms.livemgr.see_users %}
-			'<a href="{% url webui:users-index %}{1}">{0}</a>';
+			'<a href="{% url 'webui:users-index' %}{1}">{0}</a>';
 		{% else %}
 			'{0}';
 		{% endif %}
@@ -115,7 +116,7 @@ function updateMostActiveUsers(data) {
 		'</tr>';
 	var link_user =
 		{% if perms.livemgr.see_users %}
-			'<a href="{% url webui:users-index %}{1}">{0}</a>';
+			'<a href="{% url 'webui:users-index' %}{1}">{0}</a>';
 		{% else %}
 			'{0}';
 		{% endif %}
@@ -137,10 +138,10 @@ function popupConversation(conv_id, msg_id) {
 		return;
 	{% comment %}
 	// TODO(jweyrich): evaluate http://code.google.com/p/django-jq/wiki/ProjectDocumentation
-	//$('#messages').html('').load('{% url webui:conversations-show 1 %}');
-	//$('#messages').html('').load('{% url webui:conversations-index %}/'+id, highlight_messages);
+	//$('#messages').html('').load('{% url 'webui:conversations-show' 1 %}');
+	//$('#messages').html('').load('{% url 'webui:conversations-index' %}/'+id, highlight_messages);
 	{% endcomment %}
-	var url = '{% url webui:conversations-index %}{0}#msg-{1}';
+	var url = '{% url 'webui:conversations-index' %}{0}#msg-{1}';
 	new_window = window.open(
 		url.format(conv_id, msg_id),
 		'conversation',

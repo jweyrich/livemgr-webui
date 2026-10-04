@@ -23,6 +23,7 @@
 {% endcomment %}
 
 {% load i18n xinclude %}
+{% load url from future %}
 
 {% block title %}
 {% trans "Change Badword" %}
@@ -49,7 +50,7 @@ $(document).ready(function() {
 	function setup_events() {
 		Selection.bindActionClickConfirm({
 			selector: '.submit-box .delete',
-			url: '{% url webui:badwords-delete model.id %}',
+			url: '{% url 'webui:badwords-delete' model.id %}',
 			items: '{{ model.id }}',
 			onShow: delete_show,
 			onConfirm: delete_confirm});

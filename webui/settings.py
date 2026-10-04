@@ -65,7 +65,9 @@ LOCALE_PATHS = (
 
 MEDIA_ROOT = os.path.join(ROOT, '..', 'media')
 MEDIA_URL = '/media/'
-ADMIN_MEDIA_PREFIX = '/admin_media/'
+# Django 1.4 replaces ADMIN_MEDIA_PREFIX: the admin's files are served
+# from STATIC_URL + 'admin/' (django/contrib/admin/static/admin/).
+STATIC_URL = '/static/'
 
 # FIXME: ???
 SECRET_KEY = '2m74tbo+#7iin(h(nn2d!#=bryc8w*3e9+&7(%g7o5yd*hy-en'
@@ -119,6 +121,17 @@ LOGIN_URL = '/login'
 LOGOUT_URL = '/logout'
 LOGIN_REDIRECT_URL = '/dashboard'
 AUTH_PROFILE_MODULE = 'livemgr.Profile'
+# Django 1.4 hashes passwords with PBKDF2 and rewrites the stored SHA1 hashes
+# on login, which Django 1.3 can't read. Keep SHA1 as the preferred hasher
+# until rolling back to 1.3 is no longer an option, then drop this setting.
+PASSWORD_HASHERS = (
+    'django.contrib.auth.hashers.SHA1PasswordHasher',
+    'django.contrib.auth.hashers.PBKDF2PasswordHasher',
+    'django.contrib.auth.hashers.PBKDF2SHA1PasswordHasher',
+    'django.contrib.auth.hashers.BCryptPasswordHasher',
+    'django.contrib.auth.hashers.MD5PasswordHasher',
+    'django.contrib.auth.hashers.CryptPasswordHasher',
+)
 
 # General stuff
 INTERNAL_IPS = ('127.0.0.1', )
