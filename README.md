@@ -34,6 +34,16 @@ Open the repository in VS Code and choose **Reopen in Container** (requires the 
 python webui/manage.py runserver 0.0.0.0:8000 --settings=settings_example
 ```
 
+## How to test?
+
+From the devcontainer's terminal:
+
+```sh
+python webui/manage.py test --settings=settings_test
+```
+
+The test runner creates (and drops) a `test_livemgr` database on the `db` service and loads `bootstrap/db/create_tables.sql` into it, so the tests run against the same schema as production. To use another MySQL/MariaDB server, set `LIVEMGR_TEST_DB_HOST`, `LIVEMGR_TEST_DB_PORT`, `LIVEMGR_TEST_DB_USER` and `LIVEMGR_TEST_DB_PASSWORD`; the user must be allowed to create databases. To run a single test case, pass `livemgr.<TestCaseName>` (or `livemgr.<TestCaseName>.<test_method>`).
+
 ## How to access?
 
 Navigate to http://127.0.0.1:8000
