@@ -115,7 +115,7 @@ def index(request):
 			qset = qset.filter(groupname__icontains=values['groupname'])
 		if values['description']:
 			qset = qset.filter(description__icontains=values['description'])
-	profile = request.user.get_profile()
+	profile = request.user.profile
 	order_by = request.GET.get('sort', 'groupname')
 	qset2 = qset.select_related('user').annotate(user_count=Count('users'))
 	result = CustomPaginator(qset) \

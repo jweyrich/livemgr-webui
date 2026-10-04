@@ -25,6 +25,11 @@
 from settings import *
 
 DEBUG = TEMPLATE_DEBUG = False
+# With DEBUG off, Django 1.5 fails every request (SuspiciousOperation, served
+# by the 500 handler) whose Host header isn't listed here, and the default is
+# an empty list. Django 1.4 accepted any host; keep that until the deployment's
+# host names are known, then list them instead, e.g. ['livemgr.example.com'].
+ALLOWED_HOSTS = ['*']
 MEDIA_ROOT = '/usr/share/livemgr-webui/media'
 LICENSE_FILE = ''
 KEYSERVER_HOST = ''

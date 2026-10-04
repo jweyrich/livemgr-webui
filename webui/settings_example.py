@@ -65,8 +65,8 @@ KEYSERVER_HOST = '127.0.0.1' # No need to change this.
 
 def show_toolbar(request):
     user = request.user
-    if hasattr(user, 'get_profile'):
-        return user.get_profile().debug
+    if hasattr(user, 'profile'):
+        return user.profile.debug
     return False
 
 DEBUG_TOOLBAR_CONFIG = {

@@ -95,6 +95,10 @@ INSTALLED_APPS = (
     'django.contrib.contenttypes',
     'django.contrib.sessions',
     'django.contrib.messages',
+    # Django 1.5's runserver no longer serves the admin's static files by
+    # itself (AdminMediaHandler is gone); staticfiles' runserver does, with
+    # DEBUG on. The web servers map /static/admin in production.
+    'django.contrib.staticfiles',
     'django.contrib.admin',
     'django.contrib.admindocs',
     'django.contrib.webdesign',
@@ -120,7 +124,8 @@ AUTHENTICATION_BACKENDS = (
 LOGIN_URL = '/login'
 LOGOUT_URL = '/logout'
 LOGIN_REDIRECT_URL = '/dashboard'
-AUTH_PROFILE_MODULE = 'livemgr.Profile'
+# Django 1.5 deprecates AUTH_PROFILE_MODULE and User.get_profile(): the
+# profile is reached through its one-to-one relation instead (user.profile).
 # Django 1.4 hashes passwords with PBKDF2 and rewrites the stored SHA1 hashes
 # on login, which Django 1.3 can't read. Keep SHA1 as the preferred hasher
 # until rolling back to 1.3 is no longer an option, then drop this setting.

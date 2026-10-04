@@ -148,7 +148,7 @@ def index(request):
 			qset = qset.filter(group=values['group'])
 		if values['status']:
 			qset = qset.filter(status=values['status'])
-	profile = request.user.get_profile()
+	profile = request.user.profile
 	order_by = request.GET.get('sort', 'username')
 	qset2 = qset.select_related('group', 'buddy').annotate(buddy_count=Count('buddies'))
 	result = CustomPaginator(qset) \

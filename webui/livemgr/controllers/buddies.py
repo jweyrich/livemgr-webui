@@ -82,7 +82,7 @@ def index(request, user_id):
 			qset = qset.filter(displayname__icontains=values['displayname'])
 		if values['status']:
 			qset = qset.filter(status=values['status'])
-	profile = request.user.get_profile()
+	profile = request.user.profile
 	order_by = request.GET.get('sort', 'username')
 	result = CustomPaginator(qset) \
 		.instantiate(BuddyTable, qset, order_by=order_by) \

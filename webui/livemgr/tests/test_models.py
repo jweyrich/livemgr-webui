@@ -118,9 +118,10 @@ class ModelBehaviorTest(LivemgrTestCase):
 
 class ProfileTest(LivemgrTestCase):
 	"""
-	Profile relies on a custom metaclass hooking ModelBase._prepare (private API)
-	and on AUTH_PROFILE_MODULE/get_profile(), all of which change across Django
-	versions.
+	Profile relies on a custom metaclass hooking ModelBase._prepare (private API),
+	which may change across Django versions. The views reach it through the
+	one-to-one relation (user.profile): Django 1.5 deprecates AUTH_PROFILE_MODULE
+	and User.get_profile().
 	"""
 	def test_profile_is_created_with_the_account(self):
 		account = AuthUser.objects.create(username='someone')
@@ -137,9 +138,9 @@ class ProfileTest(LivemgrTestCase):
 		account.save()
 		self.assertEqual(Profile.objects.filter(user=account).count(), 1)
 
-	def test_get_profile(self):
+	def test_profile_relation(self):
 		account = AuthUser.objects.create(username='someone')
-		self.assertEqual(account.get_profile(), Profile.objects.get(user=account))
+		self.assertEqual(account.profile, Profile.objects.get(user=account))
 
 	def test_profile_is_deleted_with_the_account(self):
 		account = AuthUser.objects.create(username='someone')

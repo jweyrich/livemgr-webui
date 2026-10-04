@@ -1,9 +1,4 @@
-# Django 1.2 to 1.4 ship their data files (translations, admin templates and static files)
-# through a setup.py trick that only works with a plain `setup.py install`.
-# When pip builds a wheel they end up in <prefix>/django/ instead of
-# site-packages, which disables every translation and breaks the admin.
---no-binary Django
-Django==1.4.22
+Django==1.5.12
 MySQL-python==1.2.5
 https://github.com/miracle2k/django-tables/tarball/0.3
 reportlab==2.5
