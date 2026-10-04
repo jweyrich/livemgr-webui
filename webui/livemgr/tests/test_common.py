@@ -102,7 +102,7 @@ class CustomPaginatorTest(LivemgrTestCase):
 		self.assertEqual(page.number, 2)
 		self.assertEqual(page.paginator.num_pages, 3)
 		self.assertEqual(page.paginator.count, 25)
-		self.assertEqual([row.data.localim for row in page.object_list],
+		self.assertEqual([row.record.localim for row in page.object_list],
 			['user%02d@example.com' % i for i in range(10, 20)])
 		self.assertEqual(page.paginator.limited_page_range, [1, 2, 3])
 

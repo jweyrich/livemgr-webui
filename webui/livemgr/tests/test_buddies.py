@@ -24,7 +24,7 @@ from webui.livemgr.models import Buddy
 from webui.livemgr.tests.base import LivemgrTestCase
 
 def listed(response):
-	return [row.data for row in response.context['page'].object_list]
+	return [row.record for row in response.context['page'].object_list]
 
 class BuddiesTest(LivemgrTestCase):
 	def setUp(self):

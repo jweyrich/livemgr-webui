@@ -37,16 +37,16 @@ from webui.common.utils import request_has_error, FormAction, flash_info, InView
 from webui.livemgr.models import Acl
 from webui.livemgr.models.profile import Profile
 from webui.livemgr.utils.formatters import format_acl_action
-import django_tables as tables
+import django_tables2 as tables
 
-class AclTable(tables.ModelTable):
+class AclTable(tables.Table):
 	class Meta:
 		model = Acl
-		exclude = []
-		columns = ['action', 'localim', 'remoteim']
+		fields = ('action', 'localim', 'remoteim')
+		default = '' # Not '—' for empty values
 	id = tables.Column(visible=False)
-	def render_action(self, instance):
-		return format_acl_action(instance.action)
+	def render_action(self, record):
+		return format_acl_action(record.action)
 
 class AclForm(NoLabelSuffixMixin, ModelForm):
 	class Meta:

@@ -38,19 +38,19 @@ from webui.common.utils import request_has_error, InView, FormAction, flash_succ
 from webui.livemgr.models import Badword
 from webui.livemgr.models.profile import Profile
 from webui.livemgr.utils.formatters import format_boolean
-import django_tables as tables
+import django_tables2 as tables
 import re
 
-class BadwordTable(tables.ModelTable):
+class BadwordTable(tables.Table):
 	class Meta:
 		model = Badword
-		exclude = []
-		columns = ['badword', 'isregex', 'isenabled']
+		fields = ('badword', 'isregex', 'isenabled')
+		default = '' # Not '—' for empty values
 	id = tables.Column(visible=False)
-	def render_isregex(self, instance):
-		return format_boolean(instance.isregex)
-	def render_isenabled(self, instance):
-		return format_boolean(instance.isenabled)
+	def render_isregex(self, record):
+		return format_boolean(record.isregex)
+	def render_isenabled(self, record):
+		return format_boolean(record.isenabled)
 
 class BadwordForm(NoLabelSuffixMixin, ModelForm):
 	class Meta:

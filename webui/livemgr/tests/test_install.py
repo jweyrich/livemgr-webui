@@ -21,8 +21,8 @@
 #   Jardel Weyrich <jweyrich@gmail.com>
 
 """
-	webui/livemgr/management.py hooks post_syncdb (renamed post_migrate in
-	Django 1.7, post_syncdb removed in 1.9) to create the default accounts.
+	webui/livemgr/management.py hooks post_migrate (post_syncdb before Django
+	1.7) to create the default accounts.
 	These tests check what that hook left in the freshly created test database.
 """
 

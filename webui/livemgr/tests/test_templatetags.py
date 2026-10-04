@@ -42,19 +42,20 @@ def render(source, **context):
 class TemplatesTest(unittest.TestCase):
 	def test_compile_without_deprecation_warnings(self):
 		# e.g. the {% url %} syntax with unquoted view names, deprecated in
-		# Django 1.4 and removed in 1.5: the templates load the new one with
-		# {% load url from future %}.
+		# Django 1.4 and removed in 1.5, or {% load url from future %},
+		# deprecated in 1.7. Pending deprecations are removed a version later.
 		for module in sys.modules.values():
 			# Python 2 skips warnings it has already seen, even when ignored.
 			getattr(module, '__warningregistry__', {}).clear()
 		with warnings.catch_warnings():
 			warnings.simplefilter('error', DeprecationWarning)
+			warnings.simplefilter('error', PendingDeprecationWarning)
 			for dirpath, dirnames, filenames in os.walk(TEMPLATES_DIR):
 				for filename in filenames:
 					path = os.path.join(dirpath, filename)
 					try:
 						Template(open(path).read())
-					except DeprecationWarning, e:
+					except (DeprecationWarning, PendingDeprecationWarning), e:
 						self.fail('%s: %s' % (os.path.relpath(path, TEMPLATES_DIR), e))
 
 class SwitchTagTest(unittest.TestCase):

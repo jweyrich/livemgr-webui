@@ -33,12 +33,12 @@
 			</th>
 			{% for column in table.columns %}
 				<th class="{{ column.name }}">
-				{% if column.sortable %}
-					<a href="{{ root_path }}?sort={{ column.name_toggled }}" class="sort">
-					{{ column }}
+				{% if column.orderable %}
+					<a href="{{ root_path }}?sort={{ column.order_by_alias.next }}" class="sort">
+					{{ column.header|capfirst }}
 					{% if column.is_ordered %}
 						<span>
-						{% if column.is_ordered_reverse %}
+						{% if column.order_by_alias.is_descending %}
 							<img class="icon arrow-up" src="{{MEDIA_URL}}img/trans1x1.gif">
 						{% else %}
 							<img class="icon arrow-down" src="{{MEDIA_URL}}img/trans1x1.gif">
@@ -47,7 +47,7 @@
 					{% endif %}
 					</a>
 				{% else %}
-					{{ column }}
+					{{ column.header|capfirst }}
 				{% endif %}
 				</th>
 			{% endfor %}
@@ -62,10 +62,10 @@
 	</tfoot>
 	<tbody>
 		{% for row in page.object_list %}
-			<tr class="{% cycle 'odd' 'even' %}">
+			<tr class="{% if forloop.counter|divisibleby:2 %}even{% else %}odd{% endif %}">
 				<td style="{% if show_selection == 0 %}display: none;{% endif %}">
 					<input id="selection" name="selection"
-						type="checkbox" value="{{ row.conversation_id }}"
+						type="checkbox" value="{{ row.record.conversation_id }}"
 						onclick="Selection.onSelect(this);" />
 				</td>
 				{% for value in row %}

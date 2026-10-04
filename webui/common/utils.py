@@ -65,8 +65,10 @@ def flash_error(request, msg):
 	request._errors += 1
 	messages.error(request, msg)
 def flash_form_error(request, form):
-	if '__all__' in form.errors and len(form.errors['__all__']) > 0:
-		flash_error(request, form.errors['__all__'].pop())
+	errors = form.non_field_errors()
+	if errors:
+		# Django 1.7 keeps ValidationErrors in the list; indexing returns the message
+		flash_error(request, errors[-1])
 	else:
 		flash_error(request, _('Please, correct the fields below.'))
 

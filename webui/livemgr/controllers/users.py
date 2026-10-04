@@ -42,36 +42,41 @@ from webui.livemgr.models import User
 from webui.livemgr.models.profile import Profile
 from webui.livemgr.models.usergroup import UserGroup
 from webui.livemgr.utils.formatters import format_boolean, format_user_status
-import django_tables as tables
+import django_tables2 as tables
 
-class UserTable(tables.ModelTable):
+class UserTable(tables.Table):
 	class Meta:
 		model = User
-		exclude = []
-		columns = ['username', 'status', 'isenabled', 'displayname',
-			'psm', 'lastlogin', 'group', 'contacts']
+		fields = ('username', 'status', 'isenabled', 'displayname',
+			'psm', 'lastlogin', 'group', 'contacts')
+		default = '' # Not '—' for empty values
 	# Use ugettext_lazy because class definitions are evaluated once!
 	id = tables.Column(visible=False)
-	psm = tables.Column(verbose_name=ugettext_lazy('personal message'), sortable=False)
-	contacts = tables.Column(verbose_name=ugettext_lazy('contacts'), sortable=False)
-	def render_group(self, instance):
+	psm = tables.Column(verbose_name=ugettext_lazy('personal message'), orderable=False)
+	# render_FOO is skipped for values in empty_values (None and ''), and
+	# these must render something when lastlogin is None or no contacts
+	# attribute exists.
+	lastlogin = tables.Column(empty_values=())
+	contacts = tables.Column(verbose_name=ugettext_lazy('contacts'), orderable=False,
+		empty_values=())
+	def render_group(self, record):
 		return mark_safe('<a href="%s">%s</a>' % (
-			reverse('livemgr:groups-edit', args=[instance.group.id]),
-			instance.group.groupname))
-	def render_status(self, instance):
-		return format_user_status(instance.status)
-	def render_lastlogin(self, instance):
-		if not instance.lastlogin:
+			reverse('livemgr:groups-edit', args=[record.group.id]),
+			record.group.groupname))
+	def render_status(self, record):
+		return format_user_status(record.status)
+	def render_lastlogin(self, record):
+		if not record.lastlogin:
 			return mark_safe(_('Never logged'))
-		return mark_safe(instance.lastlogin)
-	def render_isenabled(self, instance):
-		return format_boolean(instance.isenabled)
-	def render_contacts(self, instance):
+		return mark_safe(record.lastlogin)
+	def render_isenabled(self, record):
+		return format_boolean(record.isenabled)
+	def render_contacts(self, record):
 		# TODO(jweyrich): Avoid executing an extra query per user
-		#if instance.buddies.count():
-		if instance.buddy_count:
+		#if record.buddies.count():
+		if record.buddy_count:
 			return mark_safe('<a href="%s">%s</a>' % (
-				reverse('livemgr:buddies-index', args=[instance.id]),
+				reverse('livemgr:buddies-index', args=[record.id]),
 				_('Manage')))
 		else:
 			return mark_safe(_('None'))
@@ -88,7 +93,7 @@ class UserForm(NoLabelSuffixMixin, ModelForm):
 		if instance and instance.id:
 			#self.fields['id'] = forms.IntegerField(widget=forms.HiddenInput())
 			if not instance.lastlogin == None:
-				self.fields['username'].widget.attrs['readonly'] = True
+				self.fields['username'].widget.attrs['readonly'] = 'readonly'
 	def clean(self):
 		cleaned_data = self.cleaned_data
 		username = cleaned_data.get('username')

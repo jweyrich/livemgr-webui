@@ -24,7 +24,7 @@ from webui.livemgr.models import Message
 from webui.livemgr.tests.base import LivemgrTestCase, at
 
 def conversation_ids(response):
-	return [row.data.conversation_id for row in response.context['page'].object_list]
+	return [row.record.conversation_id for row in response.context['page'].object_list]
 
 class ConversationFixtures(object):
 	def create_conversations(self):

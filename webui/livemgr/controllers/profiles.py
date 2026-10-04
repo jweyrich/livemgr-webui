@@ -30,6 +30,7 @@ from django.forms.models import ModelForm
 from django.http import HttpResponseBadRequest
 from django.shortcuts import get_object_or_404, render_to_response
 from django.template.context import RequestContext
+from django.utils import translation
 from django.utils.translation import gettext as _, ugettext_lazy, check_for_language
 from django.views.i18n import set_language
 from webui.common import CustomPaginator
@@ -38,21 +39,22 @@ from webui.common.http import method
 from webui.common.utils import flash_success, flash_form_error, NoLabelSuffixMixin
 from webui.livemgr.models.profile import Profile
 from webui.livemgr.utils.formatters import format_boolean
-import django_tables as tables
+import django_tables2 as tables
 
-class ProfileTable(tables.ModelTable):
+class ProfileTable(tables.Table):
 	class Meta:
 		model = User
-		columns = ['username', 'email', 'is_active',
-				'last_login', 'date_joined', 'groups']
+		fields = ('username', 'email', 'is_active',
+				'last_login', 'date_joined', 'groups')
+		default = '' # Not '—' for empty values
 	# Use ugettext_lazy because class definitions are evaluated once!
 	id = tables.Column(visible=False)
-	email = tables.Column(verbose_name=ugettext_lazy('email'), sortable=True)
-	groups = tables.Column(verbose_name=ugettext_lazy('groups'), sortable=False)
-	def render_is_active(self, instance):
-		return format_boolean(instance.is_active)
-	def render_groups(self, instance):
-		return ', '.join([g.name for g in instance.groups.all()])
+	email = tables.Column(verbose_name=ugettext_lazy('email'), orderable=True)
+	groups = tables.Column(verbose_name=ugettext_lazy('groups'), orderable=False)
+	def render_is_active(self, record):
+		return format_boolean(record.is_active)
+	def render_groups(self, record):
+		return ', '.join([g.name for g in record.groups.all()])
 
 class UserUpdateForm(NoLabelSuffixMixin, ModelForm): # Do NOT use PasswordChangeForm
 	class Meta:
@@ -175,10 +177,14 @@ def update(request):
 	}
 	return render_to_response(template_name, extra_context, context_instance)
 
+# Django 1.7 stores the language under its own session key, the same one its
+# set_language view uses. Older versions use the cookie name.
+LANGUAGE_SESSION_KEY = getattr(translation, 'LANGUAGE_SESSION_KEY', settings.LANGUAGE_COOKIE_NAME)
+
 def set_language_local(request, response, lang_code):
 	if lang_code and check_for_language(lang_code):
 		if hasattr(request, 'session'):
-			request.session[settings.LANGUAGE_COOKIE_NAME] = lang_code
+			request.session[LANGUAGE_SESSION_KEY] = lang_code
 		else:
 			response.set_cookie(settings.LANGUAGE_COOKIE_NAME, lang_code)
 	return response
