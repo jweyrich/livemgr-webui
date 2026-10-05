@@ -20,12 +20,12 @@
 # Authors:
 #   Jardel Weyrich <jweyrich@gmail.com>
 
-from django.conf.urls import patterns, url
+from django.conf.urls import url
 from django.contrib.auth import views
 from webui.livemgr.controllers import profiles, settings, acls, badwords, \
 	conversations, groups, users, buddies, dashboard, license
 
-urlpatterns = patterns('webui.livemgr.controllers',
+urlpatterns = [
 	url(r'^$', dashboard.index, name='index'),
 	# Dashboard
 	url(r'^dashboard/$', dashboard.index, name='dashboard-index'),
@@ -80,4 +80,4 @@ urlpatterns = patterns('webui.livemgr.controllers',
 		name='profiles-logout'),
 	url(r'^profile/update/$', profiles.update, name='profiles-update'),
 #	url(r'^profiles/$', profiles.index, name='profiles-index'),
-)
+]

@@ -22,14 +22,13 @@
 
 from django import forms
 from django.conf import settings
-from django.contrib.auth import views
+from django.contrib.auth import update_session_auth_hash, views
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.forms import AuthenticationForm
 from django.contrib.auth.models import User, Group
 from django.forms.models import ModelForm
 from django.http import HttpResponseBadRequest
-from django.shortcuts import get_object_or_404, render_to_response
-from django.template.context import RequestContext
+from django.shortcuts import get_object_or_404, render
 from django.utils import translation
 from django.utils.translation import gettext as _, ugettext_lazy, check_for_language
 from django.views.i18n import set_language
@@ -122,7 +121,6 @@ def index(request):
 		.using_class(ProfileTable, qset, order_by=order_by) \
 		.with_request(request)
 	page = result.page(None, 5)
-	context_instance = RequestContext(request)
 	template_name = 'profiles/list.html'
 	extra_context = {
 		'menu': 'profiles',
@@ -130,7 +128,7 @@ def index(request):
 		'page': page,
 		'search_form': ProfileSearchForm()
 	}
-	return render_to_response(template_name, extra_context, context_instance)
+	return render(request, template_name, extra_context)
 
 #@rest_multiple([method.GET, method.POST])
 #@login_required
@@ -157,6 +155,10 @@ def update(request):
 		form_profile = ProfileUpdateForm(request.POST.copy(), instance=profile)
 		if form_user.is_valid() and form_profile.is_valid():
 			user = form_user.save(True)
+			if form_user.cleaned_data['new_password1']:
+				# SessionAuthenticationMiddleware ends the sessions of a user
+				# whose password changed; keep this one.
+				update_session_auth_hash(request, user)
 			form_user.data['old_password'] = ''
 			form_user.data['new_password1'] = ''
 			form_user.data['new_password2'] = ''
@@ -167,7 +169,6 @@ def update(request):
 			form_wrong = form_user if not form_user.is_valid() else form_profile
 			flash_form_error(request, form_wrong)
 	#print 'language = ' + repr(form.base_fields['language'].initial)
-	context_instance = RequestContext(request)
 	template_name = 'profiles/update.html'
 	extra_context = {
 		'menu': '',
@@ -175,7 +176,7 @@ def update(request):
 		'form_profile': form_profile,
 		'show_debug': 'debug' in request.GET
 	}
-	return render_to_response(template_name, extra_context, context_instance)
+	return render(request, template_name, extra_context)
 
 # Django 1.7 stores the language under its own session key, the same one its
 # set_language view uses. Older versions use the cookie name.
@@ -197,7 +198,6 @@ def login(request, *args, **kwargs):
 	return response
 
 def no_cookie(request, *args, **kwargs):
-	context_instance = RequestContext(request)
 	template_name = 'profiles/no_cookie.html'
 	extra_context = {}
-	return render_to_response(template_name, extra_context, context_instance)
+	return render(request, template_name, extra_context)

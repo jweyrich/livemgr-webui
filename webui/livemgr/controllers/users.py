@@ -28,8 +28,7 @@ from django.db.utils import IntegrityError
 from django.forms.models import ModelForm
 from django.http import HttpResponseBadRequest, HttpResponseRedirect, HttpResponse, \
 	HttpResponseForbidden
-from django.shortcuts import render_to_response, get_object_or_404
-from django.template import RequestContext
+from django.shortcuts import render, get_object_or_404
 from django.utils.safestring import mark_safe
 from django.utils.translation import ugettext as _, ugettext_lazy
 from webui.common import CustomPaginator
@@ -156,13 +155,14 @@ def index(request):
 			qset = qset.filter(status=values['status'])
 	profile = request.user.profile
 	order_by = request.GET.get('sort', 'username')
-	qset2 = qset.select_related('group', 'buddy').annotate(buddy_count=Count('buddies'))
+	# Django 1.8's select_related() rejects names that aren't forward relations,
+	# like 'buddy' (the user has buddies), which older versions silently ignored.
+	qset2 = qset.select_related('group').annotate(buddy_count=Count('buddies'))
 	result = CustomPaginator(qset) \
 		.instantiate(UserTable, qset2, order_by=order_by) \
 		.with_request(request) \
 		.with_count(qset.count())
 	page = result.page(None, profile.per_page_users)
-	context_instance = RequestContext(request)
 	template_name = 'users/list.html'
 	extra_context = {
 		'menu': 'users',
@@ -170,7 +170,7 @@ def index(request):
 		'page': page,
 		'search_form': UserSearchForm(),
 	}
-	return render_to_response(template_name, extra_context, context_instance)
+	return render(request, template_name, extra_context)
 
 @rest_multiple([method.GET, method.POST])
 @login_required
@@ -196,7 +196,6 @@ def edit(request, object_id):
 			flash_form_error(request, form)
 		redir = _redirect_if_needed(request, InView.EDIT, object_id)
 		if redir != None: return redir
-	context_instance = RequestContext(request)
 	template_name = 'users/edit.html'
 	extra_context = {
 		'menu': 'users',
@@ -204,7 +203,7 @@ def edit(request, object_id):
 		'model':  model,
 		'can_delete': can_delete,
 	}
-	return render_to_response(template_name, extra_context, context_instance)
+	return render(request, template_name, extra_context)
 
 @rest_multiple([method.GET, method.POST])
 @login_required
@@ -232,10 +231,9 @@ def add(request):
 			flash_form_error(request, form)
 		redir = _redirect_if_needed(request, InView.ADD, object_id)
 		if redir != None: return redir
-	context_instance = RequestContext(request)
 	template_name = 'users/add.html'
 	extra_context = { 'menu': 'users', 'form': form }
-	return render_to_response(template_name, extra_context, context_instance)
+	return render(request, template_name, extra_context)
 
 @rest_get
 @login_required

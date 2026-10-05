@@ -39,9 +39,16 @@ class CallNode(template.Node):
 		self.args = args
 		self.kwargs = kwargs
 	def render(self, context):
+		# Django 1.8 binds the template being rendered to the context. Its
+		# engine loads templates that render a Context, unlike get_template(),
+		# and holds the debug option that replaces TEMPLATE_DEBUG.
+		engine = getattr(context, 'template', None) and context.template.engine
 		try:
 			template_name = self.template_name.resolve(context)
-			t = get_template(template_name)
+			if engine:
+				t = engine.get_template(template_name)
+			else:
+				t = get_template(template_name)
 			d = {}
 			args = d['args'] = []
 			kwargs = d['kwargs'] = {}
@@ -55,7 +62,7 @@ class CallNode(template.Node):
 			context.pop()
 			return result
 		except:
-			if settings.TEMPLATE_DEBUG:
+			if engine.debug if engine else settings.TEMPLATE_DEBUG:
 				raise
 			return ''
 

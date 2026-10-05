@@ -23,8 +23,7 @@
 from datetime import datetime
 from django.contrib.auth.decorators import login_required, permission_required
 from django.http import HttpResponse
-from django.shortcuts import render_to_response
-from django.template import RequestContext
+from django.shortcuts import render
 from webui.common.db.query import fetchall_to_dict, fetchone_to_dict
 from webui.common.decorators.rest import rest_get, rest_multiple
 from webui.common.http import method
@@ -64,13 +63,12 @@ class DataTree:
 def index(request):
 	data = DataTree(5, 'day', datetime.now())
 	data = json.dumps(data, cls=ComplexTypeEncoder)
-	context_instance = RequestContext(request)
 	template_name = 'dashboard/index.html'
 	extra_context = {
 		'menu': 'dashboard',
 		'data': data
 	}
-	return render_to_response(template_name, extra_context, context_instance)
+	return render(request, template_name, extra_context)
 
 #@rest_post
 @rest_multiple([method.GET, method.POST])

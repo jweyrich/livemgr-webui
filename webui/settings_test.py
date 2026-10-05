@@ -50,9 +50,11 @@ if django.VERSION < (1, 7):
 TEST_RUNNER = 'webui.livemgr.tests.runner.LivemgrTestRunner'
 
 # Templates used only by the tests.
-TEMPLATE_DIRS = (
-    os.path.join(ROOT, 'livemgr', 'tests', 'templates'),
-)
+TESTS_TEMPLATE_DIR = os.path.join(ROOT, 'livemgr', 'tests', 'templates')
+if django.VERSION >= (1, 8):
+    TEMPLATES[0]['DIRS'] = [TESTS_TEMPLATE_DIR]
+else:
+    TEMPLATE_DIRS = (TESTS_TEMPLATE_DIR,)
 
 # Pin the language so assertions on rendered text are deterministic.
 LANGUAGE_CODE = 'en-us'

@@ -22,6 +22,7 @@
 
 from copy import deepcopy
 from django.core.paginator import Paginator, EmptyPage, InvalidPage
+from django.db.models import Min
 from math import ceil
 
 class CustomPaginator:
@@ -48,12 +49,16 @@ class CustomPaginator:
 		return self
 
 	def group_by(self, distinct=True, *field_names):
+		# Keeps one row per group: the one with the lowest primary key. Setting
+		# query.group_by relied on MySQL returning an arbitrary row per group,
+		# and Django 1.8 reduces that GROUP BY to the primary key on MySQL.
 		# Call before instantiate(): it changes the queryset in place, and
 		# django-tables2 tables keep their own (ordered) copy of it.
 		self._group_by = field_names
 		self._distinct = distinct
-		# Tuple to list
-		self.queryset.query.group_by = [field_names[i] for i in range(len(field_names))]
+		first_pks = self.queryset.order_by().values(*field_names) \
+			.annotate(first_pk=Min('pk')).values('first_pk')
+		self.queryset.query = self.queryset.filter(pk__in=first_pks).query
 		return self
 
 	def page(self, number, per_page):

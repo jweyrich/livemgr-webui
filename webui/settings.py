@@ -22,13 +22,13 @@
 
 # Django settings for webui project.
 
+import django
 import os.path
 ROOT = os.path.dirname(os.path.abspath(__file__))
 
 _ = lambda s: s
 
 DEBUG = True
-TEMPLATE_DEBUG = DEBUG
 
 ADMINS = (
     # ('Your Name', 'your_email@domain.com'),
@@ -74,16 +74,14 @@ SECRET_KEY = '2m74tbo+#7iin(h(nn2d!#=bryc8w*3e9+&7(%g7o5yd*hy-en'
 
 # code config
 
-TEMPLATE_LOADERS = (
-    'django.template.loaders.filesystem.Loader',
-    'django.template.loaders.app_directories.Loader',
-)
-
 MIDDLEWARE_CLASSES = (
     'django.middleware.common.CommonMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
+    # Ends a user's other sessions when their password changes. Opt-in since
+    # Django 1.7, and always on from 1.10.
+    'django.contrib.auth.middleware.SessionAuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.locale.LocaleMiddleware',
 )
@@ -101,21 +99,46 @@ INSTALLED_APPS = (
     'django.contrib.staticfiles',
     'django.contrib.admin',
     'django.contrib.admindocs',
-    'django.contrib.webdesign',
     'django_tables2',
     'webui.common',
     'webui.livemgr',
 )
 
-TEMPLATE_CONTEXT_PROCESSORS = (
-    'django.contrib.auth.context_processors.auth',
-    'django.core.context_processors.debug',
-    'django.core.context_processors.i18n',
-    'django.core.context_processors.media',
-    'django.core.context_processors.request',
-    'django.contrib.messages.context_processors.messages',
-    'django.core.context_processors.csrf',
-)
+# Django 1.8 configures the template engine with TEMPLATES, deprecates the
+# TEMPLATE_* settings and moves the context processors out of django.core.
+# The engine's debug option follows DEBUG, as TEMPLATE_DEBUG did.
+if django.VERSION >= (1, 8):
+    TEMPLATES = [{
+        'BACKEND': 'django.template.backends.django.DjangoTemplates',
+        'DIRS': [],
+        'APP_DIRS': True,
+        'OPTIONS': {
+            'context_processors': [
+                'django.contrib.auth.context_processors.auth',
+                'django.template.context_processors.debug',
+                'django.template.context_processors.i18n',
+                'django.template.context_processors.media',
+                'django.template.context_processors.request',
+                'django.contrib.messages.context_processors.messages',
+                'django.template.context_processors.csrf',
+            ],
+        },
+    }]
+else:
+    TEMPLATE_DEBUG = DEBUG
+    TEMPLATE_LOADERS = (
+        'django.template.loaders.filesystem.Loader',
+        'django.template.loaders.app_directories.Loader',
+    )
+    TEMPLATE_CONTEXT_PROCESSORS = (
+        'django.contrib.auth.context_processors.auth',
+        'django.core.context_processors.debug',
+        'django.core.context_processors.i18n',
+        'django.core.context_processors.media',
+        'django.core.context_processors.request',
+        'django.contrib.messages.context_processors.messages',
+        'django.core.context_processors.csrf',
+    )
 
 # Authentication
 AUTHENTICATION_BACKENDS = (
