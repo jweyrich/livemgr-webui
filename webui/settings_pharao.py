@@ -22,6 +22,7 @@
 
 # Django settings for webui project.
 from webui.settings import *
+import django
 
 DATABASES = {
     'default': {
@@ -34,9 +35,15 @@ DATABASES = {
     }
 }
 
-MIDDLEWARE_CLASSES += (
-    'debug_toolbar.middleware.DebugToolbarMiddleware',
-)
+# webui.settings lists the middleware in MIDDLEWARE from Django 1.10 on
+if django.VERSION >= (1, 10):
+    MIDDLEWARE += (
+        'debug_toolbar.middleware.DebugToolbarMiddleware',
+    )
+else:
+    MIDDLEWARE_CLASSES += (
+        'debug_toolbar.middleware.DebugToolbarMiddleware',
+    )
 
 INSTALLED_APPS += (
     'debug_toolbar',
@@ -70,7 +77,8 @@ def show_toolbar(request):
     return False
 
 # django-debug-toolbar 1.x no longer intercepts redirects by default, and
-# dropped HIDE_DJANGO_SQL.
+# dropped HIDE_DJANGO_SQL. 1.6 no longer sets itself up: webui/urls.py adds its
+# URLs when it is installed.
 DEBUG_TOOLBAR_CONFIG = {
     'SHOW_TOOLBAR_CALLBACK': show_toolbar,
 }

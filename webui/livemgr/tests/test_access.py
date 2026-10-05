@@ -25,12 +25,17 @@
 """
 
 from django.contrib.auth.models import AnonymousUser, Group
-from django.core.urlresolvers import reverse
+# Django 1.10 moves django.core.urlresolvers to django.urls
+try:
+	from django.urls import reverse
+except ImportError:
+	from django.core.urlresolvers import reverse
 from django.http import HttpRequest
 from django.test.utils import override_settings
 from webui.controllers.handlers import error_500
 from webui.livemgr.models import Acl
 from webui.livemgr.tests.base import LivemgrTestCase
+import re
 
 ROUTES = [
 	('index', [], '/'),
@@ -333,9 +338,13 @@ class AjaxCsrfTest(LivemgrTestCase):
 
 	def csrf_token(self):
 		response = self.client.get('/dashboard/')
-		token = self.client.cookies['csrftoken'].value
-		self.assertContains(response, "xhr.setRequestHeader('X-CSRFToken', '%s')" % token)
-		return token
+		self.assertTrue('csrftoken' in self.client.cookies)
+		# Django 1.10 masks the token with a new salt on every response, so the
+		# page's token differs from the cookie's. The tests post it back.
+		match = re.search(r"xhr\.setRequestHeader\('X-CSRFToken', '(\w+)'\)",
+			response.content.decode('utf-8'))
+		self.assertTrue(match)
+		return match.group(1)
 
 	def test_dashboard_query(self):
 		response = self.client.post('/dashboard/query/', {'period': 'month'},

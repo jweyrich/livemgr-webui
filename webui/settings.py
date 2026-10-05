@@ -74,17 +74,29 @@ SECRET_KEY = '2m74tbo+#7iin(h(nn2d!#=bryc8w*3e9+&7(%g7o5yd*hy-en'
 
 # code config
 
-MIDDLEWARE_CLASSES = (
-    'django.middleware.common.CommonMiddleware',
-    'django.contrib.sessions.middleware.SessionMiddleware',
-    'django.middleware.csrf.CsrfViewMiddleware',
-    'django.contrib.auth.middleware.AuthenticationMiddleware',
-    # Ends a user's other sessions when their password changes. Opt-in since
-    # Django 1.7, and always on from 1.10.
-    'django.contrib.auth.middleware.SessionAuthenticationMiddleware',
-    'django.contrib.messages.middleware.MessageMiddleware',
-    'django.middleware.locale.LocaleMiddleware',
-)
+# Django 1.10 deprecates MIDDLEWARE_CLASSES (old-style middleware) for
+# MIDDLEWARE. SessionAuthenticationMiddleware ends a user's other sessions when
+# their password changes: opt-in since Django 1.7, and always on from 1.10,
+# which leaves the middleware an empty stub.
+if django.VERSION >= (1, 10):
+    MIDDLEWARE = (
+        'django.middleware.common.CommonMiddleware',
+        'django.contrib.sessions.middleware.SessionMiddleware',
+        'django.middleware.csrf.CsrfViewMiddleware',
+        'django.contrib.auth.middleware.AuthenticationMiddleware',
+        'django.contrib.messages.middleware.MessageMiddleware',
+        'django.middleware.locale.LocaleMiddleware',
+    )
+else:
+    MIDDLEWARE_CLASSES = (
+        'django.middleware.common.CommonMiddleware',
+        'django.contrib.sessions.middleware.SessionMiddleware',
+        'django.middleware.csrf.CsrfViewMiddleware',
+        'django.contrib.auth.middleware.AuthenticationMiddleware',
+        'django.contrib.auth.middleware.SessionAuthenticationMiddleware',
+        'django.contrib.messages.middleware.MessageMiddleware',
+        'django.middleware.locale.LocaleMiddleware',
+    )
 
 ROOT_URLCONF = 'webui.urls'
 
@@ -145,7 +157,6 @@ AUTHENTICATION_BACKENDS = (
     'django.contrib.auth.backends.ModelBackend',
 )
 LOGIN_URL = '/login'
-LOGOUT_URL = '/logout'
 LOGIN_REDIRECT_URL = '/dashboard'
 # Django 1.5 deprecates AUTH_PROFILE_MODULE and User.get_profile(): the
 # profile is reached through its one-to-one relation instead (user.profile).
@@ -169,6 +180,10 @@ CSRF_FAILURE_VIEW = 'webui.livemgr.controllers.profiles.no_cookie'
 # removes that check.
 if django.VERSION < (1, 9):
     SILENCED_SYSTEM_CHECKS = ['1_6.W001']
+# Django 1.10 rejects requests with more than 1000 GET/POST parameters. The
+# group form posts one per member, so large groups could no longer be saved.
+# Request bodies stay capped at DATA_UPLOAD_MAX_MEMORY_SIZE (2.5 MB).
+DATA_UPLOAD_MAX_NUMBER_FIELDS = None
 
 # Sessions
 # Django 1.6 serializes sessions as JSON instead of pickle, so they only hold

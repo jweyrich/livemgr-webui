@@ -39,7 +39,12 @@ def bla():
 
 def install(**kwargs):
     audit_group, created = DjangoGroup.objects.get_or_create(name='auditor')
-    audit_group.permissions = bla()
+    # Django 1.9 adds set(); 1.10 deprecates assigning to a many-to-many
+    # relation, which saves implicitly.
+    if django.VERSION >= (1, 9):
+        audit_group.permissions.set(bla())
+    else:
+        audit_group.permissions = bla()
     audit_group.save()
 
     try:
