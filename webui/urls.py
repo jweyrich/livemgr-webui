@@ -20,9 +20,9 @@
 # Authors:
 #   Jardel Weyrich <jweyrich@gmail.com>
 
+from django.apps import apps
 from django.conf.urls import include, url
 from django.contrib import admin
-from django.views.i18n import javascript_catalog
 from django.views.static import serve
 from webui import settings
 import django
@@ -40,6 +40,16 @@ if django.VERSION >= (1, 9):
 else:
 	livemgr_urls = include('webui.livemgr.urls', namespace='webui', app_name='livemgr')
 
+# Django 1.10 deprecates the javascript_catalog() view for JavaScriptCatalog,
+# which serves every installed app's catalog unless told which packages to use.
+# Name the project's app: its catalog lives in LOCALE_PATHS, which both views
+# always include, so the output stays the same.
+if django.VERSION >= (1, 10):
+	from django.views.i18n import JavaScriptCatalog
+	jsi18n_view = JavaScriptCatalog.as_view(packages=['webui.livemgr'])
+else:
+	from django.views.i18n import javascript_catalog as jsi18n_view
+
 # Django 1.8 deprecates patterns() and views given as dotted paths.
 urlpatterns = [
 	# Uncomment the admin/doc line below and add 'django.contrib.admindocs'
@@ -53,10 +63,18 @@ urlpatterns = [
 
 	# Internationalization
 	url(r'^i18n/', include('django.conf.urls.i18n')),
-	url(r'^jsi18n/$', javascript_catalog, name='jsi18n'),
+	url(r'^jsi18n/$', jsi18n_view, name='jsi18n'),
 
 	# User defined
 	url(r'^media/(?P<path>.*)$', serve,
 		{ 'document_root': settings.MEDIA_ROOT }),
 	url(r'^', livemgr_urls),
 ]
+
+# django-debug-toolbar 1.6 no longer adds its URLs by itself. They're a
+# (patterns, app_name, namespace) 3-tuple too, like the admin's.
+if apps.is_installed('debug_toolbar'):
+	import debug_toolbar
+	urlpatterns += [
+		url(r'^__debug__/', debug_toolbar.urls),
+	]

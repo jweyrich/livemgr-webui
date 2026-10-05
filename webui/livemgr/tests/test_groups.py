@@ -48,7 +48,7 @@ class GroupListTest(LivemgrTestCase):
 
 	def test_user_count(self):
 		rows = list(self.client.get('/groups/').context['page'].object_list)
-		self.assertEqual([row['user_count'] for row in rows], [1, 2])
+		self.assertEqual([row.get_cell('user_count') for row in rows], [1, 2])
 
 	def test_search(self):
 		self.assertEqual(listed(self.client.post('/groups/', {'groupname': 'sal'})), [self.sales])
@@ -128,6 +128,15 @@ class GroupEditTest(LivemgrTestCase):
 		self.post(users=[self.alice.id, self.carol.id], rules=[1, 2])
 		self.assertEqual(users_of(self.sales), ['alice@example.com', 'carol@example.com'])
 		self.assertEqual(users_of(GUEST_GROUP_ID), ['bob@example.com'])
+
+	def test_more_than_1000_users(self):
+		# Django 1.10 rejects requests with more than DATA_UPLOAD_MAX_NUMBER_FIELDS
+		# (1000 by default) parameters, and the form posts one per member.
+		absent = list(range(100000, 100000 + 1000))
+		response = self.post(users=[self.alice.id, self.carol.id] + absent, rules=[1, 2])
+		self.assertEqual(response.status_code, 200)
+		self.assertFlash(response, "The group 'sales' was changed successfully.")
+		self.assertEqual(users_of(self.sales), ['alice@example.com', 'carol@example.com'])
 
 	def test_add_and_remove_rules(self):
 		self.post(users=[self.alice.id, self.bob.id], rules=[2, 7])

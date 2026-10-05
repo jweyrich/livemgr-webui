@@ -24,6 +24,7 @@ from copy import deepcopy
 from django.core.paginator import Paginator, EmptyPage, InvalidPage
 from django.db.models import Min
 from math import ceil
+import django
 
 class CustomPaginator:
 	PER_PAGE = 25
@@ -74,10 +75,15 @@ class CustomPaginator:
 		per_page = per_page or self.PER_PAGE
 		paginator = Paginator(self.instance.rows, per_page)
 		if self._count:
-			hits = max(1, self._count - paginator.orphans)
-			paginator._num_pages = int(ceil(hits / float(per_page)))
-			# The following line also avoids an extra (and wrong) COUNT(*) query.
-			paginator._count = self._count
+			# This also avoids an extra (and wrong) COUNT(*) query.
+			if django.VERSION >= (1, 10):
+				# Django 1.10 caches count and num_pages as cached_property,
+				# no longer in _count and _num_pages. num_pages follows count.
+				paginator.count = self._count
+			else:
+				hits = max(1, self._count - paginator.orphans)
+				paginator._num_pages = int(ceil(hits / float(per_page)))
+				paginator._count = self._count
 		try:
 			current_page = paginator.page(number)
 		except (EmptyPage, InvalidPage):

@@ -43,14 +43,22 @@ class UserListTest(LivemgrTestCase):
 
 	def test_columns(self):
 		rows = list(self.client.get('/users/').context['page'].object_list)
-		alice, bob = rows[0], rows[1]
-		self.assertEqual(alice['group'], '<a href="/groups/%d/">guest</a>' % GUEST_GROUP_ID)
-		self.assertEqual(bob['group'], '<a href="/groups/%d/">sales</a>' % self.sales.id)
-		self.assertEqual(alice['contacts'], 'None')
-		self.assertEqual(bob['contacts'], '<a href="/users/%d/contacts/">Manage</a>' % self.bob.id)
-		self.assertEqual(alice['lastlogin'], 'Never logged')
-		self.assertTrue(alice['status'].endswith(' Online'))
-		self.assertTrue(bob['status'].endswith(' Away'))
+		alice, bob = rows[0].get_cell, rows[1].get_cell
+		self.assertEqual(alice('group'), '<a href="/groups/%d/">guest</a>' % GUEST_GROUP_ID)
+		self.assertEqual(bob('group'), '<a href="/groups/%d/">sales</a>' % self.sales.id)
+		self.assertEqual(alice('contacts'), 'None')
+		self.assertEqual(bob('contacts'), '<a href="/users/%d/contacts/">Manage</a>' % self.bob.id)
+		self.assertEqual(alice('lastlogin'), 'Never logged')
+		self.assertTrue(alice('status').endswith(' Online'))
+		self.assertTrue(bob('status').endswith(' Away'))
+
+	def test_headers_follow_the_language(self):
+		# django-tables2 1.2.7 and later translate the headers taken from the
+		# models once, at import, so they stay in English.
+		self.client.post('/i18n/setlang/', {'language': 'pt-br'})
+		table = self.client.get('/users/').context['table']
+		self.assertEqual([six.text_type(column.header) for column in table.columns][:4],
+			['nome de usuário', 'status', 'habilitado', 'nome de exibição'])
 
 	def test_search(self):
 		self.assertEqual(listed(self.client.post('/users/', {'username': 'ali'})), [self.alice])

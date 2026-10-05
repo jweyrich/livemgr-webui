@@ -22,7 +22,11 @@
 
 from django import forms
 from django.contrib.auth.decorators import login_required, permission_required
-from django.core.urlresolvers import reverse
+# Django 1.10 moves django.core.urlresolvers to django.urls
+try:
+	from django.urls import reverse
+except ImportError:
+	from django.core.urlresolvers import reverse
 from django.db.utils import IntegrityError
 from django.forms.models import ModelForm
 from django.http import HttpResponseBadRequest, HttpResponse, HttpResponseRedirect
