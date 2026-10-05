@@ -25,12 +25,20 @@ from django.contrib import admin
 from django.views.i18n import javascript_catalog
 from django.views.static import serve
 from webui import settings
+import django
 
 # Uncomment the next two lines to enable the admin:
 admin.autodiscover()
 
 handler404 = 'django.views.defaults.page_not_found'
 handler500 = 'webui.controllers.handlers.error_500'
+
+# Django 1.9 reads the application namespace from the included URLconf's
+# app_name, and deprecates passing it to include(). Older versions ignore it.
+if django.VERSION >= (1, 9):
+	livemgr_urls = include('webui.livemgr.urls', namespace='webui')
+else:
+	livemgr_urls = include('webui.livemgr.urls', namespace='webui', app_name='livemgr')
 
 # Django 1.8 deprecates patterns() and views given as dotted paths.
 urlpatterns = [
@@ -39,7 +47,9 @@ urlpatterns = [
 	# url(r'^admin/doc/', include('django.contrib.admindocs.urls')),
 
 	# Uncomment the next line to enable the admin:
-	url(r'^admin/', include(admin.site.urls)),
+	# Django 1.9 deprecates include() for the admin's (patterns, app_name,
+	# namespace) 3-tuple; url() takes it directly.
+	url(r'^admin/', admin.site.urls),
 
 	# Internationalization
 	url(r'^i18n/', include('django.conf.urls.i18n')),
@@ -48,6 +58,5 @@ urlpatterns = [
 	# User defined
 	url(r'^media/(?P<path>.*)$', serve,
 		{ 'document_root': settings.MEDIA_ROOT }),
-	url(r'^', include('webui.livemgr.urls',
-		namespace='webui', app_name='livemgr')),
+	url(r'^', livemgr_urls),
 ]

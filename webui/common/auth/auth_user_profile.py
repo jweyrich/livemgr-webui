@@ -23,5 +23,5 @@ class AuthUserProfileBase(models.base.ModelBase):
 class AuthUserProfileModel(six.with_metaclass(AuthUserProfileBase, models.Model)):
 	class Meta:
 		abstract = True
-	user = models.OneToOneField(User, db_column='auth_user_id',
+	user = models.OneToOneField(User, on_delete=models.CASCADE, db_column='auth_user_id',
 		primary_key=True, parent_link=True)

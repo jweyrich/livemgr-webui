@@ -25,6 +25,9 @@ from django.contrib.auth import views
 from webui.livemgr.controllers import profiles, settings, acls, badwords, \
 	conversations, groups, users, buddies, dashboard, license
 
+# The application namespace, from Django 1.9 on (see webui/urls.py)
+app_name = 'livemgr'
+
 urlpatterns = [
 	url(r'^$', dashboard.index, name='index'),
 	# Dashboard

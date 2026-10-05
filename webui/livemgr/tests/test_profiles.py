@@ -76,6 +76,21 @@ class ProfileUpdateTest(LivemgrTestCase):
 		self.post(old_password=self.PASSWORD, new_password1='n3w', new_password2='n3w')
 		self.assertTrue(self.reload().check_password('n3w'))
 
+	def test_change_password_keeps_surrounding_whitespace(self):
+		# Django 1.9 strips CharField values, which must not alter passwords.
+		self.post(old_password=self.PASSWORD, new_password1=' n3w ', new_password2=' n3w ')
+		self.assertTrue(self.reload().check_password(' n3w '))
+
+	def test_current_password_keeps_surrounding_whitespace(self):
+		self.account.set_password(' old ')
+		self.account.save()
+		# Changing the password ended the session setUp() opened
+		self.assertTrue(self.client.login(username='operator', password=' old '))
+		response = self.post(old_password='old', new_password1='n3w', new_password2='n3w')
+		self.assertTrue('old_password' in response.context['form_user'].errors)
+		self.post(old_password=' old ', new_password1='n3w', new_password2='n3w')
+		self.assertTrue(self.reload().check_password('n3w'))
+
 	def test_change_password_keeps_this_session(self):
 		self.post(old_password=self.PASSWORD, new_password1='n3w', new_password2='n3w')
 		self.assertEqual(self.client.get('/dashboard/').status_code, 200)

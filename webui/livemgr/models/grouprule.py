@@ -37,8 +37,8 @@ class GroupRule(models.Model):
 		#ordering = ['rule', 'group']
 		verbose_name = _('grouprule')
 		verbose_name_plural = _('grouprules')
-	rule = models.ForeignKey(Rule, db_column='rule_id', verbose_name=_("rule"))
-	group = models.ForeignKey(UserGroup, db_column='group_id', verbose_name=_("group"))
+	rule = models.ForeignKey(Rule, on_delete=models.CASCADE, db_column='rule_id', verbose_name=_("rule"))
+	group = models.ForeignKey(UserGroup, on_delete=models.CASCADE, db_column='group_id', verbose_name=_("group"))
 	def __str__(self):
 		return smart_text('%d %s %s' % (self.id, self.rule, self.group))
 
