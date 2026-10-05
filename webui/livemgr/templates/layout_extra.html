@@ -40,7 +40,7 @@
 {% endif %}
 
 {# JavaScript Localization #}
-<script type="text/javascript" src="{% url 'django.views.i18n.javascript_catalog' %}"></script>
+<script type="text/javascript" src="{% url 'jsi18n' %}"></script>
 {% if LANGUAGE_CODE != 'en' %}
 	{# More localizations here: http://jquery-ui.googlecode.com/svn/trunk/ui/i18n/ #}
 	<script type="text/javascript" src="{{MEDIA_URL}}jquery-ui-1.8.6.custom/js/jquery.ui.datepicker-{{ LANGUAGE_CODE|langcode }}.min.js"></script>

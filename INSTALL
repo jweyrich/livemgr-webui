@@ -64,5 +64,10 @@ make -C media all
 # Create the web UI tables that have not already been created:
 python webui/manage.py migrate --settings=settings_example
 
+# Upgrading an install created by syncdb (Django < 1.7) that was never
+# migrated? Django 1.8 no longer skips the migrations whose tables already
+# exist, so mark them as applied instead:
+#	python webui/manage.py migrate --fake-initial --settings=settings_example
+
 # Test it! - After running the following command, navigate to http://127.0.0.1:8000/
 python webui/manage.py runserver --settings=settings_example

@@ -26,8 +26,7 @@ from django.core.urlresolvers import reverse
 from django.db.models.query_utils import Q
 from django.forms.models import ModelForm
 from django.http import HttpResponseBadRequest, HttpResponse, HttpResponseRedirect
-from django.shortcuts import render_to_response, get_object_or_404
-from django.template import RequestContext
+from django.shortcuts import render, get_object_or_404
 from django.utils.translation import ugettext as _, ugettext_lazy
 from webui.common import CustomPaginator
 from webui.common.decorators.rest import rest_multiple, rest_post
@@ -117,7 +116,6 @@ def index(request):
 		.instantiate(AclTable, qset, order_by=order_by) \
 		.with_request(request)
 	page = result.page(None, profile.per_page_acls)
-	context_instance = RequestContext(request)
 	template_name = 'acls/list.html'
 	extra_context = {
 		'menu': 'acls',
@@ -125,7 +123,7 @@ def index(request):
 		'page': page,
 		'search_form': AclSearchForm()
 	}
-	return render_to_response(template_name, extra_context, context_instance)
+	return render(request, template_name, extra_context)
 
 @rest_multiple([method.GET, method.POST])
 @login_required
@@ -145,14 +143,13 @@ def edit(request, object_id):
 			flash_form_error(request, form)
 		redir = _redirect_if_needed(request, InView.EDIT, object_id)
 		if redir != None: return redir
-	context_instance = RequestContext(request)
 	template_name = 'acls/edit.html'
 	extra_context = {
 		'menu': 'acls',
 		'form': form,
 		'model':  model,
 	}
-	return render_to_response(template_name, extra_context, context_instance)
+	return render(request, template_name, extra_context)
 
 @rest_multiple([method.GET, method.POST])
 @login_required
@@ -174,10 +171,9 @@ def add(request):
 		redir = _redirect_if_needed(request, InView.ADD, object_id)
 		if redir != None: return redir
 	#print form.errors['__all__'][0]
-	context_instance = RequestContext(request)
 	template_name = 'acls/add.html'
 	extra_context = { 'menu': 'acls', 'form': form }
-	return render_to_response(template_name, extra_context, context_instance)
+	return render(request, template_name, extra_context)
 
 @rest_multiple([method.GET, method.POST])
 @login_required

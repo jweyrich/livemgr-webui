@@ -21,6 +21,7 @@
 #   Jardel Weyrich <jweyrich@gmail.com>
 
 from django.contrib.auth.models import User as AuthUser
+from django.test import Client
 from webui.livemgr.tests.base import LivemgrTestCase
 
 class ProfileUpdateTest(LivemgrTestCase):
@@ -74,6 +75,16 @@ class ProfileUpdateTest(LivemgrTestCase):
 	def test_change_password(self):
 		self.post(old_password=self.PASSWORD, new_password1='n3w', new_password2='n3w')
 		self.assertTrue(self.reload().check_password('n3w'))
+
+	def test_change_password_keeps_this_session(self):
+		self.post(old_password=self.PASSWORD, new_password1='n3w', new_password2='n3w')
+		self.assertEqual(self.client.get('/dashboard/').status_code, 200)
+
+	def test_change_password_ends_other_sessions(self):
+		other = Client()
+		self.assertTrue(other.login(username='operator', password=self.PASSWORD))
+		self.post(old_password=self.PASSWORD, new_password1='n3w', new_password2='n3w')
+		self.assertRedirectsToLogin(other.get('/dashboard/'))
 
 	def test_passwords_stay_readable_by_django_1_3(self):
 		# Logging in and changing the password must not switch to PBKDF2 yet

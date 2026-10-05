@@ -135,6 +135,17 @@ class CustomPaginatorTest(LivemgrTestCase):
 			.page(1, 10)
 		self.assertEqual(page.paginator.count, 2) # 'shared@example.org', '*@example.org'
 
+	def test_group_by_keeps_the_first_row_of_each_group(self):
+		qset = Acl.objects.all()
+		Acl.objects.filter(localim__in=['user00@example.com', 'user01@example.com']) \
+			.update(remoteim='shared@example.org')
+		page = CustomPaginator(qset) \
+			.group_by(True, 'remoteim') \
+			.instantiate(AclTable, qset, order_by='localim') \
+			.page(1, 10)
+		self.assertEqual([row.record.localim for row in page.object_list],
+			['user00@example.com', 'user02@example.com'])
+
 class FlashTest(unittest.TestCase):
 	def test_flash_error_marks_the_request(self):
 		request = make_request()

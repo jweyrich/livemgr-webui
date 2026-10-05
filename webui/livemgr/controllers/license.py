@@ -27,8 +27,7 @@ from datetime import datetime
 from django import forms
 from django.conf import settings
 from django.contrib.auth.decorators import login_required, permission_required
-from django.shortcuts import render_to_response
-from django.template.context import RequestContext
+from django.shortcuts import render
 from django.utils.translation import ugettext as _, ugettext_lazy
 from webui.common.decorators.rest import rest_get
 from webui.common.utils import flash_error
@@ -137,10 +136,9 @@ def index(request):
 		flash_error(request, _('Please, inform a valid license.'))
 	except ConnectionProblem:
 		flash_error(request, _('Connection problem. Try again in few minutes.'))
-	context_instance = RequestContext(request)
 	template_name = 'license/index.html'
 	extra_context = {
 		'menu': 'license',
 		'license': license,
 	}
-	return render_to_response(template_name, extra_context, context_instance)
+	return render(request, template_name, extra_context)

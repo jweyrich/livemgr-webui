@@ -24,8 +24,7 @@ from StringIO import StringIO
 from django import forms
 from django.contrib.auth.decorators import login_required, permission_required
 from django.http import HttpResponseBadRequest, HttpResponse, Http404
-from django.shortcuts import render_to_response
-from django.template import RequestContext
+from django.shortcuts import render
 from django.template.defaultfilters import filesizeformat
 from django.utils.html import escape
 from django.utils.translation import ugettext as _, ugettext_lazy
@@ -132,7 +131,6 @@ def index(request):
 		.instantiate(MessageTable, qset, order_by=order_by) \
 		.with_request(request)
 	page = result.page(None, profile.per_page_conversations)
-	context_instance = RequestContext(request)
 	template_name = 'conversations/list.html'
 	extra_context = {
 		'menu': 'conversations',
@@ -140,7 +138,7 @@ def index(request):
 		'page': page,
 		'search_form': MessageSearchForm()
 	}
-	return render_to_response(template_name, extra_context, context_instance)
+	return render(request, template_name, extra_context)
 
 @rest_get
 @login_required
@@ -158,14 +156,13 @@ def show(request, object_id):
 		#return HttpResponseBadRequest(_('Conversation not found'))
 		raise Http404('No %s matches the given query.' % 'Message')
 	messages[0].clientip = ip_long_to_str(messages[0].clientip)
-	context_instance = RequestContext(request)
 	template_name = 'conversations/show.html'
 	extra_context = {
 		'first_message': messages[0],
 		'messages': messages,
 		'colors': color_dict()
 	}
-	return render_to_response(template_name, extra_context, context_instance)
+	return render(request, template_name, extra_context)
 
 @rest_get
 @login_required

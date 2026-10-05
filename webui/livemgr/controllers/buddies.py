@@ -24,8 +24,7 @@ from django import forms
 from django.contrib.auth.decorators import login_required, permission_required
 from django.db.models.query_utils import Q
 from django.http import HttpResponseBadRequest, HttpResponse
-from django.shortcuts import render_to_response, get_object_or_404
-from django.template import RequestContext
+from django.shortcuts import render, get_object_or_404
 from django.utils.translation import ugettext as _, ugettext_lazy
 from webui.common import CustomPaginator
 from webui.common.decorators.rest import rest_multiple, rest_post
@@ -89,7 +88,6 @@ def index(request, user_id):
 		.instantiate(BuddyTable, qset, order_by=order_by) \
 		.with_request(request)
 	page = result.page(None, profile.per_page_buddies)
-	context_instance = RequestContext(request)
 	template_name = 'buddies/list.html'
 	extra_context = {
 		'menu': 'users',
@@ -98,7 +96,7 @@ def index(request, user_id):
 		'from_user': from_user,
 		'search_form': BuddySearchForm()
 	}
-	return render_to_response(template_name, extra_context, context_instance)
+	return render(request, template_name, extra_context)
 
 @rest_post
 @login_required

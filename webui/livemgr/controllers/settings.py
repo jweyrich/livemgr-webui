@@ -22,8 +22,7 @@
 
 from django import forms
 from django.contrib.auth.decorators import login_required, permission_required
-from django.shortcuts import render_to_response
-from django.template import RequestContext
+from django.shortcuts import render
 from django.utils.translation import ugettext as _, ugettext_lazy
 from webui.common.decorators.rest import rest_multiple
 from webui.common.http import method
@@ -103,10 +102,9 @@ def update(request):
 			flash_success(request, _('The settings were changed successfully.'))
 		else:
 			flash_form_error(request, form)
-	context_instance = RequestContext(request)
 	template_name = 'settings/update.html'
 	extra_context = {
 		'menu': 'settings',
 		'form': form
 	}
-	return render_to_response(template_name, extra_context, context_instance)
+	return render(request, template_name, extra_context)
