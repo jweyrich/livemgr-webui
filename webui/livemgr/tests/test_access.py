@@ -293,7 +293,8 @@ class DjangoInstallationTest(LivemgrTestCase):
 class ProductionSettingsTest(LivemgrTestCase):
 	def test_allowed_hosts(self):
 		# With DEBUG off, Django 1.5 rejects requests for hosts not listed in
-		# ALLOWED_HOSTS, which defaults to none. (The test runner allows all.)
+		# ALLOWED_HOSTS, which defaults to none. (The test runner allows all
+		# before Django 1.11, which only adds 'testserver'.)
 		from webui import settings_production
 		self.assertFalse(settings_production.DEBUG)
 		with override_settings(DEBUG=False, ALLOWED_HOSTS=settings_production.ALLOWED_HOSTS):

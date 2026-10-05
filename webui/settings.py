@@ -22,6 +22,7 @@
 
 # Django settings for webui project.
 
+from tzlocal import get_localzone
 import django
 import os.path
 ROOT = os.path.dirname(os.path.abspath(__file__))
@@ -47,7 +48,13 @@ DATABASES = {
     }
 }
 
-TIME_ZONE = None
+# Django 1.11 removes TIME_ZONE = None, which kept the system's time zone. The
+# backend stores local times, and the dashboard reads datetime.now(), so name
+# the system's zone instead: Django exports TIME_ZONE to the TZ environment
+# variable. Where tzlocal can't name it (an /etc/localtime that isn't a link
+# and no /etc/timezone), it returns 'local', which Django rejects: set the
+# zone's name in the deployment's settings, e.g. TIME_ZONE = 'America/Sao_Paulo'.
+TIME_ZONE = get_localzone().zone
 
 # Language section
 LANGUAGE_CODE = 'en-us'

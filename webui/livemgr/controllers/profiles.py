@@ -199,8 +199,14 @@ def set_language_local(request, response, lang_code):
 	return response
 
 def login(request, *args, **kwargs):
-	kwargs.setdefault('authentication_form', LoginForm)
-	response = views.login(request, *args, **kwargs)
+	# Django 1.11 deprecates the login() view for LoginView, which names its
+	# authentication_form option form_class.
+	if django.VERSION >= (1, 11):
+		kwargs.setdefault('form_class', LoginForm)
+		response = views.LoginView.as_view(**kwargs)(request, *args)
+	else:
+		kwargs.setdefault('authentication_form', LoginForm)
+		response = views.login(request, *args, **kwargs)
 	if hasattr(request.user, 'profile'):
 		set_language_local(request, response, request.user.profile.language)
 	return response

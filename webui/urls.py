@@ -71,10 +71,10 @@ urlpatterns = [
 	url(r'^', livemgr_urls),
 ]
 
-# django-debug-toolbar 1.6 no longer adds its URLs by itself. They're a
-# (patterns, app_name, namespace) 3-tuple too, like the admin's.
+# django-debug-toolbar 1.6 no longer adds its URLs by itself. Since 1.10 they're
+# a (urlconf, app_name) pair for include(), no longer a 3-tuple like the admin's.
 if apps.is_installed('debug_toolbar'):
 	import debug_toolbar
 	urlpatterns += [
-		url(r'^__debug__/', debug_toolbar.urls),
+		url(r'^__debug__/', include(debug_toolbar.urls)),
 	]
