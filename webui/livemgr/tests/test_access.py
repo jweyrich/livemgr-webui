@@ -313,7 +313,7 @@ class ErrorPagesTest(LivemgrTestCase):
 		request.user = AnonymousUser()
 		response = error_500(request)
 		self.assertEqual(response.status_code, 200) # returned as-is by the handler
-		self.assertEqual(response.content.strip(), 'Internal error.')
+		self.assertEqual(response.content.strip(), b'Internal error.')
 
 	def test_csrf_failure_view(self):
 		from django.test.client import Client

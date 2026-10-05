@@ -22,9 +22,10 @@
 
 from django.contrib import admin
 from django.db import models
-from django.utils.encoding import smart_unicode
+from django.utils.encoding import python_2_unicode_compatible, smart_text
 from django.utils.translation import ugettext_lazy as _
 
+@python_2_unicode_compatible
 class Message(models.Model):
 	class Type:
 		UNKNOWN = 0 # never used
@@ -82,8 +83,8 @@ class Message(models.Model):
 	remoteim = models.CharField(_("buddy"), max_length=128)
 	filtered = models.BooleanField(_("filtered"), default=False)
 	content = models.TextField(_("content"), max_length=2000)
-	def __unicode__(self):
-		return smart_unicode('%d %s %d %s %s' % (self.id, self.timestamp,
+	def __str__(self):
+		return smart_text('%d %s %d %s %s' % (self.id, self.timestamp,
 			self.conversation_id, self.localim, self.remoteim))
 
 class MessageAdmin(admin.ModelAdmin):

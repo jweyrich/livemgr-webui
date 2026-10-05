@@ -20,6 +20,7 @@
 # Authors:
 #   Jardel Weyrich <jweyrich@gmail.com>
 
+from django.utils import six
 from webui.livemgr.models import Buddy, User
 from webui.livemgr.tests.base import LivemgrTestCase, GUEST_GROUP_ID, at
 
@@ -110,12 +111,12 @@ class UserEditTest(LivemgrTestCase):
 	def test_form(self):
 		response = self.client.get('/users/%d/' % self.never.id)
 		self.assertTrue(response.context['can_delete'])
-		self.assertFalse('readonly' in unicode(response.context['form']['username']))
+		self.assertFalse('readonly' in six.text_type(response.context['form']['username']))
 
 	def test_form_for_a_user_that_logged_in(self):
 		response = self.client.get('/users/%d/' % self.seen.id)
 		self.assertFalse(response.context['can_delete'])
-		self.assertTrue('readonly' in unicode(response.context['form']['username']))
+		self.assertTrue('readonly' in six.text_type(response.context['form']['username']))
 
 	def test_edit(self):
 		response = self.client.post('/users/%d/' % self.never.id,

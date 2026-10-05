@@ -85,7 +85,7 @@ class ConversationListTest(ConversationFixtures, LivemgrTestCase):
 	def test_invalid_date(self):
 		response = self.client.post('/conversations/', {'from_date': '31/31/2010'})
 		self.assertEqual(response.status_code, 400)
-		self.assertEqual(response.content, 'Invalid search criteria')
+		self.assertEqual(response.content, b'Invalid search criteria')
 
 	def test_change_page_size(self):
 		self.client.post('/conversations/', {'per_page': '40'})
@@ -140,8 +140,8 @@ class ConversationReportTest(ConversationFixtures, LivemgrTestCase):
 		self.assertEqual(response.status_code, 200)
 		self.assertEqual(response['Content-Type'], 'application/pdf')
 		self.assertEqual(response['Content-Disposition'], 'attachment; filename=report-%d.pdf' % self.first.id)
-		self.assertTrue(response.content.startswith('%PDF'))
-		self.assertTrue(response.content.rstrip().endswith('%%EOF'))
+		self.assertTrue(response.content.startswith(b'%PDF'))
+		self.assertTrue(response.content.rstrip().endswith(b'%%EOF'))
 
 	def test_pdf_with_every_supported_type_and_several_pages(self):
 		conversation = self.make_conversation(self.alice)
@@ -153,13 +153,13 @@ class ConversationReportTest(ConversationFixtures, LivemgrTestCase):
 				self.make_message(conversation.id, content, type=message_type, inbound=bool(i % 2))
 		response = self.client.get('/conversations/%d/report/pdf/' % conversation.id)
 		self.assertEqual(response.status_code, 200)
-		pages = response.content.count('/Type /Page') - response.content.count('/Type /Pages')
+		pages = response.content.count(b'/Type /Page') - response.content.count(b'/Type /Pages')
 		self.assertTrue(pages > 1, pages)
 
 	def test_not_found(self):
 		response = self.client.get('/conversations/999999/report/pdf/')
 		self.assertEqual(response.status_code, 400)
-		self.assertEqual(response.content, 'Conversation not found')
+		self.assertEqual(response.content, b'Conversation not found')
 
 class ConversationReportContentTest(ConversationFixtures, LivemgrTestCase):
 	"""

@@ -1,16 +1,16 @@
+from __future__ import print_function
 from MySQLdb.cursors import DictCursor
 from django.db import connection
-from itertools import izip
 
 #from django.db.backends import BaseDatabaseWrapper
 #from django.db.backends.mysql.base import DatabaseWrapper
 
 def print_queries():
 	for query in connection.queries:
-		print 'Query   : %s' % query['sql'].replace('`', '')
+		print('Query   : %s' % query['sql'].replace('`', ''))
 		duration = query.get('duration')
 		if duration:
-			print 'Duration: %s ms' % duration
+			print('Duration: %s ms' % duration)
 
 def fetchone_to_dict(query_string, *query_args):
 	cursor = connection.cursor()
@@ -19,7 +19,7 @@ def fetchone_to_dict(query_string, *query_args):
 	row = cursor.fetchone()
 	if row is None:
 		return None
-	return dict(izip(col_names, row))
+	return dict(zip(col_names, row))
 
 def fetchall_to_dict(query_string, *query_args):
 	"""
@@ -37,7 +37,7 @@ def fetchall_to_dict(query_string, *query_args):
 		row = cursor.fetchone()
 		if row is None:
 			break
-		row_dict = dict(izip(col_names, row))
+		row_dict = dict(zip(col_names, row))
 		yield row_dict
 	return
 

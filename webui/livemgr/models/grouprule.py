@@ -22,11 +22,12 @@
 
 from django.contrib import admin
 from django.db import models
-from django.utils.encoding import smart_unicode
+from django.utils.encoding import python_2_unicode_compatible, smart_text
 from django.utils.translation import ugettext_lazy as _
 from webui.livemgr.models.rule import Rule
 from webui.livemgr.models.usergroup import UserGroup
 
+@python_2_unicode_compatible
 class GroupRule(models.Model):
 	class Meta:
 		app_label = 'livemgr'
@@ -38,8 +39,8 @@ class GroupRule(models.Model):
 		verbose_name_plural = _('grouprules')
 	rule = models.ForeignKey(Rule, db_column='rule_id', verbose_name=_("rule"))
 	group = models.ForeignKey(UserGroup, db_column='group_id', verbose_name=_("group"))
-	def __unicode__(self):
-		return smart_unicode('%d %s %s' % (self.id, self.rule, self.group))
+	def __str__(self):
+		return smart_text('%d %s %s' % (self.id, self.rule, self.group))
 
 class GroupRuleAdmin(admin.ModelAdmin):
 	pass

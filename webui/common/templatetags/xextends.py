@@ -24,7 +24,7 @@
 
 from django import template
 from django.template.loader_tags import ExtendsNode, do_extends
-import StringIO
+import io
 import tokenize
 
 register = template.Library()
@@ -58,12 +58,12 @@ def do_xextends(parser, token):
 		for i in argslist:
 			try:
 				a, b = i.split('=', 1); a = a.strip(); b = b.strip()
-				keys = list(tokenize.generate_tokens(StringIO.StringIO(a).readline))
+				keys = list(tokenize.generate_tokens(io.StringIO(a).readline))
 				if keys[0][0] == tokenize.NAME:
 					kwargs[str(a)] = parser.compile_filter(b)
 				else: raise ValueError
 			except ValueError:
-				raise template.TemplateSyntaxError, "Argument syntax wrong: should be key=value"
+				raise template.TemplateSyntaxError("Argument syntax wrong: should be key=value")
 		# before we are done, remove the argument part from the token contents,
 		# or django's extends tag won't be able to handle it.
 		# TODO(jweyrich): Find a better solution that preserves the orginal token including whitespace etc.

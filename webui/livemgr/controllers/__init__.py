@@ -20,13 +20,13 @@
 # Authors:
 #   Jardel Weyrich <jweyrich@gmail.com>
 
-import acls
-import badwords
-import buddies
-import conversations
-import dashboard
-import groups
-import license
-import profiles
-import settings
-import users
+from . import acls
+from . import badwords
+from . import buddies
+from . import conversations
+from . import dashboard
+from . import groups
+from . import license
+from . import profiles
+from . import settings
+from . import users

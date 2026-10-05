@@ -53,7 +53,7 @@ def write_certificate(path, not_before, not_after, organization='ACME Corp', ser
 		time.set_datetime(value.replace(tzinfo=ASN1.UTC))
 		setter(time)
 	cert.sign(key, 'sha256')
-	bundle = open(path, 'w')
+	bundle = open(path, 'wb')
 	bundle.write(cert.as_pem())
 	bundle.write(key.as_pem(cipher=None))
 	bundle.close()

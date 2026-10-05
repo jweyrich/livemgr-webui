@@ -22,10 +22,11 @@
 
 from django.contrib import admin
 from django.db import models
-from django.utils.encoding import smart_unicode
+from django.utils.encoding import python_2_unicode_compatible, smart_text
 from django.utils.translation import ugettext_lazy as _
 from webui.livemgr.models.user import User
 
+@python_2_unicode_compatible
 class Buddy(models.Model):
 	class Meta:
 		app_label = 'livemgr'
@@ -45,8 +46,8 @@ class Buddy(models.Model):
 	status = models.CharField(_("status"), max_length=3, choices=User.CHOICES_STATUS)
 	isblocked = models.BooleanField(_("blocked"), default=False)
 	user = models.ForeignKey(User, db_column='user_id', verbose_name=_("user"), related_name="buddies")
-	def __unicode__(self):
-		return smart_unicode(self.username)
+	def __str__(self):
+		return smart_text(self.username)
 
 class BuddyAdmin(admin.ModelAdmin):
 	pass

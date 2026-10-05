@@ -107,4 +107,4 @@ class CustomPaginator:
 				end = page_number + range_gap + 1
 			else:
 				end = num_pages + 1
-		return range(start, end)
+		return list(range(start, end))

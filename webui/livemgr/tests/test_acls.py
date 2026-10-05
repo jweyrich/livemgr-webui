@@ -66,7 +66,7 @@ class AclListTest(LivemgrTestCase):
 	def test_change_page_size(self):
 		response = self.client.post('/acls/', {'per_page': '20'})
 		self.assertEqual(response.status_code, 200)
-		self.assertEqual(response.content, '')
+		self.assertEqual(response.content, b'')
 		self.assertEqual(self.profile_of(self.account).per_page_acls, 20)
 
 	def test_search_either_side(self):
@@ -85,7 +85,7 @@ class AclListTest(LivemgrTestCase):
 	def test_invalid_search(self):
 		response = self.client.post('/acls/', {'action': '9'})
 		self.assertEqual(response.status_code, 400)
-		self.assertEqual(response.content, 'Invalid search criteria')
+		self.assertEqual(response.content, b'Invalid search criteria')
 
 class AclAddTest(LivemgrTestCase):
 	DATA = {'action': Acl.ACTION_BLOCK, 'localim': 'alice@example.com', 'remoteim': '*@example.org'}

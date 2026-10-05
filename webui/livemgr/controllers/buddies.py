@@ -61,7 +61,7 @@ class BuddySearchForm(forms.Form):
 @login_required
 @permission_required('livemgr.see_buddy')
 def index(request, user_id):
-	user_id = long(user_id)
+	user_id = int(user_id)
 	from_user = get_object_or_404(User, pk=user_id)
 	if request.method == method.GET:
 		qset = Buddy.objects.filter(user=user_id)
@@ -102,7 +102,7 @@ def index(request, user_id):
 @login_required
 @permission_required('livemgr.change_buddy')
 def block(request, user_id):
-	user_id = long(user_id)
+	user_id = int(user_id)
 	selected = request.POST.getlist('selection')
 	Buddy.objects.filter(Q(user=user_id) & Q(pk__in=selected)) \
 		.update(isblocked=True)
@@ -112,7 +112,7 @@ def block(request, user_id):
 @login_required
 @permission_required('livemgr.change_buddy')
 def unblock(request, user_id):
-	user_id = long(user_id)
+	user_id = int(user_id)
 	selected = request.POST.getlist('selection')
 	Buddy.objects.filter(Q(user=user_id) & Q(pk__in=selected)) \
 		.update(isblocked=False)

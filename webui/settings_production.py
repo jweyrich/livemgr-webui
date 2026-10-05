@@ -22,7 +22,7 @@
 
 # Django settings for webui project.
 
-from settings import *
+from webui.settings import *
 import django
 
 DEBUG = False

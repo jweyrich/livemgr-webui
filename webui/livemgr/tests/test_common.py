@@ -25,10 +25,11 @@
 	live here, in an app the test runner can find).
 """
 
-from StringIO import StringIO
 from django import forms
 from django.contrib import messages
 from django.http import HttpRequest, HttpResponse, QueryDict
+from django.utils import six
+from io import BytesIO
 from reportlab.lib.pagesizes import A4
 from webui.common.color_dict import color_dict
 from webui.common.custom_paginator import CustomPaginator
@@ -50,7 +51,7 @@ class FakeMessageStorage(object):
 	def __init__(self):
 		self.added = []
 	def add(self, level, message, extra_tags=''):
-		self.added.append((level, unicode(message)))
+		self.added.append((level, six.text_type(message)))
 
 def make_request(method='GET', get=''):
 	request = HttpRequest()
@@ -204,20 +205,20 @@ class NoLabelSuffixTest(LivemgrTestCase):
 		for path in self.PAGES:
 			response = self.client.get(path)
 			self.assertEqual(response.status_code, 200, path)
-			self.assertTrue('</label>' in response.content, path)
-			self.assertFalse(':</label>' in response.content, path)
+			self.assertTrue(b'</label>' in response.content, path)
+			self.assertFalse(b':</label>' in response.content, path)
 
 class RestDecoratorsTest(unittest.TestCase):
 	def view(self, request):
 		return HttpResponse('called')
 
 	def assertAllows(self, decorated, method):
-		self.assertEqual(decorated(make_request(method)).content, 'called')
+		self.assertEqual(decorated(make_request(method)).content, b'called')
 
 	def assertRejects(self, decorated, method):
 		response = decorated(make_request(method))
 		self.assertEqual(response.status_code, 400)
-		self.assertEqual(response.content, "You don't have permission to access this.")
+		self.assertEqual(response.content, b"You don't have permission to access this.")
 
 	def test_rest_get(self):
 		self.assertAllows(rest_get(self.view), 'GET')
@@ -241,7 +242,7 @@ class RestDecoratorsTest(unittest.TestCase):
 
 	def test_view_arguments_are_forwarded(self):
 		decorated = rest_get(lambda request, object_id: HttpResponse(object_id))
-		self.assertEqual(decorated(make_request(), object_id='7').content, '7')
+		self.assertEqual(decorated(make_request(), object_id='7').content, b'7')
 
 class ComplexTypeEncoderTest(unittest.TestCase):
 	def test_uses_to_json(self):
@@ -263,7 +264,7 @@ class ReportTest(unittest.TestCase):
 		class Canvas(NumberedCanvas):
 			def drawPageNumber(self, page_count):
 				seen.append((self.getPageNumber(), page_count))
-		buffer = StringIO()
+		buffer = BytesIO()
 		canvas = Canvas(buffer, pagesize=A4)
 		canvas.drawString(10, 10, 'one')
 		canvas.showPage()
@@ -271,7 +272,7 @@ class ReportTest(unittest.TestCase):
 		canvas.showPage()
 		canvas.save()
 		self.assertEqual(seen, [(1, 2), (2, 2)])
-		self.assertTrue(buffer.getvalue().startswith('%PDF'))
+		self.assertTrue(buffer.getvalue().startswith(b'%PDF'))
 
 class RawQueryTest(LivemgrTestCase):
 	def test_fetchone_to_dict(self):

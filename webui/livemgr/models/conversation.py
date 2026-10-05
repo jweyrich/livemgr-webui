@@ -22,10 +22,11 @@
 
 from django.contrib import admin
 from django.db import models
-from django.utils.encoding import smart_unicode
+from django.utils.encoding import python_2_unicode_compatible, smart_text
 from django.utils.translation import ugettext_lazy as _
 from webui.livemgr.models.user import User
 
+@python_2_unicode_compatible
 class Conversation(models.Model):
 	class Meta:
 		app_label = 'livemgr'
@@ -40,8 +41,8 @@ class Conversation(models.Model):
 	user = models.ForeignKey(User, db_column='user_id', verbose_name=_("user"))
 	timestamp = models.DateTimeField(_("timestamp"), auto_now_add=True)
 	status = models.PositiveSmallIntegerField(db_column='status', verbose_name=_("Status"))
-	def __unicode__(self):
-		return smart_unicode('%d %s %s %i' % (self.id, self.user, self.timestamp,
+	def __str__(self):
+		return smart_text('%d %s %s %i' % (self.id, self.user, self.timestamp,
 			self.status))
 
 class ConversationAdmin(admin.ModelAdmin):

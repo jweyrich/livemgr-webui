@@ -1,6 +1,7 @@
 from django.contrib.auth.models import User
 from django.db import models
 from django.db.models.signals import post_save
+from django.utils import six
 
 """
 	Based on: http://djangosnippets.org/snippets/1469/
@@ -19,9 +20,8 @@ class AuthUserProfileBase(models.base.ModelBase):
 		# Automatically link profile when a new user is created
 		post_save.connect(on_save, sender=User, weak=False)
 
-class AuthUserProfileModel(models.Model):
+class AuthUserProfileModel(six.with_metaclass(AuthUserProfileBase, models.Model)):
 	class Meta:
 		abstract = True
-	__metaclass__ = AuthUserProfileBase
 	user = models.OneToOneField(User, db_column='auth_user_id',
 		primary_key=True, parent_link=True)

@@ -139,7 +139,7 @@ def index(request):
 @login_required
 @permission_required('livemgr.change_usergroup')
 def edit(request, object_id):
-	object_id = long(object_id)
+	object_id = int(object_id)
 	model = get_object_or_404(UserGroup, pk=object_id)
 	can_delete = not model.isbuiltin
 	if request.method == method.GET:
@@ -148,8 +148,8 @@ def edit(request, object_id):
 		form = GroupForm(request.POST, instance=model)
 		if form.is_valid():
 			class ChangedUsers:
-				# Map submitted users to long
-				submitted = map(long, request.POST.getlist('users'))
+				# Map submitted users to int
+				submitted = [int(i) for i in request.POST.getlist('users')]
 				# Select users that are currently part of the group
 				current = list(User.objects \
 					.filter(group=object_id) \
@@ -159,8 +159,8 @@ def edit(request, object_id):
 				#print 'ChangedUsers.added = %s' % added
 				#print 'ChangedUsers.removed = %s' % removed
 			class ChangedRules:
-				# Map submitted rules to long
-				submitted = map(long, request.POST.getlist('rules'))
+				# Map submitted rules to int
+				submitted = [int(i) for i in request.POST.getlist('rules')]
 				# Select rules that are currently assigned to the group
 				current = list(GroupRule.objects \
 					.filter(group=object_id) \
@@ -177,7 +177,7 @@ def edit(request, object_id):
 					if users.added:
 						User.objects.filter(pk__in=users.added).update(group=object_id)
 					if users.removed:
-						User.objects.filter(pk__in=users.removed).update(group=1L)
+						User.objects.filter(pk__in=users.removed).update(group=1)
 					if rules.added:
 						for rule_id in rules.added:
 							GroupRule(group_id=object_id, rule_id=rule_id).save()
@@ -185,7 +185,7 @@ def edit(request, object_id):
 						GroupRule.objects.filter(rule__in=rules.removed).delete()
 				flash_success(request,
 					_('The group \'%s\' was changed successfully.') % model.groupname)
-				if users.removed and object_id == 1L:
+				if users.removed and object_id == 1:
 					flash_warning(request, _('However, the users weren\'t removed'
 						' because they must belong to one group at least.'))
 			except IntegrityError:
@@ -236,8 +236,8 @@ def add(request):
 	elif request.method == method.POST:
 		form = GroupForm(request.POST)
 		if form.is_valid():
-			users_added = map(long, request.POST.getlist('users'))
-			rules_added = map(long, request.POST.getlist('rules'))
+			users_added = [int(i) for i in request.POST.getlist('users')]
+			rules_added = [int(i) for i in request.POST.getlist('rules')]
 			try:
 				with atomic():
 					model = form.save(True)
@@ -272,7 +272,7 @@ def add(request):
 @login_required
 @permission_required('livemgr.delete_usergroup')
 def delete(request, object_id):
-	object_id = long(object_id)
+	object_id = int(object_id)
 	model = get_object_or_404(UserGroup, pk=object_id)
 	if model.isbuiltin:
 		message = _('Can\'t delete built-in groups.')
@@ -282,7 +282,7 @@ def delete(request, object_id):
 			flash_error(request, message)
 			return HttpResponseRedirect(reverse('webui:groups-edit', args=[object_id]))
 	# Move users to GUEST (built-in) group
-	User.objects.filter(group=object_id).update(group=1L)
+	User.objects.filter(group=object_id).update(group=1)
 	model.delete()
 	if request.method == method.POST:
 		return HttpResponse()
@@ -295,6 +295,6 @@ def delete(request, object_id):
 def delete_many(request):
 	selected = request.POST.getlist('selection')
 	# Move users to GUEST (built-in) group
-	User.objects.filter(group__in=selected).update(group=1L)
+	User.objects.filter(group__in=selected).update(group=1)
 	UserGroup.objects.filter(Q(pk__in=selected) & Q(isbuiltin=False)).delete()
 	return HttpResponse()
