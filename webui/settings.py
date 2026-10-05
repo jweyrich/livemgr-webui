@@ -202,6 +202,10 @@ DATA_UPLOAD_MAX_NUMBER_FIELDS = None
 # JSON values (the messages below and the language code are). Sessions saved
 # by an older version fail to decode, which logs those users out once.
 SESSION_SERIALIZER = 'django.contrib.sessions.serializers.JSONSerializer'
+# Django 2.1 sets the session and CSRF cookies with SameSite=Lax, so browsers
+# no longer send them on requests from other sites: a login form posted from
+# another site lands on CSRF_FAILURE_VIEW. Set SESSION_COOKIE_SAMESITE and
+# CSRF_COOKIE_SAMESITE to None in the deployment's settings to allow it.
 
 # Messages
 MESSAGE_STORAGE = 'django.contrib.messages.storage.session.SessionStorage'
