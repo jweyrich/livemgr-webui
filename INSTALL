@@ -5,28 +5,20 @@ HOW TO SETUP IT FOR LOCAL TESTING
 git clone https://github.com/jweyrich/livemgr-webui.git
 cd livemgr-webui
 
-# Install pip (globally):
-sudo easy_install pip
-#
-# Alternatives:
-#	On Debian or Ubuntu:
-#		sudo apt-get install python-pip
-#	On RedHat, Fedora, or CentOS:
-#		sudo yum install python-pip
-#	On Mac OS X:
-#		curl --sSL https://raw.github.com/pypa/pip/master/contrib/get-pip.py | sudo python2.7
-
-# Install virtualenv (globally):
-sudo pip install virtualenv
+# Install Python 3.5. Most systems no longer package it, so build it with pyenv:
+#	pyenv install 3.5.10
 
 # Create a virtual environment for our Python dependencies:
-virtualenv env
+python3.5 -m venv env
 
 # Activate it:
 . ./activate.sh
 
 # Check if the activation succeeeded - the printed path must reside within your cloned directory:
 which python
+
+# Upgrade pip - 20.3.4 is the last release that supports Python 3.5:
+pip install pip==20.3.4
 
 # Install swig - required by M2Crypto:
 #

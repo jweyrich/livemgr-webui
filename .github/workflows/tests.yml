@@ -40,7 +40,7 @@ jobs:
 
       - uses: docker/setup-buildx-action@v4
 
-      # Python 2.7 is no longer available on the runners, so the tests run in
+      # Python 3.5 is no longer available on the runners, so the tests run in
       # the devcontainer image. Its layers are cached between runs.
       - name: Build devcontainer image
         uses: docker/build-push-action@v7
