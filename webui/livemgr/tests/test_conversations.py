@@ -22,6 +22,7 @@
 
 from webui.livemgr.models import Message
 from webui.livemgr.tests.base import LivemgrTestCase, at
+from webui.livemgr.tests.pdftext import read_pages, uncompressed
 
 def conversation_ids(response):
 	return [row.record.conversation_id for row in response.context['page'].object_list]
@@ -159,3 +160,146 @@ class ConversationReportTest(ConversationFixtures, LivemgrTestCase):
 		response = self.client.get('/conversations/999999/report/pdf/')
 		self.assertEqual(response.status_code, 400)
 		self.assertEqual(response.content, 'Conversation not found')
+
+class ConversationReportContentTest(ConversationFixtures, LivemgrTestCase):
+	"""
+	What the PDF report shows. Each page has a 5-line header, the messages and
+	a "Page x of y" footer.
+	"""
+	HEADER_LINES = 5
+
+	def setUp(self):
+		self.login_superuser()
+		self.create_conversations()
+
+	def report(self, conversation_id, **extra):
+		with uncompressed():
+			response = self.client.get('/conversations/%d/report/pdf/' % conversation_id, **extra)
+		self.assertEqual(response.status_code, 200)
+		return read_pages(response.content)
+
+	def header(self, page):
+		return [line.text for line in page[:self.HEADER_LINES]]
+
+	def body(self, page):
+		return [line.text for line in page[self.HEADER_LINES:-1]]
+
+	def footer(self, page):
+		return page[-1].text
+
+	def color_of(self, page, text):
+		colors = [color for line in page for fragment, color in line.fragments if fragment == text]
+		self.assertTrue(colors, '%r not found' % text)
+		return colors[0]
+
+	def test_header(self):
+		page, = self.report(self.first.id)
+		self.assertEqual(self.header(page), [
+			u'Conversation: #%d' % self.first.id,
+			u'User: alice@example.com IP: 127.0.0.1',
+			u'Buddy: bob@example.com',
+			u'Started in: 05/17/2010 - 09:00:00 AM',
+			u'Total messages: 3',
+		])
+
+	def test_messages(self):
+		page, = self.report(self.first.id)
+		self.assertEqual(self.body(page), [
+			u'05/17/2010 09:00:00 AM - alice@example.com: hi bob',
+			u'05/17/2010 09:00:05 AM - bob@example.com: hi alice', # inbound
+			u'05/17/2010 09:00:09 AM - alice@example.com: [x] darn it', # filtered
+		])
+
+	def test_footer(self):
+		page, = self.report(self.first.id)
+		self.assertEqual(self.footer(page), u'Page 1 of 1')
+
+	def test_colors(self):
+		page, = self.report(self.first.id)
+		self.assertEqual(self.color_of(page, u'alice@example.com'), '#7ca380')
+		self.assertEqual(self.color_of(page, u'bob@example.com'), '#ad8282')
+		self.assertEqual(self.color_of(page, u'[x] '), '#ff0000')
+		self.assertEqual(self.color_of(page, u': hi bob'), '#000000')
+
+	def test_user_and_buddy_colors_do_not_depend_on_who_spoke_first(self):
+		conversation = self.make_conversation(self.alice)
+		self.make_message(conversation.id, 'hi', at(2010, 5, 17, 9, 0, 0), inbound=True)
+		self.make_message(conversation.id, 'hello', at(2010, 5, 17, 9, 0, 1))
+		page, = self.report(conversation.id)
+		self.assertEqual(self.color_of(page, u'alice@example.com'), '#7ca380')
+		self.assertEqual(self.color_of(page, u'bob@example.com'), '#ad8282')
+
+	def test_content_is_escaped_and_encoded(self):
+		conversation = self.make_conversation(self.alice)
+		self.make_message(conversation.id, u'olá <b>bold</b> & co (x) \\o/', at(2010, 5, 17, 9, 0, 0))
+		page, = self.report(conversation.id)
+		self.assertEqual(self.body(page),
+			[u'05/17/2010 09:00:00 AM - alice@example.com: olá <b>bold</b> & co (x) \\o/'])
+
+	def test_message_types(self):
+		conversation = self.make_conversation(self.alice)
+		labels = [
+			(Message.Type.FILE, '2048 holiday photos.zip', u'File transfer: holiday photos.zip (2.0 KB)'),
+			(Message.Type.WEBCAM, '', u'Video Call'),
+			(Message.Type.REMOTEDESKTOP, '', u'Remote Desktop'),
+			(Message.Type.APPLICATION, '', u'MSN Activity'),
+			(Message.Type.EMOTICON, '', u'Custom emoticon'),
+			(Message.Type.INK, '', u'Handwriting'),
+			(Message.Type.NUDGE, '', u'Nudge'),
+			(Message.Type.WINK, '', u'Wink'),
+			(Message.Type.VOICECLIP, '', u'Voice clip'),
+			(Message.Type.GAMES, '', u'MSN Game'),
+			(Message.Type.PHOTO, '', u'Photo sharing'),
+		]
+		for second, (message_type, content, label) in enumerate(labels):
+			self.make_message(conversation.id, content, at(2010, 5, 17, 9, 0, second), type=message_type)
+		page, = self.report(conversation.id)
+		self.assertEqual(self.body(page), [
+			u'05/17/2010 09:00:%02d AM - alice@example.com: %s' % (second, label)
+			for second, (message_type, content, label) in enumerate(labels)
+		])
+
+	def test_several_pages(self):
+		conversation = self.make_conversation(self.alice)
+		for i in range(120):
+			self.make_message(conversation.id, u'message %03d' % i, at(2010, 5, 17, 10, i // 60, i % 60))
+		pages = self.report(conversation.id)
+		self.assertTrue(len(pages) > 1, len(pages))
+		first_header = self.header(pages[0])
+		self.assertEqual(first_header[-1], u'Total messages: 120')
+		for number, page in enumerate(pages, 1):
+			self.assertEqual(self.header(page), first_header) # repeated on every page
+			self.assertEqual(self.footer(page), u'Page %d of %d' % (number, len(pages)))
+		contents = [line.rsplit(': ', 1)[1] for page in pages for line in self.body(page)]
+		self.assertEqual(contents, [u'message %03d' % i for i in range(120)])
+
+	def test_long_message_wraps(self):
+		conversation = self.make_conversation(self.alice)
+		words = u' '.join(u'word%02d' % i for i in range(60))
+		self.make_message(conversation.id, words, at(2010, 5, 17, 9, 0, 0))
+		page, = self.report(conversation.id)
+		body = self.body(page)
+		self.assertTrue(len(body) > 1, body)
+		self.assertEqual(u' '.join(line.strip() for line in body),
+			u'05/17/2010 09:00:00 AM - alice@example.com: ' + words)
+
+	def test_translated(self):
+		page, = self.report(self.first.id, HTTP_ACCEPT_LANGUAGE='pt-br')
+		self.assertEqual(self.header(page), [
+			u'Conversa: #%d' % self.first.id,
+			u'Usuário: alice@example.com IP: 127.0.0.1',
+			u'Contato: bob@example.com',
+			u'Iniciada em: 17/05/2010 - 09:00:00 AM',
+			u'Total de mensagens: 3',
+		])
+		self.assertEqual(self.body(page)[0], u'17/05/2010 09:00:00 AM - alice@example.com: hi bob')
+		self.assertEqual(self.footer(page), u'Página 1 de 1')
+
+	def test_unsupported_message_types_crash(self):
+		# KNOWN BUG, pinned on purpose: types without a formatter (unknown,
+		# typing, caps) raise TypeError instead of being skipped.
+		for message_type in (Message.Type.UNKNOWN, Message.Type.TYPING, Message.Type.CAPS):
+			conversation = self.make_conversation(self.alice)
+			self.make_message(conversation.id, 'x', type=message_type)
+			self.assertRaises(TypeError, self.client.get,
+				'/conversations/%d/report/pdf/' % conversation.id)
