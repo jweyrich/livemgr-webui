@@ -43,8 +43,8 @@ class SettingsUpdateForm(NoLabelSuffixMixin, forms.Form):
 		(17, '17'),
 		(18, '18'),
 	)
-	min_protocol_version = forms.ChoiceField(PROTOCOL_CHOICES, label=ugettext_lazy("Minimum"), required=False)
-	max_protocol_version = forms.ChoiceField(PROTOCOL_CHOICES, label=ugettext_lazy("Maximum"), required=False)
+	min_protocol_version = forms.ChoiceField(choices=PROTOCOL_CHOICES, label=ugettext_lazy("Minimum"), required=False)
+	max_protocol_version = forms.ChoiceField(choices=PROTOCOL_CHOICES, label=ugettext_lazy("Maximum"), required=False)
 	allow_self_reg = forms.BooleanField(label=ugettext_lazy("Allow self registration"), required=False)
 	filtered_msg = forms.CharField(label=ugettext_lazy("Filtered"), required=True)
 	default_warning = forms.CharField(label=ugettext_lazy("Disclaimer"), required=True)

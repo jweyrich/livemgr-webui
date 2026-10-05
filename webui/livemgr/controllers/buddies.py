@@ -52,7 +52,7 @@ class BuddyTable(tables.Table):
 class BuddySearchForm(forms.Form):
 	username = forms.CharField(required=False, label=ugettext_lazy("username"))
 	displayname = forms.CharField(required=False, label=ugettext_lazy("display name"))
-	status = forms.ChoiceField(User.CHOICES_STATUS, required=False, label=ugettext_lazy("status"))
+	status = forms.ChoiceField(choices=User.CHOICES_STATUS, required=False, label=ugettext_lazy("status"))
 	def __init__(self, *args, **kwargs):
 		super(BuddySearchForm, self).__init__(*args, **kwargs)
 		self.fields['status'].choices = [('', '----------')] + self.fields['status'].choices

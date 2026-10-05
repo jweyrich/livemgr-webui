@@ -47,6 +47,11 @@ DATABASES = {
         'PORT': '',
     }
 }
+# Django 2.0 sets MySQL connections to READ COMMITTED; older versions kept the
+# server's default, usually REPEATABLE READ. A server that writes its binary
+# log in STATEMENT format then rejects writes to InnoDB tables: switch it to ROW
+# or MIXED, or keep the old level in the deployment's DATABASES with
+# 'OPTIONS': {'isolation_level': 'repeatable read'}.
 
 # Django 1.11 removes TIME_ZONE = None, which kept the system's time zone. The
 # backend stores local times, and the dashboard reads datetime.now(), so name

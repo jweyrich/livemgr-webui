@@ -66,7 +66,7 @@ class AclForm(NoLabelSuffixMixin, ModelForm):
 
 class AclSearchForm(forms.Form):
 	acl = forms.CharField(required=False)
-	action = forms.ChoiceField(Acl.CHOICES_ACTIONS, required=False, label=ugettext_lazy('action'))
+	action = forms.ChoiceField(choices=Acl.CHOICES_ACTIONS, required=False, label=ugettext_lazy('action'))
 	localim = forms.CharField(required=False, label=ugettext_lazy('user'))
 	remoteim = forms.CharField(required=False, label=ugettext_lazy('buddy'))
 	def __init__(self, *args, **kwargs):

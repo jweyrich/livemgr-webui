@@ -53,12 +53,13 @@ class UserListTest(LivemgrTestCase):
 		self.assertTrue(bob('status').endswith(' Away'))
 
 	def test_headers_follow_the_language(self):
-		# django-tables2 1.2.7 and later translate the headers taken from the
-		# models once, at import, so they stay in English.
+		# django-tables2 1.2.7 to 1.6 translate the headers taken from the
+		# models once, at import, so they stay in English. 2.0 capitalizes
+		# their first letter, as the templates' capfirst filter already does.
 		self.client.post('/i18n/setlang/', {'language': 'pt-br'})
 		table = self.client.get('/users/').context['table']
 		self.assertEqual([six.text_type(column.header) for column in table.columns][:4],
-			['nome de usuário', 'status', 'habilitado', 'nome de exibição'])
+			['Nome de usuário', 'Status', 'Habilitado', 'Nome de exibição'])
 
 	def test_search(self):
 		self.assertEqual(listed(self.client.post('/users/', {'username': 'ali'})), [self.alice])

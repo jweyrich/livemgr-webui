@@ -1,4 +1,4 @@
-# Development image for livemgr-webui (Python 3.7 + Django 1.11 + Node for gulp).
+# Development image for livemgr-webui (Python 3.7 + Django 2.0 + Node for gulp).
 # Mirrors the production Dockerfile at the repository root, but keeps the
 # source tree bind-mounted instead of baked in.
 
