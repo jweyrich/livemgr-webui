@@ -20,6 +20,7 @@
 # Authors:
 #   Jardel Weyrich <jweyrich@gmail.com>
 
+from django.utils import translation
 from webui.livemgr.models import Message
 from webui.livemgr.tests.base import LivemgrTestCase, at
 from webui.livemgr.tests.pdftext import read_pages, uncompressed
@@ -129,6 +130,14 @@ class ConversationShowTest(ConversationFixtures, LivemgrTestCase):
 
 	def test_not_found(self):
 		self.assertEqual(self.client.get('/conversations/999999/').status_code, 404)
+
+	def test_message_count_plural_in_portuguese(self):
+		# Brazilian Portuguese counts 0 as singular. Django 2.2.12 and later
+		# apply the project catalog's own plural equation, not Django's, and
+		# gettext's default without one gives "0 mensagens".
+		with translation.override('pt-br'):
+			self.assertEqual([translation.ngettext('%(total)s message', '%(total)s messages', n)
+				% {'total': n} for n in (0, 1, 2)], ['0 mensagem', '1 mensagem', '2 mensagens'])
 
 class ConversationReportTest(ConversationFixtures, LivemgrTestCase):
 	def setUp(self):

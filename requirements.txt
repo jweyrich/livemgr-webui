@@ -1,7 +1,7 @@
-Django==2.1.15
+Django==2.2.28
 # Django 1.11 removes TIME_ZONE = None; webui/settings.py names the system's
 # zone with tzlocal instead. 2.1 is the last release built on pytz, which
-# Django 2.1 requires.
+# Django 2.2 requires.
 tzlocal==2.1
 # mysqlclient is the maintained fork of MySQL-python (same MySQLdb module).
 # 1.4.6 is the last release that supports Python 2.7
@@ -9,16 +9,17 @@ mysqlclient==1.4.6
 # django-tables2 1.2.7 to 1.21 title-case the column headers taken from the
 # models (and, until 1.7, translate them once, at import, so they stay in
 # English whatever the user's language); 2.0 only capitalizes their first
-# letter. 1.2.6 uses APIs that Django 2.0 removes. 2.0.6 runs on Django 1.11
-# to 2.1.
-django-tables2==2.0.6
+# letter. 1.2.6 uses APIs that Django 2.0 removes. 2.1 is the first release
+# to support Django 2.2; 2.1.1 runs on Django 2.1 and 2.2.
+django-tables2==2.1.1
 # reportlab 3.6.13 fixes code execution through the color attributes of
 # Paragraph markup (CVE-2023-33733). It requires Python 3.7.
 reportlab==3.6.13
 M2Crypto==0.35.2
-# debug-toolbar 1.8 is the first to support Django 1.11, and 1.11.1 fixes an
-# SQL injection in the SQL panel (CVE-2021-30459). It runs on Django 1.11 to
-# 2.1.
-django-debug-toolbar==1.11.1
-# debug-toolbar 1.5 and later require sqlparse >= 0.2; 0.2.4 is the last 0.2.x
+# debug-toolbar 2.0 is the first to support Django 2.2. 2.2.1 fixes an SQL
+# injection in the SQL panel (CVE-2021-30459), as 1.11.1 did. It runs on
+# Django 1.11, 2.2 and 3.0.
+django-debug-toolbar==2.2.1
+# Django 2.2 requires sqlparse >= 0.2.2, and debug-toolbar 1.5 and later
+# >= 0.2; 0.2.4 is the last 0.2.x
 sqlparse==0.2.4
