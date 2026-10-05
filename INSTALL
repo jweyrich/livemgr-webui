@@ -39,16 +39,17 @@ which python
 #	On Mac OS X using HomeBrew:
 #		brew install swig # no sudo, thanks!
 
+# Install the MySQL or MariaDB client headers and mysql_config - required by mysqlclient:
+#
+#	On Debian or Ubuntu:
+#		sudo apt-get install default-libmysqlclient-dev
+#	On RedHat, Fedora, or CentOS:
+#		sudo yum install mariadb-devel
+#	On Mac OS X using HomeBrew:
+#		brew install mysql-client
+
 # Install our Python dependencies:
 pip install -r requirements.txt
-
-# If the last step failed because of MySQL-python (something like '-mno-fused-madd'), try the following instead:
-export CFLAGS=-Qunused-arguments
-export CPPFLAGS=-Qunused-arguments
-pip install -r requirements.txt
-
-# If you're on Mac OS X, it's likely that you have to fix the libmysqlclient path in _mysql.so:
-./fix_mysqldb.sh
 
 # Setup the MySQL database:
 mysql -u root -p -h localhost

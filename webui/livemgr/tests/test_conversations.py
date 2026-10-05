@@ -218,7 +218,7 @@ class ConversationReportContentTest(ConversationFixtures, LivemgrTestCase):
 		page, = self.report(self.first.id)
 		self.assertEqual(self.color_of(page, u'alice@example.com'), '#7ca380')
 		self.assertEqual(self.color_of(page, u'bob@example.com'), '#ad8282')
-		self.assertEqual(self.color_of(page, u'[x] '), '#ff0000')
+		self.assertEqual(self.color_of(page, u'[x]'), '#ff0000')
 		self.assertEqual(self.color_of(page, u': hi bob'), '#000000')
 
 	def test_user_and_buddy_colors_do_not_depend_on_who_spoke_first(self):

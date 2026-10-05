@@ -35,6 +35,8 @@ RUN printf '%s\n' \
 		python-virtualenv \
 		default-mysql-client \
 		libmariadbclient-dev \
+		zlib1g-dev \
+		libjpeg-dev \
 	&& rm -rf /var/lib/apt/lists/*
 
 # MySQL-python expects mysql_config and the `reconnect` field in st_mysql

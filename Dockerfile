@@ -37,6 +37,8 @@ RUN DEBIAN_FRONTEND=noninteractive apt-get install -y \
 RUN DEBIAN_FRONTEND=noninteractive apt-get install -y \
 	default-mysql-client \
 	libmariadbclient-dev \
+	zlib1g-dev \
+	libjpeg-dev \
 	mariadb-client \
 	;
 
