@@ -1,13 +1,14 @@
-Django==1.8.19
+Django==1.9.13
 # mysqlclient is the maintained fork of MySQL-python (same MySQLdb module).
 # 1.4.6 is the last release that supports Python 2.7
 mysqlclient==1.4.6
-# django-tables2 1.0.4 runs on Django 1.6 to 1.8
-django-tables2==1.0.4
+# django-tables2 1.0.5 adds Django 1.9; 1.0.7, the last 1.0.x, runs on 1.7 to 1.9
+django-tables2==1.0.7
 # reportlab 3.5.55 and later refuse to run on Python 3.5
 reportlab==3.5.50
 M2Crypto==0.35.2
-# debug-toolbar 1.3 imports django.utils.unittest, which Django 1.9 removes
-django-debug-toolbar==1.3.2
-# debug-toolbar 1.3's SQL filters use the sqlparse < 0.2 filter API
+# debug-toolbar 1.4 runs on Django 1.7 to 1.9 (1.3 imports django.utils.unittest,
+# which Django 1.9 removes)
+django-debug-toolbar==1.4
+# debug-toolbar 1.4's SQL filters use the sqlparse < 0.2 filter API
 sqlparse==0.1.19

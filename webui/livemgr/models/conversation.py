@@ -38,7 +38,7 @@ class Conversation(models.Model):
 		permissions = (
 			("see_conversation", "Can see conversation"),
 		)
-	user = models.ForeignKey(User, db_column='user_id', verbose_name=_("user"))
+	user = models.ForeignKey(User, on_delete=models.CASCADE, db_column='user_id', verbose_name=_("user"))
 	timestamp = models.DateTimeField(_("timestamp"), auto_now_add=True)
 	status = models.PositiveSmallIntegerField(db_column='status', verbose_name=_("Status"))
 	def __str__(self):

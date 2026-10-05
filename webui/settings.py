@@ -165,8 +165,10 @@ PASSWORD_HASHERS = (
 INTERNAL_IPS = ('127.0.0.1', )
 CSRF_FAILURE_VIEW = 'webui.livemgr.controllers.profiles.no_cookie'
 # Django 1.7 warns that projects started before 1.6 may rely on the old test
-# runner. The tests run with settings_test, which sets their runner.
-SILENCED_SYSTEM_CHECKS = ['1_6.W001']
+# runner. The tests run with settings_test, which sets their runner. Django 1.9
+# removes that check.
+if django.VERSION < (1, 9):
+    SILENCED_SYSTEM_CHECKS = ['1_6.W001']
 
 # Sessions
 # Django 1.6 serializes sessions as JSON instead of pickle, so they only hold

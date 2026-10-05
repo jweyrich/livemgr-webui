@@ -49,7 +49,7 @@ class User(models.Model):
 		permissions = (
 			("see_user", "Can see user"),
 		)
-	group = models.ForeignKey(UserGroup, db_column='group_id', verbose_name=_("group"), related_name="users")
+	group = models.ForeignKey(UserGroup, on_delete=models.CASCADE, db_column='group_id', verbose_name=_("group"), related_name="users")
 	username = models.CharField(_("username"), max_length=128, unique=True)
 	displayname = models.CharField(_("display name"), max_length=130, blank=True, default='')
 	psm = models.CharField(_("status message"), max_length=130, blank=True, default='')

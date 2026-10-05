@@ -18,7 +18,7 @@ class Migration(migrations.Migration):
         migrations.CreateModel(
             name='Profile',
             fields=[
-                ('user', models.OneToOneField(parent_link=True, primary_key=True, db_column='auth_user_id', serialize=False, to=settings.AUTH_USER_MODEL)),
+                ('user', models.OneToOneField(parent_link=True, primary_key=True, db_column='auth_user_id', serialize=False, to=settings.AUTH_USER_MODEL, on_delete=models.CASCADE)),
                 ('language', models.CharField(default='en', max_length=5, verbose_name='language')),
                 ('debug', models.BooleanField(default=False, verbose_name='enable debug')),
                 ('per_page_acls', models.PositiveSmallIntegerField(default=10)),

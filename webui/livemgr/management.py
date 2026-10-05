@@ -69,8 +69,9 @@ def install(**kwargs):
 
 # Django 1.7 replaces post_syncdb with post_migrate, whose sender is the app's
 # AppConfig. migrate imports this module after django.contrib.auth's, so the
-# permissions the hook assigns are created first. Django 1.9 stops importing
-# management modules: the hook should move to an AppConfig.ready() by then.
+# permissions the hook assigns are created first. Django 1.9 still imports the
+# apps' management modules; once a version stops, move the hook to an
+# AppConfig.ready().
 if django.VERSION >= (1, 7):
     from django.apps import apps
     signals.post_migrate.connect(install, sender=apps.get_app_config('livemgr'))

@@ -45,7 +45,7 @@ class Buddy(models.Model):
 	#status = models.PositiveSmallIntegerField("status", choices=CHOICES_STATUS)
 	status = models.CharField(_("status"), max_length=3, choices=User.CHOICES_STATUS)
 	isblocked = models.BooleanField(_("blocked"), default=False)
-	user = models.ForeignKey(User, db_column='user_id', verbose_name=_("user"), related_name="buddies")
+	user = models.ForeignKey(User, on_delete=models.CASCADE, db_column='user_id', verbose_name=_("user"), related_name="buddies")
 	def __str__(self):
 		return smart_text(self.username)
 

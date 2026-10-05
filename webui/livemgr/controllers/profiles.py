@@ -38,7 +38,12 @@ from webui.common.http import method
 from webui.common.utils import flash_success, flash_form_error, NoLabelSuffixMixin
 from webui.livemgr.models.profile import Profile
 from webui.livemgr.utils.formatters import format_boolean
+import django
 import django_tables2 as tables
+
+# Django 1.9 strips the whitespace around CharField values. Passwords keep it,
+# as in django.contrib.auth's forms; older versions have no strip argument.
+PASSWORD_FIELD_KWARGS = {'strip': False} if django.VERSION >= (1, 9) else {}
 
 class ProfileTable(tables.Table):
 	class Meta:
@@ -59,9 +64,12 @@ class UserUpdateForm(NoLabelSuffixMixin, ModelForm): # Do NOT use PasswordChange
 	class Meta:
 		model = User
 		fields = ('first_name', 'last_name', 'email')
-	old_password = forms.CharField(label=ugettext_lazy('Current password'), widget=forms.PasswordInput, required=False)
-	new_password1 = forms.CharField(label=ugettext_lazy('New password'), widget=forms.PasswordInput, required=False)
-	new_password2 = forms.CharField(label=ugettext_lazy('New password confirmation'), widget=forms.PasswordInput, required=False)
+	old_password = forms.CharField(label=ugettext_lazy('Current password'), widget=forms.PasswordInput, required=False,
+		**PASSWORD_FIELD_KWARGS)
+	new_password1 = forms.CharField(label=ugettext_lazy('New password'), widget=forms.PasswordInput, required=False,
+		**PASSWORD_FIELD_KWARGS)
+	new_password2 = forms.CharField(label=ugettext_lazy('New password confirmation'), widget=forms.PasswordInput, required=False,
+		**PASSWORD_FIELD_KWARGS)
 	def clean_old_password(self):
 		old_password = self.cleaned_data['old_password']
 		if old_password and not self.instance.check_password(old_password):
