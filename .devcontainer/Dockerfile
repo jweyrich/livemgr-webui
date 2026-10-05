@@ -1,4 +1,4 @@
-# Development image for livemgr-webui (Python 3.5 + Django 1.10 + Node for gulp).
+# Development image for livemgr-webui (Python 3.7 + Django 1.11 + Node for gulp).
 # Mirrors the production Dockerfile at the repository root, but keeps the
 # source tree bind-mounted instead of baked in.
 
@@ -6,9 +6,9 @@ FROM node:10-buster AS node
 
 ###
 
-# Debian buster ships Python 3.7 only. The official image builds 3.5 on top of
-# buster, with gcc and the OpenSSL and MariaDB client headers already installed.
-FROM python:3.5-buster
+# The official image builds Python 3.7 on top of Debian buster, with gcc and
+# the OpenSSL and MariaDB client headers already installed.
+FROM python:3.7-buster
 
 ARG USERNAME=vscode
 ARG USER_UID=1000
@@ -44,10 +44,10 @@ RUN groupadd --gid $USER_GID $USERNAME \
 # Python dependencies live in a virtualenv outside the workspace
 ENV VIRTUAL_ENV=/opt/venv
 ENV PATH=$VIRTUAL_ENV/bin:$PATH
-RUN python3.5 -m venv $VIRTUAL_ENV && chown -R $USERNAME:$USERNAME $VIRTUAL_ENV
+RUN python3.7 -m venv $VIRTUAL_ENV && chown -R $USERNAME:$USERNAME $VIRTUAL_ENV
 
 USER $USERNAME
 COPY requirements.txt /tmp/requirements.txt
-# venv bundles pip 9; 20.3.4 is the last release that supports Python 3.5
-RUN pip install --no-cache-dir pip==20.3.4 \
+# 24.0 is the last pip release that supports Python 3.7
+RUN pip install --no-cache-dir pip==24.0 \
 	&& pip install --no-cache-dir -r /tmp/requirements.txt
