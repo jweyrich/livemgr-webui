@@ -133,13 +133,13 @@ class GroupEditTest(LivemgrTestCase):
 		self.post(users=[self.alice.id, self.bob.id], rules=[2, 7])
 		self.assertEqual(rules_of(self.sales), [2, 7])
 
-	def test_removing_a_rule_removes_it_from_every_group(self):
-		# KNOWN BUG, pinned on purpose: the delete isn't filtered by group.
-		other = self.make_group('other')
-		GroupRule.objects.create(group=other, rule_id=1)
+	def test_removing_rules_keeps_other_groups_rules(self):
+		support = self.make_group('support')
+		GroupRule.objects.create(group=support, rule_id=1)
+		GroupRule.objects.create(group=support, rule_id=2)
 		self.post(users=[self.alice.id, self.bob.id], rules=[2])
 		self.assertEqual(rules_of(self.sales), [2])
-		self.assertEqual(rules_of(other), [])
+		self.assertEqual(rules_of(support), [1, 2])
 
 	def test_users_cannot_be_removed_from_the_guest_group(self):
 		response = self.post('/groups/%d/' % GUEST_GROUP_ID, groupname='guest', users=[])

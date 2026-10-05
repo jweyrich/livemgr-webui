@@ -182,7 +182,7 @@ def edit(request, object_id):
 						for rule_id in rules.added:
 							GroupRule(group_id=object_id, rule_id=rule_id).save()
 					if rules.removed:
-						GroupRule.objects.filter(rule__in=rules.removed).delete()
+						GroupRule.objects.filter(group=object_id, rule__in=rules.removed).delete()
 				flash_success(request,
 					_('The group \'%s\' was changed successfully.') % model.groupname)
 				if users.removed and object_id == 1:
