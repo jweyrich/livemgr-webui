@@ -94,7 +94,7 @@ class ProfileUpdateForm(NoLabelSuffixMixin, ModelForm):
 	class Meta:
 		model = Profile
 		fields = ['language', 'debug']
-	language = forms.ChoiceField(settings.LANGUAGES, label=ugettext_lazy('Language'), required=False)
+	language = forms.ChoiceField(choices=settings.LANGUAGES, label=ugettext_lazy('Language'), required=False)
 	debug = forms.BooleanField(label=ugettext_lazy('Enable debug'), required=False)
 
 class LoginForm(NoLabelSuffixMixin, AuthenticationForm):
