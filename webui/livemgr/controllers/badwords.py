@@ -125,7 +125,7 @@ def index(request):
 @login_required
 @permission_required('livemgr.change_badword')
 def edit(request, object_id):
-	object_id = long(object_id)
+	object_id = int(object_id)
 	model = get_object_or_404(Badword, pk=object_id)
 	if request.method == method.GET:
 		form = BadwordForm(instance=model)
@@ -186,7 +186,7 @@ def add(request):
 @login_required
 @permission_required('livemgr.delete_badword')
 def delete(request, object_id):
-	object_id = long(object_id)
+	object_id = int(object_id)
 	model = get_object_or_404(Badword, pk=object_id)
 	model.delete()
 	if request.method == method.POST:

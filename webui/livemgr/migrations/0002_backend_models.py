@@ -54,9 +54,9 @@ class Migration(migrations.Migration):
             fields=[
                 ('id', models.AutoField(verbose_name='ID', serialize=False, auto_created=True, primary_key=True)),
                 ('username', models.CharField(max_length=128, verbose_name='username')),
-                ('displayname', models.CharField(default=b'', max_length=130, verbose_name='display name', blank=True)),
-                ('psm', models.CharField(default=b'', max_length=130, verbose_name='status message', blank=True)),
-                ('status', models.CharField(max_length=3, verbose_name='status', choices=[(b'NLN', 'Online'), (b'BSY', 'Busy'), (b'IDL', 'Idle'), (b'AWY', 'Away'), (b'BRB', 'Be right back'), (b'PHN', 'On the phone'), (b'LUN', 'Out to lunch'), (b'HDN', 'Invisible'), (b'FLN', 'Offline')])),
+                ('displayname', models.CharField(default='', max_length=130, verbose_name='display name', blank=True)),
+                ('psm', models.CharField(default='', max_length=130, verbose_name='status message', blank=True)),
+                ('status', models.CharField(max_length=3, verbose_name='status', choices=[('NLN', 'Online'), ('BSY', 'Busy'), ('IDL', 'Idle'), ('AWY', 'Away'), ('BRB', 'Be right back'), ('PHN', 'On the phone'), ('LUN', 'Out to lunch'), ('HDN', 'Invisible'), ('FLN', 'Offline')])),
                 ('isblocked', models.BooleanField(default=False, verbose_name='blocked')),
             ],
             options={
@@ -73,7 +73,7 @@ class Migration(migrations.Migration):
             fields=[
                 ('id', models.AutoField(verbose_name='ID', serialize=False, auto_created=True, primary_key=True)),
                 ('timestamp', models.DateTimeField(auto_now_add=True, verbose_name='timestamp')),
-                ('status', models.PositiveSmallIntegerField(verbose_name='Status', db_column=b'status')),
+                ('status', models.PositiveSmallIntegerField(verbose_name='Status', db_column='status')),
             ],
             options={
                 'verbose_name': 'conversation',
@@ -183,9 +183,9 @@ class Migration(migrations.Migration):
             fields=[
                 ('id', models.AutoField(verbose_name='ID', serialize=False, auto_created=True, primary_key=True)),
                 ('username', models.CharField(unique=True, max_length=128, verbose_name='username')),
-                ('displayname', models.CharField(default=b'', max_length=130, verbose_name='display name', blank=True)),
-                ('psm', models.CharField(default=b'', max_length=130, verbose_name='status message', blank=True)),
-                ('status', models.CharField(max_length=3, verbose_name='status', choices=[(b'NLN', 'Online'), (b'BSY', 'Busy'), (b'IDL', 'Idle'), (b'AWY', 'Away'), (b'BRB', 'Be right back'), (b'PHN', 'On the phone'), (b'LUN', 'Out to lunch'), (b'HDN', 'Invisible'), (b'FLN', 'Offline')])),
+                ('displayname', models.CharField(default='', max_length=130, verbose_name='display name', blank=True)),
+                ('psm', models.CharField(default='', max_length=130, verbose_name='status message', blank=True)),
+                ('status', models.CharField(max_length=3, verbose_name='status', choices=[('NLN', 'Online'), ('BSY', 'Busy'), ('IDL', 'Idle'), ('AWY', 'Away'), ('BRB', 'Be right back'), ('PHN', 'On the phone'), ('LUN', 'Out to lunch'), ('HDN', 'Invisible'), ('FLN', 'Offline')])),
                 ('lastlogin', models.DateTimeField(verbose_name='last login')),
                 ('isenabled', models.BooleanField(default=True, verbose_name='enabled')),
             ],
@@ -205,7 +205,7 @@ class Migration(migrations.Migration):
                 ('groupname', models.CharField(unique=True, max_length=64, verbose_name='name')),
                 ('isactive', models.BooleanField(default=True, verbose_name='active')),
                 ('isbuiltin', models.BooleanField(default=False, verbose_name='built-in')),
-                ('description', models.TextField(default=b'', max_length=512, verbose_name='description', blank=True)),
+                ('description', models.TextField(default='', max_length=512, verbose_name='description', blank=True)),
             ],
             options={
                 'verbose_name': 'usergroup',

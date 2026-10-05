@@ -27,7 +27,7 @@
 # Defaults match the devcontainer (.devcontainer/docker-compose.yml). The test
 # runner creates and destroys its own `test_<NAME>` database, so it needs a
 # MySQL user allowed to CREATE/DROP databases.
-from settings import *
+from webui.settings import *
 import django
 import os
 

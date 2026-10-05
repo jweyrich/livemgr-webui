@@ -129,7 +129,7 @@ def index(request):
 @login_required
 @permission_required('livemgr.change_acl')
 def edit(request, object_id):
-	object_id = long(object_id)
+	object_id = int(object_id)
 	model = get_object_or_404(Acl, pk=object_id)
 	if request.method == method.GET:
 		form = AclForm(instance=model)
@@ -179,7 +179,7 @@ def add(request):
 @login_required
 @permission_required('livemgr.delete_acl')
 def delete(request, object_id):
-	object_id = long(object_id)
+	object_id = int(object_id)
 	model = get_object_or_404(Acl, pk=object_id)
 	model.delete()
 	if request.method == method.POST:

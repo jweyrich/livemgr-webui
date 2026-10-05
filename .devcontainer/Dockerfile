@@ -1,4 +1,4 @@
-# Development image for livemgr-webui (Python 2.7 + Django 1.8 + Node for gulp).
+# Development image for livemgr-webui (Python 3.5 + Django 1.8 + Node for gulp).
 # Mirrors the production Dockerfile at the repository root, but keeps the
 # source tree bind-mounted instead of baked in.
 
@@ -6,7 +6,9 @@ FROM node:10-buster AS node
 
 ###
 
-FROM debian:buster
+# Debian buster ships Python 3.7 only. The official image builds 3.5 on top of
+# buster, with gcc and the OpenSSL and MariaDB client headers already installed.
+FROM python:3.5-buster
 
 ARG USERNAME=vscode
 ARG USER_UID=1000
@@ -19,27 +21,13 @@ RUN printf '%s\n' \
 		> /etc/apt/sources.list \
 	&& apt-get -qq update \
 	&& DEBIAN_FRONTEND=noninteractive apt-get install -y --no-install-recommends \
-		ca-certificates \
-		curl \
-		git \
 		less \
 		net-tools \
 		procps \
 		sudo \
-		gcc \
 		swig \
-		libssl-dev \
-		python2.7-dev \
-		python-pip \
-		python-setuptools \
-		python-virtualenv \
 		default-mysql-client \
-		libmariadbclient-dev \
 	&& rm -rf /var/lib/apt/lists/*
-
-# MySQL-python expects mysql_config and the `reconnect` field in st_mysql
-RUN ln -s /usr/bin/mariadb_config /usr/bin/mysql_config \
-	&& sed '/st_mysql_options options;/a unsigned int reconnect;' /usr/include/mariadb/mysql.h -i.bkp
 
 # Node 10 matches the version the production build uses for gulp
 COPY --from=node /usr/local/bin/node /usr/local/bin/node
@@ -56,8 +44,10 @@ RUN groupadd --gid $USER_GID $USERNAME \
 # Python dependencies live in a virtualenv outside the workspace
 ENV VIRTUAL_ENV=/opt/venv
 ENV PATH=$VIRTUAL_ENV/bin:$PATH
-RUN python2.7 -m virtualenv $VIRTUAL_ENV && chown -R $USERNAME:$USERNAME $VIRTUAL_ENV
+RUN python3.5 -m venv $VIRTUAL_ENV && chown -R $USERNAME:$USERNAME $VIRTUAL_ENV
 
 USER $USERNAME
 COPY requirements.txt /tmp/requirements.txt
-RUN pip install --no-cache-dir -r /tmp/requirements.txt
+# venv bundles pip 9; 20.3.4 is the last release that supports Python 3.5
+RUN pip install --no-cache-dir pip==20.3.4 \
+	&& pip install --no-cache-dir -r /tmp/requirements.txt

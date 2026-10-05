@@ -20,6 +20,6 @@
 # Authors:
 #   Jardel Weyrich <jweyrich@gmail.com>
 
-import local_datetime
-import formatters
-import resources
+from . import local_datetime
+from . import formatters
+from . import resources

@@ -14,47 +14,43 @@ RUN npx gulp --gulpfile gulpfile.js all
 
 ###
 
-FROM debian:buster
+# Debian buster ships Python 3.7 only. The official image builds 3.5 on top of
+# buster, with git, gcc and the OpenSSL and MariaDB client headers (including
+# mysql_config) already installed.
+FROM python:3.5-buster
 LABEL maintainer="jweyrich@gmail.com"
 
-# Install prerequisites
-RUN apt-get -qq update
+# Buster is EOL: its packages now live only on archive.debian.org
+RUN printf '%s\n' \
+		'deb http://archive.debian.org/debian buster main' \
+		'deb http://archive.debian.org/debian-security buster/updates main' \
+		> /etc/apt/sources.list \
+	&& apt-get -qq update
 
 # Install system requirements
 RUN DEBIAN_FRONTEND=noninteractive apt-get install -y \
 	net-tools \
 	procps \
 	supervisor \
-	git-core \
-	python2.7-dev \
-	python-pip \
 	swig \
-	libssl-dev \
-	gcc \
 	;
 
 # Install database requirements
 RUN DEBIAN_FRONTEND=noninteractive apt-get install -y \
 	default-mysql-client \
-	libmariadbclient-dev \
 	mariadb-client \
 	;
-
-# Fix missing mysql_config
-RUN ln -s /usr/bin/mariadb_config /usr/bin/mysql_config
 
 # Remove cached packages
 RUN apt-get clean
 
-# Install virtual env
-RUN pip install virtualenv
+# Install uwsgi (2.0.31 still builds on Python 3.5)
+RUN pip install uwsgi==2.0.31
 
-# Install uwsgi
-RUN pip install uwsgi
-
-# Create a virtual environment for our application
-# The `--no-size-packages` makes virtualenv remove the system's default site-packages from sys.path
-RUN virtualenv /opt/envs/livemgr-webui
+# Create a virtual environment for our application.
+# Its bundled pip 9 is upgraded to 20.3.4, the last release that supports Python 3.5
+RUN python3.5 -m venv /opt/envs/livemgr-webui \
+	&& /opt/envs/livemgr-webui/bin/pip install pip==20.3.4
 
 # Copy files (TODO: Reorganize to avoid installing dependencies from scratch every time a file changes!)
 ADD . /opt/apps/livemgr-webui
@@ -65,9 +61,6 @@ WORKDIR /opt/apps/livemgr-webui
 
 # Update Git remote to the public address
 RUN git remote set-url origin https://github.com/jweyrich/livemgr-webui.git
-
-# Fix MySQL/MariaDB header file for MySQL-python to compile
-RUN sed '/st_mysql_options options;/a unsigned int reconnect;' /usr/include/mariadb/mysql.h -i.bkp
 
 # Install app dependencies
 RUN /opt/envs/livemgr-webui/bin/pip install -r requirements.txt

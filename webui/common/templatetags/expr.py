@@ -75,13 +75,13 @@ def do_expr(parser, token):
     try:
         tag_name, arg = token.contents.split(None, 1)
     except ValueError:
-        raise template.TemplateSyntaxError, "%r tag requires arguments" % token.contents[0]
+        raise template.TemplateSyntaxError("%r tag requires arguments" % token.contents[0])
     m = r_expr.search(arg)
     if m:
         expr_string, var_name = m.groups()
     else:
         if not arg:
-            raise template.TemplateSyntaxError, "%r tag at least require one argument" % tag_name
+            raise template.TemplateSyntaxError("%r tag at least require one argument" % tag_name)
 
         expr_string, var_name = arg, None
     return ExprNode(expr_string, var_name)
@@ -109,10 +109,6 @@ do_expr = register.tag('expr', do_expr)
 
 #from django.template import Library
 #import re
-
-# For Python 2.3
-if not hasattr(__builtins__, 'set'):
-    from sets import Set as set
 
 variable_re = re.compile(r'[\w._\|\"\']+')
 string_re = re.compile(r'^([\"\']).*\1$')
@@ -166,7 +162,7 @@ class IfNode(Node):
 def do_if(parser, token):
     bits = token.contents.split(None, 1)
     if len(bits) != 2:
-        raise TemplateSyntaxError, "'if' statement requires at least one argument"
+        raise TemplateSyntaxError("'if' statement requires at least one argument")
     expression = bits[1]
     variables = set([ parser.compile_filter(x) for x in variable_re.findall(expression) if x not in ('and', 'or', 'not', 'in') and not string_re.match(x) ])
     nodelist_true = parser.parse(('else', 'endif'))

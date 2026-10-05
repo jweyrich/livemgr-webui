@@ -53,7 +53,7 @@ class FormattersTest(unittest.TestCase):
 	def test_format_user_status_is_translated(self):
 		translation.activate('pt-br')
 		try:
-			self.assertEqual(format_user_status('AWY').decode('utf-8'),
+			self.assertEqual(format_user_status('AWY'),
 				Resources.tag_img_status_away + u' Ausente')
 		finally:
 			translation.deactivate()

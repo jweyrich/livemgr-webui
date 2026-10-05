@@ -21,7 +21,7 @@
 #   Jardel Weyrich <jweyrich@gmail.com>
 
 # Django settings for webui project.
-from settings import *
+from webui.settings import *
 
 DATABASES = {
     'default': {

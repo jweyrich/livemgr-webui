@@ -22,9 +22,10 @@
 
 from django.contrib import admin
 from django.db import models
-from django.utils.encoding import smart_unicode
+from django.utils.encoding import python_2_unicode_compatible, smart_text
 from django.utils.translation import ugettext_lazy as _
 
+@python_2_unicode_compatible
 class Acl(models.Model):
 	ACTION_ALLOW = 1
 	ACTION_BLOCK = 2
@@ -47,8 +48,8 @@ class Acl(models.Model):
 	remoteim = models.CharField(_("buddy"), max_length=128)
 	action = models.PositiveSmallIntegerField(_("action"), choices=CHOICES_ACTIONS)
 	#action = models.CharField("Action", max_length=5, choices=CHOICES_ACTIONS)
-	def __unicode__(self):
-		return smart_unicode('%d %s %s %s' % (self.id, self.action,
+	def __str__(self):
+		return smart_text('%d %s %s %s' % (self.id, self.action,
 			self.localim, self.remoteim))
 
 class AclAdmin(admin.ModelAdmin):

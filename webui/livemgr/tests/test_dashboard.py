@@ -67,17 +67,17 @@ class DashboardTest(DashboardFixtures, LivemgrTestCase):
 	def test_query(self):
 		response = self.client.post('/dashboard/query/', {'limit': '1', 'period': 'year'})
 		self.assertEqual(response['Content-Type'], 'application/json')
-		data = json.loads(response.content)
+		data = json.loads(response.content.decode('utf-8'))
 		self.assertEqual(data['total_users_online'], 2)
 		self.assertEqual(len(data['latest_conversations']), 1)
 		self.assertEqual(len(data['most_active_users']), 1)
 
 	def test_query_by_get(self):
-		data = json.loads(self.client.get('/dashboard/query/').content)
+		data = json.loads(self.client.get('/dashboard/query/').content.decode('utf-8'))
 		self.assertEqual(len(data['latest_conversations']), 2)
 
 	def test_query_with_unknown_period(self):
-		data = json.loads(self.client.post('/dashboard/query/', {'period': 'decade'}).content)
+		data = json.loads(self.client.post('/dashboard/query/', {'period': 'decade'}).content.decode('utf-8'))
 		self.assertEqual(data['most_active_users'], [])
 
 class MostActiveUsersTest(LivemgrTestCase):

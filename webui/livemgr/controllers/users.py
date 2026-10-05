@@ -176,7 +176,7 @@ def index(request):
 @login_required
 @permission_required('livemgr.change_user')
 def edit(request, object_id):
-	object_id = long(object_id)
+	object_id = int(object_id)
 	model = get_object_or_404(User, pk=object_id)
 	can_delete = model.lastlogin == None
 	if request.method == method.GET:
@@ -239,7 +239,7 @@ def add(request):
 @login_required
 @permission_required('livemgr.delete_user')
 def delete(request, object_id):
-	object_id = long(object_id)
+	object_id = int(object_id)
 	model = get_object_or_404(User, pk=object_id)
 	if model.lastlogin:
 		message = _('Deleting a user that already logged in is not permitted.')

@@ -20,7 +20,6 @@
 # Authors:
 #   Jardel Weyrich <jweyrich@gmail.com>
 
-from StringIO import StringIO
 from django import forms
 from django.contrib.auth.decorators import login_required, permission_required
 from django.http import HttpResponseBadRequest, HttpResponse, Http404
@@ -28,6 +27,7 @@ from django.shortcuts import render
 from django.template.defaultfilters import filesizeformat
 from django.utils.html import escape
 from django.utils.translation import ugettext as _, ugettext_lazy
+from io import BytesIO
 from reportlab.lib.enums import TA_JUSTIFY
 from reportlab.lib.pagesizes import A4
 from reportlab.lib.styles import getSampleStyleSheet, ParagraphStyle
@@ -146,7 +146,7 @@ def index(request):
 def show(request, object_id):
 #	if not request.is_ajax():
 #		return HttpResponseNotAllowed('Invalid request (use ajax)')
-	object_id = long(object_id)
+	object_id = int(object_id)
 	if object_id is None:
 		return HttpResponseBadRequest(_("Missing argument: %s") % 'object_id')
 	messages = Message.objects \
@@ -168,7 +168,7 @@ def show(request, object_id):
 @login_required
 @permission_required('livemgr.see_conversation')
 def report_pdf(request, object_id):
-	object_id = long(object_id)
+	object_id = int(object_id)
 	if object_id is None:
 		return HttpResponseBadRequest(_("Missing argument: %s") % 'object_id')
 	messages = Message.objects \
@@ -196,7 +196,7 @@ def report_pdf(request, object_id):
 		leading=11,
 		firstLineIndent=0,
 		leftIndent=0))
-	buffer = StringIO()
+	buffer = BytesIO()
 	PAGESIZE = A4
 
 	def renderHeader(canvas, doc):

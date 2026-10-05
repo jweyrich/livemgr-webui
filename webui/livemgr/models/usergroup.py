@@ -22,10 +22,11 @@
 
 from django.contrib import admin
 from django.db import models
-from django.utils.encoding import smart_unicode
+from django.utils.encoding import python_2_unicode_compatible, smart_text
 from django.utils.translation import ugettext_lazy as _
 from webui.livemgr.models.rule import Rule
 
+@python_2_unicode_compatible
 class UserGroup(models.Model):
 	class Meta:
 		app_label = 'livemgr'
@@ -43,8 +44,8 @@ class UserGroup(models.Model):
 	description = models.TextField(_("description"), max_length=512, blank=True, default='')
 	rules = models.ManyToManyField(Rule, through='GroupRule')
 	user_count = lambda self: self.users.count()
-	def __unicode__(self):
-		return smart_unicode(self.groupname)
+	def __str__(self):
+		return smart_text(self.groupname)
 
 class UserGroupAdmin(admin.ModelAdmin):
 	pass

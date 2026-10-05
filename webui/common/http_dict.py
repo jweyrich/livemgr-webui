@@ -21,7 +21,6 @@
 #   Jardel Weyrich <jweyrich@gmail.com>
 
 from django import http
-import types
 
 class http_dict(dict):
 	def __init__(self, method_dict):
@@ -29,7 +28,7 @@ class http_dict(dict):
 		super(http_dict, self).__init__()
 		self.dict = method_dict
 	def from_fields(self, keylist):
-		assert isinstance(keylist, types.ListType)
+		assert isinstance(keylist, list)
 		count = 0
 		for k in keylist:
 			val = self.dict.get(k)

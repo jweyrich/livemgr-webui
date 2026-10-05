@@ -27,7 +27,7 @@
 from django import template
 from django.conf import settings
 from django.template.loader import get_template
-import StringIO
+import io
 import tokenize
 #import shlex
 
@@ -75,10 +75,10 @@ def tag_split(value):
 
 @register.tag(name="xinclude")
 def do_xinclude(parser, token):
-	argslist = tag_split(token.contents.encode('ascii'))
+	argslist = tag_split(token.contents)
 	#print 'argslist=%s' % argslist
 	if len(argslist) < 1:
-		raise template.TemplateSyntaxError, "%r tag takes one argument: the name of the template to be included" % argslist[0]
+		raise template.TemplateSyntaxError("%r tag takes one argument: the name of the template to be included" % argslist[0])
 
 	path = parser.compile_filter(argslist[0])
 	if argslist:
@@ -91,12 +91,12 @@ def do_xinclude(parser, token):
 				value = value.strip()
 				#print 'key:' + key
 				#print 'value:' + value
-				buf = StringIO.StringIO(key)
+				buf = io.StringIO(key)
 				keys = list(tokenize.generate_tokens(buf.readline))
 				if keys[0][0] == tokenize.NAME:
 					kwargs[key] = parser.compile_filter(value)
 				else:
-					raise template.TemplateSyntaxError, "Invalid argument syntax: should be key=value"
+					raise template.TemplateSyntaxError("Invalid argument syntax: should be key=value")
 			else:
 				args.append(parser.compile_filter(i))
 	return CallNode(path, *args, **kwargs)
