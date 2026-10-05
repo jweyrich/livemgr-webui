@@ -26,7 +26,7 @@ from webui.livemgr.models import Acl, Badword, Buddy, Conversation, GroupRule, \
 	Message, Profile, Setting, User, UserGroup
 from webui.livemgr.models.rule import LocalizedRules, Rule
 from webui.livemgr.models.user import lookup_user_status
-from webui.livemgr.tests.base import LivemgrTestCase, GUEST_GROUP_ID
+from webui.livemgr.tests.base import LivemgrTestCase, GUEST_GROUP_ID, at
 
 class SchemaContractTest(LivemgrTestCase):
 	"""
@@ -77,6 +77,15 @@ class ModelBehaviorTest(LivemgrTestCase):
 		self.assertEqual(unicode(Setting.objects.get(name='filtered_msg')), u'filtered_msg')
 		acl = self.make_acl('alice@example.com', '*@example.org', Acl.ACTION_BLOCK)
 		self.assertEqual(unicode(acl), u'%d 2 alice@example.com *@example.org' % acl.id)
+
+	def test_conversation_and_message_representations(self):
+		user = self.make_user('alice@example.com')
+		conversation = self.make_conversation(user, timestamp=at(2010, 5, 17, 9, 0, 0))
+		self.assertEqual(unicode(conversation),
+			u'%d alice@example.com 2010-05-17 09:00:00 1' % conversation.id)
+		message = self.make_message(conversation.id, timestamp=at(2010, 5, 17, 9, 0, 5))
+		self.assertEqual(unicode(message),
+			u'%d 2010-05-17 09:00:05 %d alice@example.com bob@example.com' % (message.id, conversation.id))
 
 	def test_unicode_round_trip(self):
 		user = self.make_user(u'joão@example.com', displayname=u'João Ção')
