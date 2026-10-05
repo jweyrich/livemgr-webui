@@ -10,8 +10,9 @@ mysqlclient==1.4.6
 # models (and, until 1.7, translate them once, at import, so they stay in
 # English whatever the user's language). 1.2.6 runs on Django 1.8 to 1.11.
 django-tables2==1.2.6
-# reportlab 3.5.55 and later refuse to run on Python 3.5
-reportlab==3.5.50
+# reportlab 3.6.13 fixes code execution through the color attributes of
+# Paragraph markup (CVE-2023-33733). It requires Python 3.7.
+reportlab==3.6.13
 M2Crypto==0.35.2
 # debug-toolbar 1.8 is the first to support Django 1.11, and 1.11.1 fixes an
 # SQL injection in the SQL panel (CVE-2021-30459). It requires Django 1.11.

@@ -14,10 +14,10 @@ RUN npx gulp --gulpfile gulpfile.js all
 
 ###
 
-# Debian buster ships Python 3.7 only. The official image builds 3.5 on top of
-# buster, with git, gcc and the OpenSSL and MariaDB client headers (including
-# mysql_config) already installed.
-FROM python:3.5-buster
+# The official image builds Python 3.7 on top of Debian buster, with git, gcc
+# and the OpenSSL and MariaDB client headers (including mysql_config) already
+# installed.
+FROM python:3.7-buster
 LABEL maintainer="jweyrich@gmail.com"
 
 # Buster is EOL: its packages now live only on archive.debian.org
@@ -44,13 +44,13 @@ RUN DEBIAN_FRONTEND=noninteractive apt-get install -y \
 # Remove cached packages
 RUN apt-get clean
 
-# Install uwsgi (2.0.31 still builds on Python 3.5)
+# Install uwsgi
 RUN pip install uwsgi==2.0.31
 
 # Create a virtual environment for our application.
-# Its bundled pip 9 is upgraded to 20.3.4, the last release that supports Python 3.5
-RUN python3.5 -m venv /opt/envs/livemgr-webui \
-	&& /opt/envs/livemgr-webui/bin/pip install pip==20.3.4
+# Its bundled pip is upgraded to 24.0, the last release that supports Python 3.7
+RUN python3.7 -m venv /opt/envs/livemgr-webui \
+	&& /opt/envs/livemgr-webui/bin/pip install pip==24.0
 
 # Copy files (TODO: Reorganize to avoid installing dependencies from scratch every time a file changes!)
 ADD . /opt/apps/livemgr-webui
