@@ -21,6 +21,7 @@
 #   Jardel Weyrich <jweyrich@gmail.com>
 
 from django.contrib.auth.models import User as AuthUser
+from django.core import checks
 from django.db import connection
 from webui.livemgr.models import Acl, Badword, Buddy, Conversation, GroupRule, \
 	Message, Profile, Setting, User, UserGroup
@@ -45,6 +46,11 @@ class SchemaContractTest(LivemgrTestCase):
 			for field in model._meta.local_fields:
 				self.assertTrue(field.column in columns,
 					'%s.%s is missing' % (model._meta.db_table, field.column))
+
+	def test_system_checks_pass(self):
+		# Django 3.2 warns about every model without an explicit primary key
+		# (models.W042) unless DEFAULT_AUTO_FIELD names its type.
+		self.assertEqual(checks.run_checks(), [])
 
 	def test_reference_data_is_present(self):
 		guest = UserGroup.objects.get(pk=GUEST_GROUP_ID)
