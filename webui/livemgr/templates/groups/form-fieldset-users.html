@@ -58,9 +58,15 @@
 			<span>{% trans "assigned" %}</span>
 		</div>
 		<select id="users" name="users" multiple style="height:225px; width:250px;">
-		{% for user in form.instance.users.all %}
-			<option value="{{ user.id }}" title="{{ user.username }}" {% if form.instance.id == 1 %}class="actual"{% endif %}>{{ user.group.groupname }} | {{ user.username }}</option>
-		{% endfor %}
+		{% comment %}
+			Django 4.1 raises ValueError on the related managers of unsaved
+			objects, like the group being added, where older versions found none.
+		{% endcomment %}
+		{% if form.instance.pk %}
+			{% for user in form.instance.users.all %}
+				<option value="{{ user.id }}" title="{{ user.username }}" {% if form.instance.id == 1 %}class="actual"{% endif %}>{{ user.group.groupname }} | {{ user.username }}</option>
+			{% endfor %}
+		{% endif %}
 		</select>
 	</div>
 </fieldset>

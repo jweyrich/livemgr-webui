@@ -43,8 +43,8 @@ pip install pip==26.2.1
 # Install our Python dependencies:
 pip install -r requirements.txt
 
-# Setup the MySQL or MariaDB database. Django 4.0 requires MySQL 5.7 or later,
-# or MariaDB 10.2 or later: the containers and the tests use MariaDB 10.4.
+# Setup the MySQL or MariaDB database. Django 4.1 requires MySQL 5.7 or later,
+# or MariaDB 10.3 or later: the containers and the tests use MariaDB 10.4.
 mysql -u root -p -h localhost
 > CREATE DATABASE livemgr;
 > CREATE USER 'livemgr'@'localhost' IDENTIFIED BY 'livemgr';
@@ -65,6 +65,11 @@ python webui/manage.py migrate --settings=settings_example
 # Upgrading to Django 4.0 behind a proxy? Form posts are now checked against
 # the scheme and host the browser sent them to: see CSRF_FAILURE_VIEW in
 # webui/settings.py, or every login lands on the "no cookie" page.
+
+# Upgrading to Django 4.1? Accounts whose password is stored in the crypt
+# format can no longer log in: see PASSWORD_HASHERS in webui/settings.py to find
+# them. The logout link is now a form, styled by media/css/theme.css: rebuild
+# the media files, or it shows as a plain button.
 
 # Upgrading an install created by syncdb (Django < 1.7) that was never
 # migrated? Django 1.8 no longer skips the migrations whose tables already
