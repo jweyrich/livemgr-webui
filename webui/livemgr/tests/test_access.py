@@ -193,7 +193,7 @@ class AuthenticationTest(LivemgrTestCase):
 
 	def test_logout(self):
 		self.login(self.create_account('operator'))
-		response = self.client.get('/logout/')
+		response = self.client.post('/logout/')
 		self.assertRedirectsTo(response, '/login/')
 		self.assertFalse('_auth_user_id' in self.client.session)
 
@@ -371,6 +371,31 @@ class AjaxCsrfTest(LivemgrTestCase):
 		response = self.client.post('/dashboard/query/', {'period': 'month'},
 			HTTP_X_REQUESTED_WITH='XMLHttpRequest')
 		self.assertTemplateUsed(response, 'profiles/no_cookie.html')
+
+class LogoutCsrfTest(LivemgrTestCase):
+	"""
+	Django 4.1 deprecates logging out with GET requests, and 5.0 rejects them:
+	the layout's logout link posts a form, so another site can't log users out.
+	"""
+	def setUp(self):
+		from django.test.client import Client
+		self.client = Client(enforce_csrf_checks=True)
+		self.login(self.create_account('operator', permissions=['see_dashboard']))
+
+	def test_logout_form(self):
+		response = self.client.get('/dashboard/')
+		match = re.search(r'<form id="logout-form" method="post" action="/logout/">\s*'
+			r'<input type="hidden" name="csrfmiddlewaretoken" value="(\w+)">',
+			response.content.decode('utf-8'))
+		self.assertTrue(match)
+		response = self.client.post('/logout/', {'csrfmiddlewaretoken': match.group(1)})
+		self.assertRedirectsTo(response, '/login/')
+		self.assertFalse('_auth_user_id' in self.client.session)
+
+	def test_logout_from_another_site(self):
+		response = self.client.post('/logout/')
+		self.assertTemplateUsed(response, 'profiles/no_cookie.html')
+		self.assertTrue('_auth_user_id' in self.client.session)
 
 class OriginCsrfTest(LivemgrTestCase):
 	"""

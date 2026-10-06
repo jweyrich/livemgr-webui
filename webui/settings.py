@@ -193,8 +193,15 @@ PASSWORD_HASHERS = (
     'django.contrib.auth.hashers.PBKDF2SHA1PasswordHasher',
     'django.contrib.auth.hashers.BCryptPasswordHasher',
     'django.contrib.auth.hashers.MD5PasswordHasher',
-    'django.contrib.auth.hashers.CryptPasswordHasher',
 )
+# Django 4.1 deprecates CryptPasswordHasher, and 5.0 removes it, as Python 3.13
+# removes the crypt module it uses. Django never stored crypt hashes here, but
+# accounts whose password was written by hand in that format can no longer log
+# in: list them (add the deployment's --settings), then give each a new
+# password with "python webui/manage.py changepassword <username>":
+#	python webui/manage.py shell -c "from django.contrib.auth.models import User; print(list(User.objects.filter(password__startswith='crypt\$').values_list('username', flat=True)))"
+if django.VERSION < (4, 1):
+    PASSWORD_HASHERS += ('django.contrib.auth.hashers.CryptPasswordHasher',)
 
 # General stuff
 INTERNAL_IPS = ('127.0.0.1', )

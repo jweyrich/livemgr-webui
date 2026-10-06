@@ -163,7 +163,7 @@ class LoginLanguageTest(LivemgrTestCase):
 
 	def test_logout_keeps_the_language(self):
 		self.login_in_portuguese()
-		self.client.get('/logout/')
+		self.client.post('/logout/')
 		self.assertContains(self.client.get('/login/'), 'Lembrar') # "Remember me"
 
 	def test_default_language(self):

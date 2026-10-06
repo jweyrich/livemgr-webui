@@ -41,7 +41,14 @@
 					{% if user.is_authenticated %}
 						<span>{% trans "Welcome" %}, {{ user.username }} - </span>
 						 <a href="{% url 'webui:profiles-update' %}">{% trans "Profile" %}</a> |
-						 <a href="{% url 'webui:profiles-logout' %}">{% trans "Logout" %}</a>
+						 {% comment %}
+							Django 4.1 deprecates logging out with GET requests, and 5.0
+							rejects them: the link posts a form instead.
+						 {% endcomment %}
+						 <form id="logout-form" method="post" action="{% url 'webui:profiles-logout' %}">
+							{% csrf_token %}
+							<button type="submit">{% trans "Logout" %}</button>
+						 </form>
 					{% endif %}
 				</div>
 			</div>
