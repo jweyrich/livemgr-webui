@@ -14,10 +14,10 @@ RUN npx gulp --gulpfile gulpfile.js all
 
 ###
 
-# The official image builds Python 3.9 on top of Debian bookworm, with git, gcc
+# The official image builds Python 3.10 on top of Debian bookworm, with git, gcc
 # and the OpenSSL and MariaDB client headers (including mysql_config) already
 # installed.
-FROM python:3.9-bookworm
+FROM python:3.10-bookworm
 LABEL maintainer="jweyrich@gmail.com"
 
 RUN apt-get -qq update
@@ -43,9 +43,9 @@ RUN apt-get clean
 RUN pip install uwsgi==2.0.31
 
 # Create a virtual environment for our application.
-# Its bundled pip is upgraded to 26.0.1, the last release that supports Python 3.9
-RUN python3.9 -m venv /opt/envs/livemgr-webui \
-	&& /opt/envs/livemgr-webui/bin/pip install pip==26.0.1
+# Its bundled pip is upgraded to 26.2.1, the latest release (26.1 drops Python 3.9)
+RUN python3.10 -m venv /opt/envs/livemgr-webui \
+	&& /opt/envs/livemgr-webui/bin/pip install pip==26.2.1
 
 # Copy files (TODO: Reorganize to avoid installing dependencies from scratch every time a file changes!)
 ADD . /opt/apps/livemgr-webui

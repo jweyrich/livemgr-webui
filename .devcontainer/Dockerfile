@@ -1,4 +1,4 @@
-# Development image for livemgr-webui (Python 3.9 + Django 3.2 + Node for gulp).
+# Development image for livemgr-webui (Python 3.10 + Django 4.0 + Node for gulp).
 # Mirrors the production Dockerfile at the repository root, but keeps the
 # source tree bind-mounted instead of baked in.
 
@@ -6,9 +6,9 @@ FROM node:10-buster AS node
 
 ###
 
-# The official image builds Python 3.9 on top of Debian bookworm, with gcc and
+# The official image builds Python 3.10 on top of Debian bookworm, with gcc and
 # the OpenSSL and MariaDB client headers already installed.
-FROM python:3.9-bookworm
+FROM python:3.10-bookworm
 
 ARG USERNAME=vscode
 ARG USER_UID=1000
@@ -39,10 +39,10 @@ RUN groupadd --gid $USER_GID $USERNAME \
 # Python dependencies live in a virtualenv outside the workspace
 ENV VIRTUAL_ENV=/opt/venv
 ENV PATH=$VIRTUAL_ENV/bin:$PATH
-RUN python3.9 -m venv $VIRTUAL_ENV && chown -R $USERNAME:$USERNAME $VIRTUAL_ENV
+RUN python3.10 -m venv $VIRTUAL_ENV && chown -R $USERNAME:$USERNAME $VIRTUAL_ENV
 
 USER $USERNAME
 COPY requirements.txt /tmp/requirements.txt
-# 26.0.1 is the last pip release that supports Python 3.9
-RUN pip install --no-cache-dir pip==26.0.1 \
+# pip 26.1 drops Python 3.9; 26.2.1 is the latest release
+RUN pip install --no-cache-dir pip==26.2.1 \
 	&& pip install --no-cache-dir -r /tmp/requirements.txt
