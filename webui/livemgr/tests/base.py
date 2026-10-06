@@ -23,7 +23,6 @@
 from datetime import datetime
 from django.contrib.auth.models import Permission, User as AuthUser
 from django.test import TestCase
-from django.utils import six
 from webui.livemgr.models import Acl, Badword, Buddy, Conversation, Message, \
 	Profile, User, UserGroup
 
@@ -112,7 +111,7 @@ class LivemgrTestCase(TestCase):
 	#
 	def flash_messages(self, response):
 		"""Flash messages rendered by the response (via the messages context processor)."""
-		return [six.text_type(m) for m in response.context['messages']]
+		return [str(m) for m in response.context['messages']]
 
 	def assertFlash(self, response, text):
 		messages = self.flash_messages(response)

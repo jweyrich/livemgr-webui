@@ -20,6 +20,7 @@
 # Authors:
 #   Jardel Weyrich <jweyrich@gmail.com>
 
+from django.conf import settings
 from django.contrib.auth.models import User as AuthUser
 from django.test import Client
 from webui.livemgr.tests.base import LivemgrTestCase
@@ -131,15 +132,31 @@ class ProfileUpdateTest(LivemgrTestCase):
 		self.assertTrue('language' in response.context['form_profile'].errors)
 
 class LoginLanguageTest(LivemgrTestCase):
-	def test_login_applies_the_profile_language(self):
+	def login_in_portuguese(self):
 		account = self.create_account('operator', permissions=['see_dashboard'])
 		profile = self.profile_of(account)
 		profile.language = 'pt-br'
 		profile.save()
 		self.client.post('/login/', {'username': 'operator', 'password': self.PASSWORD})
+
+	def test_login_applies_the_profile_language(self):
+		self.login_in_portuguese()
 		response = self.client.get('/dashboard/')
 		self.assertContains(response, 'Sair')
 		self.assertContains(response, 'Painel') # "Dashboard"
+
+	def test_language_cookie_lasts_as_long_as_the_session(self):
+		# Django 3.0 reads the language from this cookie only, no longer
+		# from the session, so it must not end with the browser session.
+		self.login_in_portuguese()
+		cookie = self.client.cookies[settings.LANGUAGE_COOKIE_NAME]
+		self.assertEqual(cookie.value, 'pt-br')
+		self.assertEqual(int(cookie['max-age']), settings.SESSION_COOKIE_AGE)
+
+	def test_logout_keeps_the_language(self):
+		self.login_in_portuguese()
+		self.client.get('/logout/')
+		self.assertContains(self.client.get('/login/'), 'Lembrar') # "Remember me"
 
 	def test_default_language(self):
 		self.login(self.create_account('operator', permissions=['see_dashboard']))

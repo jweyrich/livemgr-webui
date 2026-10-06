@@ -25,7 +25,7 @@ from django.contrib.auth.decorators import login_required, permission_required
 from django.db.models.query_utils import Q
 from django.http import HttpResponseBadRequest, HttpResponse
 from django.shortcuts import render, get_object_or_404
-from django.utils.translation import ugettext as _, ugettext_lazy
+from django.utils.translation import gettext as _, gettext_lazy
 from webui.common import CustomPaginator
 from webui.common.decorators.rest import rest_multiple, rest_post
 from webui.common.http import method
@@ -41,18 +41,18 @@ class BuddyTable(tables.Table):
 		exclude = ['user']
 		fields = ('username', 'status', 'isblocked', 'displayname', 'psm')
 		default = '' # Not '—' for empty values
-	# Use ugettext_lazy because class definitions are evaluated once!
+	# Use gettext_lazy because class definitions are evaluated once!
 	id = tables.Column(visible=False)
-	psm = tables.Column(verbose_name=ugettext_lazy('personal message'), orderable=False)
+	psm = tables.Column(verbose_name=gettext_lazy('personal message'), orderable=False)
 	def render_status(self, record):
 		return format_user_status(record.status)
 	def render_isblocked(self, record):
 		return format_boolean(record.isblocked)
 
 class BuddySearchForm(forms.Form):
-	username = forms.CharField(required=False, label=ugettext_lazy("username"))
-	displayname = forms.CharField(required=False, label=ugettext_lazy("display name"))
-	status = forms.ChoiceField(choices=User.CHOICES_STATUS, required=False, label=ugettext_lazy("status"))
+	username = forms.CharField(required=False, label=gettext_lazy("username"))
+	displayname = forms.CharField(required=False, label=gettext_lazy("display name"))
+	status = forms.ChoiceField(choices=User.CHOICES_STATUS, required=False, label=gettext_lazy("status"))
 	def __init__(self, *args, **kwargs):
 		super(BuddySearchForm, self).__init__(*args, **kwargs)
 		self.fields['status'].choices = [('', '----------')] + self.fields['status'].choices

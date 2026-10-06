@@ -22,7 +22,6 @@
 
 from django.contrib.auth.models import User as AuthUser
 from django.db import connection
-from django.utils import six
 from webui.livemgr.models import Acl, Badword, Buddy, Conversation, GroupRule, \
 	Message, Profile, Setting, User, UserGroup
 from webui.livemgr.models.rule import LocalizedRules, Rule
@@ -65,27 +64,27 @@ class SchemaContractTest(LivemgrTestCase):
 
 	def test_localized_rules_mirror_the_rules_table(self):
 		stored = dict(Rule.objects.values_list('id', 'rulename'))
-		localized = dict((r.id, six.text_type(r.rulename)) for r in LocalizedRules.RULES)
+		localized = dict((r.id, str(r.rulename)) for r in LocalizedRules.RULES)
 		self.assertEqual(stored, localized)
 
 class ModelBehaviorTest(LivemgrTestCase):
 	def test_unicode_representations(self):
 		user = self.make_user('alice@example.com')
-		self.assertEqual(six.text_type(user), u'alice@example.com')
-		self.assertEqual(six.text_type(self.make_buddy(user, 'bob@example.com')), u'bob@example.com')
-		self.assertEqual(six.text_type(self.make_badword('darn')), u'darn')
-		self.assertEqual(six.text_type(UserGroup.objects.get(pk=GUEST_GROUP_ID)), u'guest')
-		self.assertEqual(six.text_type(Setting.objects.get(name='filtered_msg')), u'filtered_msg')
+		self.assertEqual(str(user), u'alice@example.com')
+		self.assertEqual(str(self.make_buddy(user, 'bob@example.com')), u'bob@example.com')
+		self.assertEqual(str(self.make_badword('darn')), u'darn')
+		self.assertEqual(str(UserGroup.objects.get(pk=GUEST_GROUP_ID)), u'guest')
+		self.assertEqual(str(Setting.objects.get(name='filtered_msg')), u'filtered_msg')
 		acl = self.make_acl('alice@example.com', '*@example.org', Acl.ACTION_BLOCK)
-		self.assertEqual(six.text_type(acl), u'%d 2 alice@example.com *@example.org' % acl.id)
+		self.assertEqual(str(acl), u'%d 2 alice@example.com *@example.org' % acl.id)
 
 	def test_conversation_and_message_representations(self):
 		user = self.make_user('alice@example.com')
 		conversation = self.make_conversation(user, timestamp=at(2010, 5, 17, 9, 0, 0))
-		self.assertEqual(six.text_type(conversation),
+		self.assertEqual(str(conversation),
 			u'%d alice@example.com 2010-05-17 09:00:00 1' % conversation.id)
 		message = self.make_message(conversation.id, timestamp=at(2010, 5, 17, 9, 0, 5))
-		self.assertEqual(six.text_type(message),
+		self.assertEqual(str(message),
 			u'%d 2010-05-17 09:00:05 %d alice@example.com bob@example.com' % (message.id, conversation.id))
 
 	def test_unicode_round_trip(self):
@@ -130,7 +129,7 @@ class ModelBehaviorTest(LivemgrTestCase):
 
 	def test_lookup_user_status(self):
 		self.assertEqual(lookup_user_status('NLN')[0], 'NLN')
-		self.assertEqual(six.text_type(lookup_user_status('NLN')[1]), u'Online')
+		self.assertEqual(str(lookup_user_status('NLN')[1]), u'Online')
 		self.assertEqual(lookup_user_status('XXX'), None)
 
 	def test_message_type_choices_cover_every_type(self):

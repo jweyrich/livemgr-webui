@@ -31,7 +31,7 @@ from django.db.utils import IntegrityError
 from django.forms.models import ModelForm
 from django.http import HttpResponseBadRequest, HttpResponse, HttpResponseRedirect
 from django.shortcuts import render, get_object_or_404
-from django.utils.translation import ugettext as _, ugettext_lazy
+from django.utils.translation import gettext as _, gettext_lazy
 from webui.common import CustomPaginator
 from webui.common.db import atomic
 from webui.common.decorators.rest import rest_multiple, rest_post
@@ -76,7 +76,7 @@ class BadwordForm(NoLabelSuffixMixin, ModelForm):
 		return cleaned_data
 
 class BadwordSearchForm(forms.Form):
-	badword = forms.CharField(required=False, label=ugettext_lazy("badword"))
+	badword = forms.CharField(required=False, label=gettext_lazy("badword"))
 
 def _redirect_if_needed(request, action, object_id=None):
 	if not request_has_error(request):

@@ -30,7 +30,7 @@ from django.forms.models import ModelForm
 from django.http import HttpResponseBadRequest
 from django.shortcuts import get_object_or_404, render
 from django.utils import translation
-from django.utils.translation import gettext as _, ugettext_lazy, check_for_language
+from django.utils.translation import gettext as _, gettext_lazy, check_for_language
 from django.views.i18n import set_language
 from webui.common import CustomPaginator
 from webui.common.decorators.rest import rest_multiple
@@ -51,10 +51,10 @@ class ProfileTable(tables.Table):
 		fields = ('username', 'email', 'is_active',
 				'last_login', 'date_joined', 'groups')
 		default = '' # Not '—' for empty values
-	# Use ugettext_lazy because class definitions are evaluated once!
+	# Use gettext_lazy because class definitions are evaluated once!
 	id = tables.Column(visible=False)
-	email = tables.Column(verbose_name=ugettext_lazy('email'), orderable=True)
-	groups = tables.Column(verbose_name=ugettext_lazy('groups'), orderable=False)
+	email = tables.Column(verbose_name=gettext_lazy('email'), orderable=True)
+	groups = tables.Column(verbose_name=gettext_lazy('groups'), orderable=False)
 	def render_is_active(self, record):
 		return format_boolean(record.is_active)
 	def render_groups(self, record):
@@ -64,11 +64,11 @@ class UserUpdateForm(NoLabelSuffixMixin, ModelForm): # Do NOT use PasswordChange
 	class Meta:
 		model = User
 		fields = ('first_name', 'last_name', 'email')
-	old_password = forms.CharField(label=ugettext_lazy('Current password'), widget=forms.PasswordInput, required=False,
+	old_password = forms.CharField(label=gettext_lazy('Current password'), widget=forms.PasswordInput, required=False,
 		**PASSWORD_FIELD_KWARGS)
-	new_password1 = forms.CharField(label=ugettext_lazy('New password'), widget=forms.PasswordInput, required=False,
+	new_password1 = forms.CharField(label=gettext_lazy('New password'), widget=forms.PasswordInput, required=False,
 		**PASSWORD_FIELD_KWARGS)
-	new_password2 = forms.CharField(label=ugettext_lazy('New password confirmation'), widget=forms.PasswordInput, required=False,
+	new_password2 = forms.CharField(label=gettext_lazy('New password confirmation'), widget=forms.PasswordInput, required=False,
 		**PASSWORD_FIELD_KWARGS)
 	def clean_old_password(self):
 		old_password = self.cleaned_data['old_password']
@@ -94,16 +94,16 @@ class ProfileUpdateForm(NoLabelSuffixMixin, ModelForm):
 	class Meta:
 		model = Profile
 		fields = ['language', 'debug']
-	language = forms.ChoiceField(choices=settings.LANGUAGES, label=ugettext_lazy('Language'), required=False)
-	debug = forms.BooleanField(label=ugettext_lazy('Enable debug'), required=False)
+	language = forms.ChoiceField(choices=settings.LANGUAGES, label=gettext_lazy('Language'), required=False)
+	debug = forms.BooleanField(label=gettext_lazy('Enable debug'), required=False)
 
 class LoginForm(NoLabelSuffixMixin, AuthenticationForm):
 	pass
 
 class ProfileSearchForm(forms.Form):
-	username = forms.CharField(required=False, label=ugettext_lazy('username'))
-	email = forms.CharField(required=False, label=ugettext_lazy('email'))
-	group = forms.ModelChoiceField(queryset=Group.objects.all(), required=False, label=ugettext_lazy('group'))
+	username = forms.CharField(required=False, label=gettext_lazy('username'))
+	email = forms.CharField(required=False, label=gettext_lazy('email'))
+	group = forms.ModelChoiceField(queryset=Group.objects.all(), required=False, label=gettext_lazy('group'))
 
 @rest_multiple([method.GET, method.POST])
 @login_required
@@ -190,12 +190,26 @@ def update(request):
 # set_language view uses. Older versions use the cookie name.
 LANGUAGE_SESSION_KEY = getattr(translation, 'LANGUAGE_SESSION_KEY', settings.LANGUAGE_COOKIE_NAME)
 
+def language_cookie_options():
+	options = {
+		'max_age': settings.LANGUAGE_COOKIE_AGE,
+		'path': settings.LANGUAGE_COOKIE_PATH,
+		'domain': settings.LANGUAGE_COOKIE_DOMAIN,
+	}
+	if django.VERSION >= (3, 0):
+		options.update(secure=settings.LANGUAGE_COOKIE_SECURE,
+			httponly=settings.LANGUAGE_COOKIE_HTTPONLY,
+			samesite=settings.LANGUAGE_COOKIE_SAMESITE)
+	return options
+
 def set_language_local(request, response, lang_code):
 	if lang_code and check_for_language(lang_code):
-		if hasattr(request, 'session'):
+		# Django 3.0's LocaleMiddleware no longer reads the language from the
+		# session, only from the cookie. Set both, as set_language does.
+		if django.VERSION < (3, 0) and hasattr(request, 'session'):
 			request.session[LANGUAGE_SESSION_KEY] = lang_code
-		else:
-			response.set_cookie(settings.LANGUAGE_COOKIE_NAME, lang_code)
+		response.set_cookie(settings.LANGUAGE_COOKIE_NAME, lang_code,
+			**language_cookie_options())
 	return response
 
 def login(request, *args, **kwargs):

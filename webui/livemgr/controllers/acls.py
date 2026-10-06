@@ -31,7 +31,7 @@ from django.db.models.query_utils import Q
 from django.forms.models import ModelForm
 from django.http import HttpResponseBadRequest, HttpResponse, HttpResponseRedirect
 from django.shortcuts import render, get_object_or_404
-from django.utils.translation import ugettext as _, ugettext_lazy
+from django.utils.translation import gettext as _, gettext_lazy
 from webui.common import CustomPaginator
 from webui.common.decorators.rest import rest_multiple, rest_post
 from webui.common.http import method
@@ -66,9 +66,9 @@ class AclForm(NoLabelSuffixMixin, ModelForm):
 
 class AclSearchForm(forms.Form):
 	acl = forms.CharField(required=False)
-	action = forms.ChoiceField(choices=Acl.CHOICES_ACTIONS, required=False, label=ugettext_lazy('action'))
-	localim = forms.CharField(required=False, label=ugettext_lazy('user'))
-	remoteim = forms.CharField(required=False, label=ugettext_lazy('buddy'))
+	action = forms.ChoiceField(choices=Acl.CHOICES_ACTIONS, required=False, label=gettext_lazy('action'))
+	localim = forms.CharField(required=False, label=gettext_lazy('user'))
+	remoteim = forms.CharField(required=False, label=gettext_lazy('buddy'))
 	def __init__(self, *args, **kwargs):
 		super(AclSearchForm, self).__init__(*args, **kwargs)
 		self.fields['action'].choices = [('', '----------')] + self.fields['action'].choices

@@ -29,9 +29,9 @@ from django import forms
 from django.conf import settings
 from django.contrib.auth.decorators import login_required, permission_required
 from django.shortcuts import render
-from django.utils.six.moves import http_client
-from django.utils.six.moves.urllib.parse import urlencode
-from django.utils.translation import ugettext as _, ugettext_lazy
+from django.utils.translation import gettext as _, gettext_lazy
+from http import client as http_client
+from urllib.parse import urlencode
 from webui.common.decorators.rest import rest_get
 from webui.common.utils import flash_error
 import errno
@@ -49,7 +49,7 @@ class ConnectionProblem(Exception):
 	pass
 
 class LicenseFileForm(forms.Form):
-	file = forms.FileField(required=True, label=ugettext_lazy("License"))
+	file = forms.FileField(required=True, label=gettext_lazy("License"))
 
 class LicenseDetails:
 	def __init__(self, **entries):

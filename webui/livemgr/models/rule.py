@@ -22,10 +22,9 @@
 
 from django.contrib import admin
 from django.db import models
-from django.utils.encoding import python_2_unicode_compatible, smart_text
-from django.utils.translation import ugettext_lazy as _
+from django.utils.encoding import smart_str
+from django.utils.translation import gettext_lazy as _
 
-@python_2_unicode_compatible
 class Rule(models.Model):
 	class Meta:
 		app_label = 'livemgr'
@@ -40,7 +39,7 @@ class Rule(models.Model):
 	rulename = models.CharField(_("name"), max_length=128, unique=True)
 	description = models.TextField(_("description"), max_length=512)
 	def __str__(self):
-		return smart_text(self.rulename)
+		return smart_str(self.rulename)
 
 class RuleAdmin(admin.ModelAdmin):
 	pass

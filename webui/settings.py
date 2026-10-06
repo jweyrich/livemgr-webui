@@ -206,6 +206,10 @@ SESSION_SERIALIZER = 'django.contrib.sessions.serializers.JSONSerializer'
 # no longer send them on requests from other sites: a login form posted from
 # another site lands on CSRF_FAILURE_VIEW. Set SESSION_COOKIE_SAMESITE and
 # CSRF_COOKIE_SAMESITE to None in the deployment's settings to allow it.
+# Django 3.0 reads the user's language from the LANGUAGE_COOKIE_NAME cookie
+# only, no longer from the session. That cookie ends with the browser session
+# by default, but logins last SESSION_COOKIE_AGE (two weeks): keep it as long.
+LANGUAGE_COOKIE_AGE = 60 * 60 * 24 * 7 * 2
 
 # Messages
 MESSAGE_STORAGE = 'django.contrib.messages.storage.session.SessionStorage'

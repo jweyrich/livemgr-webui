@@ -34,7 +34,7 @@ from django.http import HttpResponseBadRequest, HttpResponseRedirect, HttpRespon
 	HttpResponseForbidden
 from django.shortcuts import render, get_object_or_404
 from django.utils.safestring import mark_safe
-from django.utils.translation import ugettext as _, ugettext_lazy
+from django.utils.translation import gettext as _, gettext_lazy
 from webui.common import CustomPaginator
 from webui.common.db import atomic
 from webui.common.decorators.rest import rest_multiple, rest_get
@@ -53,14 +53,14 @@ class UserTable(tables.Table):
 		fields = ('username', 'status', 'isenabled', 'displayname',
 			'psm', 'lastlogin', 'group', 'contacts')
 		default = '' # Not '—' for empty values
-	# Use ugettext_lazy because class definitions are evaluated once!
+	# Use gettext_lazy because class definitions are evaluated once!
 	id = tables.Column(visible=False)
-	psm = tables.Column(verbose_name=ugettext_lazy('personal message'), orderable=False)
+	psm = tables.Column(verbose_name=gettext_lazy('personal message'), orderable=False)
 	# render_FOO is skipped for values in empty_values (None and ''), and
 	# these must render something when lastlogin is None or no contacts
 	# attribute exists.
 	lastlogin = tables.Column(empty_values=())
-	contacts = tables.Column(verbose_name=ugettext_lazy('contacts'), orderable=False,
+	contacts = tables.Column(verbose_name=gettext_lazy('contacts'), orderable=False,
 		empty_values=())
 	def render_group(self, record):
 		return mark_safe('<a href="%s">%s</a>' % (
@@ -112,10 +112,10 @@ class UserForm(NoLabelSuffixMixin, ModelForm):
 		return cleaned_data
 
 class UserSearchForm(forms.Form):
-	username = forms.CharField(required=False, label=ugettext_lazy("username"))
-	displayname = forms.CharField(required=False, label=ugettext_lazy("display name"))
-	group = forms.ModelChoiceField(queryset=UserGroup.objects.all(), required=False, label=ugettext_lazy("group"))
-	status = forms.ChoiceField(choices=User.CHOICES_STATUS, required=False, label=ugettext_lazy("status"))
+	username = forms.CharField(required=False, label=gettext_lazy("username"))
+	displayname = forms.CharField(required=False, label=gettext_lazy("display name"))
+	group = forms.ModelChoiceField(queryset=UserGroup.objects.all(), required=False, label=gettext_lazy("group"))
+	status = forms.ChoiceField(choices=User.CHOICES_STATUS, required=False, label=gettext_lazy("status"))
 	def __init__(self, *args, **kwargs):
 		super(UserSearchForm, self).__init__(*args, **kwargs)
 		self.fields['status'].choices = [('', '----------')] + self.fields['status'].choices

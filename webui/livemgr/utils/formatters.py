@@ -20,7 +20,7 @@
 # Authors:
 #   Jardel Weyrich <jweyrich@gmail.com>
 
-from django.utils.encoding import force_text
+from django.utils.encoding import force_str
 from django.utils.safestring import mark_safe
 from webui.livemgr.models.acl import Acl
 from webui.livemgr.models.user import lookup_user_status
@@ -66,7 +66,7 @@ def format_user_status(value):
 	}.get(status[0], _default)(status[0])
 	if not tag:
 		return ""
-	text = force_text(status[1])
+	text = force_str(status[1])
 	return mark_safe(tag + ' %s' % text)
 
 def ip_long_to_str(ip_as_long):

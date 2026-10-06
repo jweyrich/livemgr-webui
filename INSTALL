@@ -43,9 +43,9 @@ pip install pip==26.0.1
 # Install our Python dependencies:
 pip install -r requirements.txt
 
-# Setup the MySQL or MariaDB database. Django 2.2 requires MySQL 5.6 or later,
-# or MariaDB 10.0 or later, its counterpart. Django doesn't list MariaDB, but
-# its MySQL backend runs on it: the containers and the tests use MariaDB 10.4.
+# Setup the MySQL or MariaDB database. Django 3.0 requires MySQL 5.6 or later,
+# or MariaDB 10.1 or later, which it now supports officially: the containers
+# and the tests use MariaDB 10.4.
 mysql -u root -p -h localhost
 > CREATE DATABASE livemgr;
 > CREATE USER 'livemgr'@'localhost' IDENTIFIED BY 'livemgr';

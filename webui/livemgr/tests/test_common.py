@@ -28,7 +28,6 @@
 from django import forms
 from django.contrib import messages
 from django.http import HttpRequest, HttpResponse, QueryDict
-from django.utils import six
 from io import BytesIO
 from reportlab.lib.pagesizes import A4
 from webui.common.color_dict import color_dict
@@ -51,7 +50,7 @@ class FakeMessageStorage(object):
 	def __init__(self):
 		self.added = []
 	def add(self, level, message, extra_tags=''):
-		self.added.append((level, six.text_type(message)))
+		self.added.append((level, str(message)))
 
 def make_request(method='GET', get=''):
 	request = HttpRequest()
