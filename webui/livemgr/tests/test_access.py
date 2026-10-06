@@ -36,6 +36,7 @@ from django.test.utils import override_settings
 from webui.controllers.handlers import error_500
 from webui.livemgr.models import Acl
 from webui.livemgr.tests.base import LivemgrTestCase
+import django
 import re
 
 ROUTES = [
@@ -370,3 +371,59 @@ class AjaxCsrfTest(LivemgrTestCase):
 		response = self.client.post('/dashboard/query/', {'period': 'month'},
 			HTTP_X_REQUESTED_WITH='XMLHttpRequest')
 		self.assertTemplateUsed(response, 'profiles/no_cookie.html')
+
+class OriginCsrfTest(LivemgrTestCase):
+	"""
+	Browsers send an Origin header with every POST. Django 4.0 checks it over
+	plain HTTP too: it must name the request's scheme and host (see
+	CSRF_FAILURE_VIEW in webui/settings.py).
+	"""
+	def setUp(self):
+		from django.test.client import Client
+		self.client = Client(enforce_csrf_checks=True)
+		self.account = self.create_account()
+
+	def post_login(self, origin, **extra):
+		response = self.client.get('/login/')
+		match = re.search(r'name="csrfmiddlewaretoken" value="(\w+)"',
+			response.content.decode('utf-8'))
+		self.assertTrue(match)
+		# Browsers send the Host header. Without it, Django appends the server's
+		# port (80) to the host when a proxy reports HTTPS.
+		return self.client.post('/login/', {'username': self.account.username,
+			'password': self.PASSWORD, 'csrfmiddlewaretoken': match.group(1)},
+			HTTP_HOST='testserver', HTTP_ORIGIN=origin, **extra)
+
+	def assertLoggedIn(self, response):
+		self.assertRedirectsTo(response, settings.LOGIN_REDIRECT_URL)
+
+	def assertRejected(self, response):
+		self.assertTemplateUsed(response, 'profiles/no_cookie.html')
+
+	def test_same_origin(self):
+		self.assertLoggedIn(self.post_login('http://testserver'))
+
+	def test_other_site(self):
+		response = self.post_login('http://example.org')
+		if django.VERSION >= (4, 0):
+			self.assertRejected(response)
+		else:
+			self.assertLoggedIn(response)
+
+	def test_proxy_terminating_tls(self):
+		# The page was served over HTTPS, and the proxy forwards it over HTTP.
+		response = self.post_login('https://testserver')
+		if django.VERSION >= (4, 0):
+			self.assertRejected(response)
+		else:
+			self.assertLoggedIn(response)
+
+	@override_settings(SECURE_PROXY_SSL_HEADER=('HTTP_X_FORWARDED_PROTO', 'https'))
+	def test_proxy_terminating_tls_with_secure_proxy_ssl_header(self):
+		# Over HTTPS, Django < 4.0 checks the Referer instead.
+		self.assertLoggedIn(self.post_login('https://testserver',
+			HTTP_X_FORWARDED_PROTO='https', HTTP_REFERER='https://testserver/login/'))
+
+	@override_settings(CSRF_TRUSTED_ORIGINS=['https://testserver'])
+	def test_proxy_terminating_tls_with_csrf_trusted_origins(self):
+		self.assertLoggedIn(self.post_login('https://testserver'))

@@ -60,6 +60,9 @@ DATABASES = {
 # and no /etc/timezone), it returns 'local', which Django rejects: set the
 # zone's name in the deployment's settings, e.g. TIME_ZONE = 'America/Sao_Paulo'.
 TIME_ZONE = get_localzone().zone
+# The datetimes stay naive, in TIME_ZONE, as the backend stores them. Django 4.0
+# warns that the default turns time zone support on in 5.0.
+USE_TZ = False
 
 # Language section
 LANGUAGE_CODE = 'en-us'
@@ -68,7 +71,9 @@ LANGUAGES = (
     ('pt-br', _('Brazilian Portuguese')),
 )
 USE_I18N = True
-USE_L10N = True
+# Django 4.0 localizes formatting by default, and deprecates the setting.
+if django.VERSION < (4, 0):
+    USE_L10N = True
 # Django 1.3 deprecates loading translations from the project's locale
 # directory implicitly. Listing it here also serves its djangojs catalog.
 LOCALE_PATHS = (
@@ -194,6 +199,14 @@ PASSWORD_HASHERS = (
 # General stuff
 INTERNAL_IPS = ('127.0.0.1', )
 CSRF_FAILURE_VIEW = 'webui.livemgr.controllers.profiles.no_cookie'
+# Django 4.0 also checks plain HTTP requests against the Origin header that
+# browsers send with every POST: it must name the request's scheme and Host. A
+# proxy in front of the web UI must pass the Host header through (Apache's
+# ProxyPreserveHost On), and one that terminates TLS must say so: set
+# SECURE_PROXY_SSL_HEADER in the deployment's settings to the header the proxy
+# sets, e.g. ('HTTP_X_FORWARDED_PROTO', 'https'), or list the site's origin in
+# CSRF_TRUSTED_ORIGINS, e.g. ['https://livemgr.example.com']. Otherwise every
+# form posted, the login's included, lands on CSRF_FAILURE_VIEW.
 # Django 1.7 warns that projects started before 1.6 may rely on the old test
 # runner. The tests run with settings_test, which sets their runner. Django 1.9
 # removes that check.
@@ -219,7 +232,9 @@ SESSION_COOKIE_AGE = 60 * 60 * 8
 # deployment's --settings):
 #	python webui/manage.py shell -c "from django.contrib.sessions.models import Session; Session.objects.all().delete()"
 # To run 3.0 and 3.1 side by side, set DEFAULT_HASHING_ALGORITHM = 'sha1' in
-# the deployment's settings until all run 3.1. Django 4.0 removes it.
+# the deployment's settings until all run 3.1. Django 4.0 removes it, and no
+# longer reads the sessions saved before 3.1: upgrading straight from 3.0 or
+# older to 4.0 logs everyone out once.
 # Django 2.1 sets the session and CSRF cookies with SameSite=Lax, so browsers
 # no longer send them on requests from other sites: a login form posted from
 # another site lands on CSRF_FAILURE_VIEW. Set SESSION_COOKIE_SAMESITE and

@@ -1,11 +1,12 @@
-Django==3.2.25
+Django==4.0.10
 # Django 1.11 removes TIME_ZONE = None; webui/settings.py names the system's
 # zone with tzlocal instead. 2.1 is the last release built on pytz, which
-# Django 3.2 still requires. tzlocal 3.0 returns zoneinfo zones, which have no
-# .zone attribute.
+# Django 4.0 no longer requires: tzlocal brings it in. Only the zone's name
+# reaches Django, so 4.0's deprecation of pytz zones doesn't apply. tzlocal 3.0
+# returns zoneinfo zones, which have no .zone attribute.
 tzlocal==2.1
 # mysqlclient is the maintained fork of MySQL-python (same MySQLdb module).
-# Django 3.2 requires 1.4.0 or later. 1.4.6 still builds on Python 3.9.
+# Django 4.0 requires 1.4.0 or later. 1.4.6 still builds on Python 3.10.
 mysqlclient==1.4.6
 # django-tables2 1.2.7 to 1.21 title-case the column headers taken from the
 # models (and, until 1.7, translate them once, at import, so they stay in
@@ -16,7 +17,8 @@ mysqlclient==1.4.6
 # Django 3.1; it runs on Django 2.2, 3.1, 3.2 and 4.0.
 django-tables2==2.4.1
 # reportlab 3.6.13 fixes code execution through the color attributes of
-# Paragraph markup (CVE-2023-33733). It requires Python 3.7.
+# Paragraph markup (CVE-2023-33733). It requires Python 3.7. On Python 3.10 its
+# import warns that it uses load_module(), which Python 3.12 removes.
 reportlab==3.6.13
 # M2Crypto 0.38 is the first to build against OpenSSL 3, which Debian bookworm
 # ships. 0.45.1 also builds against OpenSSL 3.4 and later, and is the last
@@ -27,6 +29,6 @@ M2Crypto==0.45.1
 # (CVE-2021-30459), as 2.2.1 did. 3.2.4 is the last release before 3.3 drops
 # Django 3.1; it runs on Django 2.2 to 4.0.
 django-debug-toolbar==3.2.4
-# Django 3.2 requires sqlparse >= 0.2.2, and debug-toolbar 1.5 and later
+# Django 4.0 requires sqlparse >= 0.2.2, and debug-toolbar 1.5 and later
 # >= 0.2; 0.2.4 is the last 0.2.x
 sqlparse==0.2.4

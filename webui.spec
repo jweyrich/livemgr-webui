@@ -2,7 +2,7 @@
 %{!?python_sitelib: %global python_sitelib %(%{__python} -c "from distutils.sysconfig import get_python_lib; print(get_python_lib())")}
 %endif
 
-%{!?pyver: %define pyver %(%{__python} -c "import sys ; print sys.version[:3]" || echo 0)}
+%{!?pyver: %define pyver %(%{__python} -c "import sys ; print('.'.join(map(str, sys.version_info[:2])))" || echo 0)}
 
 Name:           livemgr-webui
 Version:        1.0
@@ -20,7 +20,7 @@ BuildArch:      noarch
 BuildRequires:  python-setuptools
 BuildRequires:  python-devel
 BuildRequires:  java >= 1:1.6.0
-Requires:       Django = 3.2.25
+Requires:       Django = 4.0.10
 Requires:       django-tables2 = 2.4.1
 Requires:       python-tzlocal
 Requires:       python-reportlab

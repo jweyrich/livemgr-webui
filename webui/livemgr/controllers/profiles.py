@@ -187,7 +187,8 @@ def update(request):
 	return render(request, template_name, extra_context)
 
 # Django 1.7 stores the language under its own session key, the same one its
-# set_language view uses. Older versions use the cookie name.
+# set_language view uses. Older versions use the cookie name. Django 4.0 removes
+# the constant, but the language goes in the session only before Django 3.0.
 LANGUAGE_SESSION_KEY = getattr(translation, 'LANGUAGE_SESSION_KEY', settings.LANGUAGE_COOKIE_NAME)
 
 def language_cookie_options():

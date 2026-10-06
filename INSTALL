@@ -5,11 +5,11 @@ HOW TO SETUP IT FOR LOCAL TESTING
 git clone https://github.com/jweyrich/livemgr-webui.git
 cd livemgr-webui
 
-# Install Python 3.9. Most systems no longer package it, so build it with pyenv:
-#	pyenv install 3.9.25
+# Install Python 3.10. Where the system doesn't package it, build it with pyenv:
+#	pyenv install 3.10.22
 
 # Create a virtual environment for our Python dependencies:
-python3.9 -m venv env
+python3.10 -m venv env
 
 # Activate it:
 . ./activate.sh
@@ -17,8 +17,8 @@ python3.9 -m venv env
 # Check if the activation succeeeded - the printed path must reside within your cloned directory:
 which python
 
-# Upgrade pip - 26.0.1 is the last release that supports Python 3.9:
-pip install pip==26.0.1
+# Upgrade pip - 26.2.1 is the latest release:
+pip install pip==26.2.1
 
 # Install swig - required by M2Crypto:
 #
@@ -43,7 +43,7 @@ pip install pip==26.0.1
 # Install our Python dependencies:
 pip install -r requirements.txt
 
-# Setup the MySQL or MariaDB database. Django 3.2 requires MySQL 5.7 or later,
+# Setup the MySQL or MariaDB database. Django 4.0 requires MySQL 5.7 or later,
 # or MariaDB 10.2 or later: the containers and the tests use MariaDB 10.4.
 mysql -u root -p -h localhost
 > CREATE DATABASE livemgr;
@@ -61,6 +61,10 @@ python webui/manage.py migrate --settings=settings_example
 # Upgrading to Django 3.1? migrate also widens auth_user.first_name from 30
 # to 150 characters, which the profile page now accepts. Until it runs, saving
 # a longer first name fails.
+
+# Upgrading to Django 4.0 behind a proxy? Form posts are now checked against
+# the scheme and host the browser sent them to: see CSRF_FAILURE_VIEW in
+# webui/settings.py, or every login lands on the "no cookie" page.
 
 # Upgrading an install created by syncdb (Django < 1.7) that was never
 # migrated? Django 1.8 no longer skips the migrations whose tables already
