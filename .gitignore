@@ -1,1 +1,6 @@
 node_modules/
+# Licensing CA and license certificates hold private keys (see tools/license)
+conf/license-ca/
+conf/keyserver/
+conf/certs/*
+!conf/certs/.gitkeep

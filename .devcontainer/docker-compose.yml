@@ -8,8 +8,22 @@ services:
       - node_modules:/workspace/node_modules
     # Keep the container alive; the dev server is started from the terminal
     command: sleep infinity
+    environment:
+      LIVEMGR_KEYSERVER_HOST: keyserver
+      LIVEMGR_KEYSERVER_CA_FILE: /workspace/conf/certs/ca.crt
     depends_on:
       - db
+      - keyserver
+
+  # Development stand-in for the livemgr KeyServer; its certificates are
+  # created by tools/license/provision.sh (see initializeCommand)
+  keyserver:
+    image: python:3.12-alpine
+    restart: unless-stopped
+    volumes:
+      - ../tools/keyserver:/opt/keyserver:ro
+      - ../conf/keyserver:/etc/keyserver:ro
+    command: python /opt/keyserver/keyserver.py --cert /etc/keyserver/keyserver.pem --ca-file /etc/keyserver/ca.crt
 
   db:
     image: mariadb:10.4

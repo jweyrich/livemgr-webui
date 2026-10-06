@@ -21,12 +21,27 @@ The backend is still closed-source, but if you invite me for ☕  we can talk ab
 ## How to run?
 
 ```sh
+tools/license/provision.sh
 docker build . -t livemgr-webui:latest
 docker-compose up
 docker-compose run db "mysql -uroot --password=123456 < /mnt/initdb/create_schema.sql"
 docker-compose run db "mysql -uroot --password=123456 < /mnt/initdb/create_tables.sql"
 docker-compose run app /opt/envs/livemgr-webui/bin/python webui/manage.py migrate --noinput --settings=settings_example
 ````
+
+## How to provision a license?
+
+The License page reads `conf/certs/cert.pem`, an X.509 certificate signed by the licensing CA. Besides the licensee (subject O) and validity, it carries the `clientTokenIdentifier` (OID `1.2.3.4.5.31.33.71`) and `usersLimit` (OID `1.2.3.4.5.31.33.72`) extensions. The file also holds the certificate's private key, because the app uses it as the client certificate to reach the KeyServer.
+
+To create a local licensing CA and license, run from the host (requires Docker):
+
+```sh
+tools/license/provision.sh [--org NAME] [--users N] [--days N] [--renew]
+```
+
+It writes the CA to `conf/license-ca/`, the license to `conf/certs/`, and the KeyServer's TLS certificate to `conf/keyserver/`. Existing files are kept, so it's safe to run again; pass `--renew` to issue a new license with the same CA. These directories are ignored by Git and by `docker build`, and `docker-compose.yml` mounts `conf/certs/` read-only into the app container. The devcontainer runs the script automatically before it starts. The generator itself is built with [sslpkix](https://github.com/jweyrich/sslpkix); see `tools/license/Dockerfile` for its other options.
+
+The License page also asks the KeyServer, which is part of the closed-source backend, how many users the license allows. For development, both Compose setups run a stand-in (`tools/keyserver/keyserver.py`) as the `keyserver` service: it accepts only licenses signed by the licensing CA, and answers with the license's `usersLimit`. The app reaches it through the `LIVEMGR_KEYSERVER_HOST` and `LIVEMGR_KEYSERVER_CA_FILE` environment variables.
 
 ## How to develop?
 

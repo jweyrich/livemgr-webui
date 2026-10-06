@@ -52,7 +52,10 @@ INSTALLED_APPS += (
 INTERNAL_IPS += ('<internal_ip_here>', '<another_here>', '<and_another_if_you_like>',)
 
 LICENSE_FILE = os.path.join(ROOT, os.pardir, 'conf', 'certs', 'cert.pem')
-KEYSERVER_HOST = '127.0.0.1' # No need to change this.
+KEYSERVER_HOST = os.environ.get('LIVEMGR_KEYSERVER_HOST', '127.0.0.1')
+# The development KeyServer (tools/keyserver) uses a certificate issued by the
+# licensing CA, which the system doesn't trust.
+KEYSERVER_CA_FILE = os.environ.get('LIVEMGR_KEYSERVER_CA_FILE') or None
 
 ########################
 # DJANGO DEBUG TOOLBAR #
