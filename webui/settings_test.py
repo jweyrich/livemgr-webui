@@ -56,6 +56,12 @@ if django.VERSION >= (1, 8):
 else:
     TEMPLATE_DIRS = (TESTS_TEMPLATE_DIR,)
 
+# The same hashers, in the same order, but PBKDF2 runs a single iteration.
+PASSWORD_HASHERS = tuple(
+    'webui.livemgr.tests.hashers.FastPBKDF2PasswordHasher'
+    if hasher == 'django.contrib.auth.hashers.PBKDF2PasswordHasher' else hasher
+    for hasher in PASSWORD_HASHERS)
+
 # Pin the language so assertions on rendered text are deterministic.
 LANGUAGE_CODE = 'en-us'
 

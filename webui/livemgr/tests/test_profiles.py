@@ -110,12 +110,11 @@ class ProfileUpdateTest(LivemgrTestCase):
 		self.post(old_password=self.PASSWORD, new_password1='n3w', new_password2='n3w')
 		self.assertRedirectsToLogin(other.get('/dashboard/'))
 
-	def test_passwords_stay_readable_by_django_1_3(self):
-		# Logging in and changing the password must not switch to PBKDF2 yet
-		# (see PASSWORD_HASHERS).
-		self.assertTrue(self.reload().password.startswith('sha1$'))
+	def test_new_passwords_are_hashed_with_pbkdf2(self):
+		# Django 4.2 deprecates SHA1PasswordHasher, preferred until then (see
+		# PASSWORD_HASHERS).
 		self.post(old_password=self.PASSWORD, new_password1='n3w', new_password2='n3w')
-		self.assertTrue(self.reload().password.startswith('sha1$'))
+		self.assertTrue(self.reload().password.startswith('pbkdf2_sha256$'))
 
 	def test_wrong_current_password(self):
 		response = self.post(old_password='wrong', new_password1='n3w', new_password2='n3w')
