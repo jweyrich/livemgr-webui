@@ -112,6 +112,13 @@ else:
 
 ROOT_URLCONF = 'webui.urls'
 
+# Django 3.2 warns (models.W042) about models without an explicit primary key
+# unless their type is set here, as a future version changes the default to
+# BigAutoField. AutoField is the type migration 0002 records for the backend's
+# models: their tables belong to bootstrap/db/create_tables.sql, whatever the
+# field's type, and switching it would only add a migration.
+DEFAULT_AUTO_FIELD = 'django.db.models.AutoField'
+
 INSTALLED_APPS = (
     'django.contrib.auth',
     'django.contrib.contenttypes',
