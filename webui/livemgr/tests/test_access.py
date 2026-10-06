@@ -24,6 +24,7 @@
 	URL routing, authentication, authorization and error pages.
 """
 
+from django.conf import settings
 from django.contrib.auth.models import AnonymousUser, Group
 # Django 1.10 moves django.core.urlresolvers to django.urls
 try:
@@ -168,6 +169,13 @@ class AuthenticationTest(LivemgrTestCase):
 		response = self.client.post('/login/', {'username': 'operator', 'password': self.PASSWORD})
 		self.assertRedirectsTo(response, '/dashboard')
 		self.assertTrue('_auth_user_id' in self.client.session)
+
+	def test_login_lasts_8_hours(self):
+		self.create_account('operator')
+		self.client.post('/login/', {'username': 'operator', 'password': self.PASSWORD})
+		cookie = self.client.cookies[settings.SESSION_COOKIE_NAME]
+		self.assertEqual(int(cookie['max-age']), 8 * 60 * 60)
+		self.assertEqual(self.client.session.get_expiry_age(), 8 * 60 * 60)
 
 	def test_login_honors_next(self):
 		self.create_account('operator')

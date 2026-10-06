@@ -202,14 +202,17 @@ DATA_UPLOAD_MAX_NUMBER_FIELDS = None
 # JSON values (the messages below and the language code are). Sessions saved
 # by an older version fail to decode, which logs those users out once.
 SESSION_SERIALIZER = 'django.contrib.sessions.serializers.JSONSerializer'
+# Logins last 8 hours instead of the default two weeks. Each change to the
+# session, such as a flashed message, starts the 8 hours again.
+SESSION_COOKIE_AGE = 60 * 60 * 8
 # Django 2.1 sets the session and CSRF cookies with SameSite=Lax, so browsers
 # no longer send them on requests from other sites: a login form posted from
 # another site lands on CSRF_FAILURE_VIEW. Set SESSION_COOKIE_SAMESITE and
 # CSRF_COOKIE_SAMESITE to None in the deployment's settings to allow it.
 # Django 3.0 reads the user's language from the LANGUAGE_COOKIE_NAME cookie
 # only, no longer from the session. That cookie ends with the browser session
-# by default, but logins last SESSION_COOKIE_AGE (two weeks): keep it as long.
-LANGUAGE_COOKIE_AGE = 60 * 60 * 24 * 7 * 2
+# by default, but logins last SESSION_COOKIE_AGE: keep it as long.
+LANGUAGE_COOKIE_AGE = SESSION_COOKIE_AGE
 
 # Messages
 MESSAGE_STORAGE = 'django.contrib.messages.storage.session.SessionStorage'
