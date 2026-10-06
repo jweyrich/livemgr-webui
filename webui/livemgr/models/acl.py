@@ -22,10 +22,9 @@
 
 from django.contrib import admin
 from django.db import models
-from django.utils.encoding import python_2_unicode_compatible, smart_text
-from django.utils.translation import ugettext_lazy as _
+from django.utils.encoding import smart_str
+from django.utils.translation import gettext_lazy as _
 
-@python_2_unicode_compatible
 class Acl(models.Model):
 	ACTION_ALLOW = 1
 	ACTION_BLOCK = 2
@@ -49,7 +48,7 @@ class Acl(models.Model):
 	action = models.PositiveSmallIntegerField(_("action"), choices=CHOICES_ACTIONS)
 	#action = models.CharField("Action", max_length=5, choices=CHOICES_ACTIONS)
 	def __str__(self):
-		return smart_text('%d %s %s %s' % (self.id, self.action,
+		return smart_str('%d %s %s %s' % (self.id, self.action,
 			self.localim, self.remoteim))
 
 class AclAdmin(admin.ModelAdmin):

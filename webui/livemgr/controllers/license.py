@@ -29,15 +29,16 @@ from django import forms
 from django.conf import settings
 from django.contrib.auth.decorators import login_required, permission_required
 from django.shortcuts import render
-from django.utils.six.moves import http_client
-from django.utils.six.moves.urllib.parse import urlencode
-from django.utils.translation import ugettext as _, ugettext_lazy
+from django.utils.translation import gettext as _, gettext_lazy
+from http import client as http_client
+from urllib.parse import urlencode
 from webui.common.decorators.rest import rest_get
 from webui.common.utils import flash_error
 import errno
 import json
 import os
 import socket
+import ssl
 import stat
 import sys
 
@@ -48,7 +49,7 @@ class ConnectionProblem(Exception):
 	pass
 
 class LicenseFileForm(forms.Form):
-	file = forms.FileField(required=True, label=ugettext_lazy("License"))
+	file = forms.FileField(required=True, label=gettext_lazy("License"))
 
 class LicenseDetails:
 	def __init__(self, **entries):
@@ -74,10 +75,14 @@ def save_uploaded_license(path, uploaded_file):
 def fetch_license_details(cert_path):
 	try:
 		if settings.KEYSERVER_USE_SSL:
+			# Python 3.6 deprecates key_file and cert_file, and 3.12 removes
+			# them: load the client certificate into the context they built.
+			context = ssl.create_default_context()
+			context.load_cert_chain(cert_path)
 			conn = http_client.HTTPSConnection(
 				settings.KEYSERVER_HOST,
 				settings.KEYSERVER_PORT,
-				key_file=cert_path, cert_file=cert_path,
+				context=context,
 				timeout=settings.KEYSERVER_TIMEOUT)
 		else:
 			conn = http_client.HTTPConnection(

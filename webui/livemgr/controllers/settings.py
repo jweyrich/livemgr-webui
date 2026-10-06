@@ -23,7 +23,7 @@
 from django import forms
 from django.contrib.auth.decorators import login_required, permission_required
 from django.shortcuts import render
-from django.utils.translation import ugettext as _, ugettext_lazy
+from django.utils.translation import gettext as _, gettext_lazy
 from webui.common.decorators.rest import rest_multiple
 from webui.common.http import method
 from webui.common.utils import flash_success, flash_form_error, NoLabelSuffixMixin
@@ -43,11 +43,11 @@ class SettingsUpdateForm(NoLabelSuffixMixin, forms.Form):
 		(17, '17'),
 		(18, '18'),
 	)
-	min_protocol_version = forms.ChoiceField(choices=PROTOCOL_CHOICES, label=ugettext_lazy("Minimum"), required=False)
-	max_protocol_version = forms.ChoiceField(choices=PROTOCOL_CHOICES, label=ugettext_lazy("Maximum"), required=False)
-	allow_self_reg = forms.BooleanField(label=ugettext_lazy("Allow self registration"), required=False)
-	filtered_msg = forms.CharField(label=ugettext_lazy("Filtered"), required=True)
-	default_warning = forms.CharField(label=ugettext_lazy("Disclaimer"), required=True)
+	min_protocol_version = forms.ChoiceField(choices=PROTOCOL_CHOICES, label=gettext_lazy("Minimum"), required=False)
+	max_protocol_version = forms.ChoiceField(choices=PROTOCOL_CHOICES, label=gettext_lazy("Maximum"), required=False)
+	allow_self_reg = forms.BooleanField(label=gettext_lazy("Allow self registration"), required=False)
+	filtered_msg = forms.CharField(label=gettext_lazy("Filtered"), required=True)
+	default_warning = forms.CharField(label=gettext_lazy("Disclaimer"), required=True)
 	def __init__(self, *args, **kwargs):
 		super(SettingsUpdateForm, self).__init__(*args, **kwargs)
 		self.load()

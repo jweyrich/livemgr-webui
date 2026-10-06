@@ -22,11 +22,10 @@
 
 from django.contrib import admin
 from django.db import models
-from django.utils.encoding import python_2_unicode_compatible, smart_text
-from django.utils.translation import ugettext_lazy as _
+from django.utils.encoding import smart_str
+from django.utils.translation import gettext_lazy as _
 from webui.livemgr.models.usergroup import UserGroup
 
-@python_2_unicode_compatible
 class User(models.Model):
 	CHOICES_STATUS = (
 		('NLN', _('Online')),
@@ -59,7 +58,7 @@ class User(models.Model):
 	lastlogin = models.DateTimeField(_("last login"))
 	isenabled = models.BooleanField(_("enabled"), default=True)
 	def __str__(self):
-		return smart_text(self.username)
+		return smart_str(self.username)
 
 def lookup_user_status(value):
 	status = [(k, v) for (k, v) in User.CHOICES_STATUS if k == value]

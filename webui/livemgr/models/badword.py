@@ -22,10 +22,9 @@
 
 from django.contrib import admin
 from django.db import models
-from django.utils.encoding import python_2_unicode_compatible, smart_text
-from django.utils.translation import ugettext_lazy as _
+from django.utils.encoding import smart_str
+from django.utils.translation import gettext_lazy as _
 
-@python_2_unicode_compatible
 class Badword(models.Model):
 	class Meta:
 		app_label = 'livemgr'
@@ -41,7 +40,7 @@ class Badword(models.Model):
 	isregex = models.BooleanField(_("regular expression"), default=False)
 	isenabled = models.BooleanField(_("enabled"), default=True)
 	def __str__(self):
-		return smart_text(self.badword)
+		return smart_str(self.badword)
 
 class BadwordAdmin(admin.ModelAdmin):
 	pass

@@ -26,7 +26,7 @@ from django.http import HttpResponseBadRequest, HttpResponse, Http404
 from django.shortcuts import render
 from django.template.defaultfilters import filesizeformat
 from django.utils.html import escape
-from django.utils.translation import ugettext as _, ugettext_lazy
+from django.utils.translation import gettext as _, gettext_lazy
 from io import BytesIO
 from reportlab.lib.enums import TA_JUSTIFY
 from reportlab.lib.pagesizes import A4
@@ -52,34 +52,34 @@ class MessageTable(tables.Table):
 		#exclude = ['id', 'content', 'inbound', 'is_active', 'localuser_id', 'filtered', 'clientip']
 		fields = ('conversation_id', 'timestamp', 'localim', 'remoteim')
 		default = '' # Not '—' for empty values
-	# Use ugettext_lazy because class definitions are evaluated once!
+	# Use gettext_lazy because class definitions are evaluated once!
 	conversation_id = tables.Column(visible=False)
 	def render_timestamp(self, record):
 		return record.timestamp.strftime(_('%m/%d/%Y - %I:%M:%S %p'))
 
 class MessageSearchForm(forms.Form):
-	message = forms.CharField(required=False, label=ugettext_lazy("message"))
-	localim = forms.CharField(required=False, label=ugettext_lazy("user"))
-	remoteim = forms.CharField(required=False, label=ugettext_lazy("buddy"))
-	filtered = forms.BooleanField(required=False, label=ugettext_lazy("filtered"),
+	message = forms.CharField(required=False, label=gettext_lazy("message"))
+	localim = forms.CharField(required=False, label=gettext_lazy("user"))
+	remoteim = forms.CharField(required=False, label=gettext_lazy("buddy"))
+	filtered = forms.BooleanField(required=False, label=gettext_lazy("filtered"),
 		widget=forms.CheckboxInput(attrs={
 			'style': 'float: left; clear: right;',
 		})
 	)
 	from_date = forms.DateField(required=False,
-		label=ugettext_lazy("from date"),
+		label=gettext_lazy("from date"),
 		widget=forms.DateInput(attrs={
 			'class': 'datepicker',
-			'format': ugettext_lazy('mm/dd/yyyy'),
-			#'title': ugettext_lazy("From date"),
+			'format': gettext_lazy('mm/dd/yyyy'),
+			#'title': gettext_lazy("From date"),
 			#'maxlength': '10',
 			#'style': 'float: left; position: relative; z-index: 1;',
 		}))
 	to_date = forms.DateField(required=False,
-		label=ugettext_lazy("to date"),
+		label=gettext_lazy("to date"),
 		widget=forms.DateInput(attrs={
 			'class': 'datepicker',
-			'format': ugettext_lazy('mm/dd/yyyy')
+			'format': gettext_lazy('mm/dd/yyyy')
 		}))
 
 
