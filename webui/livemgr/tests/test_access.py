@@ -25,13 +25,15 @@
 """
 
 from django.conf import settings
-from django.contrib.auth.models import AnonymousUser, Group
+from django.contrib.auth.hashers import make_password
+from django.contrib.auth.models import AnonymousUser, Group, User as AuthUser
 # Django 1.10 moves django.core.urlresolvers to django.urls
 try:
 	from django.urls import reverse
 except ImportError:
 	from django.core.urlresolvers import reverse
 from django.http import HttpRequest
+from django.test import Client
 from django.test.utils import override_settings
 from webui.controllers.handlers import error_500
 from webui.livemgr.models import Acl
@@ -202,6 +204,30 @@ class AuthenticationTest(LivemgrTestCase):
 		account.is_active = False
 		account.save()
 		self.assertFalse(self.client.login(username='operator', password=self.PASSWORD))
+
+	def store_sha1_password(self, account):
+		# As set while SHA1 was the preferred hasher (see PASSWORD_HASHERS)
+		AuthUser.objects.filter(pk=account.pk).update(
+			password=make_password(self.PASSWORD, hasher='sha1'))
+
+	def test_login_rewrites_sha1_passwords(self):
+		account = self.create_account('operator')
+		self.store_sha1_password(account)
+		response = self.client.post('/login/', {'username': 'operator', 'password': self.PASSWORD})
+		self.assertRedirectsTo(response, '/dashboard')
+		password = AuthUser.objects.get(pk=account.pk).password
+		self.assertTrue(password.startswith('pbkdf2_sha256$'))
+		self.client.post('/logout/')
+		self.assertTrue(self.client.login(username='operator', password=self.PASSWORD))
+
+	def test_rewriting_a_sha1_password_ends_other_sessions(self):
+		account = self.create_account('operator', permissions=['see_dashboard'])
+		self.store_sha1_password(account)
+		other = Client()
+		other.force_login(AuthUser.objects.get(pk=account.pk))
+		self.assertEqual(other.get('/dashboard/').status_code, 200)
+		self.login(account)
+		self.assertRedirectsToLogin(other.get('/dashboard/'))
 
 class AuthorizationTest(LivemgrTestCase):
 	def test_users_without_permissions_are_sent_to_login(self):
