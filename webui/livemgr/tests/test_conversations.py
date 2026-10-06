@@ -24,6 +24,7 @@ from django.utils import translation
 from webui.livemgr.models import Message
 from webui.livemgr.tests.base import LivemgrTestCase, at
 from webui.livemgr.tests.pdftext import read_pages, uncompressed
+import re
 
 def conversation_ids(response):
 	return [row.record.conversation_id for row in response.context['page'].object_list]
@@ -113,6 +114,14 @@ class ConversationShowTest(ConversationFixtures, LivemgrTestCase):
 		response = self.client.get('/conversations/%d/' % self.first.id)
 		self.assertContains(response, '<span style="color:#7ca380;">alice@example.com</span>')
 		self.assertContains(response, '<span style="color:#ad8282;">bob@example.com</span>')
+
+	def test_each_message_names_its_sender(self):
+		# Django 3.1 deprecates {% ifequal %}, which picked the sender: the user
+		# for outbound messages, the buddy for inbound ones.
+		response = self.client.get('/conversations/%d/' % self.first.id)
+		senders = re.findall(r'<tr id="msg-\d+">.*?<span style="color:#\w+;">([^<]+)</span>',
+			response.content.decode('utf-8'), re.DOTALL)
+		self.assertEqual(senders, ['alice@example.com', 'bob@example.com', 'alice@example.com'])
 
 	def test_message_types(self):
 		conversation = self.make_conversation(self.alice)

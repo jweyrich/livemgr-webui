@@ -94,11 +94,11 @@
 					<tr id="msg-{{ msg.id }}">
 						<td style="padding-left: 10px;">{{ msg.timestamp|date:"h:i:s A" }}</td>
 						<td>
-						{% ifequal msg.inbound 0 %}
+						{% if msg.inbound == 0 %}
 							<span style="color:{{ colors|dict_get:msg.localim }};">{{ msg.localim }}</span>
 						{% else %}
 							<span style="color:{{ colors|dict_get:msg.remoteim }};">{{ msg.remoteim }}</span>
-						{% endifequal %}
+						{% endif %}
 						</td>
 						<td style="text-align: justify; padding-right: 10px;">
 							{% if msg.filtered %}

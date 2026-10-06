@@ -21,8 +21,8 @@
 #   Jardel Weyrich <jweyrich@gmail.com>
 
 from django.apps import apps
-from django.conf.urls import include, url
 from django.contrib import admin
+from django.urls import include, re_path
 from django.views.static import serve
 from webui import settings
 import django
@@ -50,25 +50,26 @@ if django.VERSION >= (1, 10):
 else:
 	from django.views.i18n import javascript_catalog as jsi18n_view
 
-# Django 1.8 deprecates patterns() and views given as dotted paths.
+# Django 1.8 deprecates patterns() and views given as dotted paths. Django 3.1
+# deprecates url() for re_path(), the name it has had since Django 2.0.
 urlpatterns = [
 	# Uncomment the admin/doc line below and add 'django.contrib.admindocs'
 	# to INSTALLED_APPS to enable admin documentation:
-	# url(r'^admin/doc/', include('django.contrib.admindocs.urls')),
+	# re_path(r'^admin/doc/', include('django.contrib.admindocs.urls')),
 
 	# Uncomment the next line to enable the admin:
 	# Django 1.9 deprecates include() for the admin's (patterns, app_name,
-	# namespace) 3-tuple; url() takes it directly.
-	url(r'^admin/', admin.site.urls),
+	# namespace) 3-tuple; re_path() takes it directly.
+	re_path(r'^admin/', admin.site.urls),
 
 	# Internationalization
-	url(r'^i18n/', include('django.conf.urls.i18n')),
-	url(r'^jsi18n/$', jsi18n_view, name='jsi18n'),
+	re_path(r'^i18n/', include('django.conf.urls.i18n')),
+	re_path(r'^jsi18n/$', jsi18n_view, name='jsi18n'),
 
 	# User defined
-	url(r'^media/(?P<path>.*)$', serve,
+	re_path(r'^media/(?P<path>.*)$', serve,
 		{ 'document_root': settings.MEDIA_ROOT }),
-	url(r'^', livemgr_urls),
+	re_path(r'^', livemgr_urls),
 ]
 
 # django-debug-toolbar 1.6 no longer adds its URLs by itself. Since 1.10 they're
@@ -76,5 +77,5 @@ urlpatterns = [
 if apps.is_installed('debug_toolbar'):
 	import debug_toolbar
 	urlpatterns += [
-		url(r'^__debug__/', include(debug_toolbar.urls)),
+		re_path(r'^__debug__/', include(debug_toolbar.urls)),
 	]
