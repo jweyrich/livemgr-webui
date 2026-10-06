@@ -3,10 +3,34 @@ services:
   app:
     depends_on:
       - db
+      - keyserver
     image: livemgr-webui:latest
     restart: always
     ports:
       - 8000:8000
+    environment:
+      LIVEMGR_KEYSERVER_HOST: keyserver
+      LIVEMGR_KEYSERVER_CA_FILE: /opt/apps/livemgr-webui/conf/certs/ca.crt
+    volumes:
+      # License certificate (LICENSE_FILE), generated with tools/license
+      - type: bind
+        source: ./conf/certs
+        target: /opt/apps/livemgr-webui/conf/certs
+        read_only: true
+  # Development stand-in for the livemgr KeyServer (see tools/keyserver)
+  keyserver:
+    image: python:3.12-alpine
+    restart: on-failure
+    volumes:
+      - type: bind
+        source: ./tools/keyserver
+        target: /opt/keyserver
+        read_only: true
+      - type: bind
+        source: ./conf/keyserver
+        target: /etc/keyserver
+        read_only: true
+    command: python /opt/keyserver/keyserver.py --cert /etc/keyserver/keyserver.pem --ca-file /etc/keyserver/ca.crt
   db:
     image: mariadb:10.4.13
     restart: on-failure

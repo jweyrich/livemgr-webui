@@ -234,3 +234,6 @@ KEYSERVER_HOST = ''
 KEYSERVER_PORT = 443
 KEYSERVER_USE_SSL = True
 KEYSERVER_TIMEOUT = 5 # seconds
+# CA certificate(s) the KeyServer's certificate is verified against. None uses
+# the system's trusted CAs.
+KEYSERVER_CA_FILE = None

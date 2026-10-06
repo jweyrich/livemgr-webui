@@ -77,7 +77,7 @@ def fetch_license_details(cert_path):
 		if settings.KEYSERVER_USE_SSL:
 			# Python 3.6 deprecates key_file and cert_file, and 3.12 removes
 			# them: load the client certificate into the context they built.
-			context = ssl.create_default_context()
+			context = ssl.create_default_context(cafile=settings.KEYSERVER_CA_FILE)
 			context.load_cert_chain(cert_path)
 			conn = http_client.HTTPSConnection(
 				settings.KEYSERVER_HOST,

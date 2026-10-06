@@ -1,0 +1,6 @@
+# Licensing CA and license certificates hold private keys: the license is
+# mounted at runtime instead (see docker-compose.yml)
+conf/license-ca/
+conf/keyserver/
+conf/certs/*
+!conf/certs/.gitkeep
