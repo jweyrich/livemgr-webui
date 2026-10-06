@@ -20,7 +20,7 @@ BuildArch:      noarch
 BuildRequires:  python-setuptools
 BuildRequires:  python-devel
 BuildRequires:  java >= 1:1.6.0
-Requires:       Django = 3.0.14
+Requires:       Django = 3.1.14
 Requires:       django-tables2 = 2.3.4
 Requires:       python-tzlocal
 Requires:       python-reportlab

@@ -52,6 +52,14 @@ class ProfileUpdateTest(LivemgrTestCase):
 			('Op', 'Erator', 'op@example.com'))
 		self.assertTrue(account.check_password(self.PASSWORD)) # untouched
 
+	def test_first_name_takes_150_characters(self):
+		# Django 3.1 raises the limit from 30 characters. Its migration widens
+		# the column (auth.0012_alter_user_first_name_max_length).
+		self.post(first_name='x' * 150)
+		self.assertEqual(self.reload().first_name, 'x' * 150)
+		response = self.post(first_name='x' * 151)
+		self.assertTrue('first_name' in response.context['form_user'].errors)
+
 	def test_update_flashes_success(self):
 		response = self.client.post('/profile/update/',
 			{'language': 'en', 'next': '/profile/update/'}, follow=True)

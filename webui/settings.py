@@ -205,6 +205,14 @@ SESSION_SERIALIZER = 'django.contrib.sessions.serializers.JSONSerializer'
 # Logins last 8 hours instead of the default two weeks. Each change to the
 # session, such as a flashed message, starts the 8 hours again.
 SESSION_COOKIE_AGE = 60 * 60 * 8
+# Django 3.1 signs sessions with SHA-256 instead of SHA-1, in a new format. It
+# still reads the sessions older versions saved, so upgrading logs no one out,
+# but Django 3.0 fails every request (500) whose session 3.1 saved. Before
+# rolling back, delete the sessions, which logs everyone out (add the
+# deployment's --settings):
+#	python webui/manage.py shell -c "from django.contrib.sessions.models import Session; Session.objects.all().delete()"
+# To run 3.0 and 3.1 side by side, set DEFAULT_HASHING_ALGORITHM = 'sha1' in
+# the deployment's settings until all run 3.1. Django 4.0 removes it.
 # Django 2.1 sets the session and CSRF cookies with SameSite=Lax, so browsers
 # no longer send them on requests from other sites: a login form posted from
 # another site lands on CSRF_FAILURE_VIEW. Set SESSION_COOKIE_SAMESITE and
