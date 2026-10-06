@@ -38,6 +38,7 @@ import errno
 import json
 import os
 import socket
+import ssl
 import stat
 import sys
 
@@ -74,10 +75,14 @@ def save_uploaded_license(path, uploaded_file):
 def fetch_license_details(cert_path):
 	try:
 		if settings.KEYSERVER_USE_SSL:
+			# Python 3.6 deprecates key_file and cert_file, and 3.12 removes
+			# them: load the client certificate into the context they built.
+			context = ssl.create_default_context()
+			context.load_cert_chain(cert_path)
 			conn = http_client.HTTPSConnection(
 				settings.KEYSERVER_HOST,
 				settings.KEYSERVER_PORT,
-				key_file=cert_path, cert_file=cert_path,
+				context=context,
 				timeout=settings.KEYSERVER_TIMEOUT)
 		else:
 			conn = http_client.HTTPConnection(

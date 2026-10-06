@@ -5,11 +5,11 @@ HOW TO SETUP IT FOR LOCAL TESTING
 git clone https://github.com/jweyrich/livemgr-webui.git
 cd livemgr-webui
 
-# Install Python 3.7. Most systems no longer package it, so build it with pyenv:
-#	pyenv install 3.7.17
+# Install Python 3.9. Most systems no longer package it, so build it with pyenv:
+#	pyenv install 3.9.25
 
 # Create a virtual environment for our Python dependencies:
-python3.7 -m venv env
+python3.9 -m venv env
 
 # Activate it:
 . ./activate.sh
@@ -17,8 +17,8 @@ python3.7 -m venv env
 # Check if the activation succeeeded - the printed path must reside within your cloned directory:
 which python
 
-# Upgrade pip - 24.0 is the last release that supports Python 3.7:
-pip install pip==24.0
+# Upgrade pip - 26.0.1 is the last release that supports Python 3.9:
+pip install pip==26.0.1
 
 # Install swig - required by M2Crypto:
 #

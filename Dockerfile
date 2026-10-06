@@ -14,18 +14,13 @@ RUN npx gulp --gulpfile gulpfile.js all
 
 ###
 
-# The official image builds Python 3.7 on top of Debian buster, with git, gcc
+# The official image builds Python 3.9 on top of Debian bookworm, with git, gcc
 # and the OpenSSL and MariaDB client headers (including mysql_config) already
 # installed.
-FROM python:3.7-buster
+FROM python:3.9-bookworm
 LABEL maintainer="jweyrich@gmail.com"
 
-# Buster is EOL: its packages now live only on archive.debian.org
-RUN printf '%s\n' \
-		'deb http://archive.debian.org/debian buster main' \
-		'deb http://archive.debian.org/debian-security buster/updates main' \
-		> /etc/apt/sources.list \
-	&& apt-get -qq update
+RUN apt-get -qq update
 
 # Install system requirements
 RUN DEBIAN_FRONTEND=noninteractive apt-get install -y \
@@ -48,9 +43,9 @@ RUN apt-get clean
 RUN pip install uwsgi==2.0.31
 
 # Create a virtual environment for our application.
-# Its bundled pip is upgraded to 24.0, the last release that supports Python 3.7
-RUN python3.7 -m venv /opt/envs/livemgr-webui \
-	&& /opt/envs/livemgr-webui/bin/pip install pip==24.0
+# Its bundled pip is upgraded to 26.0.1, the last release that supports Python 3.9
+RUN python3.9 -m venv /opt/envs/livemgr-webui \
+	&& /opt/envs/livemgr-webui/bin/pip install pip==26.0.1
 
 # Copy files (TODO: Reorganize to avoid installing dependencies from scratch every time a file changes!)
 ADD . /opt/apps/livemgr-webui

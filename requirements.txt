@@ -15,7 +15,10 @@ django-tables2==2.1.1
 # reportlab 3.6.13 fixes code execution through the color attributes of
 # Paragraph markup (CVE-2023-33733). It requires Python 3.7.
 reportlab==3.6.13
-M2Crypto==0.35.2
+# M2Crypto 0.38 is the first to build against OpenSSL 3, which Debian bookworm
+# ships. 0.45.1 also builds against OpenSSL 3.4 and later, and is the last
+# release before 0.46 reworks the C API and 0.47 the ASN1 module.
+M2Crypto==0.45.1
 # debug-toolbar 2.0 is the first to support Django 2.2. 2.2.1 fixes an SQL
 # injection in the SQL panel (CVE-2021-30459), as 1.11.1 did. It runs on
 # Django 1.11, 2.2 and 3.0.
