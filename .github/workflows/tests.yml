@@ -40,7 +40,7 @@ jobs:
 
       - uses: docker/setup-buildx-action@v4
 
-      # The tests run in the devcontainer image, with the same Python (3.10) and
+      # The tests run in the devcontainer image, with the same Python (3.12) and
       # system libraries as development. Its layers are cached between runs.
       - name: Build devcontainer image
         uses: docker/build-push-action@v7

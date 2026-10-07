@@ -60,8 +60,8 @@ DATABASES = {
 # and no /etc/timezone), it returns 'local', which Django rejects: set the
 # zone's name in the deployment's settings, e.g. TIME_ZONE = 'America/Sao_Paulo'.
 TIME_ZONE = get_localzone().zone
-# The datetimes stay naive, in TIME_ZONE, as the backend stores them. Django 4.0
-# warns that the default turns time zone support on in 5.0.
+# The datetimes stay naive, in TIME_ZONE, as the backend stores them. Django 5.0
+# turns time zone support on by default, so keep it off here.
 USE_TZ = False
 
 # Language section

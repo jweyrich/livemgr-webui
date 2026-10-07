@@ -1,12 +1,12 @@
-Django==4.2.30
+Django==5.0.14
 # Django 1.11 removes TIME_ZONE = None; webui/settings.py names the system's
 # zone with tzlocal instead. 2.1 is the last release built on pytz, which
 # Django 4.0 no longer requires: tzlocal brings it in. Only the zone's name
-# reaches Django, so 4.0's deprecation of pytz zones doesn't apply. tzlocal 3.0
-# returns zoneinfo zones, which have no .zone attribute.
+# reaches Django, so 5.0's removal of pytz zones doesn't apply. tzlocal 3.0
+# returns zoneinfo zones, which have no .zone attribute. 2.1 runs on Python 3.12.
 tzlocal==2.1
 # mysqlclient is the maintained fork of MySQL-python (same MySQLdb module).
-# Django 4.2 requires 1.4.3 or later. 1.4.6 still builds on Python 3.10.
+# Django 5.0 requires 1.4.3 or later. 1.4.6 still builds on Python 3.12.
 mysqlclient==1.4.6
 # django-tables2 1.2.7 to 1.21 title-case the column headers taken from the
 # models (and, until 1.7, translate them once, at import, so they stay in
@@ -15,26 +15,35 @@ mysqlclient==1.4.6
 # to support Django 3.2, and strips the whitespace around TemplateColumn values
 # (none of our tables has one). 2.5.0 is the first to support Django 4.1, and
 # drops Python 3.6. 2.6.0 is the first to support Django 4.2, and drops 4.0.
-# 2.7.0 is the last release before 2.7.1 drops Django 4.1; it runs on Django
-# 3.2, 4.1, 4.2 and 5.0.
-django-tables2==2.7.0
+# 2.7.0 is the first to support Django 5.0. 2.7.5 is the last release before
+# 2.8.0 drops Django 5.0; it runs on Django 4.2, 5.0 and 5.1.
+django-tables2==2.7.5
 # reportlab 3.6.13 fixes code execution through the color attributes of
-# Paragraph markup (CVE-2023-33733). It requires Python 3.7. On Python 3.10 its
-# import warns that it uses load_module(), which Python 3.12 removes.
-reportlab==3.6.13
+# Paragraph markup (CVE-2023-33733). It has no Python 3.12 wheel, and its
+# import warns that it uses load_module() and ast.NameConstant, which Python
+# 3.15 and 3.14 remove. 4.0 moves renderPM and the C accelerators to optional
+# packages, which our reports don't use. 4.4.8 and 4.4.10 fix security issues,
+# as does 5.0.1, which also checks the hosts that resources are redirected to.
+# 5.0 no longer trusts any host for those resources by default; our reports
+# load none. It runs on Python 3.10 to 3.14.
+reportlab==5.0.1
 # M2Crypto 0.38 is the first to build against OpenSSL 3, which Debian bookworm
 # ships. 0.45.1 also builds against OpenSSL 3.4 and later, and is the last
-# release before 0.46 reworks the C API and 0.47 the ASN1 module.
+# release before 0.46 reworks the C API and 0.47 the ASN1 module. It still
+# builds on Python 3.12.
 M2Crypto==0.45.1
 # debug-toolbar 3.0 is the first to support Django 3.1, and loads its script as
 # a JavaScript module. 3.2.1 fixes an SQL injection in the SQL panel
 # (CVE-2021-30459), as 2.2.1 did. 3.6.0 is the first to support Django 4.1
 # (its templates panel crashed on 4.1 with pygments installed). 4.0 removes the
 # logging panel, which our settings don't list. 4.2.0 is the first to support
-# Django 4.2. 4.3.0 is the last release before 4.4 drops Django 4.1; it runs
-# on Django 3.2, 4.1, 4.2 and 5.0.
-django-debug-toolbar==4.3.0
-# Django 4.2 requires sqlparse >= 0.3.1 (4.1 >= 0.2.2), and debug-toolbar 4.3
-# >= 0.2. 0.6.0 fixes denial-of-service issues in parsing and formatting
-# (CVE-2026-59893, CVE-2026-54284 and others), and requires Python 3.10.
+# Django 4.2. 4.4.0 renders its forms without Django 5.0's removed
+# "default.html" template. 6.0 stores the toolbar's data behind a store class,
+# in memory by default; its models and migrations stay hidden unless the
+# database store is set. 6.1.0 is the last release before 6.2 drops Django 5.0;
+# it runs on Django 4.2, 5.0, 5.1 and 5.2.
+django-debug-toolbar==6.1.0
+# Django 5.0 requires sqlparse >= 0.3.1, and debug-toolbar 6.1 >= 0.2. 0.6.0
+# fixes denial-of-service issues in parsing and formatting (CVE-2026-59893,
+# CVE-2026-54284 and others), and requires Python 3.10.
 sqlparse==0.6.0
