@@ -29,7 +29,7 @@
 	-webkit-border-bottom-left-radius: 5px;
 	-webkit-border-bottom-right-radius: 5px;
 }
-#most_active_users_chart img {
+#most_active_users_chart svg {
 	-webkit-border-radius: 5px;
 }
 

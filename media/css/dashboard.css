@@ -120,8 +120,12 @@
 	background-color: #f8f8f8;
 	cursor: pointer;
 }
-#most_active_users_chart img {
+#most_active_users_chart svg {
 	/*float: right;*/
+	display: block;
+	max-width: 100%;
+	height: auto;
+	background-color: #fff;
 	padding: 5px;
 	border: 1px solid #d6d7d7;
 	/* -specific-
