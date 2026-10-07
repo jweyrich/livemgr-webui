@@ -222,8 +222,8 @@ class AuthenticationTest(LivemgrTestCase):
 
 	def store_password_with_other_iterations(self, account):
 		# As stored by an older Django: 5.1 raises PBKDF2's iterations from
-		# 720,000 to 870,000. settings_test runs one, so any other count
-		# stands in for the old one.
+		# 720,000 to 870,000, and 5.2 to 1,000,000. settings_test runs one, so
+		# any other count stands in for the old one.
 		hasher = get_hasher('pbkdf2_sha256')
 		self.store_password(account,
 			hasher.encode(self.PASSWORD, hasher.salt(), hasher.iterations + 1))

@@ -24,8 +24,8 @@ from django.contrib.auth.hashers import PBKDF2PasswordHasher
 
 class FastPBKDF2PasswordHasher(PBKDF2PasswordHasher):
 	"""
-	PBKDF2 with a single iteration, for settings_test only. Django 5.1 runs
-	870,000, which every account the tests create and log in would pay. The
+	PBKDF2 with a single iteration, for settings_test only. Django 5.2 runs
+	1,000,000, which every account the tests create and log in would pay. The
 	algorithm's name is the same, so the hashes look like the real ones.
 	"""
 	iterations = 1

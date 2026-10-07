@@ -45,8 +45,15 @@ DATABASES = {
         'PASSWORD': 'doe',
         'HOST': '',
         'PORT': '',
+        'OPTIONS': {'charset': 'utf8mb3'},
     }
 }
+# Django 5.2 connects to MySQL in utf8mb4 instead of utf8 (utf8mb3), but the
+# backend's tables (bootstrap/db/create_tables.sql) are utf8mb3: a search for a
+# character they can't hold, such as an emoji, then fails with "Illegal mix of
+# collations" (a 500) instead of finding nothing. Keep utf8mb3 in every
+# deployment's DATABASES with 'OPTIONS': {'charset': 'utf8mb3'}. Saving such a
+# character fails either way.
 # Django 2.0 sets MySQL connections to READ COMMITTED; older versions kept the
 # server's default, usually REPEATABLE READ. A server that writes its binary
 # log in STATEMENT format then rejects writes to InnoDB tables: switch it to ROW
@@ -193,9 +200,10 @@ LOGIN_REDIRECT_URL = '/dashboard'
 # then give each a new password with
 # "python webui/manage.py changepassword <username>":
 #	python webui/manage.py shell -c "from django.contrib.auth.models import User; print(list(User.objects.filter(password__startswith='sha1\$').values_list('username', flat=True)))"
-# Django 5.1 also raises PBKDF2's iterations from 720,000 to 870,000: each
-# account's hash is rewritten when it next logs in, which logs out that
-# account's other sessions once. 5.0 still reads the new hashes.
+# Django 5.1 also raises PBKDF2's iterations from 720,000 to 870,000, and 5.2
+# to 1,000,000: each account's hash is rewritten when it next logs in, which
+# logs out that account's other sessions once. 5.0 and 5.1 still read the new
+# hashes.
 PASSWORD_HASHERS = (
     'django.contrib.auth.hashers.PBKDF2PasswordHasher',
     'django.contrib.auth.hashers.PBKDF2SHA1PasswordHasher',

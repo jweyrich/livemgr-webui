@@ -19,7 +19,7 @@ jobs:
     timeout-minutes: 30
 
     services:
-      # Django 5.1 requires MariaDB 10.5 or later
+      # Django 5.2 requires MariaDB 10.5 or later
       db:
         image: mariadb:10.11
         env:

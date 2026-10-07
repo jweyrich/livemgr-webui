@@ -39,6 +39,8 @@ DATABASES = {
         'PASSWORD': os.environ.get('LIVEMGR_TEST_DB_PASSWORD', '123456'),
         'HOST': os.environ.get('LIVEMGR_TEST_DB_HOST', 'db'),
         'PORT': os.environ.get('LIVEMGR_TEST_DB_PORT', ''),
+        # Django 5.2 defaults to utf8mb4: see DATABASES in webui/settings.py
+        'OPTIONS': {'charset': 'utf8mb3'},
         'TEST': {'CHARSET': 'utf8'},
     }
 }
