@@ -1,10 +1,9 @@
-// npm install --save-dev gulp gulp-concat gulp-rename gulp-clean-css gulp-sourcemaps gulp-uglify
+// npm install --save-dev gulp gulp-concat gulp-rename gulp-clean-css gulp-uglify
 
 const gulp = require('gulp');
 const concat = require('gulp-concat');
 const rename = require('gulp-rename');
 const cleanCSS = require('gulp-clean-css');
-const sourcemaps = require('gulp-sourcemaps');
 const uglify = require('gulp-uglify');
 
 const cssFiles = [
@@ -42,21 +41,17 @@ const jsFiles = [
 const jsDest = 'js/';
 
 gulp.task('styles', function() {
-    return gulp.src(cssFiles)
-    	.pipe(sourcemaps.init())
+    return gulp.src(cssFiles, {sourcemaps: true})
         .pipe(cleanCSS({compatibility: 'ie9'}))
-        .pipe(sourcemaps.write())
         .pipe(concat('all.min.css'))
-        .pipe(gulp.dest(cssDest));
+        .pipe(gulp.dest(cssDest, {sourcemaps: true}));
 });
 
 gulp.task('scripts', function() {
-    return gulp.src(jsFiles)
-    	.pipe(sourcemaps.init())
-        .pipe(uglify())
-        .pipe(sourcemaps.write())
+    return gulp.src(jsFiles, {sourcemaps: true})
+        .pipe(uglify({module: false}))
         .pipe(concat('all.min.js'))
-        .pipe(gulp.dest(jsDest));
+        .pipe(gulp.dest(jsDest, {sourcemaps: true}));
 });
 
 gulp.task('all', gulp.series('styles', 'scripts'))
