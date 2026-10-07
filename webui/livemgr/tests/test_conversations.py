@@ -73,6 +73,13 @@ class ConversationListTest(ConversationFixtures, LivemgrTestCase):
 			[self.second.id])
 		self.assertEqual(len(conversation_ids(self.client.post('/conversations/', {'localim': 'alice'}))), 2)
 
+	def test_search_for_characters_the_tables_cannot_hold(self):
+		# The backend's tables are utf8mb3, which has no emoji. Django 5.2
+		# connects in utf8mb4 unless told otherwise (see DATABASES in
+		# webui/settings.py), and MariaDB then rejects the comparison.
+		for field in ('message', 'localim', 'remoteim'):
+			self.assertEqual(conversation_ids(self.client.post('/conversations/', {field: '\U0001F600'})), [])
+
 	def test_search_filtered(self):
 		self.assertEqual(conversation_ids(self.client.post('/conversations/', {'filtered': 'on'})),
 			[self.first.id])

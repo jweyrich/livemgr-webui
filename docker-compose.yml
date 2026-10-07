@@ -31,7 +31,7 @@ services:
         target: /etc/keyserver
         read_only: true
     command: python /opt/keyserver/keyserver.py --cert /etc/keyserver/keyserver.pem --ca-file /etc/keyserver/ca.crt
-  # Django 5.1 requires MariaDB 10.5 or later. 10.11 is the oldest release
+  # Django 5.2 requires MariaDB 10.5 or later. 10.11 is the oldest release
   # still supported upstream (until February 2028).
   db:
     image: mariadb:10.11.19

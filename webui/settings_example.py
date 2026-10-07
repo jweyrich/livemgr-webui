@@ -32,6 +32,8 @@ DATABASES = {
         'PASSWORD': 'livemgr',
         'HOST': 'db',
         'PORT': '',
+        # Django 5.2 defaults to utf8mb4: see DATABASES in webui/settings.py
+        'OPTIONS': {'charset': 'utf8mb3'},
     }
 }
 

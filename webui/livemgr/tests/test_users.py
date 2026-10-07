@@ -66,6 +66,10 @@ class UserListTest(LivemgrTestCase):
 		self.assertEqual(listed(self.client.post('/users/', {'group': self.sales.id})), [self.bob])
 		self.assertEqual(listed(self.client.post('/users/', {'status': 'NLN'})), [self.alice])
 
+	def test_search_for_characters_the_table_cannot_hold(self):
+		# See ConversationListTest.test_search_for_characters_the_tables_cannot_hold
+		self.assertEqual(listed(self.client.post('/users/', {'username': '\U0001F600'})), [])
+
 	def test_invalid_search(self):
 		self.assertEqual(self.client.post('/users/', {'status': 'XXX'}).status_code, 400)
 

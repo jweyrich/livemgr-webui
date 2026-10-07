@@ -43,7 +43,7 @@ pip install pip==26.2.1
 # Install our Python dependencies:
 pip install -r requirements.txt
 
-# Setup the MySQL or MariaDB database. Django 5.1 requires MySQL 8.0.11 or
+# Setup the MySQL or MariaDB database. Django 5.2 requires MySQL 8.0.11 or
 # later, or MariaDB 10.5 or later: the containers and the tests use MariaDB 10.11.
 mysql -u root -p -h localhost
 > CREATE DATABASE livemgr;
@@ -92,6 +92,13 @@ python webui/manage.py migrate --settings=settings_example
 # in: see PASSWORD_HASHERS in webui/settings.py to find them before upgrading.
 # Each account's password hash is also rewritten when it next logs in, which
 # logs out that account's other sessions once.
+
+# Upgrading to Django 5.2? It connects to the database in utf8mb4 instead of
+# utf8mb3, the character set of the backend's tables: keep utf8mb3 in your own
+# settings' DATABASES with 'OPTIONS': {'charset': 'utf8mb3'}, as
+# webui/settings.py explains, or searching for an emoji fails with a 500. Each
+# account's password hash is rewritten again when it next logs in (PBKDF2 now
+# runs 1,000,000 iterations), which logs out that account's other sessions once.
 
 # Upgrading an install created by syncdb (Django < 1.7) that was never
 # migrated? Django 1.8 no longer skips the migrations whose tables already
