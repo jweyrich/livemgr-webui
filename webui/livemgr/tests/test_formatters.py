@@ -25,7 +25,7 @@ from django.utils import translation
 from django.utils.safestring import SafeData
 from webui.livemgr.models import Acl
 from webui.livemgr.utils.formatters import format_acl_action, format_boolean, \
-	format_user_status, ip_long_to_str
+	format_user_status, ip_long_to_str, ip_str_to_long
 from webui.livemgr.utils.local_datetime import adjust_date
 from webui.livemgr.utils.resources import Resources
 import unittest
@@ -68,6 +68,12 @@ class FormattersTest(unittest.TestCase):
 		self.assertEqual(ip_long_to_str(0x0101A8C0), '192.168.1.1')
 		self.assertEqual(ip_long_to_str(0), '0.0.0.0')
 		self.assertEqual(ip_long_to_str(0xFFFFFFFF), '255.255.255.255')
+
+	def test_ip_str_to_long(self):
+		self.assertEqual(ip_str_to_long('127.0.0.1'), 0x0100007F)
+		self.assertEqual(ip_str_to_long('192.168.1.1'), 0x0101A8C0)
+		for ip in ('0.0.0.0', '10.1.2.30', '255.255.255.255'):
+			self.assertEqual(ip_long_to_str(ip_str_to_long(ip)), ip)
 
 class AdjustDateTest(unittest.TestCase):
 	def test_start_of_day(self):

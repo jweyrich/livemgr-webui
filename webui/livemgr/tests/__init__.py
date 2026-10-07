@@ -40,6 +40,7 @@ if django.VERSION < (1, 6):
 	from webui.livemgr.tests.test_license import *
 	from webui.livemgr.tests.test_models import *
 	from webui.livemgr.tests.test_profiles import *
+	from webui.livemgr.tests.test_sample_data import *
 	from webui.livemgr.tests.test_settings import *
 	from webui.livemgr.tests.test_templatetags import *
 	from webui.livemgr.tests.test_users import *
