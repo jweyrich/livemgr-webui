@@ -35,7 +35,7 @@ const jsFiles = [
 	'js/search.js',
 	'js/selection.js',
 	'js/selectbox.js',
-	'js/googlecharts.js',
+	'js/barchart.js',
 	'js/utils.js',
 ];
 const jsDest = 'js/';

@@ -32,7 +32,7 @@
 	-moz-border-radius-bottomleft: 5px 5px;
 	-moz-border-radius-bottomright: 5px 5px;
 }
-#most_active_users_chart img {
+#most_active_users_chart svg {
 	-moz-border-radius: 5px;
 }
 
