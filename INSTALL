@@ -57,6 +57,9 @@ make -C media all
 
 # Create the web UI tables that have not already been created:
 python webui/manage.py migrate --settings=settings_example
+# The first run asks whether to load sample data to try out the web UI. To load
+# it later, see "Sample data" in README.md:
+#	python webui/manage.py load_sample_data --settings=settings_example
 
 # Upgrading to Django 3.1? migrate also widens auth_user.first_name from 30
 # to 150 characters, which the profile page now accepts. Until it runs, saving

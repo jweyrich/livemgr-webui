@@ -23,8 +23,11 @@
 from django.contrib.auth.models import Permission as DjangoPermission
 from django.contrib.auth.models import User as DjangoUser
 from django.contrib.auth.models import Group as DjangoGroup
+from django.conf import settings
+from django.db import transaction
 from django.db.models import signals
 import django
+import sys
 
 def bla():
     permissions = [
@@ -47,9 +50,11 @@ def install(**kwargs):
         audit_group.permissions = bla()
     audit_group.save()
 
+    first_run = False
     try:
         DjangoUser.objects.get(username='admin')
     except DjangoUser.DoesNotExist:
+        first_run = True
         user = DjangoUser.objects.create(
             username='admin',
             is_active=True,
@@ -71,6 +76,41 @@ def install(**kwargs):
         user.groups.add(audit_group)
         user.set_password('auditor')
         user.save()
+
+    if first_run:
+        offer_sample_data(kwargs.get('interactive', False), kwargs.get('verbosity', 1))
+
+def offer_sample_data(interactive, verbosity):
+    """
+    On the first migrate, the one that creates the admin account, offers to
+    load the sample data (see webui/livemgr/sample_data.py), as long as the
+    livemgr tables exist and are empty.
+    """
+    from webui.livemgr import sample_data
+    if not sample_data.tables_exist() or sample_data.existing_rows():
+        return
+    if interactive and sys.stdin.isatty():
+        if ask_yes_no('\nWould you like to load sample data (users, groups, ACLs, '
+                'badwords and conversations) to try out the web UI? (yes/no): '):
+            with transaction.atomic():
+                counts = sample_data.load()
+            print('Loaded %s.' % sample_data.format_counts(counts))
+            return
+    if verbosity >= 1:
+        print('\nTo load sample data to try out the web UI, run:\n'
+            '  python webui/manage.py load_sample_data --settings=%s' % settings.SETTINGS_MODULE)
+
+def ask_yes_no(question):
+    while True:
+        try:
+            answer = input(question).strip().lower()
+        except EOFError:
+            return False
+        if answer in ('yes', 'y'):
+            return True
+        if answer in ('no', 'n'):
+            return False
+        print("Please answer 'yes' or 'no'.")
 
 # Django 1.7 replaces post_syncdb with post_migrate, whose sender is the app's
 # AppConfig. migrate imports this module after django.contrib.auth's, so the

@@ -26,8 +26,10 @@ docker build . -t livemgr-webui:latest
 docker-compose up
 docker-compose run db "mysql -uroot --password=123456 < /mnt/initdb/create_schema.sql"
 docker-compose run db "mysql -uroot --password=123456 < /mnt/initdb/create_tables.sql"
-docker-compose run app /opt/envs/livemgr-webui/bin/python webui/manage.py migrate --noinput --settings=settings_example
+docker-compose run app /opt/envs/livemgr-webui/bin/python webui/manage.py migrate --settings=settings_example
 ````
+
+The first `migrate` asks whether to load [sample data](#sample-data).
 
 ## How to provision a license?
 
@@ -50,6 +52,24 @@ Open the repository in VS Code and choose **Reopen in Container** (requires the 
 ```sh
 python webui/manage.py runserver 0.0.0.0:8000 --settings=settings_example
 ```
+
+The database starts empty. To fill it with [sample data](#sample-data):
+
+```sh
+python webui/manage.py load_sample_data --settings=settings_example
+```
+
+## Sample data
+
+A fictitious company to try out every page: 40 users in 7 groups with their rules, their buddies, ACLs, badwords (words and regular expressions), and 3 months of conversations that end at the current time, so the dashboard has data for today, this week, this month and this year. The data is consistent, as if the backend had captured it: for instance, a group that blocks file transfers has none in its conversations, and a message is filtered only if its group filters badwords and the message contains one. See `webui/livemgr/sample_data.py`.
+
+The first `migrate`, the one that creates the `admin` account, asks whether to load it when the tables are empty. With `--noinput`, or without a terminal (as in the devcontainer), it prints the command to load it instead:
+
+```sh
+python webui/manage.py load_sample_data --settings=settings_example
+```
+
+It doesn't add to tables that already have data: `--flush` deletes all the users, groups (except the built-in `guest`), ACLs, badwords and conversations first, after asking. `--days N` creates N days of conversations before today's (default: 90), and `--seed N` creates different data (the same seed creates the same data, relative to the current time).
 
 ## How to test?
 

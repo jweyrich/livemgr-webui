@@ -73,3 +73,7 @@ def ip_long_to_str(ip_as_long):
 	#return socket.inet_ntoa(struct.pack('L', socket.ntohl(ip_as_long)))
 	# We decided to store it as BigEndian on the database
 	return socket.inet_ntoa(struct.pack('I', ip_as_long))
+
+def ip_str_to_long(ip_as_str):
+	# The inverse of ip_long_to_str
+	return struct.unpack('I', socket.inet_aton(ip_as_str))[0]
