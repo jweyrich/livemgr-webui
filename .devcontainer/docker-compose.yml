@@ -25,11 +25,15 @@ services:
       - ../conf/keyserver:/etc/keyserver:ro
     command: python /opt/keyserver/keyserver.py --cert /etc/keyserver/keyserver.pem --ca-file /etc/keyserver/ca.crt
 
+  # Django 5.1 requires MariaDB 10.5 or later. 10.11 is the oldest release
+  # still supported upstream (until February 2028).
   db:
-    image: mariadb:10.4
+    image: mariadb:10.11
     restart: unless-stopped
     environment:
       MYSQL_ROOT_PASSWORD: 123456
+      # Upgrades the system tables of a db_data volume an older release created
+      MARIADB_AUTO_UPGRADE: 1
     volumes:
       - db_data:/var/lib/mysql
       # Runs create_schema.sql then create_tables.sql on first start only

@@ -185,17 +185,19 @@ LOGIN_REDIRECT_URL = '/dashboard'
 # Django 1.5 deprecates AUTH_PROFILE_MODULE and User.get_profile(): the
 # profile is reached through its one-to-one relation instead (user.profile).
 # Django 1.4 hashes passwords with PBKDF2, which Django 1.3 can't read, so SHA1
-# stayed the preferred hasher. 1.3 no longer runs on our Python, and Django 4.2
-# deprecates SHA1PasswordHasher, which 5.1 removes: PBKDF2 now hashes the new
-# passwords, and rewrites a SHA1 hash when its account logs in, which also logs
-# out that account's other sessions once. Django 4.1 and 4.0 read PBKDF2 hashes.
-# SHA1 stays listed for the hashes not rewritten yet. Before upgrading to 5.1,
-# list the accounts still on SHA1 (add the deployment's --settings), then give
-# each a new password with "python webui/manage.py changepassword <username>":
+# stayed the preferred hasher until Django 4.2, which deprecates
+# SHA1PasswordHasher: since then PBKDF2 hashes the new passwords, and rewrote a
+# SHA1 hash when its account logged in. Django 5.1 removes SHA1PasswordHasher,
+# so the accounts whose hash was never rewritten can no longer log in: their
+# password is rejected as wrong. List them (add the deployment's --settings),
+# then give each a new password with
+# "python webui/manage.py changepassword <username>":
 #	python webui/manage.py shell -c "from django.contrib.auth.models import User; print(list(User.objects.filter(password__startswith='sha1\$').values_list('username', flat=True)))"
+# Django 5.1 also raises PBKDF2's iterations from 720,000 to 870,000: each
+# account's hash is rewritten when it next logs in, which logs out that
+# account's other sessions once. 5.0 still reads the new hashes.
 PASSWORD_HASHERS = (
     'django.contrib.auth.hashers.PBKDF2PasswordHasher',
-    'django.contrib.auth.hashers.SHA1PasswordHasher',
     'django.contrib.auth.hashers.PBKDF2SHA1PasswordHasher',
     'django.contrib.auth.hashers.BCryptPasswordHasher',
     'django.contrib.auth.hashers.MD5PasswordHasher',

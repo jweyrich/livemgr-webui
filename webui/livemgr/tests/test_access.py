@@ -24,8 +24,9 @@
 	URL routing, authentication, authorization and error pages.
 """
 
+import hashlib
 from django.conf import settings
-from django.contrib.auth.hashers import make_password
+from django.contrib.auth.hashers import get_hasher
 from django.contrib.auth.models import AnonymousUser, Group, User as AuthUser
 # Django 1.10 moves django.core.urlresolvers to django.urls
 try:
@@ -205,24 +206,42 @@ class AuthenticationTest(LivemgrTestCase):
 		account.save()
 		self.assertFalse(self.client.login(username='operator', password=self.PASSWORD))
 
-	def store_sha1_password(self, account):
-		# As set while SHA1 was the preferred hasher (see PASSWORD_HASHERS)
-		AuthUser.objects.filter(pk=account.pk).update(
-			password=make_password(self.PASSWORD, hasher='sha1'))
+	def store_password(self, account, password):
+		AuthUser.objects.filter(pk=account.pk).update(password=password)
 
-	def test_login_rewrites_sha1_passwords(self):
+	def test_sha1_passwords_can_no_longer_log_in(self):
+		# As stored while SHA1 was the preferred hasher. Django 5.1 removes
+		# SHA1PasswordHasher (see PASSWORD_HASHERS).
 		account = self.create_account('operator')
-		self.store_sha1_password(account)
+		digest = hashlib.sha1(('salt' + self.PASSWORD).encode()).hexdigest()
+		self.store_password(account, 'sha1$salt$' + digest)
+		response = self.client.post('/login/', {'username': 'operator', 'password': self.PASSWORD})
+		self.assertEqual(response.status_code, 200)
+		self.assertTrue(response.context['form'].errors)
+		self.assertFalse('_auth_user_id' in self.client.session)
+
+	def store_password_with_other_iterations(self, account):
+		# As stored by an older Django: 5.1 raises PBKDF2's iterations from
+		# 720,000 to 870,000. settings_test runs one, so any other count
+		# stands in for the old one.
+		hasher = get_hasher('pbkdf2_sha256')
+		self.store_password(account,
+			hasher.encode(self.PASSWORD, hasher.salt(), hasher.iterations + 1))
+
+	def test_login_rewrites_passwords_hashed_with_other_iterations(self):
+		account = self.create_account('operator')
+		self.store_password_with_other_iterations(account)
 		response = self.client.post('/login/', {'username': 'operator', 'password': self.PASSWORD})
 		self.assertRedirectsTo(response, '/dashboard')
 		password = AuthUser.objects.get(pk=account.pk).password
-		self.assertTrue(password.startswith('pbkdf2_sha256$'))
+		self.assertEqual(get_hasher('pbkdf2_sha256').decode(password)['iterations'],
+			get_hasher('pbkdf2_sha256').iterations)
 		self.client.post('/logout/')
 		self.assertTrue(self.client.login(username='operator', password=self.PASSWORD))
 
-	def test_rewriting_a_sha1_password_ends_other_sessions(self):
+	def test_rewriting_a_password_ends_other_sessions(self):
 		account = self.create_account('operator', permissions=['see_dashboard'])
-		self.store_sha1_password(account)
+		self.store_password_with_other_iterations(account)
 		other = Client()
 		other.force_login(AuthUser.objects.get(pk=account.pk))
 		self.assertEqual(other.get('/dashboard/').status_code, 200)
