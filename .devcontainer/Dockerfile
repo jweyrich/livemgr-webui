@@ -2,7 +2,7 @@
 # Mirrors the production Dockerfile at the repository root, but keeps the
 # source tree bind-mounted instead of baked in.
 
-FROM node:10-buster AS node
+FROM node:24-bookworm AS node
 
 ###
 
@@ -24,7 +24,7 @@ RUN apt-get -qq update \
 		default-mysql-client \
 	&& rm -rf /var/lib/apt/lists/*
 
-# Node 10 matches the version the production build uses for gulp
+# Node 24 matches the version the production build uses for gulp
 COPY --from=node /usr/local/bin/node /usr/local/bin/node
 COPY --from=node /usr/local/lib/node_modules /usr/local/lib/node_modules
 RUN ln -s ../lib/node_modules/npm/bin/npm-cli.js /usr/local/bin/npm \

@@ -1,11 +1,12 @@
-FROM node:10 AS media_build
+# Node 24 is the active LTS line
+FROM node:24-bookworm-slim AS media_build
 
 WORKDIR /media
 
 COPY package*.json ./
 
-# Install all dependencies
-RUN npm install
+# Install the exact dependency tree from package-lock.json
+RUN npm ci
 
 COPY media/ ./
 
