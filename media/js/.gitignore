@@ -1,3 +1,2 @@
 *.min.js
-!lib/jquery.simplemodal-*.min.js
 !lib/jquery.tools.min.js
