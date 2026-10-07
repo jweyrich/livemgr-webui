@@ -1,4 +1,4 @@
-Django==5.1.15
+Django==5.2.17
 # Django 1.11 removes TIME_ZONE = None; webui/settings.py names the system's
 # zone with tzlocal instead. 2.1 is the last release built on pytz, which
 # Django 4.0 no longer requires: tzlocal brings it in. Only the zone's name
