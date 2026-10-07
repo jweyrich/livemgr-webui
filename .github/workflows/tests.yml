@@ -19,8 +19,9 @@ jobs:
     timeout-minutes: 30
 
     services:
+      # Django 5.1 requires MariaDB 10.5 or later
       db:
-        image: mariadb:10.4
+        image: mariadb:10.11
         env:
           MYSQL_ROOT_PASSWORD: 123456
           # Django connects to NAME before creating test_livemgr, so it must exist

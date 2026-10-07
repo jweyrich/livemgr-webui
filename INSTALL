@@ -43,8 +43,8 @@ pip install pip==26.2.1
 # Install our Python dependencies:
 pip install -r requirements.txt
 
-# Setup the MySQL or MariaDB database. Django 5.0 requires MySQL 8.0.11 or
-# later, or MariaDB 10.4 or later: the containers and the tests use MariaDB 10.4.
+# Setup the MySQL or MariaDB database. Django 5.1 requires MySQL 8.0.11 or
+# later, or MariaDB 10.5 or later: the containers and the tests use MariaDB 10.11.
 mysql -u root -p -h localhost
 > CREATE DATABASE livemgr;
 > CREATE USER 'livemgr'@'localhost' IDENTIFIED BY 'livemgr';
@@ -83,6 +83,15 @@ python webui/manage.py migrate --settings=settings_example
 # site-packages). Logging out with a GET request, such as a bookmark to
 # /logout/, now fails with 405 and keeps the user logged in. Django 5.1 drops
 # MariaDB 10.4: upgrade it to 10.5 or later before upgrading to 5.1.
+
+# Upgrading to Django 5.1? Upgrade MariaDB 10.4 to 10.5 or later first (10.5
+# and 10.6 are no longer supported upstream; the containers use 10.11). Stop
+# the server cleanly, start the new release on the same data directory, then
+# run mariadb-upgrade (the containers set MARIADB_AUTO_UPGRADE, which runs it).
+# Accounts whose password is still stored in the SHA1 format can no longer log
+# in: see PASSWORD_HASHERS in webui/settings.py to find them before upgrading.
+# Each account's password hash is also rewritten when it next logs in, which
+# logs out that account's other sessions once.
 
 # Upgrading an install created by syncdb (Django < 1.7) that was never
 # migrated? Django 1.8 no longer skips the migrations whose tables already
