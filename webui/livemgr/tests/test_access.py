@@ -423,6 +423,11 @@ class LogoutCsrfTest(LivemgrTestCase):
 		self.assertTemplateUsed(response, 'profiles/no_cookie.html')
 		self.assertTrue('_auth_user_id' in self.client.session)
 
+	def test_logout_with_get(self):
+		response = self.client.get('/logout/')
+		self.assertEqual(response.status_code, 405)
+		self.assertTrue('_auth_user_id' in self.client.session)
+
 class OriginCsrfTest(LivemgrTestCase):
 	"""
 	Browsers send an Origin header with every POST. Django 4.0 checks it over
