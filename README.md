@@ -23,10 +23,10 @@ The backend is still closed-source, but if you invite me for ☕  we can talk ab
 ```sh
 tools/license/provision.sh
 docker build . -t livemgr-webui:latest
-docker-compose up
-docker-compose run db "mysql -uroot --password=123456 < /mnt/initdb/create_schema.sql"
-docker-compose run db "mysql -uroot --password=123456 < /mnt/initdb/create_tables.sql"
-docker-compose run app /opt/envs/livemgr-webui/bin/python webui/manage.py migrate --settings=settings_example
+docker compose up -d
+docker compose exec db sh -c 'mysql -uroot --password=123456 < /mnt/initdb/create_schema.sql'
+docker compose exec db sh -c 'mysql -uroot --password=123456 < /mnt/initdb/create_tables.sql'
+docker compose run app /opt/envs/livemgr-webui/bin/python webui/manage.py migrate --settings=settings_example
 ````
 
 The first `migrate` asks whether to load [sample data](#sample-data).
