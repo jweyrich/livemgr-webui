@@ -63,6 +63,9 @@ RUN /opt/envs/livemgr-webui/bin/pip install -r requirements.txt
 
 # Copy minified media files back to this container
 COPY --from=media_build /media/css/all.min.css ./media/css/
+COPY --from=media_build /media/css/specific-moz.min.css ./media/css/
+COPY --from=media_build /media/css/specific-msie.min.css ./media/css/
+COPY --from=media_build /media/css/specific-webkit.min.css ./media/css/
 COPY --from=media_build /media/js/all.min.js ./media/js/
 
 # Expose ports

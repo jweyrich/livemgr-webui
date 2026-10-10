@@ -21,6 +21,11 @@ const cssFiles = [
 	'css/specific-msie.css',
 	'css/specific-webkit.css',
 ];
+const specificCssFiles = [
+	'css/specific-moz.css',
+	'css/specific-msie.css',
+	'css/specific-webkit.css',
+];
 const cssDest = 'css/';
 
 const jsFiles = [
@@ -40,12 +45,21 @@ const jsFiles = [
 ];
 const jsDest = 'js/';
 
-gulp.task('styles', function() {
-    return gulp.src(cssFiles, {sourcemaps: true})
-        .pipe(cleanCSS({compatibility: 'ie9'}))
-        .pipe(concat('all.min.css'))
-        .pipe(gulp.dest(cssDest, {sourcemaps: true}));
+gulp.task('styles:bundle', function() {
+	return gulp.src(cssFiles, {sourcemaps: true})
+		.pipe(cleanCSS({compatibility: 'ie9'}))
+		.pipe(concat('all.min.css'))
+		.pipe(gulp.dest(cssDest, {sourcemaps: true}));
 });
+
+gulp.task('styles:specific', function() {
+	return gulp.src(specificCssFiles, {sourcemaps: true})
+		.pipe(cleanCSS({compatibility: 'ie9'}))
+		.pipe(rename({suffix: '.min'}))
+		.pipe(gulp.dest(cssDest, {sourcemaps: true}));
+});
+
+gulp.task('styles', gulp.series('styles:bundle', 'styles:specific'));
 
 gulp.task('scripts', function() {
     return gulp.src(jsFiles, {sourcemaps: true})
